@@ -30,5 +30,17 @@ Attributes of a log:
 We have built an API ([Documentation](/Documentation/API Methods.txt)) that the client side uses to call the Node.js server. The node.js server then uses HTTP REST calls to contact a peer on the IBM Blockchain network to call our chaincode/communicate with the blockchain.
 
 
+# Application Architecture
+
+We use a 3 tier architecture to create the demo. There is a Node JS server which serves the web pages to the browser and also acts as the appliaction server. The application server then interacts with the blockchain through the IBM Blockchain API. Below is a diagram of the application architecture:
+
+
+
+
+
+
+
+
+
 
   
