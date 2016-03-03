@@ -1,0 +1,98 @@
+#vhclsTbl
+{
+	width:100%;
+	color:#00648D;
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+#vhclsTbl td
+{
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	border-bottom:2px solid #00648D;
+	padding:5px 0px 5px 0px;
+}
+.vin
+{
+	width:155px;
+	text-align:center;
+	border-right:2px solid #00648D;
+}
+.vehDets
+{
+	text-align:center;
+}
+.carInfo
+{
+	margin-left:5px;
+}
+.chkHldr
+{
+	width:30px;
+}
+.chkSpc
+{
+	display:inline-block;
+	width:5px;
+	height:15px;
+	background-color:#FFF;
+}
+.chkBx
+{
+	display:inline-block;
+	width:15px;
+	height:15px;
+	border:2px solid #00648D;
+	background-image: url('');
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size: 12px auto;
+	cursor:pointer;
+}
+.radBtn
+{
+	display:inline-block;
+	width:15px;
+	height:15px;
+	border:2px solid #00648D;
+	border-radius:15px;
+	background-image: url('');
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size: 8px auto;
+	cursor:pointer;
+}
+#selVhclsTbl
+{
+	width:100%;
+	color:#00648D;
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+#selVhclsTbl td
+{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border-bottom:2px solid #00648D;
+	padding:5px 0px 5px 0px;
+	overflow:hidden;
+}
+
+
+#recsTbl
+{
+	width:100%;
+	color:#00648D;
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+#recsTbl td
+{
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	border-bottom:2px solid #00648D;
+	padding:5px 0px 5px 0px;
+}
+

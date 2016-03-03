@@ -1,0 +1,40 @@
+.editRw
+{
+	color:#016059;
+	border: 2px solid #016059;
+	padding:7px;
+	background-color:#FFF;
+}
+.editRw
+{
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+.tblTxt
+{
+	width:100%;
+	border: 0;
+	color: #016059;
+	font-size: 1em;
+	font-family: HelveticaNeue-Light,Helvetica,Arial,sans-serif;
+}
+#reg
+{
+	text-transform:uppercase;
+}
+#errorRw
+{
+	border: 2px solid #016059;
+	background-color: #A91024;
+	display:none;
+}
+.greyOut
+{
+	background-color:#DEDEDE;
+}
+#v5cID
+{
+	overflow:hidden;
+	text-overflow: ellipsis;
+	cursor: not-allowed;
+}

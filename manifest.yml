@@ -1,0 +1,10 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: stage1.mybluemix.net
+  name: Car lease demo v4s
+  host: car-lease-demo-v4s
+  disk_quota: 1024M
+  services:
+  - Blockchain-xi

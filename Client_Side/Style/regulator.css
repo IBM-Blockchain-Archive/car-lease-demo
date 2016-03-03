@@ -1,0 +1,143 @@
+#topRw span
+{
+	color:#03648E;
+}
+.rtTxt
+{
+	color:#03648E;
+}
+.brkRw
+{
+	background-color:#03648E;
+}
+.txtBx
+{
+	border:2px solid #03648E;
+	color:#03648E;
+}
+.bxHd
+{
+	background-color:#03648E;
+	border:2px solid #03648E;
+}
+.bxMd
+{
+	border:2px solid #03648E;
+}
+.scrlHldr
+{
+	border-left:2px solid #03648E;
+}
+.scrlBr
+{
+	background-color:#03648E;
+}
+.content
+{
+	color:#03648E;
+}
+.bxBtm
+{
+	border:2px solid #03648E;
+}
+.mnBtn
+{
+	border:2px solid #03648E;
+	color:#03648E;
+}
+.mnBtn:hover
+{
+	background-color:#03648E;
+}
+.lnkTxt
+{
+	color:#03648E;
+}
+.bordLR
+{
+	border-left:2px solid #03648E;
+	border-right:2px solid #03648E;
+}
+.bordLRB
+{
+	border-left:2px solid #03648E;
+	border-right:2px solid #03648E;
+	border-bottom:2px solid #03648E;
+}
+.bordTLRB
+{
+	border:2px solid #03648E;
+}
+a:active
+{
+	color:#03648E;
+}
+a:visited
+{
+	color:#03648E;
+}
+a:link
+{
+	color:#03648E;
+}
+a:hover
+{
+	color:#03648E;
+}
+#chooseConfMd
+{
+	color:#03648E;
+}
+#vhclsTbl
+{
+	color:#03648E;
+}
+#vhclsTbl td
+{
+	border-bottom:2px solid #03648E;
+}
+.vin
+{
+	border-right:2px solid #03648E;
+}
+.chkBx
+{
+	border:2px solid #03648E;
+}
+.radBtn
+{
+	border:2px solid #03648E;
+}
+#selVhclsTbl
+{
+	color:#03648E;
+}
+#selVhclsTbl td
+{
+	border-bottom:2px solid #03648E;
+}
+
+
+#recsTbl
+{
+	color:#03648E;
+}
+#recsTbl td
+{
+	border-bottom:2px solid #03648E;
+}
+#okTransaction
+{
+	border:2px solid #03648E;
+}
+#okTransaction:hover
+{
+	background-color:#03648E;
+	color:#FFF;
+}
+
+/*/////////////////////None Color Stuff////////////////////////////*/
+#createV5C
+{
+	margin-top:0!important;
+}
