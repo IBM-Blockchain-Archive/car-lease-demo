@@ -10,7 +10,6 @@ var session 	 = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser 	 = require('body-parser');
 var cors 		 = require('cors');
-var Ibc1 		 = require('ibm-blockchain-js');
 
 
 //===============================================================================================
@@ -19,6 +18,7 @@ var Ibc1 		 = require('ibm-blockchain-js');
 
 var blocks 		 = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js')
 var block 		 = require(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
+var chaincode	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var vehicles 	 = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
 var identity 	 = require(__dirname+'/Server_Side/admin/identity/identity.js')
@@ -46,59 +46,37 @@ var app = express();
 						}
 					}));																			// creating a session instance
 
-var appEnv = cfenv.getAppEnv();	
+var appEnv = cfenv.getAppEnv();
 
-var ibc = new Ibc1();
+var user_id = map_ID.user_to_id("DVLA");
+var user_pass = map_ID.get_password("DVLA");
 
-
-var options = 	{
-					network:{
-						peers: peers,
-						users: users,
-					},
-					chaincode:{
-						zip_url: 'https://github.com/ibm-blockchain/marbles-chaincode/archive/master.zip',
-						unzip_dir: 'testDeployCC-master/Chaincode/vehicle_code',											//subdirectroy name of chaincode after unzipped
-						git_url: 'https://github.com/jpayne23/testDeployCC/Chaincode/vehicle_code',					//GO git http url
-					
-						//hashed cc name from prev deployment
-						//deployed_name: '8fe7b3d9a3d43c5b6b91d65b0585366fa3d560d5362e11f0eea11ff614a296fdec8607b17de429c919975d5386953e4dac486a09ce6c965f5844d7d183825efb'
-					}
+var enrollmentDetails = 	{
+				  "enrollId": user_id,
+				  "enrollSecret": user_pass
 				};
 
-ibc.load(options, cb_ready);
+var options = {
+	url: configFile.config.api_url+'/registrar',
+	body: enrollmentDetails,
+	json:true,
+	method: "POST"
+};
 
-var chaincode = null;
-function cb_ready(err, cc){																	//response has chaincode functions
-	if(err != null){
-		console.log('! looks like an error loading the chaincode, app will fail\n', err);
-		if(!process.error) process.error = {type: 'load', msg: err.details};				//if it already exist, keep the last error
+request(options, function (error, response, body){
+	if (!error && response.statusCode == 200) {
+		req.session.user = user_id;
+		res.send({"message": "Successfully logged user in"});
 	}
-	else{
-		chaincode = cc;
-		//part1.setup(ibc, cc);
-		//part2.setup(ibc, cc);
-		if(cc.details.deployed_name === ""){												//decide if i need to deploy
-			console.log(cc.details.deployed_name)
-			cc.deploy('init', ['0.0.1'], './cc_summaries', cb_deployed);
-		}
-		else{
-			console.log('chaincode summary file indicates chaincode has been previously deployed');
-			cb_deployed();
-		}
+	else
+	{
+		res.status(400);
+		res.send({"error":"Unable to log user in"});
 	}
-}	
+});
 
-function cb_deployed(e, d){
-	if(e != null){
-		//look at tutorial_part1.md in the trouble shooting section for help
-		console.log('! looks like a deploy error, holding off on the starting the socket\n', e);
-		if(!process.error) process.error = {type: 'deploy', msg: e.details};
-	}
-	else{
-		console.log('Its been deployed!')
-	}
-}
+chaincode.events.create(null, null);
+chaincode.vehicles.create(null, null);
 
 //===============================================================================================
 //	Routing
