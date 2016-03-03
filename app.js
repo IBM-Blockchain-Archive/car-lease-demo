@@ -65,18 +65,20 @@ var options = {
 
 request(options, function (error, response, body){
 	if (!error && response.statusCode == 200) {
-		req.session.user = user_id;
-		res.send({"message": "Successfully logged user in"});
+		console.log("message: Successfully logged user in");
 	}
 	else
 	{
-		res.status(400);
-		res.send({"error":"Unable to log user in"});
+		console.log("error: Login failed");
 	}
 });
 
-chaincode.events.create(null, null);
-chaincode.vehicles.create(null, null);
+//chaincode.events.create(null, null);
+//chaincode.vehicles.create(null, null);
+
+app.get('/deployEv', function(req, res){
+	chaincode.events.create(req, res)
+})
 
 //===============================================================================================
 //	Routing
