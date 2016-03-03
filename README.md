@@ -42,7 +42,7 @@ We use a 3 tier architecture to create the demo. There is a Node JS server which
 
 When a user sells their car the owner must be updated. Below is the sequence diagram for that process:
 
-![Transfer Ownership Sequence Diagram](Images/Transfer_Ownership_Sequence_Diagram.png)
+![Transfer Ownership Sequence Diagram](Images/Transfer_Vehicle_Sequence_Diagram.png)
 
 
 
