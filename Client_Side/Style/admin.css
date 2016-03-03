@@ -1,0 +1,198 @@
+.bigTit
+{
+	font-size:1.4em;
+	padding-top:15px;
+	color:#00648D;
+	display:inline-block;
+	font-weight:700;
+}
+.title
+{
+	font-size:1.2em;
+	padding-top:25.5px;
+	padding-bottom:12px;
+	color:#00648D;
+	display:inline-block;
+}
+.regTxt
+{
+	color:#00648D;
+	display:inline-block;
+}
+.padBtm
+{
+	padding-bottom:12px;
+}
+.padTp
+{
+	padding-top:25.5px;
+}
+label
+{
+	color:#00648D;
+}
+.changeHost
+{
+	display:none;
+}
+.currConn
+{
+	border:2px solid #FFF;
+	color:#00648D;
+	padding:5px;
+	margin-right:29px;
+	display: inline-block;
+}
+.currHost img
+{
+	height:1em;
+	width:1em;
+	cursor:pointer;
+}
+.changeHost img
+{
+	height:1em;
+	width:1em;
+	cursor:pointer;
+}
+.short
+{
+	width:100px!important;
+}
+.addr
+{
+	margin-left:29px;
+}
+.peer
+{
+	display:inline-block;
+	margin:10px 10px 10px 0;
+	width:210px;
+	color:#00648D;
+}
+.peer div
+{
+	padding:5px;
+	margin-top:-2px;
+	line-height:20px;
+}
+#addPeerPrnt
+{
+	display:inline-block;
+	margin:10px 10px 10px 0;
+	width:210px;
+	color:#00648D;
+}
+
+.confs
+{
+	display:inline-block;
+	margin:10px 10px 10px 0;
+	width:210px;
+	color:#00648D;
+}
+.confs div
+{
+	padding:5px;
+	margin-top:-2px;
+	line-height:20px;
+}
+#addConfigPrnt
+{
+	display:inline-block;
+	margin:10px 10px 10px 0;
+	width:210px;
+	color:#00648D;
+}
+.alR
+{
+	float:right;
+}
+.blueBack
+{
+	background-color:#00648D;
+	color:#FFF;
+}
+.btn
+{
+	display:inline-block;
+	height:1em;
+	width:1em;
+	border:2px solid #00648D;
+	margin-top:2px;
+	margin-right:5px;
+	padding:5px;
+	background-position:center;
+	background-repeat:no-repeat;
+}
+#minTog
+{
+	cursor:pointer;
+}
+#minTog:hover
+{
+	text-decoration:underline;
+}
+.grCrc
+{
+	display:inline-block;
+	background-color:#8CC63F;
+	margin-top:0.4em;
+	height:0.6em;
+	width:0.6em;
+	border-radius: 0.6em;
+	margin-left:5px;
+}
+.rdCrc
+{
+	display:inline-block;
+	background-color:#A91024;
+	margin-top:0.4em;
+	height:0.6em;
+	width:0.6em;
+	border-radius: 0.6em;
+	margin-left:5px;
+}
+.carRw
+{
+	border-top: 2px solid #00648D;
+	border-bottom: 2px solid #00648D;
+	color: #00648D;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 3px;
+}
+.pgBtn
+{
+	border: 2px solid #00648D;
+	color: #00648D;
+	background-color: #FFF;
+	padding: 5px;
+	margin-top: 25.5px;
+	display:inline-block;
+	cursor:pointer;
+	margin-right:10px;
+}
+.pgBtn:hover
+{
+	border: 2px solid #00648D;
+	color: #FFF;
+	background-color:#00648D;
+}
+#resMin
+{
+	display:none;
+}
+.goHome
+{
+	padding-top:15px;
+}
+.toggler
+{
+	cursor:pointer;
+}
+.toggler:hover
+{
+	text-decoration:underline;
+}
+

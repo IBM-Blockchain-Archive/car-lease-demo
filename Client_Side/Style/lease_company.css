@@ -1,0 +1,137 @@
+#topRw span
+{
+	color:#372052;
+}
+.rtTxt
+{
+	color:#372052;
+}
+.brkRw
+{
+	background-color:#372052;
+}
+.txtBx
+{
+	border:2px solid #372052;
+	color:#372052;
+}
+.bxHd
+{
+	background-color:#372052;
+	border:2px solid #372052;
+}
+.bxMd
+{
+	border:2px solid #372052;
+}
+.scrlHldr
+{
+	border-left:2px solid #372052;
+}
+.scrlBr
+{
+	background-color:#372052;
+}
+.content
+{
+	color:#372052;
+}
+.bxBtm
+{
+	border:2px solid #372052;
+}
+.mnBtn
+{
+	border:2px solid #372052;
+	color:#372052;
+}
+.mnBtn:hover
+{
+	background-color:#372052;
+}
+.lnkTxt
+{
+	color:#372052;
+}
+.bordLR
+{
+	border-left:2px solid #372052;
+	border-right:2px solid #372052;
+}
+.bordLRB
+{
+	border-left:2px solid #372052;
+	border-right:2px solid #372052;
+	border-bottom:2px solid #372052;
+}
+.bordTLRB
+{
+	border:2px solid #372052;
+}
+a:active
+{
+	color:#372052;
+}
+a:visited
+{
+	color:#372052;
+}
+a:link
+{
+	color:#372052;
+}
+a:hover
+{
+	color:#372052;
+}
+#chooseConfMd
+{
+	color:#372052;
+}
+#vhclsTbl
+{
+	color:#372052;
+}
+#vhclsTbl td
+{
+	border-bottom:2px solid #372052;
+}
+.vin
+{
+	border-right:2px solid #372052;
+}
+.chkBx
+{
+	border:2px solid #372052;
+}
+.radBtn
+{
+	border:2px solid #372052;
+}
+#selVhclsTbl
+{
+	color:#372052;
+}
+#selVhclsTbl td
+{
+	border-bottom:2px solid #372052;
+}
+
+
+#recsTbl
+{
+	color:#372052;
+}
+#recsTbl td
+{
+	border-bottom:2px solid #372052;
+}
+#okTransaction
+{
+	border:2px solid #372052;
+}
+#okTransaction:hover
+{
+	background-color:#372052;
+	color:#FFF;
+}

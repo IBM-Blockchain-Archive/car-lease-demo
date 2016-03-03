@@ -1,0 +1,135 @@
+#topRw span
+{
+	color:#DD721B;
+}
+.rtTxt
+{
+	color:#DD721B;
+}
+.brkRw
+{
+	background-color:#DD721B;
+}
+.txtBx
+{
+	border:2px solid #DD721B;
+	color:#DD721B;
+}
+.bxHd
+{
+	background-color:#DD721B;
+	border:2px solid #DD721B;
+}
+.bxMd
+{
+	border:2px solid #DD721B;
+}
+.scrlHldr
+{
+	border-left:2px solid #DD721B;
+}
+.scrlBr
+{
+	background-color:#DD721B;
+}
+.content
+{
+	color:#DD721B;
+}
+.bxBtm
+{
+	border:2px solid #DD721B;
+}
+.mnBtn
+{
+	border:2px solid #DD721B;
+	color:#DD721B;
+}
+.mnBtn:hover
+{
+	background-color:#DD721B;
+}
+.lnkTxt
+{
+	color:#DD721B;
+}
+.bordLR
+{
+	border-left:2px solid #DD721B;
+	border-right:2px solid #DD721B;
+}
+.bordLRB
+{
+	border-left:2px solid #DD721B;
+	border-right:2px solid #DD721B;
+	border-bottom:2px solid #DD721B;
+}
+.bordTLRB
+{
+	border:2px solid #DD721B;
+}
+a:active
+{
+	color:#DD721B;
+}
+a:visited
+{
+	color:#DD721B;
+}
+a:link
+{
+	color:#DD721B;
+}
+a:hover
+{
+	color:#DD721B;
+}
+#chooseConfMd
+{
+	color:#DD721B;
+}
+#vhclsTbl
+{
+	color:#DD721B;
+}
+#vhclsTbl td
+{
+	border-bottom:2px solid #DD721B;
+}
+.vin
+{
+	border-right:2px solid #DD721B;
+}
+.chkBx
+{
+	border:2px solid #DD721B;
+}
+.radBtn
+{
+	border:2px solid #DD721B;
+}
+#selVhclsTbl
+{
+	color:#DD721B;
+}
+#selVhclsTbl td
+{
+	border-bottom:2px solid #DD721B;
+}
+#recsTbl
+{
+	color:#DD721B;
+}
+#recsTbl td
+{
+	border-bottom:2px solid #DD721B;
+}
+#okTransaction
+{
+	border:2px solid #DD721B;
+}
+#okTransaction:hover
+{
+	background-color:#DD721B;
+	color:#FFF;
+}

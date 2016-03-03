@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Regulator View</title>
+		<link rel="stylesheet" type="text/css" href="Style/main.css" ></link>
+		<link rel="stylesheet" type="text/css" href="Style/ledger.css" ></link>
+		<script src="JavaScript/plugins/jQuery-1.11.3.js" type="text/javascript"></script>
+		<script src="JavaScript/plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+		<script src="JavaScript/ledger/ledger.js" type="text/javascript"></script>
+		<script src="JavaScript/config/config.js" type="text/javascript"></script>
+		<script src="JavaScript/admin/identity.js" type="text/javascript"></script>
+		<script>var pgNm="Regulator";</script>
+	</head>
+	<body onload="loadLogo('regulator'); loadParticipant('regulator');" >
+		<table id="mainTbl" class="noFix" >
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="2" id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /><span> &reg;</span></td>
+				<td colspan="3" ><span class="rtTxt bldTxt">&nbsp;BLOCKCHAIN ASSET TRANSFER DEMO</span></td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk brkRw"></td>
+				<td class="brkRw" colspan="5" ></td>
+				<td class="smlBrk brkRw"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="5" class="homeBtn"><a href="index.html" >Home</a><div id="user" class="rtTxt" ><span id="username" ></span> (Regulator: <span id="company"></span>)</div></td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="5" id="filterRw">
+					<div id="findV5CID" ><input id="searchBar" type="text" onkeyup="runSearch()" onclick="clearSearch()" value="Search by V5C ID..." /></div>
+					<div id="filtTxt" class="dropTop" onclick="toggleFilters()" >Filters &or;<span id="filtBlock" class="whiteBlock" ></span></div>
+					<div id="sortTxt" class="dropTop" onclick="toggleSorts()" >Sort &or;<span id="sortBlock" class="whiteBlock" ></span></div>
+				</td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="4"></td>
+				<td>
+					<div class="dropTopMargins" >
+						<div id="filters" class="dropDowns" >
+							<span class="filterHldr" >Create <span class="filterBox" onclick="hideType(this, 'Create')" ></span></span>
+							<span class="filterHldr" >Transfer <span class="filterBox" onclick="hideType(this, 'Transfer')" ></span></span>
+							<span class="filterHldr" >Update <span class="filterBox" onclick="hideType(this, 'Update')"></span></span>
+							<span class="filterHldr" >Scrap <span class="filterBox" onclick="hideType(this, 'Scrap')" ></span></span>
+						</div>
+					</div>
+					<div class="dropTopMargins" >
+						<div id="sorts" class="dropDowns" >
+							<span class="sortHldr" onclick="sortTime('asc')" >Time: newest &rarr; oldest</span>
+							<span class="sortHldr" onclick="sortTime('desc')" >Time: oldest &rarr; newest</span>
+							<span class="sortHldr" onclick="sortV5CID('desc')" >V5C ID: A &rarr; Z</span>
+							<span class="sortHldr" onclick="sortV5CID('asc')" >V5C ID: Z &rarr; A</span>
+						</div>
+					</div>
+				</td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr id='insAft' >
+				<td class="smlBrk"></td>
+				<td colspan="5" id="space" style="text-align: center"><img class="loader" src="Images/loading.gif" height="50" width="50" alt="loading" text="please wait..." /><br /><br /></td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk gapRw"></td>
+				<td class="gapRw"></td>
+				<td class="smlBrk gapRw"></td>
+				<td class="gapRw"></td>
+				<td class="smlBrk gapRw"></td>
+			</tr>
+		</table>
+	</body>
+</html>
