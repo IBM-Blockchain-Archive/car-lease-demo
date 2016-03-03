@@ -23,7 +23,6 @@ var identity 	 = require(__dirname+'/Server_Side/admin/identity/identity.js')
 var participants = require(__dirname+'/Server_Side/blockchain/participants/participants.js')
 var events 		 = require(__dirname+'/Server_Side/blockchain/events/events.js')
 var trace 		 = require(__dirname+'/Server_Side/tools/traces/trace.js')
-var chaincode    = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js');
 
 //===============================================================================================
 //	Setup
@@ -47,15 +46,56 @@ var app = express();
 
 var appEnv = cfenv.getAppEnv();	
 
+// Step 1 ==================================
+var Ibc1 = require('ibm-blockchain-js');
+var ibc = new Ibc1();
+var chaincode = {};
+
+// ==================================
+// configure ibc-js sdk
+// ==================================
+
+var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
+var peers = servicesObject[i][0].credentials.peers;
+var users = servicesObject[i][0].credentials.users;
+
+var options =   {
+	network:{
+		peers: peers,
+		users:  users
+	},
+	chaincode:{
+		zip_url: 'https://github.com/jpayne23/testDeployCC/archive/master.zip',
+		unzip_dir: 'testDeployCC-master/Chaincode/vehicle_log_code',
+		git_url: 'https://github.com/Chaincode/vehicle_log_code'
+	}
+};
+
+// Step 2 ==================================
+ibc.load(options, cb_ready);
+
+// Step 3 ==================================
+function cb_ready(err, cc){                             //response has chaincode functions
+
+	// Step 4 ==================================
+	if(cc.details.deployed_name === ""){                //decide if i need to deploy or not
+		cc.deploy('init', ['0.0.1'], './cc_summaries', cb_deployed);
+	}
+	else{
+		console.log('chaincode summary file indicates chaincode has been previously deployed');
+		cb_deployed();
+	}
+}
+
+// Step 5 ==================================
+function cb_deployed(err){
+	console.log('sdk has deployed code and waited');
+	chaincode.read('a');
+}
+
 //===============================================================================================
 //	Routing
 //===============================================================================================
-
-app.get('/chaincode/events', function(req, res)
-{
-	chaincode.events.create(req, res)
-})
-
 //-----------------------------------------------------------------------------------------------
 //	Admin - Identity
 //-----------------------------------------------------------------------------------------------
