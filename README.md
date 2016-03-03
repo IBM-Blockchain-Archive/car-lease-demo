@@ -34,8 +34,7 @@ We have built an API ([Documentation](/Documentation/API Methods.txt)) that the 
 
 We use a 3 tier architecture to create the demo. There is a Node JS server which serves the web pages to the browser and also acts as the appliaction server. The application server then interacts with the blockchain through the IBM Blockchain API. Below is a diagram of the application architecture:
 
-
-
+![Component Model](Images/Technical_Component_Model.png)
 
 
 
