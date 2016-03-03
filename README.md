@@ -44,10 +44,4 @@ When a user sells their car the owner must be updated. The call is sent from the
 
 ![Transfer Ownership Sequence Diagram](Images/Transfer_Vehicle_Sequence_Diagram.png)
 
-
-
-
-
-
-
-  
+To view the chaincode: [Vehicle Code](Chaincode/vehicle_code/vehicles.go) [Vehicle Log Code](Chaincode/vehicle_log_code/vehicle_log.go)
