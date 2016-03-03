@@ -14,7 +14,7 @@
 		"express-session": "",
 		"cookie-parser": "",
 		"fs": "",
-		"cors": "",
+		"cors": ""
 	},
 	"repository": {},
 	"engines": {

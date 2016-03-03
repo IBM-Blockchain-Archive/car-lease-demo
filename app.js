@@ -11,14 +11,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser 	 = require('body-parser');
 var cors 		 = require('cors');
 
-
 //===============================================================================================
 //	Required Local Modules
 //===============================================================================================
 
 var blocks 		 = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js')
 var block 		 = require(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
-var chaincode	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var vehicles 	 = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
 var identity 	 = require(__dirname+'/Server_Side/admin/identity/identity.js')
@@ -46,39 +44,7 @@ var app = express();
 						}
 					}));																			// creating a session instance
 
-var appEnv = cfenv.getAppEnv();
-
-var user_id = map_ID.user_to_id("DVLA");
-var user_pass = map_ID.get_password("DVLA");
-
-var enrollmentDetails = 	{
-				  "enrollId": user_id,
-				  "enrollSecret": user_pass
-				};
-
-var options = {
-	url: configFile.config.api_url+'/registrar',
-	body: enrollmentDetails,
-	json:true,
-	method: "POST"
-};
-
-request(options, function (error, response, body){
-	if (!error && response.statusCode == 200) {
-		console.log("message: Successfully logged user in");
-	}
-	else
-	{
-		console.log("error: Login failed");
-	}
-});
-
-//chaincode.events.create(null, null);
-//chaincode.vehicles.create(null, null);
-
-app.get('/deployEv', function(req, res){
-	chaincode.events.create(req, res)
-})
+var appEnv = cfenv.getAppEnv();	
 
 //===============================================================================================
 //	Routing
