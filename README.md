@@ -27,7 +27,7 @@ Attributes of a log:
 	4. Obj_ID           (String, Unique identifier of the object the log refers to e.g. the V5cID)
 	5. Users            (Array of Ecerts, Array of the users involved with the log)
 
-We have built an API ([Documentation](/Documentation/api_methods.txt)) that the client side uses to call the Node.js server. The node.js server then uses HTTP REST calls to contact a peer on the IBM Blockchain network to call our chaincode/communicate with the blockchain.
+We have built an API ([Documentation](/Documentation/API Methods.txt)) that the client side uses to call the Node.js server. The node.js server then uses HTTP REST calls to contact a peer on the IBM Blockchain network to call our chaincode/communicate with the blockchain.
 
 
 
