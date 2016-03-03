@@ -8,23 +8,23 @@ This application demonstrates the lifecycle of a vehicle from creation to manufa
 
 Attributes of a vehicle:
 
-  V5cID           (unique string formed of two chars followed by a 7 digit int, used as the key to identify the vehicle)
-  VIN             (15 digit int)
-  Make            (String)
-  Model           (String)
-  Colour          (String)
-  Reg             (String)
-  Owner           (Ecert of user)
-  Scrapped        (Bool)
-  Status          (int)
-  LeaseContractID (ChaincodeID, currently unused but will store the address of the lease contract for the vehicle)
+	1. V5cID           (unique string formed of two chars followed by a 7 digit int, used as the key to identify the vehicle)
+	2. VIN             (15 digit int)
+	3. Make            (String)
+	4. Model           (String)
+	5. Colour          (String)
+	6. Reg             (String)
+	7. Owner           (Ecert of user)
+	8. Scrapped        (Bool)
+	9. Status          (int)
+	10. LeaseContractID (ChaincodeID, currently unused but will store the address of the lease contract for the vehicle)
   
 Attributes of a log:
 
-  Name            (String, The name of the log type e.g. Create, Transfer, Update)
-  Time            (String, UTC timestamp of when the log was made)
-  Text            (String, The message to go with the log)
-  Obj_ID          (String, Unique identifier of the object the log refers to e.g. the V5cID)
-  Users           (Array of Ecerts, Array of the users involved with the log)
+	1. Name            (String, The name of the log type e.g. Create, Transfer, Update)
+	2. Time            (String, UTC timestamp of when the log was made)
+	3. Text            (String, The message to go with the log)
+	4. Obj_ID          (String, Unique identifier of the object the log refers to e.g. the V5cID)
+	5. Users           (Array of Ecerts, Array of the users involved with the log)
   
   
