@@ -23,6 +23,7 @@ var identity 	 = require(__dirname+'/Server_Side/admin/identity/identity.js')
 var participants = require(__dirname+'/Server_Side/blockchain/participants/participants.js')
 var events 		 = require(__dirname+'/Server_Side/blockchain/events/events.js')
 var trace 		 = require(__dirname+'/Server_Side/tools/traces/trace.js')
+var chaincode    = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js');
 
 //===============================================================================================
 //	Setup
@@ -49,6 +50,12 @@ var appEnv = cfenv.getAppEnv();
 //===============================================================================================
 //	Routing
 //===============================================================================================
+
+app.get('/chaincode/events', function(req, res)
+{
+	chaincode.events.create(req, res)
+})
+
 //-----------------------------------------------------------------------------------------------
 //	Admin - Identity
 //-----------------------------------------------------------------------------------------------

@@ -13,7 +13,7 @@ function deploy(req, res)
 	var chaincodeSpec = 	{
 										"type": "GOLANG",
 										"chaincodeID": {
-											"path": "https://github.com/jpayne23/testDeployCC/Chaincode/vehicle_log_code"
+											"path": "https://github.com/jpayne23/testDeployCC/Chaincode/vehicle_code"
 										},
 										"ctorMsg": {
 											"function": "init",
