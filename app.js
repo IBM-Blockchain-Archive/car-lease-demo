@@ -66,7 +66,7 @@ var options =   {
 	},
 	chaincode:{
 		zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
-		unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
+		unzip_dir: 'Car-Lease-Demo/Chaincode/vehicle_log_code',
 		git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
 	}
 };
