@@ -76,10 +76,12 @@ ibc.load(options, cb_ready);
 
 // Step 3 ==================================
 function cb_ready(err, cc){                             //response has chaincode functions
-
+	
+	console.log(cc)
+	
 	// Step 4 ==================================
 	if(cc.details.deployed_name === ""){                //decide if i need to deploy or not
-		cc.deploy('init', ['0.0.1'], './cc_summaries', cb_deployed);
+		cc.deploy('init', [''], './Chaincode/vehicle_log_code', cb_deployed);
 	}
 	else{
 		console.log('chaincode summary file indicates chaincode has been previously deployed');
