@@ -15,6 +15,7 @@
 		"cookie-parser": "",
 		"fs": "",
 		"cors": "",
+		"adm-zip": "0.4.7",
 		"ibm-blockchain-js": "0.0.5"
 	},
 	"repository": {},
