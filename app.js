@@ -23,6 +23,7 @@ var identity 	 = require(__dirname+'/Server_Side/admin/identity/identity.js')
 var participants = require(__dirname+'/Server_Side/blockchain/participants/participants.js')
 var events 		 = require(__dirname+'/Server_Side/blockchain/events/events.js')
 var trace 		 = require(__dirname+'/Server_Side/tools/traces/trace.js')
+var configFile	 = require(__dirname+'/Server_Side/configurations/configuration.js')
 
 //===============================================================================================
 //	Setup
@@ -55,9 +56,8 @@ var chaincode = {};
 // configure ibc-js sdk
 // ==================================
 
-var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
-var peers = servicesObject[i][0].credentials.peers;
-var users = servicesObject[i][0].credentials.users;
+var peers = configFile.config.credentials.peers;
+var users = configFile.config.credentials.users;
 
 var options =   {
 	network:{
