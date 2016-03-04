@@ -71,6 +71,16 @@ var options =   {
 	}
 };
 
+
+var vehicle_log_cc = {
+	
+	zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
+	unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
+	git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
+	
+}
+
+
 // Step 2 ==================================
 //ibc.load(options, cb_ready);
 ibc.network(peers);
@@ -81,17 +91,22 @@ for(var i = 0; i < users.length; i++)
 	ibc.register(1,users[i].username, users[i].secret)
 }
 
+
+
+/* ******************************************************ADD DEPLOYING CHAINCODE ON STARTUP********************************************************************** */
+
 // Step 3 ==================================
-/*function cb_ready(err, cc){                             //response has chaincode functions
-	
-	console.log(cc)
-	
+/*
+ibc.load_chaincode(vehicle_log_cc, cb_ready)
+
+function cb_ready(err, cc){                             //response has chaincode functions
+
 	// Step 4 ==================================
 	        
-	//cc.deploy('init', ['0.0.1'], './Chaincode/vehicle_log_code', cb_deployed);
+	cc.deploy('init', [''], './Chaincode/vehicle_log_code', cb_deployed);
 	
-}*/
-
+}
+*/
 // Step 5 ==================================
 function cb_deployed(err){
 	console.log('sdk has deployed code and waited');
