@@ -65,9 +65,9 @@ var options =   {
 		users:  users
 	},
 	chaincode:{
-		zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
-		unzip_dir: 'Car-Lease-Demo/Chaincode/vehicle_log_code',
-		git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
+		//zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
+		//unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
+		//git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
 	}
 };
 
@@ -81,7 +81,7 @@ function cb_ready(err, cc){                             //response has chaincode
 	
 	// Step 4 ==================================
 	        
-	cc.deploy('init', ['0.0.1'], './Chaincode/vehicle_log_code', cb_deployed);
+	//cc.deploy('init', ['0.0.1'], './Chaincode/vehicle_log_code', cb_deployed);
 	
 }
 
