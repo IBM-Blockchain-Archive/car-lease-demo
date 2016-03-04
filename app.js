@@ -72,10 +72,17 @@ var options =   {
 };
 
 // Step 2 ==================================
-ibc.load(options, cb_ready);
+//ibc.load(options, cb_ready);
+ibc.network(peers);
+
+for(var i = 0; i < users.length; i++)
+{
+	ibc.register(0,users[i].username, users[i].secret)
+	ibc.register(1,users[i].username, users[i].secret)
+}
 
 // Step 3 ==================================
-function cb_ready(err, cc){                             //response has chaincode functions
+/*function cb_ready(err, cc){                             //response has chaincode functions
 	
 	console.log(cc)
 	
@@ -83,7 +90,7 @@ function cb_ready(err, cc){                             //response has chaincode
 	        
 	//cc.deploy('init', ['0.0.1'], './Chaincode/vehicle_log_code', cb_deployed);
 	
-}
+}*/
 
 // Step 5 ==================================
 function cb_deployed(err){
