@@ -80,13 +80,9 @@ function cb_ready(err, cc){                             //response has chaincode
 	console.log(cc)
 	
 	// Step 4 ==================================
-	if(cc.details.deployed_name === ""){                //decide if i need to deploy or not
-		cc.deploy('init', [''], './Chaincode/vehicle_log_code', cb_deployed);
-	}
-	else{
-		console.log('chaincode summary file indicates chaincode has been previously deployed');
-		cb_deployed();
-	}
+	        
+	cc.deploy('init', ['0.0.1'], './Chaincode/vehicle_log_code', cb_deployed);
+	
 }
 
 // Step 5 ==================================
