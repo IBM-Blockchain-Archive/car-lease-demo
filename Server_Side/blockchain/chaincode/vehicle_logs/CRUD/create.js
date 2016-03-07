@@ -8,6 +8,9 @@ var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
 
 function deploy(req, res)
 {
+	
+	console.log(configFile.credentials.users[0]["username"])
+	
 	var chaincodeSpec = 	{
 										"type": "GOLANG",
 										"chaincodeID": {
