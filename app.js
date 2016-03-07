@@ -15,15 +15,17 @@ var cors 		 = require('cors');
 //	Required Local Modules
 //===============================================================================================
 
-var blocks 		 = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js')
-var block 		 = require(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
-var vehicles 	 = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
-var vehicle 	 = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
-var identity 	 = require(__dirname+'/Server_Side/admin/identity/identity.js')
-var participants = require(__dirname+'/Server_Side/blockchain/participants/participants.js')
-var events 		 = require(__dirname+'/Server_Side/blockchain/events/events.js')
-var trace 		 = require(__dirname+'/Server_Side/tools/traces/trace.js')
-var configFile	 = require(__dirname+'/Server_Side/configurations/configuration.js')
+var blocks 		 	= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js')
+var block 		 	= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
+var vehicles 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
+var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
+var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js')
+var participants 	= require(__dirname+'/Server_Side/blockchain/participants/participants.js')
+var events 		 	= require(__dirname+'/Server_Side/blockchain/events/events.js')
+var trace 			= require(__dirname+'/Server_Side/tools/traces/trace.js')
+var configFile		= require(__dirname+'/Server_Side/configurations/configuration.js')
+var vehicle_log_cc	= require(__dirname+'/Server_Side/blockchain/chaincode/vehicle_logs/vehicle_logs.js')
+var vehicle_cc		= require(__dirname+'/Server_Side/blockchain/chaincode/vehicles/vehicles.js')
 
 //===============================================================================================
 //	Setup
@@ -71,7 +73,7 @@ var options =   {
 	}
 };
 
-
+/*
 var vehicle_log_cc = {
 	
 	zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
@@ -79,7 +81,7 @@ var vehicle_log_cc = {
 	git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
 	
 }
-
+*/
 
 // Step 2 ==================================
 //ibc.load(options, cb_ready);
@@ -91,13 +93,15 @@ for(var i = 0; i < users.length; i++)
 	ibc.register(1,users[i].username, users[i].secret)
 }
 
+setTimeout(function(){vehicle_log_cc.create();},3000);
 
+setTimeout(function(){vehicle_cc.create();},3000);
 
 /* ******************************************************ADD DEPLOYING CHAINCODE ON STARTUP********************************************************************** */
 
 // Step 3 ==================================
 
-ibc.load_chaincode(vehicle_log_cc, cb_ready)
+/*ibc.load_chaincode(vehicle_log_cc, cb_ready)
 
 function cb_ready(err, cc){                             //response has chaincode functions
 
@@ -112,7 +116,7 @@ function cb_deployed(err){
 	console.log('sdk has deployed code and waited');
 	chaincode.read('a');
 }
-
+*/
 //===============================================================================================
 //	Routing
 //===============================================================================================
