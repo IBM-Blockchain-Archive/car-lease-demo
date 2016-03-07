@@ -96,7 +96,7 @@ for(var i = 0; i < users.length; i++)
 /* ******************************************************ADD DEPLOYING CHAINCODE ON STARTUP********************************************************************** */
 
 // Step 3 ==================================
-/*
+
 ibc.load_chaincode(vehicle_log_cc, cb_ready)
 
 function cb_ready(err, cc){                             //response has chaincode functions
@@ -106,7 +106,7 @@ function cb_ready(err, cc){                             //response has chaincode
 	cc.deploy('init', [''], './Chaincode/vehicle_log_code', cb_deployed);
 	
 }
-*/
+
 // Step 5 ==================================
 function cb_deployed(err){
 	console.log('sdk has deployed code and waited');
