@@ -17,7 +17,7 @@ function deploy(req, res)
 											"function": "init",
 											"args": [""]
 										},
-									  "secureContext": user_info[0]["username"],
+									  "secureContext": configFile.credentials.users[0]["username"],
 									  "confidentialityLevel": "PUBLIC"
 									}
 									
