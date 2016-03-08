@@ -1,4 +1,4 @@
-# Car Leasing Demo
+# Car Lease Demo
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/jpayne23/Car-Lease-Demo.git)
 
@@ -40,8 +40,19 @@ We use a 3 tier architecture to create the demo. There is a Node JS server which
 
 ## Transfer of Ownership ##
 
-When a user sells their car the owner must be updated. The call is sent from the Web UI to transfer ownership of the vehicle. The Node.js code calls the Blockchain fabric using the REST API. This in turn invokes the function to transfer ownership in the vehicle chaincode passing the V5cID of the vehicle to update and the names of the caller and the recipient. The contract then makes a call to get the car before performing validation. The validation checks that the name of the person causing the transfer is the same as that of the current owner and that the caller is in a role where they can transfer vehicles (the scrap merchant cannot). The validation also checks that the recipient is a registered with the service and that they are in the correct role for recieving the car (a dealership cannot recieve an unfinished car). The chaincode finds the roles and whether the users are registered by requesting the ecert attached to their name from the CA. It does this using an HTTP REST call. After the request is validated the chaincode updates the owner attribute of the vehicle and writes the changes to the ledger.
+When a user sells their car the owner must be updated. The call is sent from the Web UI to transfer ownership of the vehicle. The Node.js code calls the Blockchain fabric using the REST API. 
+
+This in turn invokes the function to transfer ownership in the vehicle chaincode passing the V5cID of the vehicle to update and the names of the caller and the recipient. The contract then makes a call to get the car before performing validation. 
+
+The validation checks that the name of the person causing the transfer is the same as that of the current owner and that the caller is in a role where they can transfer vehicles (the scrap merchant cannot). The validation also checks that the recipient is a registered with the service and that they are in the correct role for recieving the car (a dealership cannot recieve an unfinished car). 
+
+The chaincode finds the roles and whether the users are registered by requesting the ecert associated to their name from the CA. It does this using an HTTP REST call.
+
+After the request is validated the chaincode updates the owner attribute of the vehicle and writes the changes to the ledger.
 
 ![Transfer Ownership Sequence Diagram](Images/Transfer_Vehicle_Sequence_Diagram.png)
 
-To view the chaincode: [Vehicle Code](Chaincode/vehicle_code/vehicles.go) [Vehicle Log Code](Chaincode/vehicle_log_code/vehicle_log.go)
+To view the chaincode: 
+
+- [Vehicle Code](Chaincode/vehicle_code/vehicles.go) 
+- [Vehicle Log Code](Chaincode/vehicle_log_code/vehicle_log.go)
