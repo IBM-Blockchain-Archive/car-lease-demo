@@ -93,9 +93,9 @@ for(var i = 0; i < users.length; i++)
 	ibc.register(1,users[i].username, users[i].secret)
 }
 
-setTimeout(function(){vehicle_log_cc.create();},3000);
+//setTimeout(function(){vehicle_log_cc.create();},3000);
 
-setTimeout(function(){vehicle_cc.create();},3000);
+//setTimeout(function(){vehicle_cc.create();},3000);
 
 /* ******************************************************ADD DEPLOYING CHAINCODE ON STARTUP********************************************************************** */
 
