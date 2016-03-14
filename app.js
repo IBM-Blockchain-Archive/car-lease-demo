@@ -23,7 +23,7 @@ var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js')
 var participants 	= require(__dirname+'/Server_Side/blockchain/participants/participants.js')
 var events 		 	= require(__dirname+'/Server_Side/blockchain/events/events.js')
 var trace 			= require(__dirname+'/Server_Side/tools/traces/trace.js')
-var configFile		= require(__dirname+'/Server_Side/configurations/configuration.js')
+//var configFile		= require(__dirname+'/Server_Side/configurations/configuration.js')
 //var vehicle_log_cc	= require(__dirname+'/Server_Side/blockchain/chaincode/vehicle_logs/vehicle_logs.js')
 //var vehicle_cc		= require(__dirname+'/Server_Side/blockchain/chaincode/vehicles/vehicles.js')
 
@@ -50,17 +50,17 @@ var app = express();
 var appEnv = cfenv.getAppEnv();	
 
 // Step 1 ==================================
-var Ibc1 = require('ibm-blockchain-js');
-var ibc = new Ibc1();
-var chaincode = {};
+//var Ibc1 = require('ibm-blockchain-js');
+//var ibc = new Ibc1();
+//var chaincode = {};
 
 // ==================================
 // configure ibc-js sdk
 // ==================================
 
-var peers = configFile.config.credentials.peers;
-var users = configFile.config.credentials.users;
-
+//var peers = configFile.config.credentials.peers;
+//var users = configFile.config.credentials.users;
+/*
 var options =   {
 	network:{
 		peers: peers,
@@ -72,7 +72,7 @@ var options =   {
 		//git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
 	}
 };
-
+*/
 /*
 var vehicle_log_cc = {
 	
@@ -82,7 +82,7 @@ var vehicle_log_cc = {
 	
 }
 */
-
+/*
 // Step 2 ==================================
 //ibc.load(options, cb_ready);
 ibc.network(peers);
@@ -92,7 +92,7 @@ for(var i = 0; i < users.length; i++)
 	ibc.register(0,users[i].username, users[i].secret)
 	ibc.register(1,users[i].username, users[i].secret)
 }
-
+*/
 //setTimeout(function(){vehicle_log_cc.create();},3000);
 
 //setTimeout(function(){vehicle_cc.create();},3000);
