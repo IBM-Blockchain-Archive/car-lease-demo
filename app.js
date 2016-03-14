@@ -24,8 +24,8 @@ var participants 	= require(__dirname+'/Server_Side/blockchain/participants/part
 var events 		 	= require(__dirname+'/Server_Side/blockchain/events/events.js')
 var trace 			= require(__dirname+'/Server_Side/tools/traces/trace.js')
 var configFile		= require(__dirname+'/Server_Side/configurations/configuration.js')
-var vehicle_log_cc	= require(__dirname+'/Server_Side/blockchain/chaincode/vehicle_logs/vehicle_logs.js')
-var vehicle_cc		= require(__dirname+'/Server_Side/blockchain/chaincode/vehicles/vehicles.js')
+//var vehicle_log_cc	= require(__dirname+'/Server_Side/blockchain/chaincode/vehicle_logs/vehicle_logs.js')
+//var vehicle_cc		= require(__dirname+'/Server_Side/blockchain/chaincode/vehicles/vehicles.js')
 
 //===============================================================================================
 //	Setup
