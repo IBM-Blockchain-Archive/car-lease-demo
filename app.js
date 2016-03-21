@@ -73,7 +73,6 @@ var options =   {
 	}
 };
 
-/*
 var vehicle_log_cc = {
 	
 	zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
@@ -81,7 +80,7 @@ var vehicle_log_cc = {
 	git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
 	
 }
-*/
+
 
 // Step 2 ==================================
 //ibc.load(options, cb_ready);
