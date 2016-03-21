@@ -50,8 +50,8 @@ var app = express();
 var appEnv = cfenv.getAppEnv();	
 
 // Step 1 ==================================
-//var Ibc1 = require('ibm-blockchain-js');
-//var ibc = new Ibc1();
+var Ibc1 = require('ibm-blockchain-js');
+var ibc = new Ibc1();
 //var chaincode = {};
 
 // ==================================
