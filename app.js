@@ -67,9 +67,9 @@ var options =   {
 		users:  users
 	},
 	chaincode:{
-		zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
-		unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
-		git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
+		zip_url: '',
+		unzip_dir: '',
+		git_url: 'https://jpayne:mq46983u@hub.jazz.net/git/jpayne23/OBCAssetTransferDemo'
 	}
 };
 
@@ -100,7 +100,7 @@ for(var i = 0; i < users.length; i++)
 
 // Step 3 ==================================
 
-ibc.load_chaincode(vehicle_log_cc, cb_ready)
+ibc.load_chaincode(options.chaincode, cb_ready)
 
 function cb_ready(err, cc){                             //response has chaincode functions
 
