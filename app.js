@@ -58,21 +58,21 @@ var appEnv = cfenv.getAppEnv();
 // configure ibc-js sdk
 // ==================================
 
-//var peers = configFile.config.credentials.peers;
-//var users = configFile.config.credentials.users;
-/*
+var peers = configFile.config.credentials.peers;
+var users = configFile.config.credentials.users;
+
 var options =   {
 	network:{
 		peers: peers,
 		users:  users
 	},
 	chaincode:{
-		//zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
-		//unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
-		//git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
+		zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
+		unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
+		git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
 	}
 };
-*/
+
 /*
 var vehicle_log_cc = {
 	
@@ -82,7 +82,7 @@ var vehicle_log_cc = {
 	
 }
 */
-/*
+
 // Step 2 ==================================
 //ibc.load(options, cb_ready);
 ibc.network(peers);
@@ -92,7 +92,7 @@ for(var i = 0; i < users.length; i++)
 	ibc.register(0,users[i].username, users[i].secret)
 	ibc.register(1,users[i].username, users[i].secret)
 }
-*/
+
 //setTimeout(function(){vehicle_log_cc.create();},3000);
 
 //setTimeout(function(){vehicle_cc.create();},3000);
@@ -101,12 +101,12 @@ for(var i = 0; i < users.length; i++)
 
 // Step 3 ==================================
 
-/*ibc.load_chaincode(vehicle_log_cc, cb_ready)
+ibc.load_chaincode(vehicle_log_cc, cb_ready)
 
 function cb_ready(err, cc){                             //response has chaincode functions
 
 	// Step 4 ==================================
-	        
+	console.log(cc) 
 	cc.deploy('init', [''], './Chaincode/vehicle_log_code', cb_deployed);
 	
 }
@@ -116,7 +116,7 @@ function cb_deployed(err){
 	console.log('sdk has deployed code and waited');
 	chaincode.read('a');
 }
-*/
+
 //===============================================================================================
 //	Routing
 //===============================================================================================
