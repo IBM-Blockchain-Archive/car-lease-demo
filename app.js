@@ -67,8 +67,8 @@ var options =   {
 		users:  users
 	},
 	chaincode:{
-		zip_url: '',
-		unzip_dir: '',
+		zip_url: 'https://jpayne:mq46983u@hub.jazz.net/git/jpayne23/OBCAssetTransferDemo.zip',
+		unzip_dir: 'OBCAssetTransferDemo-master',
 		git_url: 'https://jpayne:mq46983u@hub.jazz.net/git/jpayne23/OBCAssetTransferDemo'
 	}
 };
@@ -100,7 +100,7 @@ for(var i = 0; i < users.length; i++)
 
 // Step 3 ==================================
 
-ibc.load_chaincode(vehicle_log_cc, cb_ready)
+ibc.load_chaincode(options.chaincode, cb_ready)
 
 function cb_ready(err, cc){                             //response has chaincode functions
 
@@ -113,7 +113,7 @@ function cb_ready(err, cc){                             //response has chaincode
 // Step 5 ==================================
 function cb_deployed(err){
 	console.log('sdk has deployed code and waited');
-	chaincode.read('a');
+	//chaincode.read('a');
 }
 
 //===============================================================================================
