@@ -100,7 +100,7 @@ for(var i = 0; i < users.length; i++)
 
 // Step 3 ==================================
 
-ibc.load_chaincode(options.chaincode, cb_ready)
+ibc.load_chaincode(vehicle_log_cc, cb_ready)
 
 function cb_ready(err, cc){                             //response has chaincode functions
 
