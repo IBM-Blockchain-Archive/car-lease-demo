@@ -23,7 +23,7 @@ import (
 //	Chaincode - A blank struct for use with Shim (A HyperLedger included go file used for get/put state
 //				and other HyperLedger functions)
 //==============================================================================================================================
-type  Chaincode struct {
+type  SimpleChaincode struct {
 }
 
 type Log struct {
@@ -54,7 +54,7 @@ const   ROLE_SCRAP_MERCHANT =  0
 //==============================================================================================================================
 //	Init Function - Called when the user deploys the chaincode sets up base logs (blank array)																
 //==============================================================================================================================
-func (t *Chaincode) init(stub *shim.ChaincodeStub) ([]byte, error) {
+func (t *SimpleChaincode) init(stub *shim.ChaincodeStub) ([]byte, error) {
 
 	var eh LogsHolder
 	
@@ -75,7 +75,7 @@ func (t *Chaincode) init(stub *shim.ChaincodeStub) ([]byte, error) {
 //	 get_ecert - Takes the name passed and calls out to the REST API for HyperLedger to retrieve the ecert
 //				 for that user. Returns the ecert as retrived including html encoding.
 //==============================================================================================================================
-func (t *Chaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]byte, error) {
+func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]byte, error) {
 	
 	var cert ECertResponse
 	
@@ -99,7 +99,7 @@ func (t *Chaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]byte, er
 //	 check_role - Takes an ecert, decodes it to remove html encoding then parses it and checks the
 // 				  certificates extensions containing the role before returning the role interger. Returns -1 if it errors
 //==============================================================================================================================
-func (t *Chaincode) check_role(stub *shim.ChaincodeStub, args []string) (int64, error) {																							
+func (t *SimpleChaincode) check_role(stub *shim.ChaincodeStub, args []string) (int64, error) {																							
 	ECertSubjectRole := asn1.ObjectIdentifier{2, 1, 3, 4, 5, 6, 7}																														
 	
 	decodedCert, err := url.QueryUnescape(args[0]);    		// make % etc normal //
@@ -131,7 +131,7 @@ func (t *Chaincode) check_role(stub *shim.ChaincodeStub, args []string) (int64, 
 //	Create Log - Creates a new log object using the data passed and the current time then appends it to the logs array
 //				   before saving the state to the ledger
 //==============================================================================================================================
-func (t *Chaincode) create_log(stub *shim.ChaincodeStub, log_name string, log_text string, log_obj_id string, log_users []string) ([]byte, error) {
+func (t *SimpleChaincode) create_log(stub *shim.ChaincodeStub, log_name string, log_text string, log_obj_id string, log_users []string) ([]byte, error) {
 
 	var e Log
 	
@@ -168,7 +168,7 @@ func (t *Chaincode) create_log(stub *shim.ChaincodeStub, log_name string, log_te
 //	get_logs - Takes a users name and returns the logs they are entitled to. If they are the regulator they see all logs
 //				 otherwise it calls a function to get the users logs
 //==============================================================================================================================
-func (t *Chaincode) get_logs(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+func (t *SimpleChaincode) get_logs(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
 	bytes, err := stub.GetState("Vehicle_Log")
 		
@@ -206,7 +206,7 @@ func (t *Chaincode) get_logs(stub *shim.ChaincodeStub, args []string) ([]byte, e
 //	get_obj_logs - Takes an logs array and returns all the logs that occured between "from" and "to" in the array to the  
 //				 	Object with ID obj_id
 //==============================================================================================================================
-func (t *Chaincode) get_obj_logs(stub *shim.ChaincodeStub, logs []Log, obj_id string, from int, to int, user string) []Log {
+func (t *SimpleChaincode) get_obj_logs(stub *shim.ChaincodeStub, logs []Log, obj_id string, from int, to int, user string) []Log {
 	
 	var resp []Log
 	
@@ -225,7 +225,7 @@ func (t *Chaincode) get_obj_logs(stub *shim.ChaincodeStub, logs []Log, obj_id st
 //					   it found a log for that object to now where the user isn't involved as they have permission to view
 //					   the objects history before they were involved
 //==============================================================================================================================
-func (t *Chaincode) get_users_logs(stub *shim.ChaincodeStub, eh LogsHolder, name string) ([]byte, error) {
+func (t *SimpleChaincode) get_users_logs(stub *shim.ChaincodeStub, eh LogsHolder, name string) ([]byte, error) {
 	
 	users_logs := []Log{}
 	var searched_to map[string]int
@@ -254,7 +254,7 @@ func (t *Chaincode) get_users_logs(stub *shim.ChaincodeStub, eh LogsHolder, name
 //==============================================================================================================================
 //	Run - Called on chaincode invoke. Takes a function name passed and calls that function.
 //==============================================================================================================================
-func (t *Chaincode) Run(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Run(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
 
 	// Handle different functions
 	if function == "init" { return t.init(stub) 
@@ -277,7 +277,7 @@ func (t *Chaincode) Run(stub *shim.ChaincodeStub, function string, args []string
 //==============================================================================================================================
 //	Query - Called on chaincode query. Takes a function name passed and calls that function.
 //==============================================================================================================================
-func (t *Chaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
 	
 	if function == "get_logs" { return t.get_logs(stub, args) }
 	
