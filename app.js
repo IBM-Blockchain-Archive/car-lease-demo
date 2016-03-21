@@ -67,9 +67,9 @@ var options =   {
 		users:  users
 	},
 	chaincode:{
-		zip_url: 'https://jpayne:mq46983u@hub.jazz.net/git/jpayne23/OBCAssetTransferDemo.zip',
-		unzip_dir: 'OBCAssetTransferDemo-master',
-		git_url: 'https://jpayne:mq46983u@hub.jazz.net/git/jpayne23/OBCAssetTransferDemo'
+		zip_url: '',
+		unzip_dir: '',
+		git_url: 'https://jpayne23:mq46983u@hub.jazz.net/git/jpayne23/OBCAssetTransferDemo'
 	}
 };
 
