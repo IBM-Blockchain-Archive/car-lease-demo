@@ -1,0 +1,34 @@
+{
+  "name": "loopback-connector-obcca",
+  "version": "1.0.0",
+  "description": "Loopback-based connector for OBCCA GRPC services",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/unit/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.ibm.com:IBM-Blockchain/loopback-connector-obcca.git"
+  },
+  "keywords": [
+    "Blockchain",
+    "Hyperledger"
+  ],
+  "author": "Gari Singh",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aes-js": "^0.2.4",
+    "debug": "^2.2.0",
+    "elliptic": "^6.2.3",
+    "grpc": "^0.13.1",
+    "js-sha3": "^0.5.1",
+    "jsrsasign": "^5.0.5",
+    "key-encoder": "^1.1.6",
+    "sjcl": "^1.0.3"
+  },
+  "devDependencies": {
+    "loopback": "^2.26.2",
+    "loopback-datasource-juggler": "^2.44.0",
+    "tape": "^4.4.0"
+  }
+}

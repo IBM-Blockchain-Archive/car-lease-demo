@@ -7,4 +7,4 @@ applications:
   host: car-lease-demo-v3
   disk_quota: 1024M
   services:
-  - myblockchain
+  - car-lease-blockchain

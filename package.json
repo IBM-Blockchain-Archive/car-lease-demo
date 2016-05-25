@@ -1,25 +1,54 @@
 {
-	"name": "Car_Lease_Demo",
-	"version": "0.0.1",
-	"description": "The Car Lease Demo using the IBM Blockchain bluemix service",
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"express": "4.12.x",
-		"cfenv": "1.0.x",
-		"request": "",
-		"require-reload": "",
-		"body-parser": "",
-		"express-session": "",
-		"cookie-parser": "",
-		"fs": "",
-		"cors": "",
-		"adm-zip": "0.4.7",
-		"ibm-blockchain-js": "0.0.5"
-	},
-	"repository": {},
-	"engines": {
-		"node": "0.12.x"
-	} 
+  "name": "r3",
+  "version": "0.0.1",
+  "description": "A Node.js web application that demonstrates utilizing IBM Blockchain JS to call REST APIs on the blockchain.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "adm-zip": "0.4.7",
+    "aes-js": "^0.2.4",
+    "async": "0.9.0",
+    "body-parser": "1.0.2",
+    "cf-deployment-tracker-client": "0.0.8",
+    "cookie-parser": "1.0.1",
+    "cors": "2.5.3",
+    "debug": "0.7.4",
+    "elliptic": "^6.2.3",
+    "express": "4.0.0",
+    "express-session": "1.2.1",
+    "grpc": "^0.13.1",
+    "ibm-blockchain-js": "0.0.12",
+    "js-sha3": "^0.5.1",
+    "jsrsasign": "^5.0.5",
+    "key-encoder": "^1.1.6",
+    "sjcl": "^1.0.3",
+    "ws": "1.0.1",
+    "request": "",
+    "require-reload": "",
+    "fs": ""
+  },
+  "engines": {
+    "node": "0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM-Blockchain/cp-web.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-concat": "*",
+    "gulp-minify-css": "1.2.1",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.4",
+    "gulp-sourcemaps": "*",
+    "gulp-rename": "*",
+    "watchify": "^3.3.1",
+    "loopback": "^2.26.2",
+    "loopback-datasource-juggler": "^2.44.0",
+    "tape": "^4.4.0"
+  }
 }

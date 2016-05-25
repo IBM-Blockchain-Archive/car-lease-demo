@@ -9,8 +9,9 @@ var read = function(req, res)
 {
 	
 	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
+	
 	var options = {
-		url: configFile.config.api_url+'/chain/blocks/'+req.params.blockNum,
+		url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain/blocks/'+req.params.blockNum,
 		method: "GET"
 	};
 	request(options, function (error, response, body){
@@ -23,5 +24,5 @@ var read = function(req, res)
 			res.send({"error":"Unable to get block"});
 		}
 	});
-};
+}
 exports.read = read;

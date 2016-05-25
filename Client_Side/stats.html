@@ -5,19 +5,21 @@
 		<link rel="stylesheet" type="text/css" href="Style/main.css" ></link>
 		<link rel="stylesheet" type="text/css" href="Style/stats.css" ></link>
 		<script src="JavaScript/plugins/jQuery-1.11.3.js" type="text/javascript"></script>
+		<script src="JavaScript/plugins/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 		<script src="JavaScript/plugins/d3/d3.min.js"></script>
+		<script>var pgNm = "main" </script>
+		<script src="JavaScript/config/config.js" type="text/javascript"></script>
 		<script src="JavaScript/stats/charts.js" type="text/javascript"></script>
 		<script src="JavaScript/stats/stats.js" type="text/javascript"></script>
-		<script src="JavaScript/config/config.js" type="text/javascript"></script>
 	</head>
-	<body  onload="loadLogo('main')" >
+	<body>
 		<div id="fade" ></div>
 		<div id="loader" ><img src="Images/loading.gif" height="100" width="100" alt="loading" text="please wait..." /></div>
 		<table id="mainTbl" >
 			<tr>
 				<td class="smlBrk"></td>
-				<td colspan="2" id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /><span> &reg;</span></td>
-				<td colspan="2" ><span class="rtTxt bldTxt">&nbsp;BLOCKCHAIN ASSET TRANSFER DEMO</span></td>
+				<td colspan="2" id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /></td>
+				<td colspan="2" ><span class="rtTxt bldTxt">&nbsp;BLOCKCHAIN CAR LEASING DEMO</span></td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>
@@ -32,20 +34,40 @@
 			</tr>
 			<tr>
 				<td class="smlBrk"></td>
-				<td class="statsRw noLBord" ><span class="statHdr" >Current Block</span><span class="valDisp" ><span id="currBlock" ></span></span></td>
+				<td colspan="4" class="bigTxt" style="padding-top:25px;">Live Stats</td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td class="statsRw noLBord" ><span class="statHdr" >Last Block</span><span class="valDisp" ><span id="currBlock" ></span></span></td>
 				<td class="statsRw allBord" ><span class="statHdr" >Created</span><span class="valDisp" ><span id="timeSince"></span></span></td>
-				<td class="statsRw allBord" ><span class="statHdr" >Block Transactions</span><span class="valDisp" ><span id="transLast"></span></span></td>
+				<td class="statsRw allBord" ><span class="statHdr" >Transactions in Last Block</span><span class="valDisp" ><span id="transLast"></span></span></td>
 				<td class="statsRw noRBord" ><span class="statHdr" >Avg Block Time</span><span class="valDisp" ><span id="avgTime"></span></span></td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>
 				<td class="smlBrk"></td>
 				<td class="statsRw noLBord" colspan="2"><span class="statHdr" >Block Time</span><span class="contHldr" ><span class="timeCont cont" ></span></span></td>
-				<td class="statsRw noRBord" colspan="2"><span class="statHdr" >Transactions</span><span class="contHldr" ><span class="transCont cont" ></span></span></td>
-				
+				<td class="statsRw noRBord" colspan="2"><span class="statHdr" >Transactions Per Block - Graph</span><span class="contHldr" ><span class="transCont cont" ></span></span></td>
 				<td class="smlBrk"></td>
 			</tr>
-			<tr id="insBef">
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="4" class="bigTxt" style="overflow:hidden">
+					<span style="position:relative; left:0px; display:inline-block; width:400px;">Blockchain Explorer</span>
+					<input id='goTo' value="Block..." style="position:relative; display:inline-block; left:100%; margin-left:0px; color: rgb(0, 100, 141); font-family: arial,helvetica,sans-serif; padding: 2.5px; width:110px; font-size:0.8em; border:0;" onfocus="this.select()" type="text" />
+					<img src="Icons/search.svg" id="srchBtn" onclick="toggleSearch(this)" style="position:relative; background-color:#FFF; z-index:99; float: right; margin-top:3px; padding: 1.5px; cursor: pointer;" width="20" />
+					<br />
+					<span id="srchLine" style="display:inline-block; width: 135px; height: 2px; background-color:#00648D; position:relative; left:100%; margin-left:1px"></span>
+				</td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="4"><div id="leftHldr" onclick="scrollBlocksLeft()"><div class="arrow_left_box"></div></div><div id="rightHldr" onclick="scrollBlocksRight()"><div class="arrow_right_box"></div></div><div id="blockHolder" ><span id="blockScroll"></span></div></td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
 				<td class="smlBrk gapRw"></td>
 				<td class="gapRw"></td>
 				<td class="smlBrk gapRw"></td>

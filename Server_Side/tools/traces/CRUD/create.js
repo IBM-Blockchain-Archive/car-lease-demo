@@ -1,5 +1,3 @@
-/*eslint-env node*/
-
 var fs = require('fs');
 var dateTime = require(__dirname+'/../../../tools/date/formatUTC.js')
 var reload = require('require-reload')(require),
@@ -51,8 +49,8 @@ var create = function(type, name, data)
 	else if(type == 'ERROR')
 	{		
 		var value = '\t' + formattedTime + '\t' + type + '\t' + name + '\t' + data+ '\n';
-	}
-	
+	}	
+
 	fs.appendFile(configFile.config.traceFile, value, function (err){
 		if(err)
 		{

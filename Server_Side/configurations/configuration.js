@@ -1,15 +1,27 @@
+/*eslint-env node*/
+
 var config = {};
 
+//Tracing
 config.trace = true;
+config.traceFile = __dirname+'/../logs/app_trace.log';
 
-config.api_url = JSON.parse(process.env.VCAP_SERVICES)[Object.keys(JSON.parse(process.env.VCAP_SERVICES))[0]][0]["credentials"]["peers"][0]["api_url"];
-config.app_url = JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
+//IP and port configuration
+config.api_ip = "http://"+JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_host"];
+//When using blockchain on bluemix, api_port_external and api_port_internal will be the same
+config.api_port_external = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_port"]; //"3000";		//port number used when calling api from outside of the vagrant environment
+config.api_port_internal = 	JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_port"]; //"5000";		//port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
 
-config.credentials = JSON.parse(process.env.VCAP_SERVICES)[Object.keys(JSON.parse(process.env.VCAP_SERVICES))[0]][0]["credentials"]
+config.app_url = 'http://'+JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
 
-config.traceFile = __dirname+'/../logs/trace.log'
+//Chaincode file locations
+config.vehicle_log = "https://github.com/jpayne23/testDeployCC/Chaincode_v0601/vehicle_log_code";
+config.vehicle = "https://github.com/jpayne23/testDeployCC/Chaincode_v0601/vehicle_code";
 
-config.vehicle_log_address = '2b93a8cdcbec1ef4909071fd85531fcf3ef21db17343568a73916bad010966913c480475864a6da4e3193bbd2300c9fe140bcf3bf8fa675aba078632a7564456'
-config.vehicle_address = 'd3a75d97dde3be9c6492dd52bce2e94d9a0465be55bbd830d0a0392d13e81564000753aac4201f7bea645f957dcc64b67c67302a57f4c3b27dab53de84272b74'
+
+//Chaincode deployed names
+config.vehicle_log_name = 'd8462b53eed6ffd55a9ccc4d3520c481a006b633d535e83f4647f94fa5689fbbef93934fc7eaca0914fbe85d2fb89a8c32f8506b71b5ebd986fa7c77f9e8b596';
+config.vehicle_name = '609f8a8dc3368a64df71761dd5ef22ca87f4b879d0bc1020d092ec3a0536d63ce8b2380a5af16a1f2304048f5bedf3492321d5ed4e465f4fe2c61721330cc719';
 
 exports.config = config;
+

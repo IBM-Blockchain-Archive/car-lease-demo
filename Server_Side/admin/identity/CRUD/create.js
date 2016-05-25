@@ -1,6 +1,6 @@
-/*eslint-env node*/
+/*eslint-env node */
 
-var tracing = require(__dirname+'/../../../tools/traces/trace.js');
+//var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
 
 var request = require('request');
@@ -14,7 +14,9 @@ function makeAccount(req, res)
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	
 	var user_id = map_ID.user_to_id(req.body.account);
-	var user_pass = map_ID.get_password(req.body.account);
+	var user_pass = map_ID.get_password(req.body.participantType, req.body.account);
+	
+	console.log("ADMIN/IDENTITY", req.body.account, user_id, user_pass);
 	
 	var enrollmentDetails = 	{
 					  "enrollId": user_id,
@@ -22,7 +24,7 @@ function makeAccount(req, res)
 					};
 	
 	var options = {
-		url: configFile.config.api_url+'/registrar',
+		url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
 		body: enrollmentDetails,
 		json:true,
 		method: "POST"

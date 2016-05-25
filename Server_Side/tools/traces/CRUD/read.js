@@ -1,5 +1,3 @@
-/*eslint-env node*/
-
 var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js');

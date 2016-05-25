@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
 	$('#addToVhcls').click(function(){
-		setCookie();
+	
+		setCookie()
 		$("#vhclsTbl").html('<tr><td style="text-align:center;"><img src="Images/'+pgNm+'/loading.gif" height="50" width="50" alt="loading" text="please wait..." /><br /><i>Found: <span class="numFound">0 assets</span></i></td></tr>');
 		$('#chooseOptTbl').fadeIn(1000);
 		$('#fade').fadeIn(1000);
@@ -32,7 +33,8 @@ $(document).ready(function(){
 				{
 					$(this).find('.isChk').val('false')
 					$(this).find('.chkBx').css('background-image','url("")')
-					$("#selVhclsTbl").append('<tr class="selVehRw">' + $(this).html() + '</tr>');
+					var nwRw = $(this).html().replace('<span class="chkSpc"></span><span style="background-image: url(&quot;&quot;);" class="chkBx"></span><input class="isChk" value="false" type="hidden">', '<span onclick="removeRowFromSelectedVehicles(this)" style="float:right; margin-right:10px; cursor:pointer;"><img src="Icons/'+pgNm+'/minus.svg" width="15" /></span>')
+					$("#selVhclsTbl").append('<tr class="selVehRw">' + nwRw + '</tr>');
 				}
 			}
 		})
@@ -40,17 +42,12 @@ $(document).ready(function(){
 		$('#fade').hide();
 		changeBarSize();
 	});
-	
-	$("#remFrmVhcls").on('click', function(){
-		
-		$('#selVhclsTbl tr').each(function(){
-			if($(this).find('.isChk').val() == 'true')
-			{
-				$(this).remove();
-			}
-		})
-		$('#selVhclsTbl').parent().css('margin-top','0px');
-		$('#selVhclsTbl').parent().parent().siblings('.scrlHldr').children('.scrlBr').css('top', "0px")
-		changeBarSize();
-	});
 })
+
+function removeRowFromSelectedVehicles(el)
+{
+	$(el).parent().parent().remove();
+	$('#selVhclsTbl').parent().css('margin-top','0px');
+	$('#selVhclsTbl').parent().parent().siblings('.scrlHldr').children('.scrlBr').css('top', "0px")
+	changeBarSize();
+}

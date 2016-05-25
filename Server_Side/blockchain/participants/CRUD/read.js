@@ -1,38 +1,25 @@
-/*eslint-env node*/
+/*eslint-env node */
 
-
-var fs = require('fs')
 var tracing = require(__dirname+'/../../../tools/traces/trace.js');
-var read = function(res)
+var reload = require('require-reload')(require),
+    participants = reload(__dirname+'/../participants_info.js');
+
+var read = function(req, res)
 {
-	tracing.create('ENTER', 'GET blockchain/participants', []);
-	fs.readFile(__dirname+"/../participants.json", "utf8", function(err, data)
+	tracing.create('ENTER', 'GET blockchain/participants/', []);
+	participants = reload(__dirname+'/../participants_info.js');
+	if(participants.participants_info == null)
 	{
-		if(err)
-		{
-			res.status(404)
-			tracing.create('ERROR', 'GET blockchain/participants', 'Participants file not found');
-			var error = {}
-			error.message = 'Participants file not found';
-			res.send(error)
-		}
-		else
-		{
-			try
-			{
-				data = JSON.parse(data)
-			}
-			catch(e)
-			{
-				res.status(400)
-				tracing.create('ERROR', 'GET blockchain/participants', 'Invalid JSON object');
-				var error = {}
-				error.message = 'Invalid JSON object';
-				res.send(error)
-				return;
-			}
-			res.send(data)
-		}
-	})
+		console.log("READ ALL PARTICPANTS ERROR");
+		res.status(404)
+		tracing.create('ERROR', 'GET blockchain/participants/', 'Unable to retrieve participants');
+		var error = {}
+		error.message = 'Unable to retrieve participants';
+		res.send(JSON.stringify(error))
+	} 
+	else
+	{
+		res.send(JSON.stringify({"result":participants.participants_info}))
+	}
 }
-exports.read = read;
+exports.read = read; 

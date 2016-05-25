@@ -17,14 +17,17 @@ function loadRecipients()
 		crossDomain:true,
 		url: '/blockchain/participants/'+newRecPlural.toLowerCase(),
 		success: function(d) {
+			
+			d = JSON.parse(d)
+			
 			$("#recsTbl").empty();
-			for(var i = 0; i < d.length; i++)
+			for(var i = 0; i < d.result.length; i++)
 			{
-				var data = d[i];
+				var data = d.result[i];
 				$("#recsTbl").append("<tr class='recRw' ><td class='recInfo centAl'>" + data.name + "</td><td class='chkHldr'><span class='chkSpc' ></span><span class='radBtn' ></span><input class='isChk' type='hidden' value='false' /><input class='posArr' type='hidden' value='"+i+"' /></td></tr>");
 			}
 			changeBarSize();
-			toRet = d;
+			toRet = d.result;
 		},
 		error: function(e){
 			console.log(e)

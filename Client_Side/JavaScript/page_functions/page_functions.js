@@ -37,9 +37,7 @@ $(document).ready(function(){
 		Formats the transaction request for a transfer of a V5C. Needs to have at least 1 V5C to transfer and a specified recipient.
 		Constructs the transaction complete pop up at this point as well but only shows it once the transaction is complete.
 		*/
-		
-		setCookie();
-		
+		setCookie()
 		var table = document.getElementById("selVhclsTbl");
 		var index = 1;
 		var id;
@@ -103,6 +101,9 @@ $(document).ready(function(){
 		a separate transaction request is created, these details are also added to the transaction complete pop up which gets shown
 		when the transactions are complete.
 		*/
+
+		setCookie()		
+
 		var table = document.getElementById("selVhclsTbl");
 		var index = 1;
 		var id;

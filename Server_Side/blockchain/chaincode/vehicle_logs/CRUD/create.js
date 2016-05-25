@@ -1,33 +1,40 @@
 /*eslint-env node*/
-
+var fs = require('fs');
 var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
 
-
 function deploy(req, res)
-{
-	
-	console.log(configFile.credentials.users[0]["username"])
-	
-	var chaincodeSpec = 	{
-										"type": "GOLANG",
-										"chaincodeID": {
-											"path": "https://github.com/jpayne23/Car-Lease-Demo/Chaincode/vehicle_log_code"
-										},
-										"ctorMsg": {
-											"function": "init",
-											"args": [""]
-										},
-									  "secureContext": configFile.credentials.users[0]["username"],
-									  "confidentialityLevel": "PUBLIC"
-									}
+{	
+
+
+	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
+	    api_url = api_url.replace('http://', '')
+				
+	var deploySpec = {
+						  "jsonrpc": "2.0",
+						  "method": "deploy",
+						  "params": {
+						    "type": 1,
+						    "chaincodeID": {
+						      "path": configFile.config.vehicle_log
+						    },
+						    "ctorMsg": {
+						      "function": "init",
+						      "args": [
+						        api_url, "abqqqQqqqusdsqqc123"
+						      ]
+						    },
+						    "secureContext": "DVLA"
+						  },
+						  "id": 12
+						}
 									
 	var options = 	{
-						url: configFile.config.api_url+'/devops/deploy',
+						url: configFile.config.api_ip+":"+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
-						body: chaincodeSpec,
+						body: deploySpec,
 						json: true
 					}
 	
@@ -35,14 +42,48 @@ function deploy(req, res)
 	{
 		if (!error && response.statusCode == 200)
 		{
-			console.log(body.message)
-			return response.statusCode
+			console.log("VEHICLE LOG DEPLOY NAME",body.result.message)
+			setTimeout(function() {
+				update_config(body.result.message, res)
+			}, 5000);
 		}
 		else
 		{
-			return error
+			res.status(400)
+			res.send(error)
 		}
 	})
 }
 
+function update_config(name, res)
+{
+
+	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
+	fs.readFile(__dirname+'/../../../../configurations/configuration.js', 'utf8', function (err,data)
+	{
+		if (err)
+		{
+			return console.log(err);
+		}
+
+		var toMatch = "config.vehicle_log_name = '"+ configFile.config.vehicle_log_name+"';"
+		var re = new RegExp(toMatch, "g")
+
+		var result = data.replace(re, "config.vehicle_log_name = '"+name+"';");
+
+		fs.writeFile(__dirname+'/../../../../configurations/configuration.js', result, 'utf8', function (err)
+		{
+			if (err)
+			{	
+				return console.log(err);
+			}
+			else
+			{
+				res.send({"message":"OK"})
+			}			
+		});
+	});
+}
+
 exports.create = deploy;
+

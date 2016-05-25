@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<title>Transfer Asset - Manufacturer</title>
+		<title>Manufacturer - Update Asset</title>
 		<link rel="stylesheet" type="text/css" href="Style/main.css" ></link>
 		<link rel="stylesheet" type="text/css" href="Style/contractData.css" ></link>
 		<link rel="stylesheet" type="text/css" href="Style/manufacturer.css" ></link>
@@ -10,7 +10,7 @@
 		<script src="JavaScript/plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 		<script src="JavaScript/plugins/jquery.mousewheel.js" type="text/javascript"></script>
 		<script src="JavaScript/config/config.js" type="text/javascript"></script>
-		<script>var pgNm = "Manufacturer"; var sendDets = "Manufacturer: "+config.participants['manufacturer'].company;</script>
+		<script>var pgNm = "Manufacturer"; var pgNmPlural = "manufacturers"; var sendDets = "Manufacturer: "+config.participants['manufacturer'].company;</script>
 		<script src="JavaScript/asset_functions/asset_interaction.js" type="text/javascript"></script>
 		<script src="JavaScript/asset_functions/asset_read.js" type="text/javascript"></script>
 		<script src="JavaScript/page_functions/update_page_functions.js" type="text/javascript"></script>
@@ -19,14 +19,14 @@
 		<script src="JavaScript/participant_functions/recipients.js" type="text/javascript"></script>
 		<script src="JavaScript/admin/identity.js" type="text/javascript"></script>
 	</head>
-	<body  onload="loadLogo('manufacturer'); loadParticipant('manufacturer')" >
+	<body>
 		<div id="fade" style="display:block!important" ></div>
 		<div id="loader" style="display:block!important" ><img src="Images/Manufacturer/loading.gif" height="100" width="100" alt="loading" text="please wait..." /><br /><br /><span id="loaderMessages" style="color:#016059;">0 assets</span></div>
 		<table id="mainTbl" >
 			<tr>
 				<td class="smlBrk"></td>
-				<td id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /><span> &reg;</span></td>
-				<td colspan="2" ><span class="rtTxt bldTxt" >&nbsp;BLOCKCHAIN ASSET TRANSFER DEMO</span></td>
+				<td id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /></td>
+				<td colspan="2" ><span class="rtTxt bldTxt" >&nbsp;BLOCKCHAIN CAR LEASING DEMO</span></td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>
@@ -40,8 +40,19 @@
 				<td id="txtBxRw">
 					<a href="index.html" >Home</a>
 				</td>
-				<td colspan="2" >
-					<div id="user" class="rtTxt" ><span id="username" ></span> (Manufacturer:  <span id="company"></span>)</div>
+				<td colspan="2" id="userStuff">
+					<div id="user" class="rtTxt" ><span id="userDets" ><span id="username" ></span> (<span id="userType">Manufacturer</span>: <span id="company"></span>)</span>&nbsp;<span id="menuBtn" onclick="toggleMenu()" ><div class="menuBar" ></div><div class="menuBar" ></div><span id="userBlock" class="menuWhiteBlock"></span></span></div>
+				</td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td class="dropTd" colspan="3">
+					<div class="usersDropMargin" id="mainMenu" >
+						<div id="users" class="dropDowns" >
+							<span class="userHdr" >Switch User...</span>
+						</div>
+					</div>
 				</td>
 				<td class="smlBrk"></td>
 			</tr>

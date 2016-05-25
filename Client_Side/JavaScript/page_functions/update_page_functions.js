@@ -1,11 +1,18 @@
 var selRw;
 $(document).ready(function(){
-	setCookie();
-	loadUpdateAssets();
+	loadLogo(pgNm);
 	
 	$("#cclPg").click(function(){
 		window.location.href = "index.html";
 	})
+
+	$(document).on('click', '.userHldr', function(){	
+		$('.foundCars').remove();
+		$('#loaderMessages').html('0 assets')
+		$('#loader').show();
+		$('#fade').show();		
+		loadUpdateAssets()
+	});
 
 })
 

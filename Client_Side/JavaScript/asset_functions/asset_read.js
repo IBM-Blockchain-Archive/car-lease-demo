@@ -18,7 +18,6 @@ function loadAssets()
 		{
 			if(array[i].trim() != "")
 			{
-				
 				var obj = JSON.parse(array[i]);
 				var found = false;
 				
@@ -46,6 +45,8 @@ function loadAssets()
 					}
 					else
 					{
+						
+						console.log("ASSET READ:", obj)
 						
 						if(typeof obj.message == 'undefined' && obj.VIN > 0 && obj.make.toLowerCase() != 'undefined' && obj.make.trim() != '' && obj.model.toLowerCase() != 'undefined' && obj.model.trim() != '' && obj.reg.toLowerCase() != 'undefined' && obj.reg.trim() != '' && obj.colour.toLowerCase() != 'undefined' && obj.colour.trim() != '' && !obj.scrapped)
 						{
@@ -107,6 +108,9 @@ function loadUpdateAssets()
 						break;
 					}
 				}
+				
+				console.log("UPDATE ASSET READ:", obj)
+				
 				if(!found && typeof obj.message == 'undefined')
 				{
 					objects.push(obj)		
@@ -134,7 +138,7 @@ function loadUpdateAssets()
 				if(data.model.toLowerCase() == 'undefined' || data.model.trim() == '') data.model = '&lt;<i>model</i>&gt;';
 				if(data.reg.toLowerCase() == 'undefined' || data.reg.trim() == '') data.reg = '&lt;<i>registration</i>&gt;';
 				if(data.colour.toLowerCase() == 'undefined' || data.colour.trim() == '') data.colour = '&lt;<i>colour</i>&gt;';
-				$('<tr><td class="smlBrk"></td><td class="editRw" ><span class="carID">'+data.v5cID+'</span></td><td class="editRw" colspan="2" >[<span class="carVin">'+data.VIN+'</span>] <span class="carMake">'+data.make+'</span> <span class="carModel">'+data.model+'</span>, <span class="carColour">'+data.colour+'</span>, <span class="carReg">'+data.reg+'</span><img src="Icons/Manufacturer/edit.svg" onclick="showEditTbl(this)" class="rtBtn" width="20" height="20" /></td><td class="smlBrk" ></td></tr>').insertAfter('#insAft');
+				$('<tr class="foundCars" ><td class="smlBrk"></td><td class="editRw" ><span class="carID">'+data.v5cID+'</span></td><td class="editRw" colspan="2" >[<span class="carVin">'+data.VIN+'</span>] <span class="carMake">'+data.make+'</span> <span class="carModel">'+data.model+'</span>, <span class="carColour">'+data.colour+'</span>, <span class="carReg">'+data.reg+'</span><img src="Icons/Manufacturer/edit.svg" onclick="showEditTbl(this)" class="rtBtn" width="20" height="20" /></td><td class="smlBrk" ></td></tr>').insertAfter('#insAft');
 			}
 		}
 	}

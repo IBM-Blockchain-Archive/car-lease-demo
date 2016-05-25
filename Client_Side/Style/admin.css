@@ -14,6 +14,10 @@
 	color:#00648D;
 	display:inline-block;
 }
+#createScenario
+{
+	margin-top:0!important;
+}
 .regTxt
 {
 	color:#00648D;
@@ -196,3 +200,54 @@ label
 	text-decoration:underline;
 }
 
+#typeTbl
+{
+	display:inline-block;
+	color:#00648D;
+	margin-left: 25px;
+	border-collapse:collapse;
+	border:2px solid #00648D;
+	table-layout: fixed;
+	float:left;
+}
+#typeTbl td
+{
+	text-align: left;
+	padding:5px;
+}
+.dropHdr td:first-child
+{
+	padding-right:15px;
+	width:120px;
+}
+.dropHdr td
+{
+	border-bottom:2px solid #00648D;
+	padding:5px;
+	cursor:pointer
+}
+.dropRw
+{
+	display:none;
+	cursor:pointer;
+}
+.dropRw td:hover
+{
+	background-color: #00648D;
+	color: #FFF;
+}
+#addUser
+{
+	border: 2px solid #00648D;
+    	color: #00648D;
+    	padding: 5px;
+    	font-weight: 100;
+	margin-left:25px;
+	float:left;
+	cursor:pointer;
+}
+#addUser:hover
+{
+	background-color:#00648D;
+	color:#FFF;	
+}

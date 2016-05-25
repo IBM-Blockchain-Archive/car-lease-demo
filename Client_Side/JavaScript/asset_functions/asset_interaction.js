@@ -9,7 +9,7 @@ function createAsset()
 	var data = {};
 	var found = [];
 	var xhr = new XMLHttpRequest()
-	xhr.open("POST", "/blockchain/assets/vehicles/", true)
+	xhr.open("POST", "/blockchain/assets/vehicles", true)
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	xhr.overrideMimeType("text/plain");
 	xhr.onprogress = function () {
@@ -31,7 +31,7 @@ function createAsset()
 					}
 					if(!fnd)
 					{
-						$('#latestSpan').html('&#10004');
+						$('#latestSpan').html('&nbsp;&#10004');
 						$('#latestSpan').attr('id','');
 						$('#loaderMessages').append('<i>'+JSON.parse(array[i]).message+' </i><span id="latestSpan">...</span><br>');
 						found.push(JSON.parse(array[i]).message)
@@ -39,7 +39,7 @@ function createAsset()
 				}
 				else
 				{
-					$('#latestSpan').html('&#10004');
+					$('#latestSpan').html('&nbsp;&#10004');
 					$('#latestSpan').attr('id','');
 					$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i>');
 				}
@@ -60,12 +60,12 @@ function createAsset()
 					return function() {
 					errCreate(arg1);
 					}
-				}(v5cID);
+				}(JSON.parse(array[array.length -1]).v5cID);
 			}
 			else
 			{
 				$('#loader img').hide();
-				$('#latestSpan').html('&#10004');
+				$('#latestSpan').html('&nbsp;&#10004');
 				$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="confTrans();">OK</span>');
 				$('#chooseConfHd').html('<span>Creation Complete</span>');
 				$('#confTxt').html('Created Vehicle: '+ JSON.parse(array[array.length - 1]).v5cID);
@@ -94,9 +94,6 @@ function transferAssets(input)
 
 function transferAsset()
 {
-	
-	setCookie();
-	
 	var found = [];
 	var xhr = new XMLHttpRequest()
 	xhr.open("PUT", "/blockchain/assets/vehicles/"+transferArray[transferIndex-1].v5cID+"/owner", true)
@@ -121,7 +118,7 @@ function transferAsset()
 					}
 					if(!fnd)
 					{
-						$('#latestSpan'+transferIndex).html('&#10004');
+						$('#latestSpan'+transferIndex).html('&nbsp;&#10004');
 						$('#latestSpan'+transferIndex).attr('id','');
 						$('#loaderMessages').find('#msg'+transferIndex+'Part'+(found.length+1)).html('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan'+transferIndex+'">...</span>');
 						found.push(JSON.parse(array[i]).message)
@@ -129,7 +126,7 @@ function transferAsset()
 				}
 				else
 				{
-					$('#latestSpan'+transferIndex).html('&#10004');
+					$('#latestSpan'+transferIndex).html('&nbsp;&#10004');
 					$('#latestSpan'+transferIndex).attr('id','');
 					$('#loaderMessages').find('#msg'+transferIndex+'Part'+(found.length+1)).html('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i>');
 
@@ -142,7 +139,7 @@ function transferAsset()
 		{
 			var data = xhr.responseText;
 			var array = data.split("&&");
-			$('#latestSpan'+(transferIndex)).html('&#10004');
+			$('#latestSpan'+(transferIndex)).html('&nbsp;&#10004');
 			if(typeof JSON.parse(array[array.length - 1]).error != 'undefined')
 			{
 				errCount++;
@@ -175,7 +172,7 @@ function transferAsset()
 			}
 			else
 			{
-				$('#latestSpan'+(transferIndex)).html('&#10004');
+				$('#latestSpan'+(transferIndex)).html('&nbsp;&#10004');
 				transferIndex++;
 				setTimeout(function(){transferAsset();},1550);
 			}
@@ -224,7 +221,7 @@ function scrapAsset()
 					}
 					if(!fnd)
 					{
-						$('#latestSpan'+scrapIndex).html('&#10004');
+						$('#latestSpan'+scrapIndex).html('&nbsp;&#10004');
 						$('#latestSpan'+scrapIndex).attr('id','');
 						$('#loaderMessages').find('#msg'+scrapIndex+'Part'+(found.length+1)).html('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan'+scrapIndex+'">...</span>');
 						found.push(JSON.parse(array[i]).message)
@@ -233,7 +230,7 @@ function scrapAsset()
 				}
 				else
 				{
-					$('#latestSpan'+scrapIndex).html('&#10004');
+					$('#latestSpan'+scrapIndex).html('&nbsp;&#10004');
 					$('#latestSpan'+scrapIndex).attr('id','');
 					$('#loaderMessages').find('#msg'+scrapIndex+'Part'+(found.length+1)).html('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i>');
 
@@ -246,7 +243,7 @@ function scrapAsset()
 		{
 			var data = xhr.responseText;
 			var array = data.split("&&");
-			$('#latestSpan'+(scrapIndex)).html('&#10004');
+			$('#latestSpan'+(scrapIndex)).html('&nbsp;&#10004');
 			
 			if(typeof JSON.parse(array[array.length - 1]).error != 'undefined')
 			{
@@ -280,7 +277,7 @@ function scrapAsset()
 			}
 			else
 			{
-				$('#latestSpan'+(scrapIndex)).html('&#10004');
+				$('#latestSpan'+(scrapIndex)).html('&nbsp;&#10004');
 				scrapIndex++;
 				setTimeout(function(){scrapAsset();},1500)
 			}
@@ -293,19 +290,14 @@ var increment;
 function updateAsset(vin, make, model, colour, reg, v5cID, el)
 {
 	/*
-	Formats the transaction request to update an attribute of a V5C. The update_type property in data indicates it is an update
-	and not a transfer. The logic on who can update what is contained within the contract on the blockchain.
-	Need the V5C address to know which V5C to update.
+	Formats the transaction request to update an attribute of a V5C. The logic on who can update what is contained within the contract on the blockchain.
 	*/
-	
-	$('#chooseOptTbl').hide();
-	$('#loader').show();
 	
 	selRw = el;
 	$('#loaderMessages').html('');
 	
 	
-	bigData = [{"value":vin,"field":"VIN","v5cID":v5cID},{"value":make,"field":"make","v5cID":v5cID},{"value":model,"field":"model","v5cID":v5cID},{"value":colour,"field":"colour","v5cID":v5cID},{"value":reg,"field":"reg","v5cID":v5cID}]
+	bigData = [{"value":vin,"field":"VIN", "title": "VIN","v5cID":v5cID},{"value":make,"field":"make", "title": "Make","v5cID":v5cID},{"value":model,"field":"model", "title": "Model","v5cID":v5cID},{"value":colour,"field":"colour", "title": "Colour","v5cID":v5cID},{"value":reg,"field":"reg", "title": "Registration","v5cID":v5cID}]
 	increment=0;
 	
 	for(var i = bigData.length-1; i >= 0; i--)
@@ -318,13 +310,22 @@ function updateAsset(vin, make, model, colour, reg, v5cID, el)
 			bigData.splice(i,1);
 		}
 	}
+	var spans = '';
+	for(var i = 0; i < bigData.length; i++)
+	{
+		spans += '<div class="loaderSpan" id="span'+(i+1)+'"><u>'+bigData[i]['title']+'</u><br /><br /><span id="msg'+(i+1)+'Part1"></i>waiting...</i></span><br /><span id="msg'+(i+1)+'Part2"></span><br /><span id="msg'+(i+1)+'Part3"></span><br /><span id="msg'+(i+1)+'Part4"></span><br /></div>&nbsp;';
+	}
+	$('#loaderMessages').html(spans);
 	if(bigData.length > 0)
 	{
+		$('#chooseOptTbl').hide();
+		$('#loader').show();
 		updateField();
 	}
 	else
 	{
-		$('#errorRw').find('ul').append('<li>Nothing to update.</li>')
+		$('#chooseOptTbl').hide();
+		$('#fade').hide();
 	}
 	
 }
@@ -335,10 +336,16 @@ var succArr = [];
 function updateField()
 {
 	
+	var fieldId = bigData[increment].field.toLowerCase();
+		fieldId = fieldId.charAt(0).toUpperCase() + fieldId.slice(1);
+	
+	console.log("OLD VALUE: " + $('#hid'+fieldId).val());
+	
 	var data = {};
 	data.value = bigData[increment].value;
+	data.oldValue = $('#hid'+fieldId).val();
 	var found = [];
-	var field = bigData[increment].field
+	var field = bigData[increment].field;
 	var xhr = new XMLHttpRequest()
 	xhr.open("PUT", "/blockchain/assets/vehicles/"+bigData[increment].v5cID+"/"+bigData[increment].field, true)
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -362,17 +369,17 @@ function updateField()
 					}
 					if(!fnd)
 					{
-						$('#latestSpan').html('&#10004');
-						$('#latestSpan').attr('id','');
-						$('#loaderMessages').append('<i>'+JSON.parse(array[i]).message+' </i><span id="latestSpan">...</span><br>');
+						$('#latestSpan'+(increment+1)).html('&nbsp;&#10004');
+						$('#latestSpan'+(increment+1)).attr('id','');
+						$('#loaderMessages').find('#msg'+(increment+1)+'Part'+(found.length+1)).html('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan'+(increment+1)+'">...</span>');
 						found.push(JSON.parse(array[i]).message)
 					}
 				}
 				else
 				{
-					$('#latestSpan').html('&#10004');
-					$('#latestSpan').attr('id','');
-					$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i><br />');
+					$('#latestSpan'+(increment+1)).html('&nbsp;&#10004');
+					$('#latestSpan'+(increment+1)).attr('id','');
+					$('#loaderMessages').find('#msg'+(increment+1)+'Part'+(found.length+1)).html('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i><span id="latestSpan'+(increment+1)+'">...</span>');
 					errArr.push(field)
 				}
 			}
@@ -388,15 +395,15 @@ function updateField()
 			if(increment == bigData.length - 1){
 				if(errArr.length == 0)
 				{
+					$('#latestSpan'+(increment+1)).html('&nbsp;&#10004');
 					$('#loader img').hide();
-					$('#latestSpan').html('&#10004');
 					$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="confTrans();">OK</span>');
 					$('#confTxt').html('Updates committed to the blockchain.');
 				}
 				else
 				{
+					$('#latestSpan'+(increment+1)).html('&nbsp;&#10004');
 					$('#loader img').hide();
-					$('#latestSpan').html('&#10004');
 					$('#loaderMessages').append('<br /><br /><span id="okTransaction">OK</span>');
 					var b=document.getElementById('okTransaction')
 						b.onclick= function(arg1, arg2) {
@@ -408,9 +415,11 @@ function updateField()
 			}
 			else
 			{
-				$('#latestSpan').html('&#10004');
+				$('#latestSpan'+(increment+1)).html('&nbsp;&#10004');
 				increment++;
-				updateField();
+				setTimeout(function(){
+					updateField()
+				}, 500);
 			}
 		}
 	}

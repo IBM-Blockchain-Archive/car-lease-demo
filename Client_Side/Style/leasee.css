@@ -84,6 +84,30 @@ a:hover
 {
 	color:#BA0E6F;
 }
+
+#menuBtn
+{
+	border-color: #BA0E6F;
+}
+.menuBar
+{
+	background-color:#BA0E6F;
+}
+.userHdr
+{
+	border-bottom:2px solid #BA0E6F;
+}
+.userHldr:hover
+{
+	background-color:#BA0E6F;
+	color:#FFF;
+}
+.dropDowns
+{
+	border-color:#BA0E6F;
+	color:#BA0E6F;
+}
+
 #chooseConfMd
 {
 	color:#BA0E6F;

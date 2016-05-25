@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<title>Transfer Asset - Dealership</title>
+		<title>Dealership - Transfer Asset</title>
 		<link rel="stylesheet" type="text/css" href="Style/main.css" ></link>
 		<link rel="stylesheet" type="text/css" href="Style/contractData.css" ></link>
 		<link rel="stylesheet" type="text/css" href="Style/dealership.css" ></link>
@@ -9,7 +9,8 @@
 		<script src="JavaScript/plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 		<script src="JavaScript/plugins/jquery.mousewheel.js" type="text/javascript"></script>
 		<script src="JavaScript/config/config.js" type="text/javascript"></script>
-		<script>var pgNm="Dealership"; var sendDets = "Dealership: "+config.participants['dealership'].company; var recDets = "Lease Company"; var recPlural="Lease Companies"; var transferName = "private_to_lease_company";</script>
+		<script>var pgNm="Dealership"; var pgNmPlural="dealerships"; var sendDets = "Dealership: "+config.participants['dealership'].company; var recDets = "Lease Company"; var recPlural="Lease Companies"; var transferName = "private_to_lease_company";</script>
+		<script src="JavaScript/admin/identity.js" type="text/javascript"></script>
 		<script src="JavaScript/asset_functions/asset_interaction.js" type="text/javascript"></script>
 		<script src="JavaScript/asset_functions/asset_read.js" type="text/javascript"></script>
 		<script src="JavaScript/page_functions/vehicles_popup_functions.js" type="text/javascript"></script>
@@ -18,17 +19,16 @@
 		<script src="JavaScript/page_functions/page_functions.js" type="text/javascript"></script>
 		<script src="JavaScript/page_functions/scrollbar.js" type="text/javascript"></script>
 		<script src="JavaScript/participant_functions/recipients.js" type="text/javascript"></script>
-		<script src="JavaScript/admin/identity.js" type="text/javascript"></script>
 	</head>
-	<body onload="loadLogo('dealership'); loadParticipant('dealership')" >
+	<body>
 		<div id="fade" ></div>
 		<div id="loader" ><img src="Images/Dealership/loading.gif" height="100" width="100" alt="loading" text="please wait..." /><br /><br /><span id="loaderMessages" style="color:#008A52;"></span></div>
 		<table id="mainTbl" >
 			<tr>
 				<td class="smlBrk"></td>
-				<td id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /><span> &reg;</span></td>
+				<td id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /></td>
 				<td class="smlBrk"></td>
-				<td><span class="rtTxt bldTxt">&nbsp;BLOCKCHAIN ASSET TRANSFER DEMO</span></td>
+				<td><span class="rtTxt bldTxt">&nbsp;BLOCKCHAIN CAR LEASING DEMO</span></td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>
@@ -44,8 +44,19 @@
 					<a href="index.html" >Home</a>
 				</td>
 				<td class="smlBrk"></td>
-				<td>
-					<div id="user" class="rtTxt" ><span id="username" ></span> (Dealership: <span id="company"></span>)</div>
+				<td id="userStuff">
+					<div id="user" class="rtTxt" ><span id="userDets" ><span id="username" ></span> (<span id="userType">Dealership</span>: <span id="company"></span>)</span>&nbsp;<span id="menuBtn" onclick="toggleMenu()" ><div class="menuBar" ></div><div class="menuBar" ></div><span id="userBlock" class="menuWhiteBlock"></span></span></div>
+				</td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td class="dropTd" colspan="3">
+					<div class="usersDropMargin" id="mainMenu" >
+						<div id="users" class="dropDowns" >
+							<span class="userHdr" >Switch User...</span>
+						</div>
+					</div>
 				</td>
 				<td class="smlBrk"></td>
 			</tr>
@@ -70,7 +81,7 @@
 			</tr>
 			<tr>
 				<td class="smlBrk"></td>
-				<td class="bxBtm" id="lftBxBtm" ><img src="Icons/Dealership/add.svg" class="lftBtn" id="addToVhcls" width="15" height="15" /><img src="Icons/Dealership/minus.svg" class="rtBtn" id="remFrmVhcls" width="15" height="15" /></td>
+				<td class="bxBtm" id="lftBxBtm" ><img src="Icons/Dealership/add.svg" class="lftBtn" id="addToVhcls" width="15" height="15" /></td>
 				<td class="smlBrk" ></td>
 				<td class="bxBtm" id="rtBxBtm" ><img src="Icons/Dealership/add.svg" class="lftBtn" id="addToRec" width="15" height="15" /><img src="Icons/Dealership/minus.svg" class="rtBtn" id="remFrmRec" width="12" height="15" /></td>
 				<td class="smlBrk" ></td>

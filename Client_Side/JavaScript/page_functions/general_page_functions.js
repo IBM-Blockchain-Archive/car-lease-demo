@@ -1,12 +1,130 @@
 $(document).ready(function(){
 	$("#doneConf").on('click', function(){
+		var now = new Date();
+		var time = now.getTime() + 4*3600 * 1000;
+		now.setTime(time);
+		document.cookie = "confPgRefresh="+$('#username').html()+"; expires="+now.toUTCString()+"; path=/";
 		window.location.reload();
 	});
 	
 	$("#doneFail").on('click', function(){
+		var now = new Date();
+		var time = now.getTime() + 4*3600 * 1000;
+		now.setTime(time);
+		document.cookie = "confPgRefresh="+$('#username').html()+"; expires="+now.toUTCString()+"; path=/";
 		window.location.reload();
 	});
+	if(getCookie('confPgRefresh') != -1)
+	{
+		$('#username').html(getCookie("confPgRefresh"));
+		$('#company').html(getCookie("user").replace('_', ' '));
+		document.cookie = "confPgRefresh="+$('#username').html()+";expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+		if(window.location.href.indexOf('update') > -1)
+		{
+			loadUpdateAssets()
+		}
+	}
+	else
+	{
+		loadParticipant(pgNm.toLowerCase())
+		setCookie();
+		if(window.location.href.indexOf('update') > -1)
+		{
+			loadUpdateAssets()
+		}
+	}
+	getAltUsers();
 })
+
+function getAltUsers()
+{
+	
+	$.ajax({
+		type: 'GET',
+		dataType: 'json',
+		contentType: 'application/json',
+		crossDomain: true,
+		url: '/blockchain/participants/'+pgNmPlural,
+		success: function(d) {
+			
+			var data = d.result;
+			
+			for(var i = 0; i < data.length; i++)
+			{
+				 $('#users').append('<span class="userHldr userGroup" onclick="changeUser(\''+data[i].name+'\', \''+pgNmPlural+'\','+i+')" ><span>'+toTitleCase(data[i].name.replace('_', ' '))+'</span></span>')
+			}			
+		},
+		error: function(e)
+		{
+			console.log(e)
+		}
+	})
+}
+
+function changeUser(company, parent, pos)
+{
+	$('.userHldr').removeClass('userHldr'+$('#userType').html().replace(' ', ''))
+	$('#userDets').html('<span id="username" >'+config.participants.users[parent][pos].user+'</span> (<span id="userType">'+config.participants.users[parent][pos].type+'</span>: <span id="company">'+config.participants.users[parent][pos].company+'</span>)')
+	toggleMenu();
+	var now = new Date();
+	var time = now.getTime() + 4*3600 * 1000;
+	now.setTime(time);
+	document.cookie = "user="+company+"; expires="+now.toUTCString()+"; path=/";
+	/*
+	Creates a session on the application server using the user's account name
+	*/
+	$.ajax({
+		type: 'POST',
+		data: '{"participantType":"'+pgNmPlural+'","account": "'+company+'"}',
+		dataType : 'json',
+		contentType: 'application/json',
+		crossDomain:true,
+		url: '/admin/identity',
+		success: function(d) {
+			$('#selVhclsTbl').empty();
+			console.log(getCookie('user'))
+		},
+		error: function(e){
+			console.log(e)
+		},
+		async: false
+	});
+}
+
+var menuShowing = false;
+
+function toggleMenu()
+{
+	if(!menuShowing)
+	{
+		$('#userDets').animate({
+			marginRight: '-='+($('#userDets').width())
+		}, 500, function(){
+			$('#userDets').hide()
+			$('#users').slideDown(500)
+			$('.dropTd').animate({
+				paddingBottom: "+=21.5px"
+			}, 500)
+			$('#userBlock').css('display', 'block')
+		})
+	}
+	else
+	{
+		$('#users').slideUp(500)
+		$('.dropTd').animate({
+			paddingBottom: "-=21.5px"
+		}, 500)
+		setTimeout(function(){
+			$('#userBlock').css('display', 'none')
+			$('#userDets').show()
+			$('#userDets').animate({
+				marginRight: '10px'
+			}, 500)
+		}, 500)
+	}
+	$('#endUsers').css('display', 'none')
+	menuShowing = !menuShowing
+}
 
 function confTrans()
 {
@@ -85,4 +203,9 @@ function getAddress(dealer)
 function closeConf()
 {
 	window.location.reload();
+}
+
+function toTitleCase(str)
+{
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }

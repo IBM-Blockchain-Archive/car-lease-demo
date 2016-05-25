@@ -4,14 +4,19 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
+var vehicle_logs = require(__dirname+'/../../../vehicle_logs/vehicle_logs.js');
+var map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
+
+var user_id;
 
 function createV5cID(req, res)
 {
 	
-	res.write(JSON.stringify({"message":"Generating V5cID"})+'&&')
+	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 	
+	res.write(JSON.stringify({"message":"Generating V5cID"})+'&&')
 	var numbers = "1234567890";
-	var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var v5cID = "";
 	for(var i = 0; i < 7; i++)
 	{
@@ -21,6 +26,13 @@ function createV5cID(req, res)
 	v5cID = characters.charAt(Math.floor(Math.random() * characters.length)) + v5cID;
 	
 	checkIfAlreadyExists(req, res, v5cID)
+
+	if(typeof req.cookies.user != "undefined")
+	{
+		req.session.user = req.cookies.user;
+	}
+	
+	user_id = req.session.user;
 } 
 
 exports.create = createV5cID;
@@ -28,39 +40,46 @@ exports.create = createV5cID;
 function checkIfAlreadyExists(req, res, v5cID)
 {
 	res.write(JSON.stringify({"message":"Checking V5cID is unique"})+'&&');
-	
-	var chaincodeInvocationSpec = 	{
-										"chaincodeSpec": {
-											"type": "GOLANG",
-											"chaincodeID": {
-												"name": configFile.config.vehicle_address
-											},
-											"ctorMsg": {
-											  "function": "get_all",
-											  "args": [req.session.user, v5cID]
-											},
-											"secureContext": req.session.user,
-											"confidentialityLevel": "PUBLIC"
-										}
-									};
+
+	console.log("VEHICLE CREATE INVOKE NAME", v5cID, configFile.config.vehicle_name);
+
+	var querySpec =				{
+									  "jsonrpc": "2.0",
+									  "method": "query",
+									  "params": {
+									    "type": 1,
+									    "chaincodeID": {
+									      "name": configFile.config.vehicle_name
+									    },
+									    "ctorMsg": {
+									      "function": "get_all",
+									      "args": [
+									       		v5cID
+									      ]
+									    },
+									    "secureContext": user_id
+									  },
+									  "id": 123
+								};
+									
 									
 	var options = 	{
-						url: configFile.config.api_url+'/devops/query',
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
-						body: chaincodeInvocationSpec,
+						body: querySpec,
 						json: true
 					}
 	
 	request(options, function(error, response, body)
-	{
-		if (!error && response.statusCode == 200)
-		{
-			createV5cID(req, res)
-		}
-		else
+	{		
+		if (body.error.data.indexOf("Error retrieving v5c") > -1 && response.statusCode == 200)
 		{
 			tracing.create('ENTER', 'POST blockchain/assets/vehicles', []);
 			createVehicle(req, res, v5cID)
+		}
+		else
+		{
+			createV5cID(req, res)
 		}
 	})
 }
@@ -69,40 +88,44 @@ function createVehicle(req, res, v5cID)
 {
 	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 	res.write(JSON.stringify({"message":"Creating vehicle with v5cID: "+ v5cID})+'&&');
-	
-	var chaincodeInvocationSpec = 	{
-										"chaincodeSpec": {
-											"type": "GOLANG",
-											"chaincodeID": {
-												"name": configFile.config.vehicle_address
-											},
-											"ctorMsg": {
-												"function": "create_vehicle",
-												"args": [
-													req.session.user, v5cID
-												]
-											},
-											"secureContext": req.session.user,
-											"confidentialityLevel": "PUBLIC"
-										}
-									};
+									
+	var invokeSpec = {
+						  "jsonrpc": "2.0",
+						  "method": "invoke",
+						  "params": {
+						    "type": 1,
+						    "chaincodeID": {
+						      "name": configFile.config.vehicle_name
+						    },
+						    "ctorMsg": {
+						      "function": "create_vehicle",
+						      "args": [
+						        v5cID
+						      ]
+						    },
+						    "secureContext": user_id
+						  },
+						  "id": 123
+					}								
 	
 	var options = 	{
-						url: configFile.config.api_url+'/devops/invoke',
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
-						body: chaincodeInvocationSpec,
+						body: invokeSpec,
 						json: true
 					}
 					
 	request(options, function(error, response, body){
 		if (!error && response.statusCode == 200) {
 			var result = {};
-			result.message = "Confirming creation"
+			result.message = "Achieving Consensus"
 			res.write(JSON.stringify(result) + "&&")
 			confirmCreated(req, res, v5cID);
 		}
 		else
 		{
+			console.log(error);
+			
 			res.status(400)
 			var error = {}
 			error.message = 'Unable to create vehicle';
@@ -115,53 +138,49 @@ function createVehicle(req, res, v5cID)
 
 function confirmCreated(req, res, v5cID)
 {
-	
 	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
-	res.write(JSON.stringify({"message":"Creating vehicle with v5cID: "+ v5cID})+'&&');
-	
-	var chaincodeInvocationSpec =	{
-										"chaincodeSpec": {
-											"type": "GOLANG",
-											"chaincodeID": {
-												"name": configFile.config.vehicle_address
-											},
-											"ctorMsg": {
-											  "function": "get_all",
-											  "args": [
-												req.session.user, v5cID
-											  ]
-											},
-											"secureContext": req.session.user,
-											"confidentialityLevel": "PUBLIC"
-										}
-									};
+
+	var querySpec =				{
+									  "jsonrpc": "2.0",
+									  "method": "query",
+									  "params": {
+									    "type": 1,
+									    "chaincodeID": {
+									      "name": configFile.config.vehicle_name
+									    },
+									    "ctorMsg": {
+									      "function": "get_all",
+									      "args": [
+									       		v5cID
+									      ]
+									    },
+									    "secureContext": user_id
+									  },
+									  "id": 123
+								};
 	
 	var options = 	{
-						url: configFile.config.api_url+'/devops/query',
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
-						body: chaincodeInvocationSpec,
+						body: querySpec,
 						json: true
 					}
 	var counter = 0;
 	var interval = setInterval(function(){
 		if(counter < 5){				
 			request(options, function(error, response, body){
-				if (!error && response.statusCode == 200) {
+				console.log("VEHICLE CREATE RESPONSE",body);
+				if (!body.hasOwnProperty("error") && response.statusCode == 200) {
+					
+					console.log("VeHICLE CREATE CONFIRMED", v5cID)
+					
 					var result = {}
-					result.message = "Creation confirmed"
-					result.v5cID = v5cID
-					res.end(JSON.stringify(result))
+					result.message = "Creation confirmed";
+					result.v5cID = v5cID;
 					clearInterval(interval);
+					vehicle_logs.create(["Create", "Create V5C", v5cID, user_id], req,res);
 					tracing.create('EXIT', 'POST blockchain/assets/vehicles', JSON.stringify(result));
-				}
-				else
-				{
-					res.status(400)
-					var error = {}
-					error.error = true;
-					error.message = 'Unable to connect to API URL';
-					res.end(JSON.stringify(error))
-					tracing.create('ERROR', 'POST blockchain/assets/vehicles', 'Unable to connect to API URL')
+					res.end(JSON.stringify(result))
 				}
 			})
 			counter++

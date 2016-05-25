@@ -6,35 +6,50 @@
 		<link rel="stylesheet" type="text/css" href="Style/ledger.css" ></link>
 		<script src="JavaScript/plugins/jQuery-1.11.3.js" type="text/javascript"></script>
 		<script src="JavaScript/plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+		<script>var pgNm="Regulator"; var pgNmPlural = "regulators"</script>		
 		<script src="JavaScript/ledger/ledger.js" type="text/javascript"></script>
 		<script src="JavaScript/config/config.js" type="text/javascript"></script>
 		<script src="JavaScript/admin/identity.js" type="text/javascript"></script>
-		<script>var pgNm="Regulator";</script>
 	</head>
-	<body onload="loadLogo('regulator'); loadParticipant('regulator');" >
+	<body>
 		<table id="mainTbl" class="noFix" >
 			<tr>
 				<td class="smlBrk"></td>
-				<td colspan="2" id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /><span> &reg;</span></td>
-				<td colspan="3" ><span class="rtTxt bldTxt">&nbsp;BLOCKCHAIN ASSET TRANSFER DEMO</span></td>
+				<td colspan="2" id="topRw"><img id="logo" src="" alt="company logo" text="company logo" /><span class="txtColorChng"></span></td>
+				<td colspan="3" ><span class="rtTxt bldTxt txtColorChng">&nbsp;BLOCKCHAIN CAR LEASING DEMO</span></td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>
-				<td class="smlBrk brkRw"></td>
-				<td class="brkRw" colspan="5" ></td>
-				<td class="smlBrk brkRw"></td>
+				<td class="smlBrk bgColorChng brkRw"></td>
+				<td class="brkRw bgColorChng" colspan="5" ></td>
+				<td class="smlBrk brkRw bgColorChng"></td>
 			</tr>
 			<tr>
 				<td class="smlBrk"></td>
-				<td colspan="5" class="homeBtn"><a href="index.html" >Home</a><div id="user" class="rtTxt" ><span id="username" ></span> (Regulator: <span id="company"></span>)</div></td>
+				<td colspan="5" class="homeBtn"><a href="index.html" class="txtColorChng" >Home</a><div id="user" class="rtTxt" ><span id="userDets" class="txtColorChng" ><span id="username" ></span> (<span id="userType">Regulator</span>: <span id="company"></span>)</span>&nbsp;<span id="menuBtn" class="bdrColorChng" onclick="toggleMenu()" ><div class="menuBar bgColorChng" ></div><div class="menuBar bgColorChng" ></div><span id="userBlock" class="menuWhiteBlock"></span></span></div></td>
+				<td class="smlBrk"></td>
+			</tr>
+			<tr>
+				<td class="smlBrk"></td>
+				<td colspan="5">
+					<div class="usersDropMargin" id="mainMenu" >
+						<div id="users" class="dropDowns txtColorChng bdrColorChng" >
+							<span class="userHdr" >View As...</span>
+						</div>
+					</div>
+					<div class="usersDropMargin" id="endUsers">
+						<div id="theirUsers" class="dropDowns txtColorChng bdrColorChng" >
+						</div>
+					</div>
+				</td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr>
 				<td class="smlBrk"></td>
 				<td colspan="5" id="filterRw">
-					<div id="findV5CID" ><input id="searchBar" type="text" onkeyup="runSearch()" onclick="clearSearch()" value="Search by V5C ID..." /></div>
-					<div id="filtTxt" class="dropTop" onclick="toggleFilters()" >Filters &or;<span id="filtBlock" class="whiteBlock" ></span></div>
-					<div id="sortTxt" class="dropTop" onclick="toggleSorts()" >Sort &or;<span id="sortBlock" class="whiteBlock" ></span></div>
+					<div id="findV5CID" class="bdrColorChng" ><input id="searchBar" class="txtColorChng" type="text" onkeyup="runSearch()" onclick="clearSearch()" value="Search by V5C ID..." /></div>
+					<div id="filtTxt" class="dropTop txtColorChng bdrColorChng" onclick="toggleFilters()" >Filters &or;<span id="filtBlock" class="whiteBlock" ></span></div>
+					<div id="sortTxt" class="dropTop txtColorChng bdrColorChng" onclick="toggleSorts()" >Sort &or;<span id="sortBlock" class="whiteBlock" ></span></div>
 				</td>
 				<td class="smlBrk"></td>
 			</tr>
@@ -43,7 +58,7 @@
 				<td colspan="4"></td>
 				<td>
 					<div class="dropTopMargins" >
-						<div id="filters" class="dropDowns" >
+						<div id="filters" class="dropDowns txtColorChng" >
 							<span class="filterHldr" >Create <span class="filterBox" onclick="hideType(this, 'Create')" ></span></span>
 							<span class="filterHldr" >Transfer <span class="filterBox" onclick="hideType(this, 'Transfer')" ></span></span>
 							<span class="filterHldr" >Update <span class="filterBox" onclick="hideType(this, 'Update')"></span></span>
@@ -51,9 +66,9 @@
 						</div>
 					</div>
 					<div class="dropTopMargins" >
-						<div id="sorts" class="dropDowns" >
-							<span class="sortHldr" onclick="sortTime('asc')" >Time: newest &rarr; oldest</span>
-							<span class="sortHldr" onclick="sortTime('desc')" >Time: oldest &rarr; newest</span>
+						<div id="sorts" class="dropDowns txtColorChng" >
+							<span class="sortHldr" onclick="sortTime('asc',false)" >Time: newest &rarr; oldest</span>
+							<span class="sortHldr" onclick="sortTime('desc',false)" >Time: oldest &rarr; newest</span>
 							<span class="sortHldr" onclick="sortV5CID('desc')" >V5C ID: A &rarr; Z</span>
 							<span class="sortHldr" onclick="sortV5CID('asc')" >V5C ID: Z &rarr; A</span>
 						</div>

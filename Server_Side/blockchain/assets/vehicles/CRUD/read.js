@@ -1,44 +1,59 @@
 /*eslint-env node*/
 
-var request = require('request');
+var request = require("request")
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
+var map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js')
+
+
+var user_id;
 
 function getV5cIDs(req, res)
 {
-
+	
+	if(typeof req.cookies.user != "undefined")
+	{
+		req.session.user = req.cookies.user;
+	}
+	
+	user_id = req.session.user;
+	
 	tracing.create('ENTER', 'GET blockchain/assets/vehicles', []);
 	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 	var ids = [];
-	var chaincodeInvocationSpec =	 {
-										"chaincodeSpec": {
-											"type": "GOLANG",
-											"chaincodeID": {
-												"name": configFile.config.vehicle_log_address
-											},
-											"ctorMsg": {
-											  "function": "get_logs",
-											  "args": [req.session.user]
-											},
-											"secureContext": req.session.user,
-											"confidentialityLevel": "PUBLIC"
-										}
-										
-									};
+									
+									
+	var querySpec = {
+					  "jsonrpc": "2.0",
+					  "method": "query",
+					  "params": {
+					    "type": 1,
+					    "chaincodeID": {
+					      "name": configFile.config.vehicle_log_name
+					    },
+					    "ctorMsg": {
+					      "function": "get_vehicle_logs",
+					      "args": []
+					    },
+					    "secureContext": user_id
+					  },
+					  "id": 111
+					}
 	
 	var options = 	{
-						url: configFile.config.api_url+'/devops/query',
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
-						body: chaincodeInvocationSpec,
+						body: querySpec,
 						json: true
 					}
 					
 	request(options, function(error, response, body)
 	{
-		if (!error && response.statusCode == 200)
+		if (!body.hasOwnProperty("error") && response.statusCode == 200)
 		{
-			var data = body.OK.logs
+			var data = JSON.parse(body.result.message).vehicle_logs;
+
 			if(typeof data != undefined)
 			{
 				for(var i = data.length-1; i > -1; i--)
@@ -66,7 +81,7 @@ function getV5cIDs(req, res)
 				error.error = true;
 				error.message = 'Unable to get blockchain assets';
 				res.end(JSON.stringify(error))
-				//tracing.create('ERROR', 'GET blockchain/assets/vehicles', 'Unable to get blockchain assets');
+				tracing.create('ERROR', 'GET blockchain/assets/vehicles', 'Unable to get blockchain assets');
 			}
 		}
 		else
@@ -85,33 +100,41 @@ exports.read = getV5cIDs;
 
 function getV5cDetails(ids, i, req, res)
 {
-	var chaincodeInvocationSpec = 	{
-										"chaincodeSpec": {
-											"type": "GOLANG",
-											"chaincodeID": {
-												"name": configFile.config.vehicle_address
-											},
-											"ctorMsg": {
-											  "function": "get_all",
-											  "args": [req.session.user, ids[i].toString()]
-											},
-												"secureContext": req.session.user,
-												"confidentialityLevel": "PUBLIC"
-										}
-									};
+	
+	var querySpec = {
+					  "jsonrpc": "2.0",
+					  "method": "query",
+					  "params": {
+					    "type": 1,
+					    "chaincodeID": {
+					      "name": configFile.config.vehicle_name
+					    },
+					    "ctorMsg": {
+					      "function": "get_all",
+					      "args": [
+					        ids[i].toString()
+					      ]
+					    },
+					    "secureContext": user_id
+					  },
+					  "id": 123
+					}	
+								
+							
 									
 	var options = 	{
-					url: configFile.config.api_url+'/devops/query',
+					url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 					method: "POST", 
-					body: chaincodeInvocationSpec,
+					body: querySpec,
 					json: true
 				}
 				
 	request(options, function(error, response, body)
 	{
-		if (!error && response.statusCode == 200)
+		
+		if (!body.hasOwnProperty("error") && response.statusCode == 200)
 		{
-			var resp = body.OK;
+			var resp = JSON.parse(body.result.message);
 			resp.v5cID = ids[i];
 			res.write(JSON.stringify(resp)+'&&');
 			if(i < ids.length -1)
@@ -126,7 +149,9 @@ function getV5cDetails(ids, i, req, res)
 		}
 		else
 		{
-			if(body.Error.indexOf("Permission Denied") > -1)
+			console.log("VEHICLES READ ERROR", body.error)
+			
+			if(body.error.data.indexOf("Permission Denied") > -1)
 			{
 				if(i < ids.length -1)
 				{
@@ -137,7 +162,6 @@ function getV5cDetails(ids, i, req, res)
 					res.end();
 					tracing.create('EXIT', 'GET blockchain/assets/vehicles', 'Got '+(i+1)+' vehicles');
 				}
-
 			}
 			else
 			{

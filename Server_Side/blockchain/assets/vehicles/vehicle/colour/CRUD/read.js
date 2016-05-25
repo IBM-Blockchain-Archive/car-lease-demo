@@ -1,5 +1,4 @@
-/*eslint-env node*/
-
+/*eslint-env node */
 var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
@@ -15,26 +14,32 @@ var read = function (req,res)
 	{
 		req.session.user = req.cookies.user;
 	}
-	
-	var chaincodeInvocationSpec = 	{
-										"chaincodeSpec": {
-											"type": "GOLANG",
+
+	var querySpec =					{
+										"jsonrpc": "2.0",
+										"method": "query",
+										"params": {
+										    "type": 1,
 											"chaincodeID": {
-											  "name": configFile.config.vehicle_address
+												"name": configFile.config.vehicle_name
 											},
 											"ctorMsg": {
-												"function": "get_all",
-												"args": [ req.session.user, v5cID ]
+											  "function": "get_all",
+											  "args": [
+											  		v5cID
+											  ]
 											},
 											"secureContext": req.session.user,
-											"confidentialityLevel": "PUBLIC"
-										}
-									}
-	
+										},
+										"id": 123
+									};
+									
+
+
 	var options = 	{
-					url: configFile.config.api_url+'/devops/query',
+					url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 					method: "POST", 
-					body: chaincodeInvocationSpec,
+					body: querySpec,
 					json: true
 				}
 	
@@ -43,7 +48,7 @@ var read = function (req,res)
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}
-			result.colour = body.OK.colour;
+			result.vehicle = JSON.parse(body.result.message);
 			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', JSON.stringify(result));
 			res.send(result)
 		}

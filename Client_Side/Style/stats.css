@@ -1,283 +1,382 @@
 .allBord
-
 {
-
 	border:2px solid #00648D;
-
 }
-
 .noLBord
-
 {
-
 	border-right:2px solid #00648D;
-
 	border-top:2px solid #00648D;
-
 	border-bottom:2px solid #00648D;
-
 }
-
 .noRBord
-
 {
-
 	border-left:2px solid #00648D;
-
 	border-top:2px solid #00648D;
-
 	border-bottom:2px solid #00648D;
-
 }
-
 .statsRw
-
 {
-
 	color: #00648D;
-
 	text-align:right;
-
 	padding:3px;
-
 	font-size:1.2em;
-
 }
-
 .valDisp
-
 {
-
 	position:relative;
-
 	font-size:2em;
-
 	display:block;
-
 	height:75px;
-
 }
-
 .valDisp span
-
 {
-
 	position:absolute;
-
 	bottom:0;
-
 	right:0;
-
 }
-
 .statsSmlRw
-
 {
-
 	color: #00648D;
-
 	text-align:left;
-
 	padding:3px;
-
 	font-size:1.2em;
-
 }
-
 .smlValDisp
-
 {
-
 	padding-left:5px;
-
 }
-
 .contHldr
-
 {
-
 	display: block;
-
 	width: 100%;
-
 	overflow: hidden;
-
 }
-
 .cont
-
 {
-
 	height:75px;
-
 	display:block;
-
 	overflow:hidden;
-
 	text-align:left;
-
 	z-index:1;
-
 	width:100%;
-
 	white-space:no-wrap;
-
 }
-
 .cont .bar
-
 {
-
 	background-color: #00648D;
-
 	width:5px;
-
 	border-left:1px solid #FFF;
-
 	border-right:1px solid #FFF;
-
 	border-bottom:3px solid #FFF;
-
 	display:inline-block;
-
 	bottom:0;
-
 	z-index:100;
-
 	margin-left:-7px;
-
 }
-
-
 
 .cont .bar-behind
-
 {
-
 	background-color: #FFF;
-
 	width:7px;
-
 	border-bottom:3px solid #FFF;
-
 	display:inline-block;
-
 	top:0;
-
 }
-
 .cont div
-
 {
-
 	bottom:0;
-
 	width:100%;
-
 	height:5px;
-
 	margin-top:-3px;
-
 	background-color:#F00;
-
 	z-index:100;
-
 }
-
-
 
 .homeBtn
-
 {
-
 	color:#00648D;
-
-	padding:10px;
-
+	padding:10px 2px 10px 2px;
 }
-
 .hover-span
-
 {
-
 	position:absolute;
-
 	top:100px;
-
 	background-color:#4C4D53;
-
 	color:#FFF;
-
 	font-size:0.6em;
-
 	height:20px;
-
 	padding-top:6px;
-
 	text-align: center;
-
 	border:20px solid:#FFF;
-
 	display:none;
-
 	min-width:30px;
-
 	padding-left:5px;
-
 	padding-right:6px;
-
 }
-
 .hover-span div
-
 {
-
 	margin-top:-30px;
-
 	width: 0; 
-
 	height: 0; 
-
 	border-left: 10px solid transparent;
-
 	border-right: 10px solid transparent;
-
 	border-bottom: 10px solid #4C4D53;
-
 	background-color:transparent!important;
-
 }
-
 .startBar
-
 {
-
 	width: 2px;
-
 	background-color: #BBB;
-
 	height: 100%;
-
 	display:inline-block;
-
+}
+.startMark
+{
+	font-size: 0.5em;
+	white-space: nowrap;
+	color: #AAA;
+	transform: rotate(90deg);
+	transform-origin: right top 0px;
+	display: inline-block;
+	margin-left: -20px;
 }
 
-.startMark
-
+.bigTxt
 {
+	color: #00648d;
+	padding-top: 50px;
+	padding-bottom: 15px;
+	font-size:1.5em;
+}
+#leftHldr
+{
+	float:left;
+	padding-right:10px;
+	background-color:#fff;
+	cursor:pointer;
+}
+.arrow_left_box {
+	position:relative;
+	float: left;
+	background: #FFF;
+	border-left: 2px solid #00648D;
+	width: 0px;
+	height: 75px;
+	margin-left: 15px;
+}
+.arrow_left_box:after, .arrow_left_box:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
 
-	font-size: 0.5em;
+.arrow_left_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #FFF;
+	border-width: 15px;
+	margin-top: -15px;
+}
+.arrow_left_box:before {
+	border-color: rgba(0, 100, 141, 0);
+	border-right-color: #00648D;
+	border-width: 18px;
+	margin-top: -18px;
+}
 
+#rightHldr
+{
+	float:right;
+	padding-left:10px;
+	background-color:#fff;
+	cursor:pointer;
+}
+
+.arrow_right_box {
+	position:relative;
+	float: right;
+	background: #FFF;
+	border-right: 2px solid #00648D;
+	width: 0px;
+	height: 75px;
+	margin-right: 15px;
+}
+.arrow_right_box:after, .arrow_right_box:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_right_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-left-color: #FFF;
+	border-width: 15px;
+	margin-top: -15px;
+}
+.arrow_right_box:before {
+	border-color: rgba(0, 100, 141, 0);
+	border-left-color: #00648D;
+	border-width: 18px;
+	margin-top: -18px;
+}
+
+#blockHolder
+{
+	height: 500px;
 	white-space: nowrap;
+	overflow-x:hidden;
+	background-image: url("../Icons/minus.svg");
+	background-size: 20px;
+	background-repeat: repeat-x;
+	background-position: 0px 28px;
+}
 
-	color: #AAA;
+#blockScroll
+{
+	float:left;
+}
+.singleBlockContainer
+{
+	display:inline-block;
+	float:left;
+}
 
-	transform: rotate(90deg);
+.singleBlockContainer:first-child .exBlock
+{
+	margin-left:0px;
+}
 
-	transform-origin: right top 0px;
+.singleBlockContainer:first-child .triangle_down
+{
+	margin-left:224px!important;
+}
 
-	display: inline-block;
+.singleBlockContainer:first-child .triangle_down_big
+{
+	margin-left:221px!important;
+}
 
-	margin-left: -20px;
+.singleBlockContainer:last-child .exBlock
+{
+	margin-right:0px;
+}
 
+.exBlock span
+{
+	display:inline-block;
+	height:25px;
+	font-size:25px;
+	margin-top:15px;
+}
+
+.singleBlockContainer:first-child .blockData
+{
+	margin-left:0px;
+}
+
+.blockData
+{
+	margin-top:-20px;
+	margin-left:5px;
+	width:486px;
+	padding:30px 5px 5px 5px;
+	border:2px solid #00648D;
+	border-top:none;
+	display:none;
+	text-align:left;
+	float:left;
+}
+
+.blockData span
+{
+	font-size: 1.2em;
+	color:#00648D;
+	white-space:normal;
+	word-break: break-all;
+	padding: 0px 5px 0px 5px;
+}
+
+.blockData span b
+{ 
+	font-weight: 600;
+}
+
+.blockHash
+{
+	height:100px;
+}
+
+.prevHash
+{
+	height:100px;
+}
+
+.blocksTransactionsHdr
+{
+	border: 2px solid #00648D;
+	width: 470px;
+	padding: 5px!important;
+	background-color:#00648D;
+	color:#FFF!important;
+}
+
+.blocksTransactions
+{
+	border: 2px solid #00648D;
+	width: 470px;
+	padding: 5px!important;
+	margin-top:-2px;
+	white-space:nowrap!important;
+	text-overflow: ellipsis;
+	overflow:hidden;
+}
+.triangle_down
+{
+	margin-top:-28px;
+	width: 0; 
+	height: 0; 
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-top: 25px solid #FFF;
+	margin-left:229px;
+	display:none;
+	z-index:98;
+	position:relative;
+}
+
+.triangle_down_big
+{
+	width: 0; 
+	height: 0; 
+	border-left: 28px solid transparent;
+	border-right: 28px solid transparent;
+	border-top: 28px solid #00648D;
+	margin-top:26px;
+	margin-left:226px;
+	display:none;
+}
+.exBlock
+{
+	float:left;
+	display:inline-block;
+	height: 61px;
+	width: 61px;
+	margin-left:5px;
+	margin-right: 5px;
+	border: 2px solid #00648D;
+	color:#00648D;
+	padding:5px;
+	margin-top:0px;
+	cursor:pointer;
+	text-align:center;
+	background-color:#FFF;
 }

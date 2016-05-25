@@ -5,13 +5,13 @@ var participants = require(__dirname+'/../../blockchain/participants/participant
 
 var id_to_user = function(data)
 {
-	for(var role in participants.participants)
+	for(var role in participants.participants_info)
 	{
-		for(var j = 0; j < participants.participants[role].length; j++)
+		for(var j = 0; j < participants.participants_info[role].length; j++)
 		{
-			if(participants.participants[role][j].identity == data)
+			if(participants.participants_info[role][j].identity == data)
 			{
-				return participants.participants[role][j].name;
+				return participants.participants_info[role][j].name;
 			}
 		}
 	}
@@ -19,28 +19,25 @@ var id_to_user = function(data)
 
 var user_to_id = function(data)
 {
-	for(var role in participants.participants)
+	for(var role in participants.participants_info)
 	{
-		for(var j = 0; j < participants.participants[role].length; j++)
+		for(var j = 0; j < participants.participants_info[role].length; j++)
 		{
-			if(participants.participants[role][j].name == data)
+			if(participants.participants_info[role][j].name == data)
 			{
-				return participants.participants[role][j].identity;
+				return participants.participants_info[role][j].identity;
 			}
 		}
 	}
 };
 
-var get_password = function(data)
+var get_password = function(partType, data)
 {
-	for(var role in participants.participants)
+	for(var i = 0; i < participants.participants_info[partType].length; i++)
 	{
-		for(var j = 0; j < participants.participants[role].length; j++)
+		if(participants.participants_info[partType][i].name == data || participants.participants_info[partType][i].identity == data)
 		{
-			if(participants.participants[role][j].name == data || participants.participants[role][j].identity == data)
-			{
-				return participants.participants[role][j].password;
-			}
+			return participants.participants_info[partType][i].password;
 		}
 	}
 };

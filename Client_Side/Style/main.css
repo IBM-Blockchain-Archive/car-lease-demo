@@ -8,7 +8,7 @@
 }
 @font-face {
     font-family: roboto-bold;
-    src: url('../Fonts/roboto-2014/Roboto-Bold.ttf');
+    src: url('../Fonts/roboto-2014/Roboto-Bold.ttf');z
 }
 body
 {
@@ -87,7 +87,6 @@ body
 #txtBxRw
 {
 	padding-top:25.5px;
-	padding-bottom:25.5px;
 }
 .txtBx
 {
@@ -219,10 +218,16 @@ body
 {
 	border:2px solid #00648D;
 }
-.greyOut
+.welcomeMsgTxt
 {
-	color: #CCC!important;
-	pointer-events: none!important;
+	background-color:#00648D;
+	color:#FFF;
+}
+
+.greyOutLink
+{
+	color: #CCC !important;
+	pointer-events: none !important;
 	cursor: default;
 }
 
@@ -249,6 +254,116 @@ a:hover
 #recipientInfo div
 {
 	padding:0 5px 0 5px;
+}
+.dropTd
+{
+	padding-bottom:4.5px;
+}
+#user
+{
+	position: relative;
+	left: -31px;
+}
+#menuBtn
+{
+	display:inline-block;
+	bottom:0px;
+	position:absolute;
+	margin-left: 10px;
+	border: 2px solid #00648D;
+	padding:4px;
+	width:18px;
+	height: 8px;
+	cursor:pointer;
+	background-color:#FFF;
+	right:-32px;
+}
+.menuBar
+{
+	height: 2px;
+	width: 100%;
+	background-color: #00648D;
+	margin-bottom: 4px;
+}
+.usersDropMargin
+{
+	margin-top: -4px;
+	margin-right: -1px;
+	margin-bottom: 35px;
+}
+.menuWhiteBlock
+{
+	width: 100%;
+	padding-left: 4px;
+	padding-right: 4px;
+	height: 5px;
+	background-color: #FFF;
+	margin-bottom: -7.5px;
+	margin-left: -4px;
+	display:none;
+}
+#users
+{
+	display:none;
+}
+#endUsers 
+{
+	position: relative;
+	left: 2px;
+	top: 0px;
+	display:none;
+}
+.userHdr
+{
+	display: inline-block;
+	width: 230px;
+	padding: 10px;
+	cursor: default;
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 2px solid #00648D;
+	background-color: #FFF;
+}
+.userHldr
+{
+	display: inline-block;
+	width: 230px;
+	padding: 10px;
+	cursor: pointer;
+	border-right:2px solid #FFF;
+	height:20px;
+	line-height:20px;
+	background-color: #FFF;
+}
+.userGroup
+{
+	border: none;
+}
+#userDets
+{
+	display:inline-block;
+	margin-right:10px;
+}
+#userStuff
+{
+	overflow:hidden;
+	padding-top:25.5px;
+}
+.dropDowns
+{
+	float: right;
+	width: 250px;
+	border: 2px solid #00648D;
+	color: #00648D;
+}
+.txtBox {
+    	border: 2px solid #00648D;
+    	color: #00648D;
+    	padding: 5px;
+    	font-size: 1em;
+   	font-family: HelveticaNeue-Light,Helvetica,Arial,sans-serif;
+    	font-weight: 100;
+	float:left;
 }
 
 /************************************************************************************************************************************/
@@ -303,7 +418,6 @@ a:hover
 #chooseConfMd
 {
 	white-space:normal;
-	word-break: break-all;
 	height:auto;
 	color:#00648D;
 }

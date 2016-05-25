@@ -9,12 +9,12 @@ var read = function(req, res)
 {
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var options = {
-		url: configFile.config.api_url+'/chain',
+		url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
 		method: "GET"
 	};
 	request(options, function (error, response, body){
 		if (!error && response.statusCode == 200) {
-			res.send({"height": JSON.parse(body).height});	
+			res.send({"height": JSON.parse(body).height, "currentBlockHash": JSON.parse(body).currentBlockHash});	
 		}
 		else
 		{

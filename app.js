@@ -1,125 +1,77 @@
+"use strict";
+/* global process */
+/* global __dirname */
 /*eslint-env node*/
 
-//===============================================================================================
-//	Required Node JS Modules
-//===============================================================================================
+/*******************************************************************************
+ * Copyright (c) 2015 IBM Corp.
+ *
+ * All rights reserved.
+ *
+ *******************************************************************************/
+/////////////////////////////////////////
+///////////// Setup Node.js /////////////
+/////////////////////////////////////////
+var express 		= require('express');
+var session 		= require('express-session');
+var cookieParser 	= require('cookie-parser');
+var bodyParser 		= require('body-parser');
+var http 			= require('http');
+var app 			= express();
+var url 			= require('url');
+var cors 			= require("cors");
+var fs 				= require("fs");
+//var cfenv		 	= require('cfenv');
 
-var cfenv 		 = require('cfenv');
-var express 	 = require('express');
-var session 	 = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser 	 = require('body-parser');
-var cors 		 = require('cors');
 
-//===============================================================================================
-//	Required Local Modules
-//===============================================================================================
-
-var blocks 		 	= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js')
-var block 		 	= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
-var vehicles 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
+//Our own modules
+var blocks 			= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
+var block 		 	= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
+var participants 	= require(__dirname+'/Server_Side/blockchain/participants/participants.js');
+var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js');
+var vehicles	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
-var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js')
-var participants 	= require(__dirname+'/Server_Side/blockchain/participants/participants.js')
-var events 		 	= require(__dirname+'/Server_Side/blockchain/events/events.js')
-var trace 			= require(__dirname+'/Server_Side/tools/traces/trace.js')
-//var configFile		= require(__dirname+'/Server_Side/configurations/configuration.js')
-//var vehicle_log_cc	= require(__dirname+'/Server_Side/blockchain/chaincode/vehicle_logs/vehicle_logs.js')
-//var vehicle_cc		= require(__dirname+'/Server_Side/blockchain/chaincode/vehicles/vehicles.js')
+var vehicle_logs	= require(__dirname+'/Server_Side/blockchain/vehicle_logs/vehicle_logs.js')
+var demo 	 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
+var chaincode 	 	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 
-//===============================================================================================
-//	Setup
-//===============================================================================================
+//User manager modules
+var user_manager = require(__dirname+'/utils/user.js');
 
-var app = express();
-	app.use(express.static(__dirname + '/Client_Side'));											// setup directory to serve the HTML pages											// get the app environment from Cloud Foundry
-	app.use(cors());
-	app.use(bodyParser.json());
-	app.use(cookieParser())
-	app.use(session({
-						secret: 		   '123',		
-						resave: 		   true, 
-						saveUninitialized: true, 
-						cookie: 		   
-						{
-						   maxAge: 36000000,
-						   httpOnly: false
-						}
-					}));																			// creating a session instance
+var configFile 		= require(__dirname+'/Server_Side/configurations/configuration.js');	 
 
-var appEnv = cfenv.getAppEnv();	
 
-// Step 1 ==================================
-//var Ibc1 = require('ibm-blockchain-js');
-//var ibc = new Ibc1();
-//var chaincode = {};
+console.log(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
 
-// ==================================
-// configure ibc-js sdk
-// ==================================
+//// Set Server Parameters ////
+var host = process.env.VCAP_APP_HOST;
+var port = process.env.VCAP_APP_PORT;
 
-//var peers = configFile.config.credentials.peers;
-//var users = configFile.config.credentials.users;
-/*
-var options =   {
-	network:{
-		peers: peers,
-		users:  users
-	},
-	chaincode:{
-		//zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
-		//unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
-		//git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
-	}
-};
-*/
-/*
-var vehicle_log_cc = {
-	
-	zip_url: 'https://github.com/jpayne23/Car-Lease-Demo/archive/master.zip',
-	unzip_dir: 'Car-Lease-Demo-master/Chaincode/vehicle_log_code',
-	git_url: 'https://github.com/jpayne23/Chaincode/vehicle_log_code'
-	
-}
-*/
-/*
-// Step 2 ==================================
-//ibc.load(options, cb_ready);
-ibc.network(peers);
+console.log("Server info", host, port)
 
-for(var i = 0; i < users.length; i++)
-{
-	ibc.register(0,users[i].username, users[i].secret)
-	ibc.register(1,users[i].username, users[i].secret)
-}
-*/
-//setTimeout(function(){vehicle_log_cc.create();},3000);
+// For logging
+var TAG = "app.js:";
 
-//setTimeout(function(){vehicle_cc.create();},3000);
+//Connector stuff
+var dataSource;
 
-/* ******************************************************ADD DEPLOYING CHAINCODE ON STARTUP********************************************************************** */
+////////  Pathing and Module Setup  ////////
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(session({secret: 'Somethignsomething1234!test', resave: true, saveUninitialized: true}));
 
-// Step 3 ==================================
+// Enable CORS preflight across the board.
+app.options('*', cors());
+app.use(cors());
 
-/*ibc.load_chaincode(vehicle_log_cc, cb_ready)
 
-function cb_ready(err, cc){                             //response has chaincode functions
+app.use(express.static(__dirname + '/Client_Side'));
 
-	// Step 4 ==================================
-	        
-	cc.deploy('init', [''], './Chaincode/vehicle_log_code', cb_deployed);
-	
-}
-
-// Step 5 ==================================
-function cb_deployed(err){
-	console.log('sdk has deployed code and waited');
-	chaincode.read('a');
-}
-*/
 //===============================================================================================
 //	Routing
 //===============================================================================================
+
 //-----------------------------------------------------------------------------------------------
 //	Admin - Identity
 //-----------------------------------------------------------------------------------------------
@@ -130,46 +82,53 @@ app.post('/admin/identity', function(req, res) 	//Sets the session user to have 
 });
 
 //-----------------------------------------------------------------------------------------------
-//	Tools - Traces
+//	Admin - Demo
 //-----------------------------------------------------------------------------------------------
 
-app.get('/tools/traces', function(req, res)		//NOT WORKING YET(Can't write to file, can read from it though) - Sets the session user to have the account address for the page they are currently on
+app.post('/admin/demo', function(req, res)
 {
-	trace.read(req, res);
+	demo.create(req, res);
 });
 
-app.put('/tools/traces', function(req, res)
+app.get('/admin/demo', function(req, res)
 {
-	trace.update(req, res);
+	demo.read(req, res);
+});
+
+//-----------------------------------------------------------------------------------------------
+//	Blockchain - chaincode
+//-----------------------------------------------------------------------------------------------
+app.post('/blockchain/chaincode/vehicles', function(req, res){
+	chaincode.vehicles.create(req, res)
+});
+
+app.post('/blockchain/chaincode/vehicle_logs', function(req, res){
+	chaincode.vehicle_logs.create(req, res)
 });
 
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Blocks
 //-----------------------------------------------------------------------------------------------
-
 app.get('/blockchain/blocks', function(req, res){
 	blocks.read(req, res);
 });
 
-app.get('/blockchain/blocks/:blockNum(\\d+)/', function(req, res){
+app.get('/blockchain/blocks/:blockNum(\\d+)', function(req, res){
 	block.read(req, res);
 });
 
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Assets - Vehicles
 //-----------------------------------------------------------------------------------------------
-
-app.post('/blockchain/assets/vehicles/' , function(req,res)
+app.post('/blockchain/assets/vehicles' , function(req,res)
 {
-	vehicles.create(req,res);	
+	vehicles.create(req,res)
 });
 
-//Read all vehicles
-app.get('/blockchain/assets/vehicles/' , function(req,res)
+app.get('/blockchain/assets/vehicles' , function(req,res)
 {
-	vehicles.read(req,res);
+	vehicles.read(req,res)
 });
-
 
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Assets - Vehicles - Vehicle - Owner
@@ -196,6 +155,20 @@ app.put('/blockchain/assets/vehicles/:v5cID/VIN' , function(req,res)
 {
 	vehicle.VIN.update(req,res)
 });
+
+//-----------------------------------------------------------------------------------------------
+//	Blockchain - Assets - Vehicles - Vehicle - Colour
+//-----------------------------------------------------------------------------------------------
+app.get('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res)
+{
+	vehicle.colour.read(req,res)
+});
+
+app.put('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res)
+{
+	vehicle.colour.update(req,res)
+});
+
 
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Assets - Vehicles - Vehicle - Make
@@ -237,19 +210,6 @@ app.put('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res)
 });
 
 //-----------------------------------------------------------------------------------------------
-//	Blockchain - Assets - Vehicles - Vehicle - Colour
-//-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res)
-{
-	vehicle.colour.read(req,res)
-});
-
-app.put('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res)
-{
-	vehicle.colour.update(req,res)
-});
-
-//-----------------------------------------------------------------------------------------------
 //	Blockchain - Assets - Vehicles - Vehicle - Scrapped
 //-----------------------------------------------------------------------------------------------
 app.delete('/blockchain/assets/vehicles/:v5cID' , function(req,res)
@@ -262,67 +222,171 @@ app.get('/blockchain/assets/vehicles/:v5cID/scrap' , function(req,res)
 	vehicle.scrapped.read(req,res)
 });
 
-
-
-//-----------------------------------------------------------------------------------------------
-//	Blockchain - Events
-//-----------------------------------------------------------------------------------------------
-app.post('/blockchain/events', function(req,res)
-{
-	events.create(req, res)
-})
-
-app.get('/blockchain/events', function(req,res)
-{
-	events.read(req, res)
-})
-
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Participants
 //-----------------------------------------------------------------------------------------------
-
-app.get('/blockchain/participants', function(req,res)
-{
-	participants.read(res)
-})
-
-app.get('/blockchain/participants/regulators', function(req,res)
-{
-	participants.regulators.read(res)
-})
-
-app.get('/blockchain/participants/manufacturers', function(req,res)
-{
-	participants.manufacturers.read(res)
-})
-
-app.get('/blockchain/participants/dealerships', function(req,res)
-{
-	participants.dealerships.read(res)
-})
-
-app.get('/blockchain/participants/lease_companies', function(req,res)
-{
-	participants.lease_companies.read(res)
-})
-
-app.get('/blockchain/participants/leasees', function(req,res)
-{
-	participants.leasees.read(res)
-})
-
-app.get('/blockchain/participants/scrap_merchants', function(req,res)
-{
-	participants.scrap_merchants.read(res)
-})
-
-//===============================================================================================
-//	Start listening (appEnv.port)
-//===============================================================================================
-
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
-
-	// print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
+app.post('/blockchain/participants', function(req,res){
+	participants.create(dataSource, req.body.user,req.body.role, req.body.aff, res);
 });
+
+app.get('/blockchain/participants', function(req,res){
+	participants.read(req,res);
+});
+
+app.get('/blockchain/participants/regulators', function(req, res){
+	participants.regulators.read(req,res);
+});
+
+app.get('/blockchain/participants/manufacturers', function(req, res){
+	participants.manufacturers.read(req,res);
+});
+
+app.get('/blockchain/participants/dealerships', function(req, res){
+	participants.dealerships.read(req,res);
+});
+
+app.get('/blockchain/participants/lease_companies', function(req, res){
+	participants.lease_companies.read(req,res);
+});
+
+app.get('/blockchain/participants/leasees', function(req, res){
+	participants.leasees.read(req,res);
+});
+
+app.get('/blockchain/participants/scrap_merchants', function(req, res){
+	participants.scrap_merchants.read(req,res);
+});
+
+//-----------------------------------------------------------------------------------------------
+//	Blockchain - Vehicle Logs
+//-----------------------------------------------------------------------------------------------
+app.get('/blockchain/vehicle_logs', function(req,res)
+{
+	vehicle_logs.read(req, res)
+})
+
+
+///////////  Configure Webserver  ///////////
+app.use(function (req, res, next) {
+    var keys;
+    console.log('------------------------------------------ incoming request ------------------------------------------');
+    console.log('New ' + req.method + ' request for', req.url);
+    req.bag = {};											//create my object for my stuff
+    req.session.count = eval(req.session.count) + 1;
+    req.bag.session = req.session;
+
+    var url_parts = url.parse(req.url, true);
+    req.parameters = url_parts.query;
+    keys = Object.keys(req.parameters);
+    if (req.parameters && keys.length > 0) console.log({parameters: req.parameters});		//print request parameters
+    keys = Object.keys(req.body);
+    if (req.body && keys.length > 0) console.log({body: req.body});						//print request body
+    next();
+});
+
+////////////////////////////////////////////
+////////////// Error Handling //////////////
+////////////////////////////////////////////
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+app.use(function (err, req, res, next) {		// = development error handler, print stack trace
+    console.log("Error Handler -", req.url, err);
+    var errorCode = err.status || 500;
+    res.status(errorCode);
+    req.bag.error = {msg: err.stack, status: errorCode};
+    if (req.bag.error.status == 404) req.bag.error.msg = "Sorry, I cannot locate that file";
+    //res.render('template/error', {bag: req.bag});
+    res.send({"message":err})
+});
+
+// Track the application deployments
+require("cf-deployment-tracker-client").track();
+
+// ============================================================================================================================
+// 														Launch Webserver
+// ============================================================================================================================
+var server = http.createServer(app).listen(port, function () {
+});
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+process.env.NODE_ENV = 'production';
+
+
+server.timeout = 2400000;																// Ta-da.
+console.log('------------------------------------------ Server Up - ' + host + ':' + port + ' ------------------------------------------');
+
+// Track the application deployments
+require("cf-deployment-tracker-client").track();
+
+// ==================================
+// load peers manually or from VCAP, VCAP will overwrite hardcoded list!
+// ==================================
+var manual = JSON.parse(fs.readFileSync('mycreds.json', 'utf8'));
+
+var peers, users, ca;
+
+
+if (manual.credentials.peers) {
+    console.log(TAG, 'loading', manual.credentials.peers.length, 'hardcoded peers');
+    peers = manual.credentials.peers;
+}
+
+if (manual.credentials.users) {
+    console.log(TAG, "loading", manual.credentials.users.length, "hardcoded users");
+    users = manual.credentials.users;
+}
+
+if (manual.credentials.ca) {
+    var ca_name = Object.keys(manual.credentials.ca)[0];
+    console.log(TAG, "loading ca:", ca_name);
+    ca = manual.credentials.ca[ca_name];
+}
+
+if (process.env.VCAP_SERVICES) {															//load from vcap, search for service, 1 of the 3 should be found...
+    var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
+    for (var i in servicesObject) {
+        if (i.indexOf('ibm-blockchain') >= 0) {											// looks close enough (can be suffixed dev, prod, or staging)
+            if (servicesObject[i][0].credentials.error) {
+                console.log('!\n!\n! Error from Bluemix: \n', servicesObject[i][0].credentials.error, '!\n!\n');
+                peers = null;
+                users = null;
+                process.error = {
+                    type: 'network',
+                    msg: "Due to overwhelming demand the IBM Blockchain Network service is at maximum capacity.  Please try recreating this service at a later date."
+                };
+            }
+            if (servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers) {
+                console.log('overwritting peers, loading from a vcap service: ', i);
+                peers = servicesObject[i][0].credentials.peers;
+                var ca_name = Object.keys(servicesObject[i][0].credentials.ca)[0];
+                console.log(TAG, "loading ca:", ca_name);
+                ca = servicesObject[i][0].credentials.ca[ca_name];
+                if (servicesObject[i][0].credentials.users) {
+                    console.log('overwritting users, loading from a vcap service: ', i);
+                    users = servicesObject[i][0].credentials.users;
+                }
+                else users = null;														//no security
+                break;
+            }
+        }
+    }
+}
+
+console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_port_external);
+
+// Start up the network!!
+//Set up connection to the CA
+finalSetup();
+
+/**
+ * Configures other parts of the app that depend on the blockchain network being configured and running in
+ * order to function.
+ */
+
+function finalSetup() {
+	
+	console.log("Entering final setup")
+    dataSource = user_manager.setup(ca)
+}
