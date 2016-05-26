@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 		prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
 		
-		transData.unshift(block.transactions.length)
+		transData.push(block.transactions.length)
 		$('#transLast').html(block.transactions.length)
 
 		for(var i = 1; i < 126; i++)
@@ -130,7 +130,7 @@ $(document).ready(function(){
 				
 				prevFiftyBlocks.push(blk.nonHashData.localLedgerCommitTimestamp.seconds)
 
-				transData.unshift(blk.transactions.length)
+				transData.push(blk.transactions.length)
 
 				transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>'
 
@@ -173,7 +173,7 @@ $(document).ready(function(){
 	}
 	else
 	{
-		transData.unshift(0);
+		transData.push(0);
 		$('#transLast').html(0);
 		
 		transSpans+='<br /><span class="blocksTransactions">No transactions in the Genesis block.</span>';
@@ -291,8 +291,6 @@ function updatePage()
 
 		storeBlock = blockNum;
 
-		$('#timeSince').html('0s ago');
-
 		var transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>'
 
 		for(var i = 0; i < block.transactions.length; i++)
@@ -309,14 +307,16 @@ function updatePage()
 
 		prevFiftyBlocks.unshift(block.nonHashData.localLedgerCommitTimestamp.seconds)
 
-		timeData.push(prevFiftyBlocks[0] - prevFiftyBlocks[1])
-		transData.push(block.transactions.length)
+		timeData.unshift(prevFiftyBlocks[0] - prevFiftyBlocks[1])
+		transData.unshift(block.transactions.length)
 
 		$('.cont').html('');
 
 		timeDiff = prevFiftyBlocks[0] - prevFiftyBlocks[1];
 
 		if(timeDiff>5000) timeDiff=5000;
+		
+		$('#timeSince').html(timeDiff+'s ago');
 
 		sum += timeDiff;
 
