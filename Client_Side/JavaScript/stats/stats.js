@@ -178,7 +178,7 @@ $(document).ready(function(){
 		
 		transSpans+='<br /><span class="blocksTransactions">No transactions in the Genesis block.</span>';
 		
-		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+390+'"></input></div>')
+		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+270+'"></input></div>')
 	}
 
 	for(var i = blockNum - 126; i > -1; i--)

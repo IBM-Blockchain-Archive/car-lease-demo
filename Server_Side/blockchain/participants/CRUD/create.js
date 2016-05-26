@@ -113,7 +113,7 @@ function loginUser(username, aff, secret, res)
 		
 		console.log("Logging in response", body)
 		
-		if (!JSON.parse(body).hasOwnProperty("Error") && response.statusCode == 200)
+		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			counter = 0;
 			console.log("LOGIN SUCCESSFUL", username)
