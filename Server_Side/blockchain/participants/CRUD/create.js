@@ -89,7 +89,6 @@ var registerUser = function(dataSource, username, role, aff, res) {
             loginUser(username, aff, creds.secret, res);
         }
     });
-
 }
 
 function loginUser(username, aff, secret, res)
@@ -114,15 +113,26 @@ function loginUser(username, aff, secret, res)
 		
 		console.log("Logging in response", body)
 		
-		if (!error && response.statusCode == 200)
+		if (!JSON.parse(body).hasOwnProperty("Error") && response.statusCode == 200)
 		{
+			counter = 0;
+			console.log("LOGIN SUCCESSFUL", username)
 			writeUserToFile(username, aff, secret, res)
 			//res.send(JSON.stringify({"message":"User created and registered with peer.", "id": username, "secret": secret}))
 		}
 		else
 		{
-			res.status(400)
-			res.send(JSON.stringify({"message":"Unable to register user with peer", "error":true}))
+			if(counter >= 5){
+        		counter = 0;
+        		res.status(400)
+				res.send(JSON.stringify({"message":"Unable to register user with peer", "error":true}))
+        	}
+			else{
+	            counter++
+	            console.log("Trying logging in again", counter);
+	            setTimeout(function(){loginUser(username, aff, secret, res);},2000)	            
+        	}
+			
 		}
 	})
 
