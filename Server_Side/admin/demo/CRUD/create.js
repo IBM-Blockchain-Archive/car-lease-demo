@@ -24,6 +24,7 @@ var create = function(req,res)
 	res.end(JSON.stringify({"message": "performing scenario creation now"}));
 	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', "");
 	update_demo_status(JSON.stringify({"message":"Creating demo scenario"})+'&&');
+	
 	tracing.create('ENTER', 'POST admin/demo', []);
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 
