@@ -80,7 +80,7 @@ $(document).ready(function(){
 		async: false
 	});
 
-	var transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>'
+	var transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
 
 	blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
 
@@ -173,14 +173,12 @@ $(document).ready(function(){
 	}
 	else
 	{
-		transData.unshift(0)
-		$('#transLast').html(0)
+		transData.unshift(0);
+		$('#transLast').html(0);
 		
-		transSpans+='<br /><span class="blocksTransactions">'+No transactions for block 0+'</span>'
+		transSpans+='<br /><span class="blocksTransactions">No transactions in the Genesis block.</span>';
 		
-		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">'+No block hash available+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(390)+'"></input></div>')
-
-		
+		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+390+'"></input></div>')
 	}
 
 	for(var i = blockNum - 126; i > -1; i--)
