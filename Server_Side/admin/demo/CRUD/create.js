@@ -64,6 +64,7 @@ function addUsers(req, res)
 				}
 			}
 		}
+		update_demo_status(JSON.stringify({"message":"Creating and registering users"})+'&&')
 		addUser(req, res)
 	}
 	else
@@ -78,9 +79,7 @@ function addUsers(req, res)
 
 function addUser(req, res)
 {
-	
-	update_demo_status(JSON.stringify({"message":"Creating and registering users"})+'&&')
-	
+		
 	var userAff;
 
 	console.log("ADD USER BEFORE",users[counter]);
@@ -130,6 +129,7 @@ function addUser(req, res)
 			if(counter < users.length - 1)
 			{
 				counter++;
+				update_demo_status(JSON.stringify({"message":"Creating and registering users", "counter": true})+'&&')
 				setTimeout(addUser(req, res), 500);
 			}
 			else
