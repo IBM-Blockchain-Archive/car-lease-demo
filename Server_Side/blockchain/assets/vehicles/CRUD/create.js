@@ -130,6 +130,7 @@ function createVehicle(req, res, v5cID)
 			var error = {}
 			error.message = 'Unable to create vehicle';
 			error.error = true;
+			error.v5cID = v5cID;
 			res.end(JSON.stringify(error))
 			tracing.create('ERROR', 'POST blockchain/assets/vehicles', 'Unable to create vehicle')
 		}
@@ -191,6 +192,7 @@ function confirmCreated(req, res, v5cID)
 			var error = {}
 			error.error = true;
 			error.message = 'Unable to confirm vehicle create. Request timed out.';
+			error.v5cID = v5cID;
 			res.end(JSON.stringify(error))
 			clearInterval(interval);
 			tracing.create('ERROR', 'POST blockchain/assets/vehicles', 'Unable to confirm vehicle create. Request timed out.')
