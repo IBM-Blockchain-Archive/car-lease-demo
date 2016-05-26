@@ -92,7 +92,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 			error.error = true;
 			error.v5cID = v5cID;
 			res.end(JSON.stringify(error))
-			tracing.create('ERROR', 'POST blockchain/assets/vehicles', 'Unable to confirm V5cID is unique'')
+			tracing.create('ERROR', 'POST blockchain/assets/vehicles', 'Unable to confirm V5cID is unique')
 		}
 	})
 }
