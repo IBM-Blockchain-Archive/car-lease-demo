@@ -124,6 +124,12 @@ function createScenario()
 								if(typeof JSON.parse(array[i]).error == true)
 								{
 									clearInterval(checkDone);
+									$('#latestSpan').html('&nbsp;&#10004');
+									$('#loader img').hide();
+									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i><br>');
+									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
+									$('#chooseConfHd span').html('Scenario Creation Failed');
+									$('#confTxt').html(JSON.parse(array[i]).message);
 								}
 								var fnd = false;
 								for(var j = 0; j < found.length; j++)
@@ -289,6 +295,13 @@ function refillUsername()
 
 	}
 
+}
+
+function showError()
+{
+	$('#loader').hide();
+	$('#loaderMessages').html('');
+	$('#failTransfer').show();
 }
 
 function hideError()
