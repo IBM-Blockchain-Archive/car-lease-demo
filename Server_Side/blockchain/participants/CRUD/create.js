@@ -86,7 +86,7 @@ var registerUser = function(dataSource, username, role, aff, res) {
                 secret: response.token
             };
             //updateParticipantInfo(creds, res);
-            setTimeout(function(){loginUser(username, aff, creds.secret, res);},2000)
+            loginUser(username, aff, creds.secret, res);
         }
     });
 
@@ -94,6 +94,8 @@ var registerUser = function(dataSource, username, role, aff, res) {
 
 function loginUser(username, aff, secret, res)
 {
+	
+	console.log("Logging in user", username, secret)
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var credentials = {
@@ -109,6 +111,8 @@ function loginUser(username, aff, secret, res)
 					}
 					
 	request(options, function(error, response, body){
+		
+		console.log("Logging in response", body)
 		
 		if (!error && response.statusCode == 200)
 		{
