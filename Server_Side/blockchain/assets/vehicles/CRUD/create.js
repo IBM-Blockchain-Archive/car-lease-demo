@@ -72,7 +72,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 	
 	request(options, function(error, response, body)
 	{		
-		if (body.error.data.indexOf("Error retrieving v5c") > -1 && response.statusCode == 200)
+		if (response.statusCode == 200 && body.error.data.indexOf("Error retrieving v5c") > -1)
 		{
 			tracing.create('ENTER', 'POST blockchain/assets/vehicles', []);
 			createVehicle(req, res, v5cID)
