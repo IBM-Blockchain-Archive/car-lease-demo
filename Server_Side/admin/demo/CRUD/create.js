@@ -85,23 +85,23 @@ function addUser(req, res)
 	console.log("ADD USER BEFORE",users[counter]);
 
 	switch (users[counter].type) {
-			case 'regulators': 
-				userAff = "0001";
+			case "regulators": 
+				userAff = "Regulator";
 				break;
 			case "manufacturers":
-				userAff = "0002";
+				userAff = "Manufacturer";
 				break;
 			case "dealerships":
-				userAff = "0003";
+				userAff = "Dealership";
 				break;
 			case "lease_companies":
-				userAff = "0004";
+				userAff = "Lease Company";
 				break;
 			case "leasees":
-				userAff = "0003";
+				userAff = "Leasee";
 				break;
 			case "scrap_merchants":
-				userAff = "0005";
+				userAff = "Scrap Merchant";
 				break;
 	}
 

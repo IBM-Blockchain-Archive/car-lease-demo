@@ -82,23 +82,28 @@ $(document).ready(function(){
 
 	var transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>'
 
-	for(var i = 0; i < block.transactions.length; i++)
-	{
-		transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].uuid+'</span>'
-	}
-
-	$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>')
-
-	$('.singleBlockContainer:last-child').find('.blockHash').html("<b>Block Hash: </b><br />"+lastBlockHash)
-	
-	lastBlockHash = block.previousBlockHash
-
 	blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
 
 	prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
 
 	if(blockNum > 0)
 	{
+
+		for(var i = 0; i < block.transactions.length; i++)
+		{
+			transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].uuid+'</span>'
+		}
+
+		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>')
+
+		$('.singleBlockContainer:last-child').find('.blockHash').html("<b>Block Hash: </b><br />"+lastBlockHash)
+		
+		lastBlockHash = block.previousBlockHash
+
+		blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
+
+		prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
+		
 		transData.unshift(block.transactions.length)
 		$('#transLast').html(block.transactions.length)
 
@@ -170,6 +175,12 @@ $(document).ready(function(){
 	{
 		transData.unshift(0)
 		$('#transLast').html(0)
+		
+		transSpans+='<br /><span class="blocksTransactions">'+No transactions for block 0+'</span>'
+		
+		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">'+No block hash available+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(390)+'"></input></div>')
+
+		
 	}
 
 	for(var i = blockNum - 126; i > -1; i--)
