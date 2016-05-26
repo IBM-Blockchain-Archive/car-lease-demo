@@ -129,7 +129,7 @@ function addUser(req, res)
 			if(counter < users.length - 1)
 			{
 				counter++;
-				update_demo_status(JSON.stringify({"message":"Creating and registering users", "counter": true})+'&&')
+				update_demo_status(JSON.stringify({"message":"Created and registered user:" + users.identity, "counter": true})+'&&')
 				setTimeout(addUser(req, res), 500);
 			}
 			else
