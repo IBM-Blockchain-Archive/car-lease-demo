@@ -1,5 +1,5 @@
 {
-  "name": "r3",
+  "name": "Car-Lease-Demo",
   "version": "0.0.1",
   "description": "A Node.js web application that demonstrates utilizing IBM Blockchain JS to call REST APIs on the blockchain.",
   "main": "app.js",
@@ -31,10 +31,6 @@
   },
   "engines": {
     "node": "0.12.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/IBM-Blockchain/cp-web.git"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
