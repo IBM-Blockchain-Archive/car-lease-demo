@@ -63,8 +63,6 @@ function getAltUsers()
 
 function changeUser(company, parent, pos)
 {
-	console.log(config.participants.users)
-	console.log(config.participants.users[parent][pos])
 	$('.userHldr').removeClass('userHldr'+$('#userType').html().replace(' ', ''))
 	$('#userDets').html('<span id="username" >'+config.participants.users[parent][pos].user+'</span> (<span id="userType">'+config.participants.users[parent][pos].type+'</span>: <span id="company">'+config.participants.users[parent][pos].company+'</span>)')
 	toggleMenu();
