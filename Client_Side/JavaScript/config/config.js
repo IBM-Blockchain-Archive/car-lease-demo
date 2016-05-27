@@ -141,10 +141,12 @@ config.participants.users.scrap_merchants[0].user = 'Sandy'
 config.participants.users.scrap_merchants[1] = {}
 config.participants.users.scrap_merchants[1].company = 'Aston Scrap Centre'
 config.participants.users.scrap_merchants[1].type = 'Scrap Merchant'
+config.participants.users.scrap_merchants[1].user = 'Scott'
 
 config.participants.users.scrap_merchants[2] = {}
 config.participants.users.scrap_merchants[2].company = 'ScrapIt! UK'
 config.participants.users.scrap_merchants[2].type = 'Scrap Merchant'
+config.participants.users.scrap_merchants[2].user = 'Sid'
 
 
 /******* Used Particpants *******/
