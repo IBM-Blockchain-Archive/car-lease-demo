@@ -3,21 +3,10 @@
 
 var request = require('request');
 var fs = require('fs')
-// This connector let's us register users against a CA
 var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js'),
     participants = reload(__dirname+'/../participants_info.js');
-
-// Use a tag to make logs easier to find
-var TAG = "user_manager";
-
-/**
- * Registers a new user against the given CA.
- * @param username The name of the user.
- * @param role The role to assign to the user. [Don't need role anymore, can be hardcoded to 1]
- * @param cb A callback of the form: function(err, credentials);
- */
 
 var counter = 0;
 
@@ -65,7 +54,7 @@ var registerUser = function(dataSource, username, role, aff, res) {
         	
         	if(counter >= 5){
         		counter = 0;
-        		console.error(TAG, "RegisterUser failed:", username, JSON.stringify(err));
+        		console.error("RegisterUser failed:", username, JSON.stringify(err));
         		res.status(400)
         		res.send(JSON.stringify({"error":err}));
         	}
@@ -79,13 +68,12 @@ var registerUser = function(dataSource, username, role, aff, res) {
         	
         	counter = 0;
         	
-            console.log(TAG, "RegisterUser succeeded:", JSON.stringify(response));
-            // Send the response (username and secret) to the callback
+            console.log("RegisterUser succeeded:", JSON.stringify(response));
+            // Send the response (username and secret) for logging user in 
             var creds = {
                 id: response.identity,
                 secret: response.token
             };
-            //updateParticipantInfo(creds, res);
             loginUser(username, aff, creds.secret, res);
         }
     });
@@ -93,8 +81,6 @@ var registerUser = function(dataSource, username, role, aff, res) {
 
 function loginUser(username, aff, secret, res)
 {
-	
-	console.log("Logging in user", username, secret)
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var credentials = {
@@ -110,15 +96,11 @@ function loginUser(username, aff, secret, res)
 					}
 					
 	request(options, function(error, response, body){
-		
-		console.log("Logging in response", body)
-		
 		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			counter = 0;
 			console.log("LOGIN SUCCESSFUL", username)
 			writeUserToFile(username, aff, secret, res)
-			//res.send(JSON.stringify({"message":"User created and registered with peer.", "id": username, "secret": secret}))
 		}
 		else
 		{
@@ -134,8 +116,7 @@ function loginUser(username, aff, secret, res)
         	}
 			
 		}
-	})
-
+	});
 }
 
 function writeUserToFile(username, aff, secret, res)
@@ -188,7 +169,6 @@ function writeUserToFile(username, aff, secret, res)
 				userType="scrap_merchants";
 				break;
 		}
-		console.log("USER TYPE", aff, userType);
 		userNumber = newData[userType].length;
 		newData[userType].push({})
 		newData[userType][userNumber].name = username;
@@ -213,11 +193,5 @@ function writeUserToFile(username, aff, secret, res)
 	
 	res.send(JSON.stringify({"message":updatedFile, "id": username, "secret": secret}))
 }
-
-/*
-function updateParticipantInfo(creds, res) {
-		
-}
-*/
 
 exports.create = registerUser;

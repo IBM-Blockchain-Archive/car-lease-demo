@@ -41,8 +41,6 @@ function checkIfAlreadyExists(req, res, v5cID)
 {
 	res.write(JSON.stringify({"message":"Checking V5cID is unique"})+'&&');
 
-	console.log("VEHICLE CREATE INVOKE NAME", user_id, v5cID, configFile.config.vehicle_name);
-
 	var querySpec =				{
 									  "jsonrpc": "2.0",
 									  "method": "query",
@@ -72,17 +70,15 @@ function checkIfAlreadyExists(req, res, v5cID)
 	
 	request(options, function(error, response, body)
 	{
-		console.log("VEHICLE RESPONSE DATA",body.error.data)
 		if (body.error.data.indexOf("Error retrieving v5c") > -1)
 		{
-			console.log("STATUS CODE:" + response.statusCode)
 			tracing.create('ENTER', 'POST blockchain/assets/vehicles', []);
 			createVehicle(req, res, v5cID)
 		}
 		else if (response.statusCode == 200)
 		{
 			console.log("Trying again vehicle create")
-			createV5cID(req, res)
+			setTimeout(function(){createV5cID(req, res);},3000);
 		}
 		else
 		{
@@ -186,11 +182,7 @@ function confirmCreated(req, res, v5cID)
 	var interval = setInterval(function(){
 		if(counter < 5){				
 			request(options, function(error, response, body){
-				console.log("VEHICLE CREATE RESPONSE",body);
 				if (!body.hasOwnProperty("error") && response.statusCode == 200) {
-					
-					console.log("VeHICLE CREATE CONFIRMED", v5cID)
-					
 					var result = {}
 					result.message = "Creation confirmed";
 					result.v5cID = v5cID;
@@ -213,5 +205,5 @@ function confirmCreated(req, res, v5cID)
 			clearInterval(interval);
 			tracing.create('ERROR', 'POST blockchain/assets/vehicles', 'Unable to confirm vehicle create. Request timed out.')
 		}
-	},1500)
+	},2000)
 }

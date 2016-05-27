@@ -12,9 +12,6 @@ function deploy(req, res)
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 	    api_url = api_url.replace('http://', '')
 				
-				
-	console.log("API URL FOR VEHICLE DEPLOY", api_url);			
-				
 	var deploySpec = {
 						  "jsonrpc": "2.0",
 						  "method": "deploy",

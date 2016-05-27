@@ -19,8 +19,6 @@ var read = function (req,res)
 
 	user_id = req.session.user;
 	
-	console.log("VEHICLE OWNER USER ID",user_id, "value", req.session.user)
-	
 	var querySpec =					{
 										"jsonrpc": "2.0",
 										"method": "query",

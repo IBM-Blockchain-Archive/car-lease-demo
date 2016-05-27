@@ -70,7 +70,7 @@ function addUsers(req, res)
 	}
 	else
 	{
-		//tracing.create('ERROR', 'GET blockchain/participants', 'Participants file not found');
+		tracing.create('ERROR', 'GET blockchain/participants', 'Participants file not found');
 		var error = {}
 		error.error = true;
 		error.message = 'Participants information not found';
@@ -82,8 +82,6 @@ function addUser(req, res)
 {
 		
 	var userAff;
-
-	console.log("ADD USER BEFORE",users[counter]);
 
 	switch (users[counter].type) {
 			case "regulators": 
@@ -111,52 +109,86 @@ function addUser(req, res)
 	data.role = 1;
 	data.aff = userAff;
 
-	console.log("ADD USER",JSON.stringify(data));
-
-	var j = request.jar();
-	var str = "user="+req.session.user;
-	var cookie = request.cookie(str);
-	var url = configFile.config.app_url + '/blockchain/participants';
-	j.setCookie(cookie, url);
-	var options = {
-		url: url,
-		method: 'POST',
-		json: data,
-		jar: j
-	}
-
-	request(options, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
+	var options = 	{
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar/'+users[counter].identity,
+						method: "GET", 
+						json: true
+					}
+	
+	request(options, function(error, response, body)
+	{
+		console.log("PRE CHECK FOR EXISTING USER",body);
+		
+		if(body.hasOwnProperty("OK"))
+		{
 			if(counter < users.length - 1)
 			{
 				counter++;
 				update_demo_status(JSON.stringify({"message":"Created and registered user:" + users.identity, "counter": true})+'&&')
-				setTimeout(addUser(req, res), 500);
+				setTimeout(addUser(req, res), 2000);
 			}
 			else
 			{
+				counter = 0;
 				deploy_vehicle_log(req, res);
 			}
+			
 		}
 		else
 		{
-			tracing.create('ERROR', 'POST admin/identity', 'Unable to log user in: '+users[counter].identity);
-			var error = {}
-			error.message = 'Unable to log user in: '+users[counter].identity;
-			error.error = false;
-			update_demo_status(JSON.stringify(error)+'&&');
-			console.log('FAILED AREA');
-			if(counter < users.length - 1)
-			{
-				counter++;
-				setTimeout(addUser(req, res), 500);
+			
+			var j = request.jar();
+			var str = "user="+req.session.user;
+			var cookie = request.cookie(str);
+			var url = configFile.config.app_url + '/blockchain/participants';
+			j.setCookie(cookie, url);
+			var options = {
+				url: url,
+				method: 'POST',
+				json: data,
+				jar: j
 			}
-			else
-			{
-				deploy_vehicle_log(req, res);
-			}
+		
+			request(options, function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					if(counter < users.length - 1)
+					{
+						counter++;
+						update_demo_status(JSON.stringify({"message":"Created and registered user:" + users.identity, "counter": true})+'&&')
+						setTimeout(function(){addUser(req, res);},1000);
+					}
+					else
+					{
+						counter = 0;
+						deploy_vehicle_log(req, res);
+					}
+				}
+				else
+				{
+					tracing.create('ERROR', 'POST admin/identity', 'Unable to log user in: '+users[counter].identity);
+					var error = {}
+					error.message = 'Unable to log user in: '+users[counter].identity;
+					error.error = false;
+					update_demo_status(JSON.stringify(error)+'&&');
+					console.log('FAILED AREA');
+					if(counter < users.length - 1)
+					{
+						counter++;
+						setTimeout(addUser(req, res), 500);
+					}
+					else
+					{
+						deploy_vehicle_log(req, res);
+					}
+				}
+			});
 		}
-	});
+		
+	})
+
+
+
+	
 }
 
 function deploy_vehicle_log(req, res)
@@ -208,7 +240,7 @@ function deploy_vehicle(req, res)
 		if (!error && response.statusCode == 200) 
 		{
 			counter = 0;
-			setTimeout(function(){create_cars(req, res);},20000)
+			setTimeout(function(){create_cars(req, res);},30000)
 
 		}
 		else
@@ -257,7 +289,7 @@ function create_cars(req, res)
 function create_car()
 {
 	
-	console.log("CREATE CAR TIME",configFile.config.vehicle_name, configFile.config.vehicle_log_name);
+	console.log("CREATE CAR TIME");
 	
 	var j = request.jar();
 	var str = "user=DVLA"
@@ -354,7 +386,7 @@ function transfer_car(sender, receiver, id, function_name, toUpdate)
 		{
 			ind_transfer_counter++;
 		}
-		console.log("VEHICLE TRANSFER", id, body)
+		console.log("VEHICLE TRANSFER", id, body, body.indexOf('Owner updated'));
 		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
 		{
 
@@ -401,6 +433,9 @@ var ind_update_counter = 0;
 
 function update_all_car_parts(id)
 {
+	
+	console.log("UPDATE CAR TIME")
+	
 	var car_owner = cars[counter].Owners[1]
 	var update_fields = [{"value":cars[counter].VIN,"field":"VIN", "title": "VIN"},{"value":cars[counter].Make,"field":"make", "title": "Make"},{"value":cars[counter].Model,"field":"model", "title": "Model"},{"value":cars[counter].Colour,"field":"colour", "title": "Colour"},{"value":cars[counter].Reg,"field":"reg", "title": "Registration"}]
 	var prevCount = -1;
@@ -426,8 +461,6 @@ function update_all_car_parts(id)
 function update_car(manufacturer, value, id, field)
 {
 	
-	console.log("UPDATE CAR TIME")
-	
 	var data = {};
 	data.value= value
 	data.oldValue = "undefined";
@@ -447,6 +480,9 @@ function update_car(manufacturer, value, id, field)
 	request(options, function(error, response, body)
 	{
 		ind_update_counter++
+		
+		console.log("VEHICLE UPDATE BODY", body)
+		
 		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
 		{
 			console.log("UPDATE DONE", ind_update_counter)
