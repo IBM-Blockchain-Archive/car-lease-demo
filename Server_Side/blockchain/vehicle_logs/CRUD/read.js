@@ -8,16 +8,11 @@ var user_id;
 var read = function(req, res)
 {
 
-	if(typeof req.cookies.user != "undefined")
-	{
-		req.session.user = req.cookies.user;
-	}
-	
 	user_id = req.session.user;
 	
 	tracing.create('ENTER', 'GET blockchain/vehicle_logs', []);
-	configFile = reload(__dirname+'/../../../configurations/configuration.js');
-									
+	configFile = reload(__dirname+'/../../../configurations/configuration.js');				
+					
 	var invokeSpec = 				{
 										"jsonrpc": "2.0",
 										"method": "query",

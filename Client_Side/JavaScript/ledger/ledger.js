@@ -58,7 +58,7 @@ function showList(users, parent, pos)
 		$('#theirUsers').html('')
 		for(var i = 0; i < users.length; i++)
 		{
-			$('#theirUsers').append('<span class="userHldr userHldr'+$('#userType').html().replace(' ', '')+'" onclick="changeUser(\''+users[i].name.split(' ').join('_')+'\', \''+parent+'\', \'ibm4you2\', '+i+')" >'+users[i].name+'</span>')
+			$('#theirUsers').append('<span class="userHldr userHldr'+$('#userType').html().replace(' ', '')+'" onclick="changeUser(\''+users[i].name+'\', \''+parent+'\', '+i+')" >'+users[i].name+'</span>')
 		}
 		$('#endUsers').css('top', (40*(++pos)-33)+'px')
 		$('#endUsers').show();
@@ -158,6 +158,7 @@ function formatLogs(data)
 	{
 		$('#filterRw div').show();
 	}
+	
 	for(var i = 0; i < data.length; i++)
 	{
 		if(data[i].name == "Create"){
@@ -444,7 +445,7 @@ function toTitleCase(str)
 
 //////////////////////////////////Sessions//////////////////////////////////////
 
-function changeUser(company, parent, password, pos)
+function changeUser(company, parent, pos)
 {
 	$('.userHldr').removeClass('userHldr'+$('#userType').html().replace(' ', ''))
 	$('#userDets').html('<span id="username" >'+config.participants.users[parent][pos].user+'</span> (<span id="userType">'+config.participants.users[parent][pos].type+'</span>: <span id="company">'+config.participants.users[parent][pos].company+'</span>)')
@@ -456,9 +457,10 @@ function changeUser(company, parent, password, pos)
 	/*
 	Creates a session on the application server using the user's account name
 	*/
+	
 	$.ajax({
 		type: 'POST',
-		data: '{"account": "'+company+'", "password":"'+password+'"}',
+		data:  '{"participantType":"'+parent+'","account": "'+company+'"}',
 		dataType : 'json',
 		contentType: 'application/json',
 		crossDomain:true,

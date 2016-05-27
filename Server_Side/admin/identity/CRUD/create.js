@@ -13,10 +13,8 @@ function makeAccount(req, res)
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	
-	var user_id = map_ID.user_to_id(req.body.account);
+	var user_id = req.body.account;
 	var user_pass = map_ID.get_password(req.body.participantType, req.body.account);
-	
-	console.log("ADMIN/IDENTITY", req.body.account, user_id, user_pass);
 	
 	var enrollmentDetails = 	{
 					  "enrollId": user_id,
