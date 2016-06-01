@@ -26,6 +26,7 @@ var create = function(req,res)
 	
 	console.log("DEMO SCENARIO TYPE",req.body.scenario);
 	
+	//req.body.scenario valid values = simple, full
 	
 	res.end(JSON.stringify({"message": "performing scenario creation now"}));
 	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', "");

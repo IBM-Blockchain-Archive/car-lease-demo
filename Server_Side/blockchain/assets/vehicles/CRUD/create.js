@@ -183,6 +183,7 @@ function confirmCreated(req, res, v5cID)
 					}
 	var counter = 0;
 	var interval = setInterval(function(){
+		if(counter < 15){				
 			request(options, function(error, response, body){
 				
 				console.log("Create confirm response", body);
