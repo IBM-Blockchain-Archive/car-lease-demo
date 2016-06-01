@@ -69,7 +69,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 					}
 	
 	request(options, function(error, response, body)
-	{
+	{	
 		if (body.error.data.indexOf("Error retrieving v5c") > -1)
 		{
 			tracing.create('ENTER', 'POST blockchain/assets/vehicles', []);
@@ -128,6 +128,9 @@ function createVehicle(req, res, v5cID)
 					}
 					
 	request(options, function(error, response, body){
+		
+		console.log("Create car invoke repsonse",body)
+		
 		if (!error && response.statusCode == 200) {
 			var result = {};
 			result.message = "Achieving Consensus"
@@ -136,7 +139,7 @@ function createVehicle(req, res, v5cID)
 		}
 		else
 		{
-			console.log(error);
+			console.log("Create car invoke error",error);
 			
 			res.status(400)
 			var error = {}
@@ -180,8 +183,10 @@ function confirmCreated(req, res, v5cID)
 					}
 	var counter = 0;
 	var interval = setInterval(function(){
-		if(counter < 5){				
 			request(options, function(error, response, body){
+				
+				console.log("Create confirm response", body);
+				
 				if (!body.hasOwnProperty("error") && response.statusCode == 200) {
 					var result = {}
 					result.message = "Creation confirmed";

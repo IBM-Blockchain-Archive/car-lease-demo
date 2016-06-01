@@ -51,6 +51,9 @@ var update = function(req, res)
 	res.write('{"message":"Updating make value"}&&');
 	request(options, function(error, response, body)
 	{
+		
+		console.log("Update make response", body);
+		
 		if (!error && response.statusCode == 200)
 		{
 			var j = request.jar();
@@ -66,8 +69,11 @@ var update = function(req, res)
 			res.write('{"message":"Achieving Consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
-				if(counter < 5){
+				if(counter < 15){
 					request(options, function (error, response, body) {
+						
+						console.log("Update make confirm response", body);
+						
 						if (!error && response.statusCode == 200) {
 							if(JSON.parse(body).vehicle.make == newValue)
 							{
@@ -92,7 +98,7 @@ var update = function(req, res)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
-			}, 1500)
+			}, 2000)
 		}
 		else 
 		{

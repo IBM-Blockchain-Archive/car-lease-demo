@@ -49,6 +49,8 @@ var read = function (req,res)
 	request(options, function(error, response, body)
 	{
 		
+		console.log("Owner update read", body);
+		
 		if (!body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var result = {}

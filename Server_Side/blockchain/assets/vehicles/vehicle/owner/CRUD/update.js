@@ -57,7 +57,10 @@ var update = function(req, res)
 	
 	res.write('{"message":"Updating owner value"}&&');			
 	request(options, function(error, response, body)
-	{		
+	{
+		
+		console.log("Update owner response", body);
+		
 		if (!error && response.statusCode == 200) // if it appears to work run a query to check if the new owner can see the car
 		{
 			var j = request.jar();
@@ -73,8 +76,11 @@ var update = function(req, res)
 			res.write('{"message":"Achieving Consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
-				if(counter < 5){
+				if(counter < 15){
 					request(options, function (error, response, body) {
+						
+						console.log("Update owner confirm response", body);
+						
 						if (!error && response.statusCode == 200)
 						{
 							var vehicle = JSON.parse(body).vehicle;

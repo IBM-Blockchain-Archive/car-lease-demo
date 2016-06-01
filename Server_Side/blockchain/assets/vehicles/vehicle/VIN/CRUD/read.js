@@ -44,6 +44,9 @@ var read = function (req,res)
 	
 	request(options, function(error, response, body)
 	{
+		
+		console.log("VIN update read", body);
+		
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}

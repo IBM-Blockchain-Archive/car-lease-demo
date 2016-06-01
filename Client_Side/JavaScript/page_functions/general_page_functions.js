@@ -51,7 +51,6 @@ function getAltUsers()
 			
 			for(var i = 0; i < data.length; i++)
 			{
-				 $('#users').append('<span class="userHldr userGroup" onclick="changeUser(\''+data[i].name+'\', \''+pgNmPlural+'\','+i+')" ><span>'+toTitleCase(data[i].name.replace('_', ' '))+'</span></span>')
 			}			
 		},
 		error: function(e)
@@ -207,5 +206,11 @@ function closeConf()
 
 function toTitleCase(str)
 {
-    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	return str.replace(/\w\S*/g, function(txt){ 
+		if(txt.indexOf("'") > -1){
+			return txt.charAt(0).toUpperCase() + txt.substr(1, txt.indexOf("'")).toLowerCase() + txt.charAt(txt.indexOf("'")+1).toUpperCase() + txt.substr(txt.indexOf("'")+2).toLowerCase();
+		}
+		else{
+			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	}});
 }

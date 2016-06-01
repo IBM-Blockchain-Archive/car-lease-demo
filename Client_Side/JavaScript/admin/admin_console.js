@@ -28,15 +28,22 @@ $(document).ready(function(){
 	});
 })
 
-function createScenario()
+function createScenario(scenario_type)
 {
 	$('#fade').show();
 	$('#loader').show();
+	$('#loader img').show();
 	//$('#createScenario').html('<img src="Images/Regulator/loading.gif" height="25" width="25" alt="loading" text="please wait..." />Completed: 0%')
+	
+	var data = {};
+	data.scenario = scenario_type;
 	
 	$.ajax({
 		type: "POST",
 		url: "/admin/demo",
+		dataType : 'json',
+		data: JSON.stringify(data),
+		contentType: 'application/json',
 		success: function(d){
 			console.log(d)
 		},
@@ -121,7 +128,7 @@ function createScenario()
 							}
 							else
 							{
-								if(typeof JSON.parse(array[i]).error == true)
+								if(JSON.parse(array[i]).error == true)
 								{
 									clearInterval(checkDone);
 									$('#latestSpan').html('&nbsp;&#10004');

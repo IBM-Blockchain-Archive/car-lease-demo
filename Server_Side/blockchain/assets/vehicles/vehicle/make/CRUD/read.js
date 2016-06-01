@@ -42,6 +42,9 @@ var read = function (req,res)
 	
 	request(options, function(error, response, body)
 	{
+		
+		console.log("Make update read", body);
+		
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}
