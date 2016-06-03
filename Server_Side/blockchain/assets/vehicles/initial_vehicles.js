@@ -1,4 +1,4 @@
-var vehicles = {
+var full_scenario = {
 	"cars": [
 		{
 			"VIN": "720965981630055",
@@ -81,8 +81,38 @@ var vehicles = {
 			"Owners": ["DVLA", "Alfa Romeo"]
 		}
 	]
-}
+};
 
-exports.vehicles = vehicles;
+var simple_scenario = {
+	"cars": [
+		{
+			"VIN": "287437467447767",
+			"Make": "Toyota",
+			"Model": "Auris",
+			"Colour": "Blue",
+			"Reg": "LM16 YHU",
+			"Owners": ["DVLA", "Toyota", "Beechwale Group", "LeaseCan"]
+		},
+		{
+			"VIN": "549523556856725",
+			"Make": "Jaguar",
+			"Model": "F-Type",
+			"Colour": "Red",
+			"Reg": "HE16 WDZ",
+			"Owners": ["DVLA", "Jaguar Land Rover", "Beechwale Group"]
+		},
+		{
+			"VIN": "880352730316924",
+			"Make": "Alfa Romeo",
+			"Model": "MiTo",
+			"Colour": "Blue",
+			"Reg": "NL65 DTU",
+			"Owners": ["DVLA", "Alfa Romeo"]
+		}
+	]
+};
+
+exports.full_scenario = full_scenario;
+exports.simple_scenario = simple_scenario;
 
 

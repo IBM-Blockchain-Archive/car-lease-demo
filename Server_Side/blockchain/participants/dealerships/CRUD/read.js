@@ -6,7 +6,7 @@ var reload = require('require-reload')(require),
 
 var read = function(req, res)
 {
-	 participants = reload(__dirname+'/../../participants_info.js');
+	participants = reload(__dirname+'/../../participants_info.js');
 	tracing.create('ENTER', 'GET blockchain/participants/dealerships', []);
 	
 	if(!participants.participants_info.hasOwnProperty('dealerships'))

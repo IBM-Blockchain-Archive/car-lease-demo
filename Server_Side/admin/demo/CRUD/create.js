@@ -18,19 +18,45 @@ var send_error = false;
 var counter = 0;
 var users = [];
 var cars = [];
+var cars_info;
 
 var create = function(req,res)
 {
+	
+	
+	console.log("DEMO SCENARIO TYPE",req.body.scenario);
+	
+	//req.body.scenario valid values = simple, full
+	
 	res.end(JSON.stringify({"message": "performing scenario creation now"}));
 	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', "");
 	update_demo_status(JSON.stringify({"message":"Creating demo scenario"})+'&&');
 	
 	tracing.create('ENTER', 'POST admin/demo', []);
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
-
-	if(initial_vehicles.vehicles.hasOwnProperty('cars'))
+	
+	if(req.body.scenario == "simple")
 	{
-		cars = initial_vehicles.vehicles.cars;
+		cars_info = initial_vehicles.simple_scenario;	
+	}
+	else if(req.body.scenario == "full")
+	{
+		cars_info = initial_vehicles.full_scenario;
+	}
+	else
+	{
+		tracing.create('ERROR', 'POST admin/demo', 'Scenario type not recognised');
+		var error = {}
+		error.message = 'Scenario type not recognised';
+		error.error = true;
+		update_demo_status(JSON.stringify(error));
+	}
+	
+	console.log("DEMO SCENARIO CARS",req.body.scenario, cars_info.cars);
+	
+	if(cars_info.hasOwnProperty('cars'))
+	{
+		cars = cars_info.cars;
 		counter = 0
 		addUsers(req, res);
 	}
@@ -305,6 +331,9 @@ function create_car()
 
 	request(options, function(error, response, body)
 	{
+		
+		console.log("CREATE CAR RESPONSE", body)
+		
 		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
 		{
 			var array = body.split("&&");
