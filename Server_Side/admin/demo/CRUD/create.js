@@ -240,7 +240,7 @@ function deploy_vehicle(req, res)
 		if (!error && response.statusCode == 200) 
 		{
 			counter = 0;
-			setTimeout(function(){create_cars(req, res);},30000)
+			setTimeout(function(){create_cars(req, res);},60000)
 
 		}
 		else
