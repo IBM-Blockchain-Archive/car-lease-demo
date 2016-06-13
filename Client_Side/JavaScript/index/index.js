@@ -14,7 +14,7 @@ function checkBlocksAlready()
 		success: function(d) {
 			if(d.height != 1)
 			{
-				$('.welcomeMsg').hide()
+				$('.welcomeMsg').show()
 			}
 		},
 		error: function(e) {
