@@ -307,7 +307,8 @@ require("cf-deployment-tracker-client").track();
 // ============================================================================================================================
 var server = http.createServer(app).listen(port, function () {
 	
-	console.log(startup.create())
+	var result = startup.create(dataSource)
+	console.log("Demo startup result", result)
 	
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
