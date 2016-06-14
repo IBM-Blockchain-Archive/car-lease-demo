@@ -15,7 +15,8 @@ config.api_port_internal = 	JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchai
 config.app_url = 'http://'+JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
 
 //Chaincode file locations
-config.vehicle = "https://github.com/jpayne23/testDeployCC/Chaincode_v0601/vehicle_code";
+config.vehicle = "https://github.com/awjh/car-lease-demo//Chaincode/vehicle_code";
+
 
 
 //Chaincode deployed names
