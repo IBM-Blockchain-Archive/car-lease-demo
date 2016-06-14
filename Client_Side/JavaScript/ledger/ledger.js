@@ -132,6 +132,7 @@ function getTransactions(){
 		crossDomain: true,
 		url: '/blockchain/transactions',
 		success: function(d) {
+			d.transactions.reverse();
 			for(var i = d.transactions.length-1; i >= 0 ; i--)
 			{
 				var obj = d.transactions[i];
