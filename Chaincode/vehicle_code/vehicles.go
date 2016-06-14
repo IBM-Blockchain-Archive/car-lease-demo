@@ -766,7 +766,7 @@ func (t *SimpleChaincode) get_vehicles(stub *shim.ChaincodeStub, caller string, 
 	}
 	
 	if len(result) == 1 {
-		result = "null"
+		result = "[]"
 	} else {
 		result = result[:len(result)-1] + "]"
 	}
