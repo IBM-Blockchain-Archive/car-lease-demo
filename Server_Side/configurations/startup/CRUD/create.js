@@ -3,14 +3,11 @@
 var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../configuration.js'),
-	participants = reload(__dirname+'/../participants_info.js');
+	participants = reload(__dirname+'/../../../blockchain/participants/participants_info.js');
 var tracing = require(__dirname+'/../../../tools/traces/trace.js');	
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var crypto = require('crypto');
-
-var reload = require('require-reload')(require),
-    participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
 
 var send_error = false;
 var counter = 0;
@@ -258,7 +255,7 @@ function createUser(username, role, aff)
 function loginUser(username, aff, secret)
 {
 	
-	configFile = reload(__dirname+'/../../../configurations/configuration.js');
+	configFile = reload(__dirname+'/../configuration.js');
 	var credentials = {
 						  "enrollId": username,
 						  "enrollSecret": secret
@@ -297,8 +294,8 @@ function loginUser(username, aff, secret)
 function update_config(name)
 {
 
-	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
-	fs.readFile(__dirname+'/../../../../configurations/configuration.js', 'utf8', function (err,data)
+	configFile = reload(__dirname+'/configurations/configuration.js');
+	fs.readFile(__dirname+'/../configurations/configuration.js', 'utf8', function (err,data)
 	{
 		if (err)
 		{
@@ -310,7 +307,7 @@ function update_config(name)
 
 		var result = data.replace(re, "config.vehicle_name = '"+name+"';");
 
-		fs.writeFile(__dirname+'/../../../../configurations/configuration.js', result, 'utf8', function (err)
+		fs.writeFile(__dirname+'/../configurations/configuration.js', result, 'utf8', function (err)
 		{
 			if (err)
 			{	
