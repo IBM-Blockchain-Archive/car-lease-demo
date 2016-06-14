@@ -31,7 +31,6 @@ var participants 	= require(__dirname+'/Server_Side/blockchain/participants/part
 var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js');
 var vehicles	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
-var vehicle_logs	= require(__dirname+'/Server_Side/blockchain/vehicle_logs/vehicle_logs.js')
 var demo 	 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
 var chaincode 	 	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var transactions 			= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
@@ -254,13 +253,6 @@ app.get('/blockchain/participants/scrap_merchants', function(req, res){
 	participants.scrap_merchants.read(req,res);
 });
 
-//-----------------------------------------------------------------------------------------------
-//	Blockchain - Vehicle Logs
-//-----------------------------------------------------------------------------------------------
-app.get('/blockchain/vehicle_logs', function(req,res)
-{
-	vehicle_logs.read(req, res)
-})
 
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Transactions
