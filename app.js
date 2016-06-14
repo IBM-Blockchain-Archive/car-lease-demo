@@ -34,6 +34,7 @@ var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehi
 var demo 	 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
 var chaincode 	 	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var transactions 			= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
+var startup			= require(__dirname+'/Server_Side/configurations/startup/startup.js');
 
 //User manager modules
 var user_manager = require(__dirname+'/utils/user.js');
@@ -305,6 +306,9 @@ require("cf-deployment-tracker-client").track();
 // 														Launch Webserver
 // ============================================================================================================================
 var server = http.createServer(app).listen(port, function () {
+	
+	console.log(startup.create())
+	
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 process.env.NODE_ENV = 'production';
