@@ -63,6 +63,16 @@ type Vehicle struct {
 	LeaseContractID string `json:"leaseContractID"`
 }
 
+
+//==============================================================================================================================
+//	V5C Holder - Defines the structure that holds all the v5cIDs for vehicles that have been created.
+//				Used as an index when querying all vehicles.
+//==============================================================================================================================
+
+type V5C_Holder struct {
+	V5Cs 	[]string `json:"v5cs"`
+}
+
 //==============================================================================================================================
 //	ECertResponse - Struct for storing the JSON response of retrieving an ECert. JSON OK -> Struct OK
 //==============================================================================================================================
@@ -80,8 +90,17 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	//			peer_address
 	
 	
-	err := stub.PutState("Peer_Address", []byte(args[0]))
-															if err != nil { return nil, errors.New("Error storing peer address") }
+	var v5cIDs V5C_Holder
+	
+	bytes, err := json.Marshal(v5cIDs)
+	
+															if err != nil { return nil, errors.New("Error creating V5C_Holder record") }
+																
+	err = stub.PutState("v5cIDs", bytes)
+	
+	
+	err = stub.PutState("Peer_Address", []byte(args[0]))
+															if err != nil { return nil, errors.New("Error storing peer address") }										
 	
 	return nil, nil
 }
@@ -119,7 +138,6 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 //	 get_caller - Retrieves the username of the user who invoked the chaincode.
 //				  Returns the username as a string.
 //==============================================================================================================================
-
 
 func (t *SimpleChaincode) get_username(stub *shim.ChaincodeStub) (string, error) {
 
@@ -275,16 +293,24 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 //=================================================================================================================================	
 func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
 	
-	if len(args) != 1 { fmt.Printf("Incorrect number of arguments passed"); return nil, errors.New("QUERY: Incorrect number of arguments passed") }
-
-	v, err := t.retrieve_v5c(stub, args[0])
-																							if err != nil { fmt.Printf("QUERY: Error retrieving v5c: %s", err); return nil, errors.New("QUERY: Error retrieving v5c "+err.Error()) }
 															
 	caller, caller_affiliation, err := t.get_caller_data(stub)
+
+																							if err != nil { fmt.Printf("QUERY: Error retrieving caller details", err); return nil, errors.New("QUERY: Error retrieving caller details") }
 															
-	if function == "get_all" { 
-			return t.get_all(stub, v, caller, caller_affiliation)
-	} 
+	if function == "get_vehicle_details" { 
+	
+			if len(args) != 1 { fmt.Printf("Incorrect number of arguments passed"); return nil, errors.New("QUERY: Incorrect number of arguments passed") }
+	
+	
+			v, err := t.retrieve_v5c(stub, args[0])
+																							if err != nil { fmt.Printf("QUERY: Error retrieving v5c: %s", err); return nil, errors.New("QUERY: Error retrieving v5c "+err.Error()) }
+	
+			return t.get_vehicle_details(stub, v, caller, caller_affiliation)
+			
+	} else if function == "get_vehicles" {
+			return t.get_vehicles(stub, caller, caller_affiliation)
+	}
 																							return nil, errors.New("Received unknown function invocation")
 }
 
@@ -336,7 +362,28 @@ func (t *SimpleChaincode) create_vehicle(stub *shim.ChaincodeStub, caller string
 	_, err  = t.save_changes(stub, v)									
 			
 																		if err != nil { fmt.Printf("CREATE_VEHICLE: Error saving changes: %s", err); return nil, errors.New("Error saving changes") }
+	
+	bytes, err := stub.GetState("v5cIDs")
+
+																		if err != nil { return nil, errors.New("Unable to get v5cIDs") }
 																		
+	var v5cIDs V5C_Holder
+	
+	err = json.Unmarshal(bytes, &v5cIDs)
+	
+																		if err != nil {	return nil, errors.New("Corrupt V5C_Holder record") }
+															
+	v5cIDs.V5Cs = append(v5cIDs.V5Cs, v5cID)
+	
+	
+	bytes, err = json.Marshal(v5cIDs)
+	
+															if err != nil { fmt.Print("Error creating V5C_Holder record") }
+
+	err = stub.PutState("v5cIDs", bytes)
+
+															if err != nil { return nil, errors.New("Unable to put the state") }
+	
 	return nil, nil
 
 }
@@ -666,13 +713,13 @@ func (t *SimpleChaincode) scrap_vehicle(stub *shim.ChaincodeStub, v Vehicle, cal
 //=================================================================================================================================
 //	 Read Functions
 //=================================================================================================================================
-//	 get_all
+//	 get_vehicle_details
 //=================================================================================================================================
-func (t *SimpleChaincode) get_all(stub *shim.ChaincodeStub, v Vehicle, caller string, caller_affiliation int) ([]byte, error) {
+func (t *SimpleChaincode) get_vehicle_details(stub *shim.ChaincodeStub, v Vehicle, caller string, caller_affiliation int) ([]byte, error) {
 	
 	bytes, err := json.Marshal(v)
 	
-																if err != nil { return nil, errors.New("GET_ALL: Invalid vehicle object") }
+																if err != nil { return nil, errors.New("GET_VEHICLE_DETAILS: Invalid vehicle object") }
 																
 	if 		v.Owner				== caller		||
 			caller_affiliation	== AUTHORITY	{
@@ -682,6 +729,49 @@ func (t *SimpleChaincode) get_all(stub *shim.ChaincodeStub, v Vehicle, caller st
 																return nil, errors.New("Permission Denied")	
 	}
 
+}
+
+//=================================================================================================================================
+//	 get_vehicle_details
+//=================================================================================================================================
+
+func (t *SimpleChaincode) get_vehicles(stub *shim.ChaincodeStub, caller string, caller_affiliation int) ([]byte, error) {
+
+	bytes, err := stub.GetState("v5cIDs")
+		
+																			if err != nil { return nil, errors.New("Unable to get v5cIDs") }
+																	
+	var v5cIDs V5C_Holder
+	
+	err = json.Unmarshal(bytes, &v5cIDs)						
+	
+																			if err != nil {	return nil, errors.New("Corrupt V5C_Holder") }
+	
+	result := "["
+	
+	var temp []byte
+	var v Vehicle
+	
+	for _, v5c := range v5cIDs.V5Cs {
+		
+		v, err = t.retrieve_v5c(stub, v5c)
+		
+		if err != nil {return nil, errors.New("Failed to retrieve V5C")}
+		
+		temp, err = t.get_vehicle_details(stub, v, caller, caller_affiliation)
+		
+		if err == nil {
+			result += string(temp) + ","	
+		}
+	}
+	
+	if len(result) == 1 {
+		result = "null"
+	} else {
+		result = result[:len(result)-1] + "]"
+	}
+	
+	return []byte(result), nil
 }
 
 //=================================================================================================================================
