@@ -11,6 +11,7 @@ var crypto = require('crypto');
 
 var send_error = false;
 var counter = 0;
+var innerCounter = 0;
 var users = [];
 
 var connectorInfo;
@@ -209,8 +210,6 @@ function deploy_vehicle()
 function createUser(username, role, aff)
 {
 	
-	var counter = 0;
-
 	if (!connectorInfo.connector) {
 		return false//JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true});
 	}
@@ -226,20 +225,20 @@ function createUser(username, role, aff)
 	connectorInfo.connector.registerUser(user, function (err, response) {
 		if (err) {
 			
-			if(counter >= 5){
-				counter = 0;
+			if(innerCounter >= 5){
+				innerCounter = 0;
 				console.error("RegisterUser failed:", username, JSON.stringify(err));
 				return false
 			}
 			else{
-				counter++
-				console.log("Trying again", counter);
+				innerCounter++
+				console.log("Trying again", innnerCounter);
 				setTimeout(function(){createUser(username,role,aff);},2000)	            
 			}
 
 		} else {
 			
-			counter = 0;
+			innerCounter = 0;
 			
 			console.log("RegisterUser succeeded:", JSON.stringify(response));
 			// Send the response (username and secret) for logging user in 
@@ -255,7 +254,7 @@ function createUser(username, role, aff)
 function loginUser(username, aff, secret)
 {
 	
-	configFile = reload(__dirname+'/../configuration.js');
+	configFile = reload(__dirname+'/../../configuration.js');
 	var credentials = {
 						  "enrollId": username,
 						  "enrollSecret": secret
@@ -271,19 +270,19 @@ function loginUser(username, aff, secret)
 	request(options, function(error, response, body){
 		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
-			counter = 0;
+			innerCounter = 0;
 			console.log("LOGIN SUCCESSFUL", username)
 			return true
 		}
 		else
 		{
-			if(counter >= 5){
-				counter = 0;
+			if(innerCounter >= 5){
+				innerCounter = 0;
 				return false
 			}
 			else{
-				counter++
-				console.log("Trying logging in again", counter);
+				innerCounter++
+				console.log("Trying logging in again", innerCounter);
 				setTimeout(function(){loginUser(username, aff, secret);},2000)	            
 			}
 			
@@ -294,8 +293,8 @@ function loginUser(username, aff, secret)
 function update_config(name)
 {
 
-	configFile = reload(__dirname+'/configurations/configuration.js');
-	fs.readFile(__dirname+'/../configurations/configuration.js', 'utf8', function (err,data)
+	configFile = reload(__dirname+'/../../configuration.js');
+	fs.readFile(__dirname+'/../../configuration.js', 'utf8', function (err,data)
 	{
 		if (err)
 		{
