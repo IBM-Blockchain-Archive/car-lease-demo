@@ -4,7 +4,6 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
-var vehicle_logs = require(__dirname+'/../../../vehicle_logs/vehicle_logs.js');
 var map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
 
 var user_id;
@@ -50,7 +49,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 									      "name": configFile.config.vehicle_name
 									    },
 									    "ctorMsg": {
-									      "function": "get_all",
+									      "function": "get_vehicle_details",
 									      "args": [
 									       		v5cID
 									      ]
@@ -70,7 +69,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 	
 	request(options, function(error, response, body)
 	{	
-		if (body.error.data.indexOf("Error retrieving v5c") > -1)
+		if (body.hasOwnProperty("error") && body.error.data.indexOf("Error retrieving v5c") > -1)
 		{
 			tracing.create('ENTER', 'POST blockchain/assets/vehicles', []);
 			createVehicle(req, res, v5cID)
@@ -165,7 +164,7 @@ function confirmCreated(req, res, v5cID)
 									      "name": configFile.config.vehicle_name
 									    },
 									    "ctorMsg": {
-									      "function": "get_all",
+									      "function": "get_vehicle_details",
 									      "args": [
 									       		v5cID
 									      ]
@@ -174,7 +173,7 @@ function confirmCreated(req, res, v5cID)
 									  },
 									  "id": 123
 								};
-	
+	console.log("get_vehicle_details")
 	var options = 	{
 						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
@@ -189,11 +188,11 @@ function confirmCreated(req, res, v5cID)
 				console.log("Create confirm response", body);
 				
 				if (!body.hasOwnProperty("error") && response.statusCode == 200) {
+					console.log(JSON.parse(body.result.message))
 					var result = {}
 					result.message = "Creation confirmed";
 					result.v5cID = v5cID;
 					clearInterval(interval);
-					vehicle_logs.create(["Create", "Create V5C", v5cID, user_id], req,res);
 					tracing.create('EXIT', 'POST blockchain/assets/vehicles', JSON.stringify(result));
 					res.end(JSON.stringify(result))
 				}

@@ -12,9 +12,9 @@ function checkBlocksAlready()
 		crossDomain:true,
 		url: '/blockchain/blocks',
 		success: function(d) {
-			if(d.height == 1)
+			if(d.height != 1)
 			{
-				$('.welcomeMsg').show()
+				$('.welcomeMsg').hide()
 			}
 		},
 		error: function(e) {

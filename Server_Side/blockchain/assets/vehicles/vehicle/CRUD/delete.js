@@ -2,7 +2,6 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../tools/traces/trace.js');
-var vehicle_logs = require(__dirname+'/../../../../vehicle_logs/vehicle_logs.js');
 
 var update = function(req, res)
 {
@@ -71,7 +70,6 @@ var update = function(req, res)
 							{
 								var result = {};
 								result.message = 'Scrap updated'
-								vehicle_logs.create(["Scrap", "Scrap V5C" ,v5cID, req.session.user], req,res);
 								res.end(JSON.stringify(result))
 								clearInterval(interval);
 							}

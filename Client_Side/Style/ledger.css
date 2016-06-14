@@ -190,3 +190,7 @@
 	border-right-color: #DD721B;
 	color: #FFF;
 }
+.failureRow
+{
+	color:#A91024!important;
+}

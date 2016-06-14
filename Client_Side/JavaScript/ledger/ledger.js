@@ -122,77 +122,185 @@ function toggleMenu()
 	menuShowing = !menuShowing
 }
 
-function getTransactions()
-{
-	$('#searchBar').val('Search by V5C ID...')
+var found_cars = {};
+function getTransactions(){
+	found_cars = {};
 	$.ajax({
 		type: 'GET',
 		dataType: 'json',
 		contentType: 'application/json',
 		crossDomain: true,
-		url: '/blockchain/vehicle_logs',
+		url: '/blockchain/transactions',
 		success: function(d) {
-			formatLogs(d)
-		},
-		error: function(e)
-		{
-			$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw"></td><td class="transRw" style="width:1%; white-space:nowrap"></td><td colspan="2" class="transRw" style="text-align:center">'+JSON.parse(e.responseText).message+'</td><td class="transRw txtRight"></td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
-			$('#filterRw div').hide();
+			for(var i = d.transactions.length-1; i >= 0 ; i--)
+			{
+				var obj = d.transactions[i];
+				if(obj.payload.indexOf("create_vehicle_log") == -1)
+				{
+					var payload = obj.payload;
+					var type = "undefined";
+					var function_name = "";
+					var update_type = "";
+					var failed = obj.failed;
+					if(payload.indexOf("authority_to_manufacturer") != -1)
+					{
+						type = "Transfer";
+						function_name = "authority_to_manufacturer";
+					}
+					if(payload.indexOf("manufacturer_to_private") != -1)
+					{
+						type = "Transfer";
+						function_name = "manufacturer_to_private";
+					}
+					if(payload.indexOf("private_to_private") != -1)
+					{
+						type = "Transfer";
+						function_name = "private_to_private";
+					}
+					if(payload.indexOf("private_to_lease_company") != -1)
+					{
+						type = "Transfer";
+						function_name = "private_to_lease_company";
+					}
+					if(payload.indexOf("lease_company_to_private") != -1)
+					{
+						type = "Transfer";
+						function_name = "lease_company_to_private";
+					}
+					if(payload.indexOf("private_to_scrap_merchant") != -1)
+					{
+						type = "Transfer";
+						function_name = "private_to_scrap_merchant";
+					}
+					if(payload.indexOf("create_vehicle") != -1)
+					{
+						type = "Create";
+						function_name = "create_vehicle";
+					}
+					if(payload.indexOf("update_make") != -1)
+					{
+						type = "Update";
+						function_name = "update_make";
+						update_type = "Make";
+					}
+					if(payload.indexOf("update_model") != -1)
+					{
+						type = "Update";
+						function_name = "update_model";
+						update_type = "Model";
+					}
+					if(payload.indexOf("update_registration") != -1)
+					{
+						type = "Update";
+						function_name = "update_registration";
+						update_type = "Registration";
+					}
+					if(payload.indexOf("update_vin") != -1)
+					{
+						type = "Update";
+						function_name = "update_vin";
+						update_type = "VIN";
+					}
+					if(payload.indexOf("update_colour") != -1)
+					{
+						type = "Update";
+						function_name = "update_colour";
+						update_type = "Colour";
+					}
+					if(payload.indexOf("scrap_vehicle") != -1)
+					{
+						type = "Scrap";
+						function_name = "scrap_vehicle";
+					}
+					var v5cID = 'undefined';
+					var timestamp = 'undefined';
+					var caller = 'undefined';
+					var arguments = 'undfined';
+					if(type != "undefined")
+					{
+						v5cID = obj.payload.match(/[A-Z]{2}[0-9]{7}/g);
+						caller = obj.caller;
+						var date = new Date(obj.timestamp.seconds*1000);
+						timestamp = pad(date.getDate())+"/"+pad((date.getMonth()+1))+"/"+pad(date.getFullYear())+" "+pad(date.getHours())+":"+pad(date.getMinutes())+":"+pad(date.getSeconds());
+						arguments = payload.substring(payload.indexOf(function_name)+function_name.length, payload.indexOf(v5cID)).trim();
+						if(!found_cars.hasOwnProperty(v5cID))
+						{
+							found_cars[v5cID] = [];
+						}
+						found_cars[v5cID].push({"function_name": function_name, "args": arguments});
+					}
+
+					if(type == "Transfer")
+					{
+						var vin = get_update("vin", v5cID);
+						var make = get_update("make", v5cID);
+						var model = get_update("model", v5cID);
+						var reg = get_update("registration", v5cID);
+						var colour = get_update("colour", v5cID);
+						var carDetails = '['+vin+'] '+make+' '+model+', '+reg+', '+colour
+						
+						if(carDetails.indexOf('undefined') != -1)
+						{
+							carDetails = 'Vehicle Template' 
+						}
+			
+						$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+v5cID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >Transfer</span><span class="message">: '+caller+' &rarr; '+arguments+'</span></td><td colspan="2" class="transRw">'+carDetails+'</td><td class="transRw txtRight">'+timestamp+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
+	
+					}
+					if(type == "Create")
+					{
+						$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+v5cID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >Create</span><span class="message">: '+caller+'</span></td><td colspan="2" class="transRw">Create V5C</td><td class="transRw txtRight">'+timestamp+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
+					}
+					if(type == "Update")
+					{
+						var prev = get_update(update_type.toLowerCase(), v5cID);
+						$('<tr class="retrievedRw " ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+v5cID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >Update</span><span class="message">: '+caller+'</span></td><td colspan="2" class="transRw">'+update_type+': '+prev+' &rarr; '+arguments+'</td><td class="transRw txtRight">'+timestamp+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')			
+					}
+					if(type == "Scrap")
+					{
+						$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+v5cID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >Scrap</span><span class="message">: '+caller+'</span></td><td colspan="2" class="transRw">Scrap V5C</td><td class="transRw txtRight">'+timestamp+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
+					}	
+					if(failed)
+					{
+						$('.retrievedRw').first().children('.transRw').addClass('failureRw')
+						$('.retrievedRw').first().children('.transRw:nth-child(3)').children('.message').prepend(' '+$('.retrievedRw').first().children('.transRw:nth-child(3)').children('.type').html())
+						$('.retrievedRw').first().children('.transRw:nth-child(3)').children('.type').html('[FAILED]')
+					}
+					sortTime("asc",true);
+				}
+			}
+			if(d.transactions.length == 0)
+			{
+				$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw"></td><td class="transRw" style="width:1%; white-space:nowrap"></td><td colspan="2" class="transRw" style="text-align:center">No results found</td><td class="transRw txtRight"></td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
+				$('#filterRw div').hide();
+			}
+			else
+			{
+				$('#filterRw div').show();
+			}
 			$('#space').html('');
 			var colour = colours[$('#userType').html().toLowerCase().replace(' ', '_')]
 			$('.transRw').css('color', colour)
+			$('.failureRw').css('color', '#A91024')
 			$('.transRw').css('borderTopColor', colour)
 			$('.transRw').css('borderBottomColor', colour)
+		},
+		error: function(e)
+		{
+			console.log(e)
 		}
 	})
 }
-
-function formatLogs(data)
+function get_update(field, v5cID)
 {
-	if(data.length == 0)
+	for(var i = found_cars[v5cID].length-2; i > -1; i--)
 	{
-		$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw"></td><td class="transRw" style="width:1%; white-space:nowrap"></td><td colspan="2" class="transRw" style="text-align:center">No results found</td><td class="transRw txtRight"></td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
-		$('#filterRw div').hide();
-	}
-	else
-	{
-		$('#filterRw div').show();
-	}
-	
-	for(var i = 0; i < data.length; i++)
-	{
-		if(data[i].name == "Create"){
-			$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+data[i].v5c_ID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >'+data[i].name+'</span>: DVLA</td><td colspan="2" class="transRw">'+data[i].text+'</td><td class="transRw txtRight">'+data[i].time+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')
-		}
-		else if(data[i].name == "Transfer")
+		if(found_cars[v5cID][i].function_name == 'update_'+field)
 		{
-			var transferDetails = data[i].text.substring(0,data[i].text.indexOf("&&"))
-			var carDetails = data[i].text.substring(data[i].text.indexOf("&&")+2)
-
-			if(carDetails.indexOf('UNDEFINED') != -1)
-			{
-				carDetails = 'Vehicle Template' 
-			}
-			
-			$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+data[i].v5c_ID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >'+data[i].name+'</span>: '+transferDetails+'</td><td colspan="2" class="transRw">'+carDetails+'</td><td class="transRw txtRight">'+data[i].time+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')			
-		}
-		else if(data[i].name == "Update")
-		{
-			$('<tr class="retrievedRw " ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+data[i].v5c_ID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >'+data[i].name+'</span>: '+data[i].users[0]+'</td><td colspan="2" class="transRw">'+data[i].text+'</td><td class="transRw txtRight">'+data[i].time+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')			
-		}
-		else if(data[i].name == "Scrap")
-		{
-			$('<tr class="retrievedRw" ><td class="smlBrk"></td><td style="width:1%; white-space:nowrap" class="transRw">['+data[i].v5c_ID+'] </td><td class="transRw" style="width:1%; white-space:nowrap"><span class="type" >'+data[i].name+'</span>: '+data[i].users[0]+'</td><td colspan="2" class="transRw">'+data[i].text+'</td><td class="transRw txtRight">'+data[i].time+'</td><td class="smlBrk"></td></tr>').insertAfter('#insAft')			
+			return found_cars[v5cID][i].args;
 		}
 	}
-	$('#space').html('');
-	var colour = colours[$('#userType').html().toLowerCase().replace(' ', '_')]
-	$('.transRw').css('color', colour)
-	$('.transRw').css('borderTopColor', colour)
-	$('.transRw').css('borderBottomColor', colour)
-
-	sortTime("asc",true);
-
+	return 'undefined'
 }
 var filtShowing = false;
 function toggleFilters()
@@ -492,4 +600,12 @@ function changePageColour(type)
 	$('.bgColorChng').css('background-color', colours[type])
 	$('.bdrColorChng').css('border-color', colours[type])
 	$('.userHdr').css('border-bottom-color', colours[type])
+}
+
+function pad(value) {
+    if(value < 10) {
+        return '0' + value;
+    } else {
+        return value;
+    }
 }

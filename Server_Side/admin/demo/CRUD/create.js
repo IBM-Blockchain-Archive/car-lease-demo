@@ -186,7 +186,7 @@ function addUser(req, res)
 					else
 					{
 						counter = 0;
-						deploy_vehicle_log(req, res);
+						deploy_vehicle(req, res);
 					}
 				}
 				else
@@ -204,51 +204,18 @@ function addUser(req, res)
 					}
 					else
 					{
-						deploy_vehicle_log(req, res);
+						deploy_vehicle(req, res);
 					}
 				}
 			});
 		}
 		
-	})
-
-
-
-	
-}
-
-function deploy_vehicle_log(req, res)
-{
-	update_demo_status(JSON.stringify({"message":"Deploying vehicle log chaincode"})+'&&')
-	var j = request.jar();
-	var str = "user="+req.session.user
-	var cookie = request.cookie(str);
-	var url = configFile.config.app_url + '/blockchain/chaincode/vehicle_logs';
-	j.setCookie(cookie, url);
-	var options = {
-		url: url,
-		body: "",
-		method: 'POST',
-		jar: j
-	}
-
-	request(options, function(error, response, body)
-	{
-		if (!error && response.statusCode == 200) 
-		{
-			update_demo_status(JSON.stringify({"message":"Deploying vehicle chaincode"})+'&&')
-			deploy_vehicle(req, res)
-		}
-		else
-		{
-			update_demo_status(JSON.stringify({"message":"Unable to deploy vehicle log chaincode", "error": true}))
-		}
-	});
+	})	
 }
 
 function deploy_vehicle(req, res)
 {
-
+	update_demo_status(JSON.stringify({"message":"Deploying chaincode"})+'&&')
 	var j = request.jar();
 	var str = "user="+req.session.user
 	var cookie = request.cookie(str);
@@ -266,7 +233,7 @@ function deploy_vehicle(req, res)
 		if (!error && response.statusCode == 200) 
 		{
 			counter = 0;
-			setTimeout(function(){create_cars(req, res);},60000)
+			setTimeout(function(){create_cars(req, res);},30000)
 
 		}
 		else

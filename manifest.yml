@@ -1,10 +1,11 @@
 ---
 applications:
 - disk_quota: 1024M
-  name: Car-Lease-Demo
-  command: "node app.js"
-  path: "."
+  name: Car-Lease-Demo-test-awjh-1032
+  command: node app.js
+  path: .
   instances: 1
   memory: 512M
   services:
-  - car_lease_blockchain
+    - car_lease_blockchain
+  host: Car-Lease-Demo-test-awjh-1032

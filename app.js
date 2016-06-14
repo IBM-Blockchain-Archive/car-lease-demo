@@ -34,6 +34,7 @@ var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehi
 var vehicle_logs	= require(__dirname+'/Server_Side/blockchain/vehicle_logs/vehicle_logs.js')
 var demo 	 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
 var chaincode 	 	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
+var transactions 			= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
 
 //User manager modules
 var user_manager = require(__dirname+'/utils/user.js');
@@ -100,10 +101,6 @@ app.get('/admin/demo', function(req, res)
 //-----------------------------------------------------------------------------------------------
 app.post('/blockchain/chaincode/vehicles', function(req, res){
 	chaincode.vehicles.create(req, res)
-});
-
-app.post('/blockchain/chaincode/vehicle_logs', function(req, res){
-	chaincode.vehicle_logs.create(req, res)
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -264,6 +261,13 @@ app.get('/blockchain/vehicle_logs', function(req,res)
 {
 	vehicle_logs.read(req, res)
 })
+
+//-----------------------------------------------------------------------------------------------
+//	Blockchain - Transactions
+//-----------------------------------------------------------------------------------------------
+app.get('/blockchain/transactions', function(req, res){
+	transactions.read(req, res);
+});
 
 
 ///////////  Configure Webserver  ///////////

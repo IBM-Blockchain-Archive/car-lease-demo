@@ -45,7 +45,7 @@ function deploy(req, res)
 			console.log("VEHICLE DEPLOY NAME",body.result.message)
 			setTimeout(function() {
 				update_config(body.result.message, res)
-			}, 60000);
+			}, 5000);
 		}
 		else
 		{

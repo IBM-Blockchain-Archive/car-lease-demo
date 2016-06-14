@@ -4,7 +4,6 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
-var vehicle_logs = require(__dirname+'/../../../../../vehicle_logs/vehicle_logs.js');
 var map_ID = require(__dirname+'/../../../../../../tools/map_ID/map_ID.js');
 
 var user_id;
@@ -87,7 +86,6 @@ var update = function(req, res)
 
 							var result = {};
 							result.message = 'Owner updated'
-							vehicle_logs.create(["Transfer", user_id + " →  " + req.body.value + "&&[" + vehicle.VIN +"]" + vehicle.make + " " + vehicle.model + ", " +vehicle.colour + ", " + vehicle.reg ,v5cID, user_id, req.body.value], req,res);
 							tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', JSON.stringify(result));
 							res.end(JSON.stringify(result))
 							clearInterval(interval);

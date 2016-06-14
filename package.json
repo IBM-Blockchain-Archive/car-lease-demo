@@ -27,7 +27,8 @@
     "ws": "1.0.1",
     "request": "",
     "require-reload": "",
-    "fs": ""
+    "fs": "",
+    "x509": ""
   },
   "engines": {
     "node": "0.12.0"

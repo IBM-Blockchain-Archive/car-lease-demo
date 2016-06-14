@@ -23,7 +23,7 @@ var read = function (req,res)
 												"name": configFile.config.vehicle_name
 											},
 											"ctorMsg": {
-											  "function": "get_all",
+											  "function": "get_vehicle_details",
 											  "args": [
 											  		v5cID
 											  ]
