@@ -4,13 +4,19 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
+var crypto = require('crypto');
+
 
 function deploy(req, res)
-{	
-
-
+{
+	
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 	    api_url = api_url.replace('http://', '')
+	    
+    var randomVal = crypto.randomBytes(256).toString('hex')
+				
+	
+				
 				
 	var deploySpec = {
 						  "jsonrpc": "2.0",
@@ -23,7 +29,7 @@ function deploy(req, res)
 						    "ctorMsg": {
 						      "function": "init",
 						      "args": [
-						        api_url,"abc123qqqQquqqqqqqqsfsfsqq3456"
+						        api_url, randomVal
 						      ]
 						    },
 						    "secureContext": "DVLA"
@@ -40,9 +46,13 @@ function deploy(req, res)
 	
 	request(options, function(error, response, body)
 	{
+		
+		console.log("VEHICLE DEPLOY RESPONSE",body)
+		
 		if (!error && response.statusCode == 200)
 		{
-			console.log("VEHICLE DEPLOY NAME",body.result.message)
+			
+			console.log("Waiting 60s for chaincode to be deployed")
 			setTimeout(function() {
 				update_config(body.result.message, res)
 			}, 60000);
