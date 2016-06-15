@@ -91,7 +91,7 @@ function addUser()
 			{
 				counter++;
 				console.log("Created and registered user:",users[counter].identity);
-				setTimeout(addUser(), 2000);
+				setTimeout(function(){addUser()}, 2000);
 			}
 			else
 			{
@@ -134,7 +134,7 @@ function addUser()
 				if(counter < users.length - 1)
 				{
 					counter++;
-					setTimeout(addUser(), 500);
+					setTimeout(function(){addUser()}, 500);
 				}
 				else
 				{
@@ -190,10 +190,10 @@ function deploy_vehicle()
 		{
 			
 			console.log("Waiting 60s for chaincode to be deployed")
+			var result = update_config(body.result.message)
+			console.log("Update config result",result)
+			
 			setTimeout(function() {
-				var result = update_config(body.result.message)
-				console.log("Update config result",result)
-				
 				if(result){
 					return JSON.stringify({"message":"Application startup complete","error":false})
 				}
@@ -211,7 +211,7 @@ function createUser(username, role, aff)
 {
 	
 	if (!connectorInfo.connector) {
-		return false//JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true});
+		return JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true});
 	}
 
 	// Register the user on the CA
@@ -228,11 +228,10 @@ function createUser(username, role, aff)
 			if(innerCounter >= 5){
 				innerCounter = 0;
 				console.error("RegisterUser failed:", username, JSON.stringify(err));
-				return false
 			}
 			else{
 				innerCounter++
-				console.log("Trying again", innnerCounter);
+				console.log("Trying again", innerCounter);
 				setTimeout(function(){createUser(username,role,aff);},2000)	            
 			}
 
@@ -246,7 +245,11 @@ function createUser(username, role, aff)
 				id: response.identity,
 				secret: response.token
 			};
-			loginUser(username, aff, creds.secret);
+			var result = loginUser(username, aff, creds.secret);
+			console.log("Login result", result)
+			
+			return result
+			
 		}
 	});	
 }
@@ -272,6 +275,7 @@ function loginUser(username, aff, secret)
 		{
 			innerCounter = 0;
 			console.log("LOGIN SUCCESSFUL", username)
+			writeUserToFile(username, secret)
 			return true
 		}
 		else
@@ -298,19 +302,22 @@ function update_config(name)
 	{
 		if (err)
 		{
+			console.log("Read file error", err)
 			return false
 		}
+
+		console.log("Read file data", name)
 
 		var toMatch = "config.vehicle_name = '"+ configFile.config.vehicle_name+"';"
 		var re = new RegExp(toMatch, "g")
 
 		var result = data.replace(re, "config.vehicle_name = '"+name+"';");
 
-		fs.writeFile(__dirname+'/../configurations/configuration.js', result, 'utf8', function (err)
+		fs.writeFileSync(__dirname+'/../../configuration.js', result, 'utf8', function (err)
 		{
 			if (err)
 			{	
-				return false;
+				return false
 			}
 			else
 			{
@@ -318,6 +325,41 @@ function update_config(name)
 			}			
 		});
 	});
+}
+
+
+function writeUserToFile(username, secret)
+{
+	participants = reload(__dirname+'/../../../blockchain/participants/participants_info.js');
+	
+	var userType = "";
+	var userNumber = "";
+	
+	for(var k in participants.participants_info)
+	{
+		if (participants.participants_info.hasOwnProperty(k)) 
+		{
+			
+           var data = participants.participants_info[k];
+           for(var i = 0; i < data.length; i++)
+           {
+           		
+	       		if(data[i].identity == username)
+	       		{
+	       			userType = k;
+	       			userNumber = i;
+	       			break;
+	       		}
+           }
+        }
+	}
+	
+	var newData = participants.participants_info;
+	newData[userType][userNumber].password = secret;
+	
+	var updatedFile = '/*eslint-env node*/\n\nvar user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
+	
+	fs.writeFileSync(__dirname+'/../../../blockchain/participants/participants_info.js', updatedFile);
 }
 
 exports.create = create;
