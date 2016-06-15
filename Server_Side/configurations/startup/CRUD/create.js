@@ -195,7 +195,7 @@ function deploy_vehicle()
 			
 			setTimeout(function() {
 				if(result){
-					return JSON.stringify({"message":"Application startup complete","error":false})
+					console.log(JSON.stringify({"message":"Application startup complete","error":false}))
 				}
 			}, 60000);
 		}
