@@ -12,9 +12,20 @@ function checkBlocksAlready()
 		crossDomain:true,
 		url: '/blockchain/blocks',
 		success: function(d) {
-			if(d.height <= 2)
+			if(d.height == 2)
 			{
+				$('a').removeClass('greyOutLink')
 				$('.welcomeMsg').show()
+			}
+			else if(d.height < 2)
+			{
+				$('.prematureMsg').show()
+				$('a').addClass('greyOutLink')
+				
+			}
+			else
+			{
+				$('a').removeClass('greyOutLink')
 			}
 		},
 		error: function(e) {

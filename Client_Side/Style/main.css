@@ -218,6 +218,16 @@ body
 {
 	border:2px solid #00648D;
 }
+.prematureMsg
+{
+	display:none;
+}
+.prematureMsgTxt
+{
+	padding: 5px;
+	color:#00648D;
+	text-align: center;
+}
 .welcomeMsg
 {
 	display:none;
