@@ -7,6 +7,7 @@ var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
 var map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
 
 var user_id;
+var counter = 0;
 
 function createV5cID(req, res)
 {
@@ -76,14 +77,26 @@ function checkIfAlreadyExists(req, res, v5cID)
 		}
 		else if (response.statusCode == 200)
 		{
-			console.log("Trying again vehicle create")
-			setTimeout(function(){createV5cID(req, res);},3000);
+			if(counter < 10){
+				console.log("Trying again vehicle create")
+				counter++
+				setTimeout(function(){createV5cID(req, res);},3000);
+			}
+			else{
+				counter = 0;
+				var error = {}
+				error.message = 'Timeout while checking v5cID is unique';
+				error.error = true;
+				error.v5cID = v5cID;
+				res.end(JSON.stringify(error))
+			}
+			
 		}
 		else
 		{
 			
 			console.log("BIG ERROR"+error);
-			
+			counter = 0;
 			res.status(400)
 			var error = {}
 			error.message = 'Unable to confirm V5cID is unique';
@@ -173,14 +186,14 @@ function confirmCreated(req, res, v5cID)
 									  },
 									  "id": 123
 								};
-	console.log("get_vehicle_details")
+
 	var options = 	{
 						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
 						method: "POST", 
 						body: querySpec,
 						json: true
 					}
-	var counter = 0;
+	counter = 0;
 	var interval = setInterval(function(){
 		if(counter < 15){				
 			request(options, function(error, response, body){

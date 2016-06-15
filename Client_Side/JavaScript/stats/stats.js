@@ -305,7 +305,7 @@ function updatePage()
 
 		$('.arrow_right_box').show()
 
-		prevFiftyBlocks.unshift(block.nonHashData.localLedgerCommitTimestamp.seconds)
+		prevFiftyBlocks.unshift(blockTime)
 
 		timeData.unshift(prevFiftyBlocks[0] - prevFiftyBlocks[1])
 		transData.unshift(block.transactions.length)
@@ -315,8 +315,10 @@ function updatePage()
 		timeDiff = prevFiftyBlocks[0] - prevFiftyBlocks[1];
 
 		if(timeDiff>5000) timeDiff=5000;
-		
-		$('#timeSince').html(timeDiff+'s ago');
+
+		var curr = Date.now()/1000
+
+		$('#timeSince').html(parseInt(curr-blockTime)+'s ago');
 
 		sum += timeDiff;
 

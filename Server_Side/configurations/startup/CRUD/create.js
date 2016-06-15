@@ -189,15 +189,24 @@ function deploy_vehicle()
 		if (!body.hasOwnProperty('error') && response.statusCode == 200)
 		{
 			
-			console.log("Waiting 60s for chaincode to be deployed")
-			var result = update_config(body.result.message)
-			console.log("Update config result",result)
+			update_config(body.result.message)
 			
-			setTimeout(function() {
-				if(result){
-					console.log(JSON.stringify({"message":"Application startup complete","error":false}))
-				}
-			}, 60000);
+			var interval = setInterval(function(){
+				
+				var options = 	{
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
+						method: "GET",
+						json: true
+					}
+					
+				request(options, function(error, response, body){
+					console.log("Polling height",body.height)
+					if(body.height >= 2){
+						console.log("Height is now big enough")
+						clearInterval(interval)
+					}
+				});	
+			}, 2000)
 		}
 		else
 		{
@@ -245,10 +254,9 @@ function createUser(username, role, aff)
 				id: response.identity,
 				secret: response.token
 			};
-			var result = loginUser(username, aff, creds.secret);
-			console.log("Login result", result)
+			loginUser(username, aff, creds.secret);
 			
-			return result
+			return
 			
 		}
 	});	
@@ -305,8 +313,6 @@ function update_config(name)
 			console.log("Read file error", err)
 			return false
 		}
-
-		console.log("Read file data", name)
 
 		var toMatch = "config.vehicle_name = '"+ configFile.config.vehicle_name+"';"
 		var re = new RegExp(toMatch, "g")
