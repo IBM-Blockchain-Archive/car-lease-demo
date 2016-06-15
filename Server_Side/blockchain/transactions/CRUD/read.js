@@ -112,7 +112,7 @@ function evaluate_transactions(req, res)
 		}
 	}
 
-	
+	result.transactions.reverse()
 	res.send(result);
 }
 

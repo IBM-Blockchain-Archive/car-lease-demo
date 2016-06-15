@@ -6,12 +6,14 @@ var map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
 var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js');
+    
 
 
 function makeAccount(req, res)
 {
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
+	
 	
 	var user_id = req.body.account;
 	var user_pass = map_ID.get_password(req.body.participantType, req.body.account);
