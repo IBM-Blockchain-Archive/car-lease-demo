@@ -214,22 +214,6 @@ function toggleTrace()
 
 }
 
-
-function validateUserData(username, userType)
-{
-	var retVal = true;
-	$('#failTxt').html('');
-	if(username.trim() == "" || username.trim() == "Username...")
-	{
-		$('#failTxt').append('Username not entered.</br>');
-		$('#failTransfer').show();
-		$('#loader').hide()
-		retVal = false;
-	}
-	
-	return retVal;
-}
-
 function showError()
 {
 	$('#loader').hide();
@@ -263,7 +247,7 @@ function closeEditTbl()
 function addUser()
 {
 
-	if(userAff.trim() == "Type")
+	if($('#selectedType').html().trim() == "Type")
 	{
 		$('#fade').show()
 		$('#failTxt').append('User type not selected.');
@@ -342,7 +326,7 @@ function showEditTbl()
 	}
 }
 
-function validate(el)
+function validate()
 {
 	
 	/*
@@ -390,6 +374,10 @@ function validate(el)
 
 function createUser()
 {
+	$('#loader').show()
+	$('#chooseOptTbl').hide();
+	$('#errorRw').hide();
+	
 	var data = {};
 	data.username = $("#newUserUsername").val();
 	data.company = $("#newUserCompany").val();
