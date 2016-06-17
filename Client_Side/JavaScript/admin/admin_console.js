@@ -214,46 +214,6 @@ function toggleTrace()
 
 }
 
-function addUser()
-{
-	$('#fade').show()
-	$('#loader').show()
-	var userName = $("#username").val();
-	var userRole = 1;
-	var userAff = $("#selectedType").html();
-	
-	if(validateUserData(userName, userAff))
-	{
-				
-		var data = {};
-		data.user = userName;
-		data.role = userRole;
-		data.aff = userAff;
-	
-		$.ajax({
-			type: 'POST',
-			dataType : 'json',
-			data: JSON.stringify(data),
-			contentType: 'application/json',
-			crossDomain:true,
-			url: '/blockchain/participants',
-			success: function(d) {
-				console.log(d);
-				$('#chooseConfHd span').html('User Creation Complete')
-				$('#confTxt').html('Creation of user "'+d.id+'" successful. <br />Secret: '+d.secret)
-				$('#confTbl').show()
-				$('#loader').hide()
-			},
-			error: function(e){
-				console.log('FAILURE: '+JSON.stringify(e))
-				$('#failTxt').append('Error creating user.');
-				$('#failTransfer').show();
-				$('#loader').hide()
-			},
-			async: false
-		});
-	}
-}
 
 function validateUserData(username, userType)
 {
@@ -266,42 +226,8 @@ function validateUserData(username, userType)
 		$('#loader').hide()
 		retVal = false;
 	}
-	if(userType.trim() == "Type")
-	{
-		$('#failTxt').append('User type not selected.');
-		$('#failTransfer').show()
-		$('#loader').hide()
-		retVal = false;
-	}
 	
 	return retVal;
-}
-
-function clearUsername()
-
-{
-
-	if($('#username').val() == 'Username...')
-
-	{
-
-		$('#username').val('')
-
-	}
-
-}
-
-function refillUsername()
-
-{
-	if($('#username').val() == '')
-
-	{
-
-		$('#username').val('Username...')
-
-	}
-
 }
 
 function showError()
@@ -327,5 +253,180 @@ function hideSuccess()
 	$('#selectedType').html('Type')
 }
 
+function closeEditTbl()
+{
+	$('#chooseOptTbl').hide();
+	$('#errorRw').hide();
+	$('#fade').hide()
+}
 
+function addUser()
+{
+
+	if(userAff.trim() == "Type")
+	{
+		$('#fade').show()
+		$('#failTxt').append('User type not selected.');
+		$('#failTransfer').show()
+		
+	}
+	else
+	{	
+		showEditTbl()
+	}
+}
+
+function showEditTbl()
+{
+	$('#chooseOptTbl').fadeIn(1000);
+	$('#fade').fadeIn(1000);
+	
+	var addresses = {
+		"cities": ["Aberdeen", "St Albans", "Birmingham", "Bath", "Blackburn", "Bradford", "Bournemouth", "Bolton", "Brighton", "Bromley", "Bristol", "Belfast", "Carlisle", "Cambridge", "Cardiff", "Chester", "Chelmsford", "Colchester", "Croydon", "Canterbury", "Coventry", "Crewe", "Dartford", "Dundee", "Derby", "Dumfries", "Durham", "Darlington", "Doncaster", "Dorchester", "Dudley", "East London", "East Central London", "Edinburgh", "Enfield", "Exeter", "Falkirk", "Blackpool", "Glasgow", "Gloucester", "Guildford", "Harrow", "Huddersfield", "Harrogate", "Hemel Hempstead", "Hereford", "Outer Hebrides", "Hull", "Halifax", "Ilford", "Ipswich", "Inverness", "Kilmarnock", "Kingston upon Thames", "Kirkwall", "Kirkcaldy", "Liverpool", "Lancaster", "Llandrindod Wells", "Leicester", "Llandudno", "Lincoln", "Leeds", "Luton", "Manchester", "Rochester", "Milton Keynes", "Motherwell", "North London", "Newcastle upon Tyne", "Nottingham", "Northampton", "Newport", "Norwich", "North West London", "Oldham", "Oxford", "Paisley", "Peterborough", "Perth", "Plymouth", "Portsmouth", "Preston", "Reading", "Redhill", "Romford", "Sheffield", "Swansea", "South East London", "Stevenage", "Stockport", "Slough", "Sutton", "Swindon", "Southampton", "Salisbury", "Sunderland", "Southend-on-Sea", "Stoke-on-Trent", "South West London", "Shrewsbury", "Taunton", "Galashiels", "Telford", "Tunbridge Wells", "Torquay", "Truro", "Cleveland", "Twickenham", "Southall", "West London", "Warrington", "Western Central London", "Watford", "Wakefield", "Wigan", "Worcester", "Walsall", "Wolverhampton", "York"],
+		"street_names": ["Alresford Road", "Amherst Street", "Andover Road", "Arleston Lane", "Ashbourne Road", "Attwoods Drove", "Bank Street", "Basingwell Street Lower", "Boone Avenue", "Botley Road", "Brackens Lane", "Bucks Head Hill", "Burnett Close", "Burtville Ave", "Caswell Avenue", "Cathedral Road", "Chapel Lane", "Charnwood Street", "Chellaston Road", "Church Road", "Church Street", "City Road", "Converse Place", "Cott Street", "Cross Lane", "Curdridge Lane", "Derby Road", "Derwent Street", "Division Street", "Down Farm Lane", "Durley Street", "E Sahara Ave", "East Desert Inn Road", "Eastgate Street", "Fair Lane", "Hall Street", "Heathen Street", "High Street", "Hursley Park", "Industrial Road", "Inner Close", "Jacklyns Lane", "Jewry Street", "Kedleston Road", "Kentidge Way", "Kings Worthy", "Kingsgate Road", "Kingsgate Street", "Las Vegas Boulevard", "Las Vegas Boulevard S", "Legge Boulevard", "Lewis Street", "London Road", "Lower Basingwell Street", "Main Street", "Mansfield Road", "Maple Avenue", "Marjorie Road", "Martins Fields", "Morley Street", "Moundale Avenue", "Northfield Road", "Northington Road", "Nottingham Road", "Osmaston Road", "Paradise Road", "Parchment Street", "Park Farm Drive", "Parkway", "Peach Hill Lane", "Petersfield Road", "Plantations Drive", "Poole Street", "Queen Street", "Riverside Path", "Saint George's Square", "Samoset Road", "Sarum Road", "Seymour Avenue", "Sheardley Lane", "Shore Lane", "Sinfin Avenue", "South Hill", "South Pleasant Valley Road", "Southgate Street", "Springvale Road", "St. George's Street", "St. Thomas Street", "Staddle Hill Road", "Station Hill", "Stenson Road", "Stoney Lane", "Straton Lane", "Surrey Street", "Swan Lane", "The Broadway", "The Soke", "The Square", "Upham Street", "Upper Church Road", "Valley Avenue", "Vestry Road", "West Boscawen Street", "West Street", "Wharf Hill", "Whiteley Way", "Winchester Road", "Wordsworth Avenue"],
+		"post_codes": ["AB", "AL", "B", "BA", "BB", "BD", "BH", "BL", "BN", "BR", "BS", "BT", "CA", "CB", "CF", "CH", "CM", "CO", "CR", "CT", "CV", "CW", "DA", "DD", "DE", "DG", "DH", "DL", "DN", "DT", "DY", "E", "EC", "EH", "EN", "EX", "FK", "FY", "G", "GL", "GU", "HA", "HD", "HG", "HP", "HR", "HS", "HU", "HX", "IG", "IP", "IV", "KA", "KT", "KW", "KY", "L", "LA", "LD", "LE", "LL", "LN", "LS", "LU", "M", "ME", "MK", "ML", "N", "NE", "NG", "NN", "NP", "NR", "NW", "OL", "OX", "PA", "PE", "PH", "PL", "PO", "PR", "RG", "RH", "RM", "S", "SA", "SE", "SG", "SK", "SL", "SM", "SN", "SO", "SP", "SR", "SS", "ST", "SW", "SY", "TA", "TD", "TF", "TN", "TQ", "TR", "TS", "TW", "UB", "W", "WA", "WC", "WD", "WF", "WN", "WR", "WS", "WV", "YO"]
+	}
+
+	var names = ["Mary", "Patricia", "Linda", "Barbara", "Elizabeth", "Jennifer", "Maria", "Susan", "Margaret","Dorothy","Lisa", "Nancy", "Karen", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle", "Laura", "Sarah", "Kimberly", "Deborah", "Jessica", "Shirley", "Cynthia", "Angela", "Melissa", "Brenda", "Amy", "Anna", "Rebecca", "Virginia", "Kathleen", "Pamela", "Martha", "Debra", "Amanda", "Stephanie", "Carolyn", "Christine", "Marie", "Janet", "Catherine", "Frances", "Ann", "Joyce", "Diane", "Alice", "Julie", "Heather", "Teresa", "Doris", "Gloria", "Evelyn", "Jean", "Cheryl", "Mildred", "Katherine", "Joan", "Ashley", "Judith", "Rose", "Janice", "Kelly", "Nicole", "Judy", "Christina", "Kathy", "Theresa", "Beverly", "Denise", "Tammy", "Irene", "Jane", "Lori", "Rachel", "Marilyn", "Andrea", "Kathryn", "Louise", "Sara", "Anne", "Jacqueline", "Wanda", "Bonnie", "Julia", "Ruby", "Lois", "Tina", "Phyllis", "Norma", "Paula", "Diana", "Annie", "Lillian", "Emily", "Robin", "Peggy", "Crystal", "Gladys", "Rita", "Dawn", "Connie", "Florence", "Tracy", "Edna", "Tiffany", "Carmen", "Rosa", "Cindy", "Grace", "Wendy", "Victoria", "Edith", "Kim", "Sherry", "Sylvia", "Josephine", "Thelma", "Shannon", "Sheila", "Ethel", "Ellen", "Elaine", "Marjorie", "Carrie", "Charlotte", "Monica", "Esther", "Pauline", "Emma", "Juanita", "Anita", "Rhonda", "Hazel", "Amber", "Eva", "Debbie", "April", "Leslie", "Clara", "Lucille", "Jamie", "Joanne", "Eleanor", "Valerie", "Danielle", "Megan", "Alicia", "Suzanne", "Michele", "Gail", "Bertha", "Darlene", "Veronica", "Jill", "Erin", "Geraldine", "Lauren", "Cathy", "Joann", "Lorraine", "Lynn", "Sally", "Regina", "Erica", "Beatrice", "Dolores", "Bernice", "Audrey", "Yvonne", "Annette", "June", "Samantha", "Marion", "Dana", "Stacy", "Ana", "Renee", "Ida", "Vivian", "Roberta", "Holly", "Brittany", "Melanie", "Loretta", "Yolanda", "Jeanette", "Laurie", "Katie", "Kristen", "Vanessa", "Alma", "Sue", "Elsie", "Beth", "Jeanne", "Vicki", "James", "John", "Robert", "Michael", "William", "David", "Richard", "Charles", "Joseph", "Thomas", "Christopher", "Daniel", "Paul", "Mark", "Donald", "George", "Kenneth", "Steven", "Edward", "Brian", "Ronald", "Anthony", "Kevin", "Jason", "Matthew", "Gary", "Timothy", "Jose", "Larry", "Jeffrey", "Frank", "Scott", "Eric", "Stephen", "Andrew", "Raymond", "Gregory", "Joshua", "Jerry", "Dennis", "Walter", "Patrick", "Peter", "Harold", "Douglas", "Henry", "Carl", "Arthur", "Ryan", "Roger", "Joe", "Juan", "Jack", "Albert", "Jonathan", "Justin", "Terry", "Gerald", "Keith", "Samuel", "Willie", "Ralph", "Lawrence", "Nicholas", "Roy", "Benjamin", "Bruce", "Brandon", "Adam", "Harry", "Fred", "Wayne", "Billy", "Steve", "Louis", "Jeremy", "Aaron", "Randy", "Howard", "Eugene", "Carlos", "Russell", "Bobby", "Victor", "Martin", "Ernest", "Phillip", "Todd", "Jesse", "Craig", "Alan", "Shawn", "Clarence", "Sean", "Philip", "Chris", "Johnny", "Earl", "Jimmy", "Antonio", "Danny", "Bryan", "Tony", "Luis", "Mike", "Stanley", "Leonard", "Nathan", "Dale", "Manuel", "Rodney", "Curtis", "Norman", "Allen", "Marvin", "Vincent", "Glenn", "Jeffery", "Travis", "Jeff", "Chad", "Jacob", "Lee", "Melvin", "Alfred", "Kyle", "Francis", "Bradley", "Herbert", "Frederick", "Ray", "Joel", "Edwin", "Don", "Eddie", "Ricky", "Troy", "Randall", "Barry", "Alexander", "Bernard", "Mario", "Leroy", "Francisco", "Marcus", "Michael", "Theodore", "Clifford", "Miguel", "Oscar", "Jay", "Jim", "Tom", "Calvin", "Alex", "Ronnie", "Bill", "Lloyd", "Tommy", "Leon", "Derek", "Warren", "Darrell", "Jerome", "Floyd", "Leo", "Alvin", "Tim", "Wesley", "Gordon", "Dean", "Greg", "Jorge", "Dustin", "Pedro", "Derrick", "Dan", "Lewis", "Zachary", "Corey", "Herman", "Maurice", "Vernon", "Roberto", "Clyde", "Glen", "Hector", "Shane", "Ricardo", "Sam", "Rick", "Lester", "Brent", "Ramon", "Charlie", "Tyler", "Gilbert", "Gene"]
+
+	var house_number = randomNumber(1, 150)
+
+	var street_name = addresses.street_names[randomNumber(0, addresses.street_names.length-1)]  
+	
+	var city_int = randomNumber(0, addresses.cities.length-1)
+
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	var text = ""
+	for( var i=0; i < 2; i++ )
+		text += possible.charAt(randomNumber(0, possible.length-1));
+
+	var city = addresses.cities[city_int]
+	var post_code = addresses.post_codes[city_int]+(randomNumber(1, 99))+" "+(randomNumber(1, 9))+text
+	
+	console.log("NAME")
+	var name = names[randomNumber(0, names.length)]
+	
+	var types = [name+"'s Motors", name+"'s Car Sales", name+"'s Leasing", name, name+"'s Scrap Merchants"]
+	
+	var i;
+	
+	switch ($('#selectedType').html())
+	{
+		case "Manufacturer": 
+			i = 0
+			break;
+		case "Dealership": 
+			i = 1
+			break;
+		case "Lease Company": 
+			i = 2 
+			break;
+		case "Leasee": 
+			i = 3 
+			break;
+		case "Scrap Merchant": 
+			i = 4 
+			break;
+	}
+	
+	$('#newUserUsername').val(name);
+	$('#newUserCompany').val(types[i]);
+	$('#newUserType').val($('#selectedType').html());
+	$('#newUserStreet').val(house_number+" "+street_name);
+	$('#newUserCity').val(city);
+	$('#newUserPostcode').val(post_code);
+	
+	if($('#newUserUsername').val().indexOf("undefined") != -1 || $('#newUserCompany').val().indexOf("undefined") != -1 || $('#newUserUserType').val().indexOf("undefined") != -1 || $('#newUserStreet').val().indexOf("undefined") != -1 || $('#newUserCity').val().indexOf("undefined") != -1 || $('#newUserPostcode').val().indexOf("undefined") != -1)
+	{
+		showEditTbl()
+	}
+}
+
+function validate(el)
+{
+	
+	/*
+	Validation on if details have been filled in for updating a car. This is not validation on what the person is allowed to update,
+	that is done within the contract on the blockchain.
+	*/
+	
+	$('#errorRw').html('<ul></ul>');
+	var failed = false;
+	if($('#newUserUsername').val().trim() == '')
+	{
+		$('#errorRw').find('ul').append('<li>Username cannot be blank</li>')
+		failed = true;
+	}
+	if($('#newUserCompany').val().trim() == '')
+	{
+		$('#errorRw').find('ul').append('<li>Company cannot be blank</li>')
+		failed = true;
+	}
+	if($('#newUserStreet').val().trim() == '')
+	{
+		$('#errorRw').find('ul').append('<li>Street cannot be blank</li>')
+		failed = true;
+	}
+	if($('#newUserCity').val().trim() == '')
+	{
+		$('#errorRw').find('ul').append('<li>City cannot be blank</li>')
+		failed = true;
+	}
+	if($('#newUserPostcode').val().trim() == '')
+	{
+		$('#errorRw').find('ul').append('<li>Postcode cannot be blank</li>')
+		failed = true;
+	}
+	if(!failed)
+	{
+		$('#errorRw').hide();
+		createUser();
+	}
+	else
+	{
+		$('#errorRw').show();
+	}
+}
+
+function createUser()
+{
+	var data = {};
+	data.username = $("#newUserUsername").val();
+	data.company = $("#newUserCompany").val();
+	data.role = 1;
+	data.affiliation = $("#newUserType").html();
+	data.street_name = $("#newUserStreet").val();
+	data.city = $("#newUserCity").val();
+	data.postcode = $("#newUserPostcode").val();
+
+	$.ajax({
+		type: 'POST',
+		dataType : 'json',
+		data: JSON.stringify(data),
+		contentType: 'application/json',
+		crossDomain:true,
+		url: '/blockchain/participants',
+		success: function(d) {
+			console.log(d);
+			$('#chooseConfHd span').html('User Creation Complete')
+			$('#confTxt').html('Creation of user "'+d.id+'" successful. <br />Secret: '+d.secret)
+			$('#confTbl').show()
+			$('#loader').hide()
+		},
+		error: function(e){
+			console.log('FAILURE: '+JSON.stringify(e))
+			$('#failTxt').append('Error creating user.');
+			$('#failTransfer').show();
+			$('#loader').hide()
+		},
+		async: false
+	});
+}
+
+function randomNumber(min, max)
+{
+	var output = Math.floor(Math.random() * max) + min
+	console.log(output)
+	return output
+}
 

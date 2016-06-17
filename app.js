@@ -223,7 +223,7 @@ app.get('/blockchain/assets/vehicles/:v5cID/scrap' , function(req,res)
 //	Blockchain - Participants
 //-----------------------------------------------------------------------------------------------
 app.post('/blockchain/participants', function(req,res){
-	participants.create(dataSource, req.body.user,req.body.role, req.body.aff, res);
+	participants.create(dataSource, req, res);	// DataSource is the grpc connector
 });
 
 app.get('/blockchain/participants', function(req,res){

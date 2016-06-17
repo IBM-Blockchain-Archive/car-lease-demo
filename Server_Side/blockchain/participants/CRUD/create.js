@@ -10,7 +10,7 @@ var reload = require('require-reload')(require),
 
 var counter = 0;
 
-var registerUser = function(dataSource, username, role, aff, res) {
+var registerUser = function(dataSource, req, res) {
 
     if (!dataSource.connector) {
     	res.status(400);
@@ -19,7 +19,7 @@ var registerUser = function(dataSource, username, role, aff, res) {
     
     var numberAff = "0000"
     
-    switch(aff)
+    switch(req.body.affiliation)
 	{
 		case "Regulator":
 			numberAff = "0001";
@@ -43,10 +43,10 @@ var registerUser = function(dataSource, username, role, aff, res) {
 
     // Register the user on the CA
     var user = {
-    	"identity": username,
-    	"role": role,
+    	"identity": req.body.username,
+    	"role": req.body.role,
     	"account": "group1",
-    	"affiliation": numberAff
+    	"affiliation": req.body.affiliation
     }
  
     dataSource.connector.registerUser(user, function (err, response) {
@@ -54,14 +54,14 @@ var registerUser = function(dataSource, username, role, aff, res) {
         	
         	if(counter >= 5){
         		counter = 0;
-        		console.error("RegisterUser failed:", username, JSON.stringify(err));
+        		console.error("RegisterUser failed:", req.body.username, JSON.stringify(err));
         		res.status(400)
         		res.send(JSON.stringify({"error":err}));
         	}
         	else{
 	            counter++
 	            console.log("Trying again", counter);
-	            setTimeout(function(){registerUser(dataSource,username,role,aff,res);},2000)	            
+	            setTimeout(function(){registerUser(dataSource, req, res);},2000)	            
         	}
 
         } else {
@@ -74,17 +74,17 @@ var registerUser = function(dataSource, username, role, aff, res) {
                 id: response.identity,
                 secret: response.token
             };
-            loginUser(username, aff, creds.secret, res);
+            loginUser(req, res, creds.secret);
         }
     });
 }
 
-function loginUser(username, aff, secret, res)
+function loginUser(req, res, secret)
 {
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var credentials = {
-						  "enrollId": username,
+						  "enrollId": req.body.username,
 						  "enrollSecret": secret
 						}
 	
@@ -99,8 +99,8 @@ function loginUser(username, aff, secret, res)
 		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			counter = 0;
-			console.log("LOGIN SUCCESSFUL", username)
-			writeUserToFile(username, aff, secret, res)
+			console.log("LOGIN SUCCESSFUL", req.body.username)
+			writeUserToFile(req, res, secret)
 		}
 		else
 		{
@@ -112,14 +112,14 @@ function loginUser(username, aff, secret, res)
 			else{
 	            counter++
 	            console.log("Trying logging in again", counter);
-	            setTimeout(function(){loginUser(username, aff, secret, res);},2000)	            
+	            setTimeout(function(){loginUser(req, res, secret);},2000)	            
         	}
 			
 		}
 	});
 }
 
-function writeUserToFile(username, aff, secret, res)
+function writeUserToFile(req, res, secret)
 {
 	participants = reload(__dirname+'/../participants_info.js');
 	
@@ -135,7 +135,7 @@ function writeUserToFile(username, aff, secret, res)
            for(var i = 0; i < data.length; i++)
            {
            		
-           		if(data[i].identity == username)
+           		if(data[i].identity == req.body.username)
            		{
            			userType = k;
            			userNumber = i;
@@ -148,7 +148,7 @@ function writeUserToFile(username, aff, secret, res)
 	var newData = participants.participants_info;
 	if(userType == "")
 	{
-		switch(aff)
+		switch(req.body.affiliation)
 		{
 			case "Regulator":
 				userType="regulators";
@@ -171,17 +171,16 @@ function writeUserToFile(username, aff, secret, res)
 		}
 		userNumber = newData[userType].length;
 		newData[userType].push({})
-		newData[userType][userNumber].name = username;
-		newData[userType][userNumber].identity = username;
-		newData[userType][userNumber].address_line_1 = "123 Abc Street";
-		newData[userType][userNumber].address_line_2 = "Milton Keynes";
-		newData[userType][userNumber].address_line_3 = "Buckinghamshire";
-		newData[userType][userNumber].postcode = "MK9 3GA"
+		newData[userType][userNumber].name = req.body.company;
+		newData[userType][userNumber].identity = req.body.company;
+		newData[userType][userNumber].address_line_1 = req.body.street_name;
+		newData[userType][userNumber].address_line_2 = req.body.city;
+		newData[userType][userNumber].postcode = req.body.postoode
 		
 		var configData = "config.participants.users."+userType+"["+userNumber+"] = {}\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+username+"'\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].type = '"+aff+"'\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].user = 'Laura'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+req.body.company+"'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].type = '"+req.body.affiliation+"'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].user = '"+req.body.username+"'\n";
 		fs.appendFileSync(__dirname+'/../../../../Client_Side/JavaScript/config/config.js', configData);
 			
 	}
@@ -191,7 +190,7 @@ function writeUserToFile(username, aff, secret, res)
 	
 	fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
 	
-	res.send(JSON.stringify({"message":updatedFile, "id": username, "secret": secret}))
+	res.send(JSON.stringify({"message":updatedFile, "id": req,body.username, "secret": secret}))
 }
 
 exports.create = registerUser;
