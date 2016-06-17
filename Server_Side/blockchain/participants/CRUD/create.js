@@ -190,7 +190,7 @@ function writeUserToFile(req, res, secret)
 	
 	fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
 	
-	res.send(JSON.stringify({"message":updatedFile, "id": req,body.username, "secret": secret}))
+	res.send(JSON.stringify({"message":updatedFile, "id": req.body.username, "secret": secret}))
 }
 
 exports.create = registerUser;
