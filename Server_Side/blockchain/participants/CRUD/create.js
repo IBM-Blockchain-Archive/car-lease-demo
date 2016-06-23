@@ -171,16 +171,16 @@ function writeUserToFile(req, res, secret)
 		}
 		userNumber = newData[userType].length;
 		newData[userType].push({})
-		newData[userType][userNumber].name = req.body.company;
-		newData[userType][userNumber].identity = req.body.company;
-		newData[userType][userNumber].address_line_1 = req.body.street_name;
-		newData[userType][userNumber].address_line_2 = req.body.city;
+		newData[userType][userNumber].name = add_slashes(req.body.company);
+		newData[userType][userNumber].identity = add_slashes(req.body.company);
+		newData[userType][userNumber].address_line_1 = add_slashes(req.body.street_name);
+		newData[userType][userNumber].address_line_2 = add_slashes(req.body.city);
 		newData[userType][userNumber].postcode = req.body.postoode
 		
 		var configData = "config.participants.users."+userType+"["+userNumber+"] = {}\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+req.body.company+"'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+add_slashes(req.body.company)+"'\n";
 		configData += "config.participants.users."+userType+"["+userNumber+"].type = '"+req.body.affiliation+"'\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].user = '"+req.body.username+"'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].user = '"+add_slashes(req.body.username)+"'\n";
 		fs.appendFileSync(__dirname+'/../../../../Client_Side/JavaScript/config/config.js', configData);
 			
 	}
@@ -194,3 +194,14 @@ function writeUserToFile(req, res, secret)
 }
 
 exports.create = registerUser;
+
+function add_slashes(string) {
+    return string.replace(/\\/g, '\\\\').
+        replace(/\u0008/g, '\\b').
+        replace(/\t/g, '\\t').
+        replace(/\n/g, '\\n').
+        replace(/\f/g, '\\f').
+        replace(/\r/g, '\\r').
+        replace(/'/g, '\\\'').
+        replace(/"/g, '\\"');
+}

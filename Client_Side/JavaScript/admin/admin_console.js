@@ -382,7 +382,7 @@ function createUser()
 	data.username = $("#newUserUsername").val();
 	data.company = $("#newUserCompany").val();
 	data.role = 1;
-	data.affiliation = $("#newUserType").html();
+	data.affiliation = $("#newUserType").val();
 	data.street_name = $("#newUserStreet").val();
 	data.city = $("#newUserCity").val();
 	data.postcode = $("#newUserPostcode").val();
