@@ -19,7 +19,7 @@ Attributes of a vehicle:
 	9. 	Status           (int)
 	10.     LeaseContractID  (ChaincodeID, currently unused but will store the id of the lease contract for the vehicle)
 
-There is an API ([Documentation](/Documentation/API Methods.txt)) that the client side uses to call the Node.js server. The Node.js server then uses HTTP REST calls to contact a peer on the IBM Blockchain network. The peer can then communicate with the blockchain and invoke the functionalities built into the chaincodes.
+There is an API ([Documentation](/Documentation/API Methods.md)) that the client side uses to call the Node.js server. The Node.js server then uses HTTP REST calls to contact a peer on the IBM Blockchain network. The peer can then communicate with the blockchain and invoke the functionalities built into the chaincodes.
 
 
 # Application Architecture
