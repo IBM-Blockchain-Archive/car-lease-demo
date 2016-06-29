@@ -4,7 +4,7 @@
 
 # Application Background
 
-This application demonstrates the lifecycle of a vehicle from creation to manufacture, through a series of owners, and finishes with the vehicle being scrapped. The demo makes use of Node.js for the server side programming, with Golang used for the chaincode running on the IBM Blockchain network. The demo has two separate chaincodes. The first defines the rules about what can and cannot happen to a vehicle, (similar to a v5c) and the second stores a log of what has happened to a vehicle during its lifetime. Both chaincodes use JSON objects to store their data.
+This application demonstrates the lifecycle of a vehicle from creation to manufacture, through a series of owners, and finishes with the vehicle being scrapped. The demo makes use of Node.js for the server side programming, with Golang used for the chaincode running on the IBM Blockchain network. The demo uses a single chaincodes. In this chaincode, the rules about what can and cannot happen to a vehicle are defined (similar to a v5c in the UK) and the chaincode uses JSON objects to store data about a vehicle. The application contains a 'ledger' view to allow users to see what has happened (e.g. a vehicle was transferred from person A to person B), this is done by querying each block in the blockchain and getting information about every transaction that has happened. 
 
 Attributes of a vehicle:
 
@@ -14,18 +14,10 @@ Attributes of a vehicle:
 	4. 	Model            (String)
 	5. 	Color            (String)
 	6. 	Reg              (String)
-	7. 	Owner            (Ecert of user)
+	7. 	Owner            (Name of user)
 	8. 	Scrapped         (Bool)
 	9. 	Status           (int)
-	10. LeaseContractID  (ChaincodeID, currently unused but will store the address of the lease contract for the vehicle)
-
-Attributes of a log:
-
-	1. Name             (String, The name of the log type e.g. Create, Transfer, Update)
-	2. Time             (String, UTC timestamp of when the log was made)
-	3. Text             (String, The message to go with the log)
-	4. Obj_ID           (String, Unique identifier of the object the log refers to e.g. the V5cID)
-	5. Users            (Array of Ecerts, Array of the users involved with the log)
+	10.     LeaseContractID  (ChaincodeID, currently unused but will store the id of the lease contract for the vehicle)
 
 There is an API ([Documentation](/Documentation/API Methods.txt)) that the client side uses to call the Node.js server. The Node.js server then uses HTTP REST calls to contact a peer on the IBM Blockchain network. The peer can then communicate with the blockchain and invoke the functionalities built into the chaincodes.
 
@@ -53,4 +45,3 @@ After the request is validated, the chaincode updates the owner attribute of the
 To view the chaincode:
 
 - [Vehicle Code](Chaincode/vehicle_code/vehicles.go)
-- [Vehicle Log Code](Chaincode/vehicle_log_code/vehicle_log.go)
