@@ -624,7 +624,7 @@ Queries the vehicle chaincode and returns the scrap boolean of the vehicle.
 
 ###VIN
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/vin
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/VIN
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -650,7 +650,7 @@ Queries the vehicle chaincode and returns the vin of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/VIN
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/VIN
 
 	Type:				PUT
 	Input Type:			JSON
