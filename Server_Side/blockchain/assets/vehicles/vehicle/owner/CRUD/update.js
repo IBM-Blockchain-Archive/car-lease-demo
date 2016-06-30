@@ -82,7 +82,6 @@ var update = function(req, res)
 						
 						if (!error && response.statusCode == 200)
 						{
-							var vehicle = JSON.parse(body).vehicle;
 
 							var result = {};
 							result.message = 'Owner updated'

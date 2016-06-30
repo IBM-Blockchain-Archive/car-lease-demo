@@ -1,19 +1,20 @@
+/*eslint-env node */
 var request = require('request');
 var reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
-var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
+    configFile = reload(__dirname+'/../../../../../configurations/configuration.js');
+var tracing = require(__dirname+'/../../../../../tools/traces/trace.js');
 
 var read = function (req,res)
 {	
 	var v5cID = req.params.v5cID;
 	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', []);
-	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID, []);
+    configFile = reload(__dirname+'/../../../../../configurations/configuration.js');
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
 	}
-	
+
 	var querySpec =					{
 										"jsonrpc": "2.0",
 										"method": "query",
@@ -45,22 +46,21 @@ var read = function (req,res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Scrapped read", body);
+		console.log("Vehicle update read", body);
 		
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}
-			var vehicle = JSON.parse(body.result.message);
-			result.message = vehicle.scrapped;
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', JSON.stringify(result));
-			res.send(result)
+			result.vehicle = JSON.parse(body.result.message);
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID, JSON.stringify(result));
+			res.send(result.vehicle)
 		}
 		else 
 		{
 			res.status(400)
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Unable to read scrap. v5cID: '+ v5cID)
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID, 'Unable to get vehicle. v5cID: '+ v5cID)
 			var error = {}
-			error.message = 'Unable to read scrap'
+			error.message = 'Unable to read vehicle'
 			error.v5cID = v5cID;
 			error.error = true;
 			res.send(error)
@@ -69,4 +69,3 @@ var read = function (req,res)
 }
 
 exports.read = read;
-

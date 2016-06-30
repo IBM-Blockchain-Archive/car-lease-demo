@@ -343,7 +343,6 @@ function updateField()
 	
 	var data = {};
 	data.value = bigData[increment].value;
-	data.oldValue = $('#hid'+fieldId).val();
 	var found = [];
 	var field = bigData[increment].field;
 	var xhr = new XMLHttpRequest()

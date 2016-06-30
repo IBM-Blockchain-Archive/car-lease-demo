@@ -38,7 +38,7 @@ function makeAccount(req, res)
 		else
 		{
 			res.status(400);
-			res.send({"error":"Unable to log user in"});
+			res.send({"message":"Unable to log user in", "error": true});
 		}
 	});
 }

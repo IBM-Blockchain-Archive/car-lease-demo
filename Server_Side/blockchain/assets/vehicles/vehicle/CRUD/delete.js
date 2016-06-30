@@ -59,14 +59,14 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
-			res.write('{"message":"Achieving Consensus"}&&');
+			res.write('{"message":"Achieving consensus"}&&');
 			
 			var counter = 0;
 			var interval = setInterval(function(){
 				if(counter < 5){
 					request(options, function (error, response, body) {
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.scrapped)
+							if(JSON.parse(body).message)
 							{
 								var result = {};
 								result.message = 'Scrap updated'

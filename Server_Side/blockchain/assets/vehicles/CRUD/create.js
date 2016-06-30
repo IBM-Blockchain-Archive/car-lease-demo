@@ -99,7 +99,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 			counter = 0;
 			res.status(400)
 			var error = {}
-			error.message = 'Unable to confirm V5cID is unique';
+			error.message = 'Unable to confirm v5cID is unique';
 			error.error = true;
 			error.v5cID = v5cID;
 			res.end(JSON.stringify(error))

@@ -35,7 +35,7 @@ var get_height = function(req, res)
 		else
 		{
 			res.status(400);
-			res.send({"error":"Unable to get chain length"});
+			res.send({"message":"Unable to get chain length", "error": true});
 		}
 	});
 	
@@ -89,7 +89,7 @@ function get_block(req, res, number)
 		else
 		{
 			res.status(400);
-			res.send({"error":"Unable to get block"});
+			res.send({"message":"Unable to get block", "error": true});
 		}
 	});
 }

@@ -15,6 +15,7 @@ var read = function(req, res)
 		tracing.create('ERROR', 'GET blockchain/participants/regulators', 'Unable to retrieve regulators');
 		var error = {}
 		error.message = 'Unable to retrieve regulators';
+		error.err = true;
 		res.send(JSON.stringify(error))
 	} 
 	else

@@ -128,6 +128,15 @@ app.get('/blockchain/assets/vehicles' , function(req,res)
 });
 
 //-----------------------------------------------------------------------------------------------
+//	Blockchain - Assets - Vehicles - Vehicle
+//-----------------------------------------------------------------------------------------------
+
+app.get('/blockchain/assets/vehicles/:v5cID' , function(req,res)
+{
+	vehicle.read(req,res)
+});
+
+//-----------------------------------------------------------------------------------------------
 //	Blockchain - Assets - Vehicles - Vehicle - Owner
 //-----------------------------------------------------------------------------------------------
 app.get('/blockchain/assets/vehicles/:v5cID/owner' , function(req,res)

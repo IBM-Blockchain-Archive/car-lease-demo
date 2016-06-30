@@ -51,7 +51,8 @@ var read = function (req,res)
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}
-			result.vehicle = JSON.parse(body.result.message);
+			var vehicle = JSON.parse(body.result.message);
+			result.message = vehicle.colour;
 			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', JSON.stringify(result));
 			res.send(result)
 		}
@@ -62,6 +63,7 @@ var read = function (req,res)
 			var error = {}
 			error.message = 'Unable to read colour'
 			error.v5cID = v5cID;
+			error.error = true;
 			res.send(error)
 		}
 	});

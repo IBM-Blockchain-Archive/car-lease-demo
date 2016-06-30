@@ -19,7 +19,7 @@ var read = function(req, res)
 		else
 		{
 			res.status(400);
-			res.send({"error":"Unable to get chain length"});
+			res.send({"message":"Unable to get chain length", "error": true});
 		}
 	});
 }

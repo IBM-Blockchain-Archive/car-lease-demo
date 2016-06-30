@@ -14,7 +14,6 @@ var update = function(req, res)
 	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', []);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
-	var oldValue = req.body.oldValue;
 	var newValue = req.body.value;
 	var v5cID = req.params.v5cID;
 	
@@ -65,7 +64,7 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
-			res.write('{"message":"Achieving Consensus"}&&');
+			res.write('{"message":"Achieving consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
 				if(counter < 15){
@@ -74,7 +73,7 @@ var update = function(req, res)
 						console.log("Update colour confirm response", body);
 						
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.colour == newValue)
+							if(JSON.parse(body).message == newValue)
 							{
 								var result = {};
 								result.message = 'Colour updated'

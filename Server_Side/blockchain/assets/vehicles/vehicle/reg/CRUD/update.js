@@ -75,7 +75,7 @@ var update = function(req, res)
 						console.log("Update reg confirm response", body);
 						
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.reg == newValue)
+							if(JSON.parse(body).message == newValue)
 							{
 								var result = {};
 								result.message = 'Registration updated';

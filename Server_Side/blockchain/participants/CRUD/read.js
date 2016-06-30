@@ -15,6 +15,7 @@ var read = function(req, res)
 		tracing.create('ERROR', 'GET blockchain/participants/', 'Unable to retrieve participants');
 		var error = {}
 		error.message = 'Unable to retrieve participants';
+		error.error = true;
 		res.send(JSON.stringify(error))
 	} 
 	else

@@ -2,6 +2,9 @@
 var remove = require(__dirname+'/CRUD/delete.js');
 exports.delete = remove.delete;
 
+var read = require(__dirname+'/CRUD/read.js');
+exports.read = read.read;
+
 
 var colourFile = require(__dirname+'/colour/colour.js');
 var colour = {};

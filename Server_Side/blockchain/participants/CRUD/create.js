@@ -14,7 +14,7 @@ var registerUser = function(dataSource, req, res) {
 
     if (!dataSource.connector) {
     	res.status(400);
-    	res.send(JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true}));
+    	res.send(JSON.stringify({"message":"Cannot register users before the CA connector is setup", "error":true}));
     }
     
     var numberAff = "0000"
@@ -56,7 +56,7 @@ var registerUser = function(dataSource, req, res) {
         		counter = 0;
         		console.error("RegisterUser failed:", req.body.username, JSON.stringify(err));
         		res.status(400)
-        		res.send(JSON.stringify({"error":err}));
+        		res.send(JSON.stringify({"message": err}));
         	}
         	else{
 	            counter++
@@ -190,7 +190,7 @@ function writeUserToFile(req, res, secret)
 	
 	fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
 	
-	res.send(JSON.stringify({"message":updatedFile, "id": req.body.username, "secret": secret}))
+	res.send(JSON.stringify({"message":"User creation successful", "id": req.body.username, "secret": secret}))
 }
 
 exports.create = registerUser;

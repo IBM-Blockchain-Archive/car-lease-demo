@@ -190,7 +190,7 @@ START_BLOCKCHAIN
 							RESPONSE_FORMAT: JSON OBJECT SPLIT BY && DELIMITER
 							RESPONSE:
 								SUCCESS:
-									{ "message": "Formatting request" }&&{ "message": "Updating scrap value" }&&{ "message": "Confirming update" }&&{ "message": "Scrap updated" }
+									{"message": "Formatting request" }&&{ "message": "Updating scrap value" }&&{ "message": "Confirming update" }&&{ "message": "Scrap updated" }
 								ERROR:
 									ERROR_1:
 										STATUS: 400
