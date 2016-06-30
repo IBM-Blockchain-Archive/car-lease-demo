@@ -7,7 +7,7 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 * [Admin](#Admin)
 	* [Demo](#Demo)
 	* [Identity](#Identity)
-* [Blockchain](#Blockchain)
+* [Blockchain](#blockchain)
 	* [Blocks](#Blocks)
 	* [Block](#Block)
 * [Vehicles](#Vehicles)
