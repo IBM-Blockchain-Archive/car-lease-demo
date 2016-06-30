@@ -4,28 +4,28 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 
 ##Contents
 
-* [Admin](#Admin)
-	* [Demo](#Demo)
-	* [Identity](#Identity)
-* [Blockchain](#Blockchain)
-	* [Blocks](#Blocks)
-	* [Block](#Block)
-* [Vehicles](#Vehicles)
-* [Vehicle](#Vehicle)
-	* [Colour](#Colour)
-	* [Make](#Make)
-	* [Model](#Model)
-	* [Owner](#Owner)
-	* [Registration](#Registration)
+* [Admin](#admin)
+	* [Demo](#demo)
+	* [Identity](#identity)
+* [Blockchain](#blockchain)
+	* [Blocks](#blocks)
+	* [Block](#block)
+* [Vehicles](#vehicles)
+* [Vehicle](#vehicle)
+	* [Colour](#colour)
+	* [Make](#make)
+	* [Model](#model)
+	* [Owner](#owner)
+	* [Registration](#registration)
 	* [Scrap](#scrap)
-	* [VIN](#VIN)
-* [Participants](#Participants)
-	* [Regulators](#Regulators)
-	* [Manufacturers](#Manufacturers)
-	* [Dealerships](#Dealerships)
-	* [Lease Companies](#Lease-Companies)
-	* [Leasees](#Leasees)
-	* [Scrap Merchants](#Scrap-Merchants)
+	* [VIN](#vin)
+* [Participants](#participants)
+	* [Regulators](#regulators)
+	* [Manufacturers](#manufacturers)
+	* [Dealerships](#dealerships)
+	* [Lease Companies](#lease-Companies)
+	* [Leasees](#leasees)
+	* [Scrap Merchants](#scrap-Merchants)
 
 ##Admin
 
@@ -244,7 +244,7 @@ Queries the vehicle chaincode and returns all the vehicles that the current user
 
 ##Vehicle
 
-####DELETE&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>
+####DELETE&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>
 
 	Type:				DELETE
 	Transfer Encoding: 	Chunked
@@ -279,7 +279,7 @@ Invokes the vehicle chaincode function to update the scrapped field to true.
 
 ###Colour
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/colour
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/colour
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -305,7 +305,7 @@ Queries the vehicle chaincode and returns the colour of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/colour
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/colour
 
 	Type:				PUT
 	Input Type:			JSON
@@ -342,7 +342,7 @@ Invokes the vehicle chaincode function to update the colour field to the value p
 
 ###Make
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/make
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/make
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -368,7 +368,7 @@ Queries the vehicle chaincode and returns the make of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/make
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/make
 
 	Type:				PUT
 	Input Type:			JSON
@@ -405,7 +405,7 @@ Invokes the vehicle chaincode function to update the colour field to the value p
 
 ###Model
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/model
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/model
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -431,7 +431,7 @@ Queries the vehicle chaincode and returns the model of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/model
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/model
 
 	Type:				PUT
 	Input Type:			JSON
@@ -468,7 +468,7 @@ Invokes the vehicle chaincode function to update the colour field to the value p
 
 ###Owner
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/owner
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/owner
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -494,7 +494,7 @@ Queries the vehicle chaincode and returns the owner of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/owner
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/owner
 
 	Type:				PUT
 	Input Type:			JSON
@@ -531,7 +531,7 @@ Invokes the vehicle chaincode function to update the colour field to the value p
 
 ###Registration
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/reg
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/reg
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -557,7 +557,7 @@ Queries the vehicle chaincode and returns the registration of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/reg
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/reg
 
 	Type:				PUT
 	Input Type:			JSON
@@ -594,7 +594,7 @@ Invokes the vehicle chaincode function to update the colour field to the value p
 
 ###Scrap
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/scrap
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/scrap
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -624,7 +624,7 @@ Queries the vehicle chaincode and returns the scrap boolean of the vehicle.
 
 ###VIN
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/vin
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/VIN
 
 	Type: 				GET
 	Transfer Encoding:	Chunked
@@ -650,7 +650,7 @@ Queries the vehicle chaincode and returns the vin of the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
 
-####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/<v5c_ID\>/VIN
+####PUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/assets/vehicles/\<v5c_ID\>/VIN
 
 	Type:				PUT
 	Input Type:			JSON
