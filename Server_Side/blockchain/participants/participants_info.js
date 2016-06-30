@@ -1,5 +1,8 @@
 /*eslint-env node*/
 
+var user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];
+
+
 var participants_info = {
 	"regulators": [
 		{
