@@ -128,16 +128,6 @@ function createScenario(scenario_type)
 							}
 							else
 							{
-								if(JSON.parse(array[i]).error == true)
-								{
-									clearInterval(checkDone);
-									$('#latestSpan').html('&nbsp;&#10004');
-									$('#loader img').hide();
-									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i><br>');
-									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
-									$('#chooseConfHd span').html('Scenario Creation Failed');
-									$('#confTxt').html(JSON.parse(array[i]).message);
-								}
 								var fnd = false;
 								for(var j = 0; j < found.length; j++)
 								{
@@ -153,7 +143,15 @@ function createScenario(scenario_type)
 									found.push(JSON.parse(array[i]).message)
 									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'<span id="latestSpan">...</span></i><br>');
 								}
-
+								if(JSON.parse(array[i]).error == true)
+								{
+									clearInterval(checkDone);
+									$('#latestSpan').html('&nbsp;&#10004');
+									$('#loader img').hide();
+									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
+									$('#chooseConfHd span').html('Scenario Creation Failed');
+									$('#confTxt').html(JSON.parse(array[i]).message);
+								}
 							}
 						}
 					}
