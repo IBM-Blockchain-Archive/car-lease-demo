@@ -46,7 +46,7 @@ var registerUser = function(dataSource, req, res) {
     	"identity": req.body.username,
     	"role": req.body.role,
     	"account": "group1",
-    	"affiliation": req.body.affiliation
+    	"affiliation": numberAff
     }
  
     dataSource.connector.registerUser(user, function (err, response) {
@@ -175,12 +175,12 @@ function writeUserToFile(req, res, secret)
 		newData[userType][userNumber].identity = add_slashes(req.body.company);
 		newData[userType][userNumber].address_line_1 = add_slashes(req.body.street_name);
 		newData[userType][userNumber].address_line_2 = add_slashes(req.body.city);
-		newData[userType][userNumber].postcode = req.body.postoode
+		newData[userType][userNumber].postcode = req.body.postcode;
 		
 		var configData = "config.participants.users."+userType+"["+userNumber+"] = {}\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+add_slashes(req.body.company)+"'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+escape_quote(add_slashes(req.body.company))+"'\n";
 		configData += "config.participants.users."+userType+"["+userNumber+"].type = '"+req.body.affiliation+"'\n";
-		configData += "config.participants.users."+userType+"["+userNumber+"].user = '"+add_slashes(req.body.username)+"'\n";
+		configData += "config.participants.users."+userType+"["+userNumber+"].user = '"+escape_quote(add_slashes(req.body.username))+"'\n";
 		fs.appendFileSync(__dirname+'/../../../../Client_Side/JavaScript/config/config.js', configData);
 			
 	}
@@ -202,6 +202,9 @@ function add_slashes(string) {
         replace(/\n/g, '\\n').
         replace(/\f/g, '\\f').
         replace(/\r/g, '\\r').
-        replace(/'/g, '\\\'').
         replace(/"/g, '\\"');
+}
+
+function escape_quote(string) {
+	return string.replace(/'/g, "\\'");
 }
