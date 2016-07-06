@@ -33,6 +33,9 @@ function createScenario(scenario_type)
 	$('#fade').show();
 	$('#loader').show();
 	$('#loader img').show();
+
+	$('#loaderMessages').html('<u>Creating Scenario</u><br /><br /><span id="messages"></i>waiting...</i></span><br /></div>&nbsp;')
+	
 	//$('#createScenario').html('<img src="Images/Regulator/loading.gif" height="25" width="25" alt="loading" text="please wait..." />Completed: 0%')
 	
 	var data = {};
@@ -111,9 +114,18 @@ function createScenario(scenario_type)
 								}
 								if(!fnd)
 								{
-									$('#latestSpan').html('&nbsp;&#10004');
-									$('#latestSpan').attr('id','');
-									$('#loaderMessages').append('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									
+									if(found.length == 0){
+										$('#messages').html('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									}
+									else{
+										$('#latestSpan').html('&nbsp;&#10004');
+										$('#latestSpan').attr('id','');
+										$('#messages').append('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									}
+									
+									
+									
 									found.push(JSON.parse(array[i]).message)
 									if(JSON.parse(array[i]).message == "Demo setup")
 									{
@@ -128,16 +140,6 @@ function createScenario(scenario_type)
 							}
 							else
 							{
-								if(JSON.parse(array[i]).error == true)
-								{
-									clearInterval(checkDone);
-									$('#latestSpan').html('&nbsp;&#10004');
-									$('#loader img').hide();
-									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'</i><br>');
-									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
-									$('#chooseConfHd span').html('Scenario Creation Failed');
-									$('#confTxt').html(JSON.parse(array[i]).message);
-								}
 								var fnd = false;
 								for(var j = 0; j < found.length; j++)
 								{
@@ -153,7 +155,15 @@ function createScenario(scenario_type)
 									found.push(JSON.parse(array[i]).message)
 									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'<span id="latestSpan">...</span></i><br>');
 								}
-
+								if(JSON.parse(array[i]).error == true)
+								{
+									clearInterval(checkDone);
+									$('#latestSpan').html('&nbsp;&#10004');
+									$('#loader img').hide();
+									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
+									$('#chooseConfHd span').html('Scenario Creation Failed');
+									$('#confTxt').html(JSON.parse(array[i]).message);
+								}
 							}
 						}
 					}
