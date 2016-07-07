@@ -6,6 +6,8 @@ function createAsset()
 	$('#fade').show();
 	$('#loader').show();
 	
+	$('#loaderMessages').html('<u>Creating Asset</u><br /><br /><span id="messages"></i>waiting...</i></span><br /></div>&nbsp;');
+	
 	var data = {};
 	var found = [];
 	var xhr = new XMLHttpRequest()
@@ -31,9 +33,15 @@ function createAsset()
 					}
 					if(!fnd)
 					{
-						$('#latestSpan').html('&nbsp;&#10004');
-						$('#latestSpan').attr('id','');
-						$('#loaderMessages').append('<i>'+JSON.parse(array[i]).message+' </i><span id="latestSpan">...</span><br>');
+						if(found.length == 0){
+							$('#messages').html('<i>'+JSON.parse(array[i]).message+' </i><span id="latestSpan">...</span><br>');
+						}
+						else{
+							$('#latestSpan').html('&nbsp;&#10004');
+							$('#latestSpan').attr('id','');
+							$('#messages').append('<i>'+JSON.parse(array[i]).message+' </i><span id="latestSpan">...</span><br>');
+						}
+						
 						found.push(JSON.parse(array[i]).message)
 					}
 				}

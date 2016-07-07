@@ -55,7 +55,7 @@ None.
 
 #####Description:
 
-Deploys the chaincode located at the path that was supplied (e.g. [https://github.com/IBM-Blockchain/car-lease-demo/blob/master/Chaincode/vehicle_code/vehicles.go](https://github.com/IBM-Blockchain/car-lease-demo/blob/master/Chaincode/vehicle_code/vehicles.go)), calling the init function which stores in the world state a blank array of V5C IDs and the peer address supplied which is used to get eCerts.
+Deploys the chaincode located at the path that was supplied (e.g. [https://github.com/IBM-Blockchain/car-lease-demo/Chaincode/vehicle_code](https://github.com/IBM-Blockchain/car-lease-demo/blob/master/Chaincode/vehicle_code)), calling the init function which stores in the world state a blank array of V5C IDs and the peer address supplied which is used to get eCerts.
 
 #####Output:
 
@@ -108,9 +108,9 @@ The function takes a `<v5c_ID>` and creates a new blank vehicle JSON object to s
 
 JSON Object:
 
-	{"v5c_ID": "<v5c_ID>", "VIN": 0, "make": "UNDEFINED", "model": "UNDEFINED", "reg": "UNDEFINED", "owner": <caller>, "colour": "UNDEFINED", "LeaseContract": "UNDEFINED", "status": 0, "scrapped": false}
+	{"v5cID": "<v5c_ID>", "VIN": 0, "make": "UNDEFINED", "model": "UNDEFINED", "reg": "UNDEFINED", "owner": <caller>, "colour": "UNDEFINED", "leaseContractID": "UNDEFINED", "status": 0, "scrapped": false}
 
-The function checks whether the `<v5c_ID>` has already been used and if not writes the JSON to the world state with the `<v5c_ID>`. It also appends the `<v5c_ID>` to the array of V5C IDs and updates that in the world state.
+The function checks whether the `<v5c_ID>` has already been used and if not writes the JSON to the world state with the `<v5c_ID>` as the key. It also appends the `<v5c_ID>` to the array of V5C IDs and updates that in the world state.
 
 #####Output:
 
@@ -162,7 +162,7 @@ The function checks whether the `<v5c_ID>` has already been used and if not writ
 
 #####Description:
 
-If the conditions are met then the vehicle is transferred from the Authority to a Manufacturer. This is done by updating the JSON stored with the key `<v5c_id>` in the world state so that the owner field is the Recipient passed as an argument. The vehicle's status is also updated in the JSON to be 1 to show it is in the state of manufacture.
+If the conditions are met then the vehicle is transferred from the Authority to a Manufacturer. This is done by updating the JSON stored with the key `<v5c_ID>` in the world state so that the owner field is the Recipient passed as an argument. The vehicle's status is also updated in the JSON to be 1 to show it is in the state of manufacture.
 
 #####Output:
 
@@ -214,7 +214,7 @@ If the conditions are met then the vehicle is transferred from the Authority to 
 
 #####Description:
 
-If the conditions are met then the vehicle is transferred from the Manufacturer to a Private Entity. This is done by updating the JSON stored with the key `<v5c_id>` in the world state so that the owner field is the Recipient passed as an argument. The vehicle's status is also updated in the JSON to be 2 to show it is in the state of private ownership.
+If the conditions are met then the vehicle is transferred from the Manufacturer to a Private Entity. This is done by updating the JSON stored with the key `<v5c_ID>` in the world state so that the owner field is the Recipient passed as an argument. The vehicle's status is also updated in the JSON to be 2 to show it is in the state of private ownership.
 
 #####Output:
 
@@ -266,7 +266,7 @@ If the conditions are met then the vehicle is transferred from the Manufacturer 
 
 #####Description:
 
-If the conditions are met then the vehicle is transferred from the Private Entity to a Private Entity. This is done by updating the JSON stored with the key `<v5c_id>` in the world state so that the owner field is the Recipient passed as an argument.
+If the conditions are met then the vehicle is transferred from the Private Entity to another Private Entity. This is done by updating the JSON stored with the key `<v5c_ID>` in the world state so that the owner field is the Recipient passed as an argument.
 
 #####Output:
 
@@ -318,7 +318,7 @@ If the conditions are met then the vehicle is transferred from the Private Entit
 
 #####Description:
 
-If the conditions are met then the vehicle is transferred from the Private Entity to a Lease Company. This is done by updating the JSON stored with the key `<v5c_id>` in the world state so that the owner field is the Recipient passed as an argument.
+If the conditions are met then the vehicle is transferred from the Private Entity to a Lease Company. This is done by updating the JSON stored with the key `<v5c_ID>` in the world state so that the owner field is the Recipient passed as an argument.
 
 #####Output:
 

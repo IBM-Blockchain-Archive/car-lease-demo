@@ -33,6 +33,9 @@ function createScenario(scenario_type)
 	$('#fade').show();
 	$('#loader').show();
 	$('#loader img').show();
+
+	$('#loaderMessages').html('<u>Creating Scenario</u><br /><br /><span id="messages"></i>waiting...</i></span><br /></div>&nbsp;')
+	
 	//$('#createScenario').html('<img src="Images/Regulator/loading.gif" height="25" width="25" alt="loading" text="please wait..." />Completed: 0%')
 	
 	var data = {};
@@ -107,9 +110,17 @@ function createScenario(scenario_type)
 								}
 								if(!fnd)
 								{
-									$('#latestSpan').html('&nbsp;&#10004');
-									$('#latestSpan').attr('id','');
-									$('#loaderMessages').append('<i>'+array[i].message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									if(found.length == 0){
+										$('#messages').html('<i>'+array[i].message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									}
+									else{
+										$('#latestSpan').html('&nbsp;&#10004');
+										$('#latestSpan').attr('id','');
+										$('#messages').append('<i>'+array[i].message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									}
+									
+									
+									
 									found.push(array[i].message)
 									if(array[i].message == "Demo setup")
 									{
