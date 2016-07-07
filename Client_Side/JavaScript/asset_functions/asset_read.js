@@ -7,6 +7,7 @@ function loadAssets()
 	var found = 0;
 	var posLast = 0;
 	var objects = [];
+	var error = false;
 	var xhr = new XMLHttpRequest()
 	xhr.open("GET", "/blockchain/assets/vehicles", true)
 	xhr.overrideMimeType("text/plain");
@@ -50,6 +51,11 @@ function loadAssets()
 							objects.push(obj)
 						}
 					}
+					if(obj.hasOwnProperty("error"))
+					{
+						error = true
+						$("#vhclsTbl").append("Unable to load assets.");
+					}
 				}
 			}
 		}
@@ -63,14 +69,16 @@ function loadAssets()
 	xhr.onreadystatechange = function (){
 		if(xhr.readyState === 4)
 		{
-			$("#vhclsTbl").empty();
-			console.log(xhr.responseText)
-			for(var i = 0; i < objects.length; i++)
+			if(!error)
 			{
-				var data = objects[i];
-				$("#vhclsTbl").append("<tr class='vehRw'><td class='vin'>"+data.VIN+"</td><td class='vehDets' ><span class='carInfo'>" + data.make + "</span><span class='carInfo'>" + data.model + ", </span><span class='carInfo'>" + data.colour + ", </span><span class='carInfo'>" + data.reg + "</span></td><td class='chkHldr'><span class='chkSpc' ></span><span class='chkBx' ></span><input class='isChk' type='hidden' value='false' /><input class='v5cID' type='hidden' value='"+data.v5cID+"' /></td></tr>");
+				$("#vhclsTbl").empty();
+				for(var i = 0; i < objects.length; i++)
+				{
+					var data = objects[i];
+					$("#vhclsTbl").append("<tr class='vehRw'><td class='vin'>"+data.VIN+"</td><td class='vehDets' ><span class='carInfo'>" + data.make + "</span><span class='carInfo'>" + data.model + ", </span><span class='carInfo'>" + data.colour + ", </span><span class='carInfo'>" + data.reg + "</span></td><td class='chkHldr'><span class='chkSpc' ></span><span class='chkBx' ></span><input class='isChk' type='hidden' value='false' /><input class='v5cID' type='hidden' value='"+data.v5cID+"' /></td></tr>");
+				}
+				changeBarSize();
 			}
-			changeBarSize();
 		}
 	}
 	xhr.send()
