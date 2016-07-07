@@ -46,7 +46,7 @@ var registerUser = function(dataSource, req, res) {
 
     // Register the user on the CA
     var user = {
-    	"identity": req.body.username,
+    	"identity": req.body.company,
     	"role": req.body.role,
     	"account": "group1",
     	"affiliation": numberAff
@@ -86,7 +86,7 @@ function loginUser(req, res, secret)
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var credentials = {
-						  "enrollId": req.body.username,
+						  "enrollId": req.body.company,
 						  "enrollSecret": secret
 						}
 	
@@ -141,7 +141,7 @@ function writeUserToFile(req, res, secret)
            for(var i = 0; i < data.length; i++)
            {
            		
-           		if(data[i].identity == req.body.username)
+           		if(data[i].identity == req.body.company)
            		{
            			userType = k;
            			userNumber = i;
@@ -197,7 +197,7 @@ function writeUserToFile(req, res, secret)
 	fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
 	var result = {}
 	result.message = 'User creation successful'
-	result.id = req.body.username
+	result.id = req.body.company
 	result.secret = secret
 	tracing.create('EXIT', 'POST blockchain/participants', result)
 	res.send(result)

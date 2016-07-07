@@ -45,9 +45,6 @@ function loadAssets()
 					}
 					else
 					{
-						
-						console.log("ASSET READ:", obj)
-						
 						if(typeof obj.message == 'undefined' && obj.VIN > 0 && obj.make.toLowerCase() != 'undefined' && obj.make.trim() != '' && obj.model.toLowerCase() != 'undefined' && obj.model.trim() != '' && obj.reg.toLowerCase() != 'undefined' && obj.reg.trim() != '' && obj.colour.toLowerCase() != 'undefined' && obj.colour.trim() != '' && !obj.scrapped)
 						{
 							objects.push(obj)
@@ -67,6 +64,7 @@ function loadAssets()
 		if(xhr.readyState === 4)
 		{
 			$("#vhclsTbl").empty();
+			console.log(xhr.responseText)
 			for(var i = 0; i < objects.length; i++)
 			{
 				var data = objects[i];

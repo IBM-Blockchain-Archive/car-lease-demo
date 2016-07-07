@@ -292,7 +292,6 @@ function showEditTbl()
 	var city = addresses.cities[city_int]
 	var post_code = addresses.post_codes[city_int]+(randomNumber(1, 99))+" "+(randomNumber(1, 9))+text
 	
-	console.log("NAME")
 	var name = names[randomNumber(0, names.length)]
 	
 	var types = [name+"'s Motors", name+"'s Car Sales", name+"'s Leasing", name, name+"'s Scrap Merchants"]
