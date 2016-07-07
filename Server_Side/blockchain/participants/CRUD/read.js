@@ -6,21 +6,21 @@ var reload = require('require-reload')(require),
 
 var read = function(req, res)
 {
-	tracing.create('ENTER', 'GET blockchain/participants/', []);
+	tracing.create('ENTER', 'GET blockchain/participants/', {});
 	participants = reload(__dirname+'/../participants_info.js');
 	if(participants.participants_info == null)
 	{
-		console.log("READ ALL PARTICPANTS ERROR");
 		res.status(404)
-		tracing.create('ERROR', 'GET blockchain/participants/', 'Unable to retrieve participants');
 		var error = {}
 		error.message = 'Unable to retrieve participants';
 		error.error = true;
-		res.send(JSON.stringify(error))
+		tracing.create('ERROR', 'GET blockchain/participants/', error);
+		res.send(error)
 	} 
 	else
 	{
-		res.send(JSON.stringify({"result":participants.participants_info}))
+		tracing.create('EXIT', 'GET blockchain/participants/', {"result":participants.participants_info});
+		res.send({"result":participants.participants_info})
 	}
 }
 exports.read = read; 

@@ -91,6 +91,17 @@ Creates either a full or simple scenario. It writes to a file what stage it is a
 #####Description:
 Returns the contents of the demo_status.log file which is updated by running POST /admin/demo.
 
+#####Errors:
+	Output:		 {"message": "Unable to load demo_status.log file", "error": true}
+	Status:		 400
+	Description: 
+				 1. Make sure that the demo_status.log file is in Server_Side/logs
+
+	Output:		 {"message": "Invalid JSON Object", "error": true}
+	Status:		 400
+	Description: 
+				 1. Make sure that the demo_status.log file is valid JSON
+
 ##
 
 ###Identity
@@ -110,7 +121,7 @@ Registers the user passed with the peer.
 
 #####Errors: 
 
-	Output: 	 {"error":"Unable to log user in"}
+	Output: 	 {"message":"Unable to log user in"}
 	Status:		 400
 	Description: The user was unable to be registered with the peer.
 	Solutions: 	 
@@ -763,7 +774,7 @@ Retrieves the participants that are identified as regulators.
 
 #####Errors:
 
-	Output:		 {"message": "Unable to retrieve regulators", "error": true
+	Output:		 {"message": "Unable to retrieve regulators", "error": true}
 	Status:		 404 
 	Description: The function was unable to find the participants information.
 	Solutions: 	 
@@ -789,7 +800,7 @@ Retrieves the participants that are identified as manufacturers.
 
 #####Errors:
 
-	Output:		 {"message": "Unable to retrieve manufacturers", "error": true
+	Output:		 {"message": "Unable to retrieve manufacturers", "error": true}
 	Status:		 404 
 	Description: The function was unable to find the participants information.
 	Solutions: 	 
@@ -815,7 +826,7 @@ Retrieves the participants that are identified as dealerships.
 
 #####Errors:
 
-	Output:		 {"message": "Unable to retrieve dealerships", "error": true
+	Output:		 {"message": "Unable to retrieve dealerships", "error": true}
 	Status:		 404 
 	Description: The function was unable to find the participants information.
 	Solutions: 	 
@@ -841,7 +852,7 @@ Retrieves the participants that are identified as lease_companies.
 
 #####Errors:
 
-	Output:		 {"message": "Unable to retrieve lease_companies", "error": true
+	Output:		 {"message": "Unable to retrieve lease_companies", "error": true}
 	Status:		 404 
 	Description: The function was unable to find the participants information.
 	Solutions: 	 
@@ -867,7 +878,7 @@ Retrieves the participants that are identified as leasees.
 
 #####Errors:
 
-	Output:		 {"message": "Unable to retrieve leasees", "error": true
+	Output:		 {"message": "Unable to retrieve leasees", "error": true}
 	Status:		 404 
 	Description: The function was unable to find the participants information.
 	Solutions: 	 
@@ -893,7 +904,7 @@ Retrieves the participants that are identified as scrap_merchants.
 
 #####Errors:
 
-	Output:		 {"message": "Unable to retrieve scrap_merchants", "error": true
+	Output:		 {"message": "Unable to retrieve scrap_merchants", "error": true}
 	Status:		 404 
 	Description: The function was unable to find the participants information.
 	Solutions: 	 
@@ -926,9 +937,41 @@ Returns a JSON Object contain an array of all the transactions the user has perm
 				 1. Make sure the Blockchain network is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
 
-	Output: 	 {"message": "Unable to get block", "error": true}
+	Output: 	 {"message": "Unable to get block <block_number>", "error": true}
 	Status:		 400
 	Description: The block was unobtainable.
 	Solutions:
 				 1. Make sure the Blockchain network is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
+<hr />
+
+##Chaincode
+
+###Vehicles
+
+####POST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/chaincode/vehicles
+
+	Type:				POST
+	Transfer Enconding:	Chunked
+	Response Type:		Single
+	Response Format:	JSON Object
+	Success: 			{"message": <chaincode_name>}
+
+#####Description:
+
+Deploys the vehicle chaincode.
+
+#####Errors:
+
+	Output:		 {"message": "Unable to deploy chaincode", error: true}
+	Status:		 400
+	Description: The vehicle chaincode was unable to be deployed
+				 1. Make sure the Blockchain network is running.
+				 2. Make sure the IP and Port in configuration.js are correct.
+				 3. Make sure the chaincode path in configuration.js is correct.
+
+	Output:		 {"message": "Unable to write chaincode deploy name to configuration file", error: true}
+	Status:		 400
+	Description: The name of the deployed chaincode was unable to be written to Server_Side/configurations/configuration.js
+	Solutions:	 
+				 1. Make sure that Server_Side/configurations/configuration.js exists.

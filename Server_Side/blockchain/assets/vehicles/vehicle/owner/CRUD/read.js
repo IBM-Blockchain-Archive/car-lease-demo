@@ -9,7 +9,7 @@ var user_id;
 var read = function (req,res)
 {	
 	var v5cID = req.params.v5cID;
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', []);
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
 	if(typeof req.cookies.user != "undefined")
@@ -47,26 +47,23 @@ var read = function (req,res)
 					}
 	
 	request(options, function(error, response, body)
-	{
-		
-		console.log("Owner update read", body);
-		
+	{		
 		if (!body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var result = {}
 			var vehicle = JSON.parse(body.result.message);
 			result.message = vehicle.owner;
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', JSON.stringify(result));
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', result);
 			res.send(result)
 		}
 		else
 		{
 			res.status(400)
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Unable to get owner. v5cID: '+ v5cID)
 			var error = {}
 			error.message = 'Unable to read owner.'
 			error.v5cID = v5cID;
 			error.error = true;
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', error)
 			res.send(error)
 		}
 	})

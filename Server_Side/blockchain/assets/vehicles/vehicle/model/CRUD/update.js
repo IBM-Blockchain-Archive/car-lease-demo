@@ -12,13 +12,14 @@ var update = function(req, res)
 		req.session.user = req.cookies.user;
 	}	
 
-	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', []);
+	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', req.body);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
 	var oldValue = req.body.oldValue;
 	var newValue = req.body.value;
 	var v5cID = req.params.v5cID;
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', 'Formatting request');
 	res.write('{"message":"Formatting request"}&&');				
 					
 	var invokeSpec = 	{
@@ -48,13 +49,11 @@ var update = function(req, res)
 						json: true
 					}				
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', 'Updating model value');
 	res.write('{"message":"Updating model value"}&&');
 	
 	request(options, function(error, response, body)
 	{
-		
-		console.log("Update model response", body);
-		
 		if (!error && response.statusCode == 200)
 		{
 			var j = request.jar();
@@ -67,6 +66,7 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
+			tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', 'Achieving Consensus');
 			res.write('{"message":"Achieving Consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
@@ -80,6 +80,7 @@ var update = function(req, res)
 							{
 								var result = {};
 								result.message = 'Model updated'
+								tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', result);
 								res.end(JSON.stringify(result))
 								clearInterval(interval);
 							}
@@ -90,11 +91,11 @@ var update = function(req, res)
 				else
 				{
 					res.status(400)
-					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', 'Unable to update model. v5cID: '+ v5cID)
 					var error = {}
 					error.error = true
 					error.message = 'Unable to confirm model update. Request timed out.'
 					error.v5cID = v5cID;
+					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/model', error)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}

@@ -3,6 +3,7 @@
 var request = require('request');
 var fs = require('fs');
 var x509 = require('x509');
+var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js');
     
@@ -12,7 +13,7 @@ var stateHash = "";
 
 var get_height = function(req, res)
 {
-	console.log('ENTERED');
+	tracing.create('ENTER', 'GET blockchain/transactions', {});
 	var validV5cs = "";
 	result = {"transactions":[]};
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
@@ -25,17 +26,23 @@ var get_height = function(req, res)
 			if(JSON.parse(body).height > 1)
 			{
 				height = JSON.parse(body).height;
+				tracing.create('INFO', 'GET blockchain/transactions', "Retrieved height: "+height);
 				get_block(req, res, 1);
 			}
 			else
 			{
+				tracing.create('EXIT', 'GET blockchain/transactions', result);
 				res.send(result);
 			}
 		}
 		else
 		{
 			res.status(400);
-			res.send({"message":"Unable to get chain length", "error": true});
+			var error = {}
+			error.message = 'Unable to get chain length';
+			error.error = true;
+			tracing.create('ERROR', 'GET blockchain/transactions', error);
+			res.send(error);
 		}
 	});
 	
@@ -78,10 +85,12 @@ function get_block(req, res, number)
 			}
 			else if (req.session.user == "DVLA")
 			{
+				tracing.create('EXIT', 'GET blockchain/transactions', result);
 				res.send(result);
 			}
 			else
 			{
+				tracing.create('INFO', 'GET blockchain/transactions', 'Evaluating transactions');
 				result.transactions.reverse();
 				evaluate_transactions(req, res);
 			}
@@ -89,7 +98,11 @@ function get_block(req, res, number)
 		else
 		{
 			res.status(400);
-			res.send({"message":"Unable to get block", "error": true});
+			var error = {}
+			error.message = 'Unable to get block ' + number;
+			error.error = true;
+			tracing.create('ERROR', 'GET blockchain/transactions', error);
+			res.send(error);
 		}
 	});
 }
@@ -112,6 +125,7 @@ function evaluate_transactions(req, res)
 		}
 	}
 
+	tracing.create('EXIT', 'GET blockchain/transactions', result);
 	result.transactions.reverse()
 	res.send(result);
 }

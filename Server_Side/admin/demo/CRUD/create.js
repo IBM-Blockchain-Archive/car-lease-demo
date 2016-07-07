@@ -23,15 +23,11 @@ var cars_info;
 var create = function(req,res)
 {
 	
-	
-	console.log("DEMO SCENARIO TYPE",req.body.scenario);
-	
 	//req.body.scenario valid values = simple, full
-	
 	res.end(JSON.stringify({"message": "performing scenario creation now"}));
-	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', "");
+	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
 	
-	tracing.create('ENTER', 'POST admin/demo', []);
+	tracing.create('ENTER', 'POST admin/demo', req.body);
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	
 	if(req.body.scenario == "simple")
@@ -44,11 +40,10 @@ var create = function(req,res)
 	}
 	else
 	{
-		tracing.create('ERROR', 'POST admin/demo', 'Scenario type not recognised');
 		var error = {}
 		error.message = 'Scenario type not recognised';
 		error.error = true;
-		update_demo_status(JSON.stringify(error));
+		update_demo_status(error);
 	}
 	
 	if(cars_info.hasOwnProperty('cars'))
@@ -59,11 +54,10 @@ var create = function(req,res)
 	}
 	else
 	{
-		tracing.create('ERROR', 'POST admin/demo', 'Initial vehicles file not found');
 		var error = {}
 		error.message = 'Initial vehicles not found';
 		error.error = true;
-		update_demo_status(JSON.stringify(error));
+		update_demo_status(error);
 	}
 }
 
@@ -73,8 +67,8 @@ var v5cIDs = []
 
 function create_cars(req, res)
 {
-	update_demo_status(JSON.stringify({"message":"Creating cars"})+'&&')
-	console.log("Done waiting")
+	update_demo_status({"message":"Creating cars"})
+	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	
 	v5cIDs = []
@@ -83,7 +77,7 @@ function create_cars(req, res)
 	var check_create = setInterval(function(){
 		if(v5cIDs.length == cars.length && !send_error)
 		{
-			update_demo_status(JSON.stringify({"message":"Transferring vehicles to manufacturers"})+'&&')
+			update_demo_status({"message":"Transferring vehicles to manufacturers"})
 			clearInterval(check_create)
 			counter = 0;
 			transfer_created_cars(req, res)
@@ -92,13 +86,13 @@ function create_cars(req, res)
 		{
 			clearInterval(check_create)
 			counter = 0;
-			update_demo_status(JSON.stringify({"message":"Unable to write vehicle", "error": true}))
+			update_demo_status({"message":"Unable to write vehicle", "error": true})
 		}
 		else if(v5cIDs.length > prevCount)
 		{
 			if(prevCount != -1)
 			{
-				update_demo_status(JSON.stringify({"message":"Created vehicle "+v5cIDs[v5cIDs.length -1], "counter": true})+'&&')
+				update_demo_status({"message":"Created vehicle "+v5cIDs[v5cIDs.length -1], "counter": true})
 			}
 			prevCount = v5cIDs.length;
 			create_car()
@@ -107,8 +101,6 @@ function create_cars(req, res)
 }
 function create_car()
 {
-	
-	console.log("CREATE CAR TIME");
 	
 	var j = request.jar();
 	var str = "user=DVLA"
@@ -124,8 +116,6 @@ function create_car()
 
 	request(options, function(error, response, body)
 	{
-		
-		console.log("CREATE CAR RESPONSE", body)
 		
 		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
 		{
@@ -154,7 +144,7 @@ function transfer_created_cars(req, res)
 	var check_int = setInterval(function(){
 		if(counter == cars.length && !send_error)
 		{
-			update_demo_status(JSON.stringify({"message":"Updating vehicles' details"})+'&&')
+			update_demo_status({"message":"Updating vehicles' details"})
 			clearInterval(check_int)
 			counter = 0;
 			ind_update_counter = 0;
@@ -164,13 +154,13 @@ function transfer_created_cars(req, res)
 		{
 			clearInterval(check_int)
 			counter = 0;
-			update_demo_status(JSON.stringify({"message":"Unable to transfer vehicles", "error": true}))
+			update_demo_status({"message":"Unable to transfer vehicles", "error": true})
 		}
 		else if(counter > prevCount)
 		{
 			if(prevCount != -1)
 			{
-				update_demo_status(JSON.stringify({"message":"Transfered vehicle "+v5cIDs[counter]+"(DVLA -> "+cars[counter].Owners[1]+")", "counter": true})+'&&')
+				update_demo_status({"message":"Transfered vehicle "+v5cIDs[counter]+"(DVLA -> "+cars[counter].Owners[1]+")", "counter": true})
 			}
 			prevCount = counter;
 			transfer_car("DVLA", cars[counter].Owners[1], v5cIDs[counter], 'authority_to_manufacturer', "counter")
@@ -179,9 +169,6 @@ function transfer_created_cars(req, res)
 }
 function transfer_car(sender, receiver, id, function_name, toUpdate)
 {
-	
-	console.log("TRANSFER CAR TIME", sender,receiver,id);
-	
 	var data = {};
 	data.function_name= function_name;
 	data.value= receiver;
@@ -208,7 +195,6 @@ function transfer_car(sender, receiver, id, function_name, toUpdate)
 		{
 			ind_transfer_counter++;
 		}
-		console.log("VEHICLE TRANSFER", id, body, body.indexOf('Owner updated'));
 		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
 		{
 
@@ -226,7 +212,7 @@ function update_cars(req, res)
 	var check_update = setInterval(function(){
 		if(counter == cars.length && !send_error)
 		{
-			update_demo_status(JSON.stringify({"message":"Transferring vehicles to private owners"})+'&&')
+			update_demo_status({"message":"Transferring vehicles to private owners"})
 			clearInterval(check_update)
 			counter = 0;
 			ind_transfer_counter = 2;
@@ -237,13 +223,13 @@ function update_cars(req, res)
 		{
 			clearInterval(check_update)
 			counter = 0;
-			update_demo_status(JSON.stringify({"message":"Unable to update vehicles", "error": true}))
+			update_demo_status({"message":"Unable to update vehicles", "error": true})
 		}
 		else if(counter > prevCount)
 		{
 			if(prevCount != -1)
 			{
-				update_demo_status(JSON.stringify({"message":"Updated all fields for vehicle "+v5cIDs[counter], "counter": true})+'&&')
+				update_demo_status({"message":"Updated all fields for vehicle "+v5cIDs[counter], "counter": true})
 			}
 			prevCount = counter;
 			update_all_car_parts(v5cIDs[counter])
@@ -255,9 +241,6 @@ var ind_update_counter = 0;
 
 function update_all_car_parts(id)
 {
-	
-	console.log("UPDATE CAR TIME")
-	
 	var car_owner = cars[counter].Owners[1]
 	var update_fields = [{"value":cars[counter].VIN,"field":"VIN", "title": "VIN"},{"value":cars[counter].Make,"field":"make", "title": "Make"},{"value":cars[counter].Model,"field":"model", "title": "Model"},{"value":cars[counter].Colour,"field":"colour", "title": "Colour"},{"value":cars[counter].Reg,"field":"reg", "title": "Registration"}]
 	var prevCount = -1;
@@ -303,11 +286,9 @@ function update_car(manufacturer, value, id, field)
 	{
 		ind_update_counter++
 		
-		console.log("VEHICLE UPDATE BODY", body)
-		
 		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
 		{
-			console.log("UPDATE DONE", ind_update_counter)
+
 		}
 		else
 		{
@@ -317,10 +298,7 @@ function update_car(manufacturer, value, id, field)
 }
 
 function transfer_updated_cars(req, res)
-{
-	
-	console.log("TRANSFER UPDATED CARS");
-	
+{	
 	send_error = false;
 	var prevCount = -1;
 	var check_trans = setInterval(function(){
@@ -328,20 +306,19 @@ function transfer_updated_cars(req, res)
 		{
 			clearInterval(check_trans)
 			counter = 0;
-			console.log("Demo setup");
-			update_demo_status(JSON.stringify({"message":"Demo setup"}))
+			update_demo_status({"message":"Demo setup"})
 		}
 		else if(send_error)
 		{
 			clearInterval(check_trans)
 			counter = 0;
-			update_demo_status(JSON.stringify({"message":"Unable to transfer vehicles", "error": true}))
+			update_demo_status({"message":"Unable to transfer vehicles", "error": true})
 		}
 		else if(counter > prevCount)
 		{
 			if(prevCount != -1)
 			{
-				update_demo_status(JSON.stringify({"message":"Transfered all owners for vehicle "+v5cIDs[counter], "counter": true})+'&&')
+				update_demo_status({"message":"Transfered all owners for vehicle "+v5cIDs[counter], "counter": true})
 			}
 			prevCount = counter;
 			transfer_all_owners(v5cIDs[counter])
@@ -379,6 +356,24 @@ function transfer_all_owners(id)
 
 function update_demo_status(content)
 {
-	fs.appendFileSync(__dirname+'/../../../logs/demo_status.log', content);
+	var demo_status_file = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
+	var demo_status = JSON.parse(demo_status_file)
+	demo_status.logs.push(content)
+	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demo_status))
+	if(!content.hasOwnProperty('error'))
+	{
+		if(content.message == "Demo setup")
+		{
+			tracing.create('EXIT', 'POST admin/demo', content);
+		}
+		else
+		{
+			tracing.create('INFO', 'POST admin/demo', content.message);
+		}
+	}
+	else
+	{
+		tracing.create('ERROR', 'POST admin/demo', content);
+	}
 }
 

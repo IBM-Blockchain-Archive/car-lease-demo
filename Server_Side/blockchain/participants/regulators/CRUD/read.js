@@ -7,21 +7,21 @@ var reload = require('require-reload')(require),
 var read = function(req, res)
 {
 	participants = reload(__dirname+'/../../participants_info.js');
-	tracing.create('ENTER', 'GET blockchain/participants/regulators', []);
+	tracing.create('ENTER', 'GET blockchain/participants/regulators', {});
 	
 	if(!participants.participants_info.hasOwnProperty('regulators'))
 	{
 		res.status(404)
-		tracing.create('ERROR', 'GET blockchain/participants/regulators', 'Unable to retrieve regulators');
 		var error = {}
 		error.message = 'Unable to retrieve regulators';
-		error.err = true;
-		res.send(JSON.stringify(error))
+		error.error = true;
+		tracing.create('ERROR', 'GET blockchain/participants/regulators', error);
+		res.send(error)
 	} 
 	else
 	{
-
-		res.send(JSON.stringify({"result":participants.participants_info.regulators}))
+		tracing.create('EXIT', 'GET blockchain/participants/regulators', {"result":participants.participants_info.regulators});
+		res.send({"result":participants.participants_info.regulators})
 	}
 }
 exports.read = read;

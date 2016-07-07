@@ -17,6 +17,8 @@ var update = function(req, res)
 		req.session.user = req.cookies.user;
 	}	
 	
+	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', req.body);
+	
 	user_id = req.session.user;
 
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
@@ -25,7 +27,7 @@ var update = function(req, res)
 	var function_name = req.body.function_name;
 	var v5cID = req.params.v5cID;
 	
-	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', []);
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Formatting request');
 	res.write('{"message":"Formatting request"}&&');
 	
 	var invokeSpec = 	{
@@ -54,6 +56,7 @@ var update = function(req, res)
 						json: true
 					}
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Updating owner value');
 	res.write('{"message":"Updating owner value"}&&');			
 	request(options, function(error, response, body)
 	{
@@ -72,6 +75,8 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
+			
+			tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Achieving Consensus');
 			res.write('{"message":"Achieving Consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
@@ -85,7 +90,7 @@ var update = function(req, res)
 
 							var result = {};
 							result.message = 'Owner updated'
-							tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', JSON.stringify(result));
+							tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', result);
 							res.end(JSON.stringify(result))
 							clearInterval(interval);
 						}
@@ -93,14 +98,12 @@ var update = function(req, res)
 					counter++;
 				}
 				else
-				{
-					console.log("VEHICLE TRANSFER ERROR", body)
-					
+				{					
 					res.status(400)
-					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Unable to confirm owner update. Request timed out.')
 					var error = {}
 					error.error  = true;
 					error.message = 'Unable to confirm owner update. Request timed out.';
+					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', error)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
@@ -110,10 +113,10 @@ var update = function(req, res)
 		{
 			res.status(400)
 			var error = {}
-			tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Unable to update owner. v5cID: '+ v5cID)
 			error.message = 'Unable to update owner';
 			error.v5cID = v5cID;
 			error.error = true;
+			tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', error)
 			res.end(JSON.stringify(error))
 		}
 	})

@@ -19,11 +19,13 @@ var connectorInfo;
 var create = function(dataSource)
 {
 	
+	tracing.create('ENTER', 'Startup', {});
+	
 	connectorInfo = dataSource
 	
-	console.log("Creating and registering users");
-	
 	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
+	
+	tracing.create('INFO', 'Startup', 'Locating initial participants');
 	
 	if(participants.participants_info.hasOwnProperty('regulators'))
 	{
@@ -43,17 +45,16 @@ var create = function(dataSource)
 	}
 	else
 	{
-		tracing.create('ERROR', 'GET blockchain/participants', 'Participants file not found');
 		var error = {}
 		error.error = true;
 		error.message = 'Participants information not found';
-		return JSON.stringify({"message":"Participants information not found","error":true})
+		tracing.create('ERROR', 'Startup', error);
+		return JSON.stringify(error)
 	}
 }
 
 function addUser()
 {
-		
 	var userAff = "0000";
 
 	switch (users[counter].type) {
@@ -85,52 +86,47 @@ function addUser()
 	
 	request(options, function(error, response, body)
 	{	
-		if(body.hasOwnProperty("OK"))
+		if(body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
 		{
 			if(counter < users.length - 1)
 			{
 				counter++;
-				console.log("Created and registered user:",users[counter].identity);
+				tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
 				setTimeout(function(){addUser()}, 2000);
 			}
 			else
 			{
 				counter = 0;
-				console.log("Created and registered user:",users[counter].identity);
+				tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
 				deploy_vehicle();
 			}
 			
 		}
-		else
+		else	// Runs if user hasn't been created yet
 		{
 			
-			var result = createUser(users[counter].identity, 1, userAff)
-			console.log("create user result",result)
+			var result = createUser(users[counter].identity, 1, userAff) //Runs the connector to produce the user
 			
 			if (result) {
 				if(counter < users.length - 1)
 				{
 					counter++;
-					console.log("Created and registered user:",users[counter].identity);
+					tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
 					setTimeout(function(){addUser();},1000);
 				}
 				else
 				{
 					counter = 0;
-					console.log("Created and registered user:",users[counter].identity);
+					tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
 					deploy_vehicle();
 				}
 			}
 			else
 			{
-				
-				console.log("LOGGING IN BIG ERROR")
-				
-				tracing.create('ERROR', 'POST admin/identity', 'Unable to log user in: '+users[counter].identity);
 				var error = {}
 				error.message = 'Unable to register user: '+users[counter].identity;
 				error.error = false;
-				console.log(JSON.stringify(error));
+				tracing.create('ERROR', 'Startup', error);
 				if(counter < users.length - 1)
 				{
 					counter++;
@@ -148,9 +144,11 @@ function addUser()
 
 function deploy_vehicle()
 {
-
+	tracing.create('INFO', 'Startup', 'Deploying vehicle chaincode');
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 	    api_url = api_url.replace('http://', '')
+		
+	console.log("API URL: "+api_url)
 	    
     var randomVal = crypto.randomBytes(256).toString('hex')
 	
@@ -184,11 +182,8 @@ function deploy_vehicle()
 	request(options, function(error, response, body)
 	{
 		
-		console.log("VEHICLE DEPLOY RESPONSE",body)
-		
 		if (!body.hasOwnProperty('error') && response.statusCode == 200)
 		{
-			
 			update_config(body.result.message)
 			
 			var interval = setInterval(function(){
@@ -200,9 +195,8 @@ function deploy_vehicle()
 					}
 					
 				request(options, function(error, response, body){
-					console.log("Polling height",body.height)
 					if(body.height >= 2){
-						console.log("Height is now big enough")
+						tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed');
 						clearInterval(interval)
 					}
 				});	
@@ -210,7 +204,7 @@ function deploy_vehicle()
 		}
 		else
 		{
-			
+			tracing.create('ERROR', 'Startup', {"message":"Error deploying vehicle chaincode","body":body,"error":true});
 			return JSON.stringify({"message":"Error deploying vehicle chaincode","body":body,"error":true})
 		}
 	})
@@ -220,6 +214,7 @@ function createUser(username, role, aff)
 {
 	
 	if (!connectorInfo.connector) {
+		tracing.create('ERROR', 'Startup', {"message":"Cannot register users before the CA connector is setup!", "error":true})
 		return JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true});
 	}
 
@@ -236,11 +231,11 @@ function createUser(username, role, aff)
 			
 			if(innerCounter >= 5){
 				innerCounter = 0;
-				console.error("RegisterUser failed:", username, JSON.stringify(err));
+				tracing.create('ERROR', 'Startup', {"message": "Create user \""+username+"\" succeeded", "error": false});
 			}
 			else{
 				innerCounter++
-				console.log("Trying again", innerCounter);
+				tracing.create('INFO', 'Startup', 'Attempting to create user "'+username+'" again');
 				setTimeout(function(){createUser(username,role,aff);},2000)	            
 			}
 
@@ -248,7 +243,7 @@ function createUser(username, role, aff)
 			
 			innerCounter = 0;
 			
-			console.log("RegisterUser succeeded:", JSON.stringify(response));
+			tracing.create('ERROR', 'Startup', {"message": "Create user \""+username+"\" succeeded", "error": false});
 			// Send the response (username and secret) for logging user in 
 			var creds = {
 				id: response.identity,
@@ -264,7 +259,7 @@ function createUser(username, role, aff)
 
 function loginUser(username, aff, secret)
 {
-	
+	tracing.create('INFO', 'Startup', 'Attempting to register user "'+username+'" with CA');
 	configFile = reload(__dirname+'/../../configuration.js');
 	var credentials = {
 						  "enrollId": username,
@@ -282,7 +277,7 @@ function loginUser(username, aff, secret)
 		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			innerCounter = 0;
-			console.log("LOGIN SUCCESSFUL", username)
+			tracing.create('INFO', 'Startup', 'Registering user "'+username+'" with CA successful');
 			writeUserToFile(username, secret)
 			return true
 		}
@@ -290,11 +285,12 @@ function loginUser(username, aff, secret)
 		{
 			if(innerCounter >= 5){
 				innerCounter = 0;
+				tracing.create('ERROR', 'Startup', {"message": "Registering user \""+username+"\" with CA failed", "error": false});
 				return false
 			}
 			else{
 				innerCounter++
-				console.log("Trying logging in again", innerCounter);
+				tracing.create('INFO', 'Startup', 'Attempting to register user "'+username+'" with CA again');
 				setTimeout(function(){loginUser(username, aff, secret);},2000)	            
 			}
 			
@@ -304,13 +300,13 @@ function loginUser(username, aff, secret)
 
 function update_config(name)
 {
-
+	tracing.create('INFO', 'Startup', 'Updating config file');
 	configFile = reload(__dirname+'/../../configuration.js');
 	fs.readFile(__dirname+'/../../configuration.js', 'utf8', function (err,data)
 	{
 		if (err)
 		{
-			console.log("Read file error", err)
+			tracing.create('ERROR', 'Startup', {"message": "Config file not found", "error": false});
 			return false
 		}
 
@@ -323,10 +319,12 @@ function update_config(name)
 		{
 			if (err)
 			{	
+				tracing.create('ERROR', 'Startup', {"message": "Unable to update config file", "error": false});
 				return false
 			}
 			else
 			{
+				tracing.create('INFO', 'Startup', {"message": "Config file updated", "error": false});
 				return true
 			}			
 		});
@@ -336,6 +334,7 @@ function update_config(name)
 
 function writeUserToFile(username, secret)
 {
+	tracing.create('INFO', 'Startup', 'Writing user "'+username+'" to file');
 	participants = reload(__dirname+'/../../../blockchain/participants/participants_info.js');
 	
 	var userType = "";

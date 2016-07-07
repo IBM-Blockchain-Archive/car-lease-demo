@@ -67,21 +67,17 @@ function createScenario(scenario_type)
 			xhr.onreadystatechange = function (){
 				if(xhr.readyState === 4)
 				{
-					var data = xhr.responseText;
-					console.log(data);
-					var array = data.split("&&");
+					var array = JSON.parse(xhr.responseText);
 					for(var i = 0; i < array.length; i++)
 					{
 						if(array[i] != "")
-						{
-							console.log(array[i]);
-							
-							if(typeof JSON.parse(array[i]).counter != 'undefined')
+						{	
+							if(typeof array[i].counter != 'undefined')
 							{
 								var fnd = false;
 								for(var j = 0; j < found.length; j++)
 								{
-									if(JSON.parse(array[i]).message == found[j])
+									if(array[i].message == found[j])
 									{
 										fnd = true;
 									}
@@ -96,15 +92,15 @@ function createScenario(scenario_type)
 									{
 										$('#latestSpan').find('.numDone').html(parseInt($('#latestSpan').find('.numDone').html())+1)
 									}
-									found.push(JSON.parse(array[i]).message)
+									found.push(array[i].message)
 								}
 							}
-							else if(typeof JSON.parse(array[i]).error == 'undefined')
+							else if(typeof array[i].error == 'undefined')
 							{
 								var fnd = false;
 								for(var j = 0; j < found.length; j++)
 								{
-									if(JSON.parse(array[i]).message == found[j])
+									if(array[i].message == found[j])
 									{
 										fnd = true;
 									}
@@ -113,9 +109,9 @@ function createScenario(scenario_type)
 								{
 									$('#latestSpan').html('&nbsp;&#10004');
 									$('#latestSpan').attr('id','');
-									$('#loaderMessages').append('<i>'+JSON.parse(array[i]).message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
-									found.push(JSON.parse(array[i]).message)
-									if(JSON.parse(array[i]).message == "Demo setup")
+									$('#loaderMessages').append('<i>'+array[i].message+'</i><span id="latestSpan">... <span class="completed"></span></span><br>');
+									found.push(array[i].message)
+									if(array[i].message == "Demo setup")
 									{
 										clearInterval(checkDone);
 										$('#latestSpan').html('&nbsp;&#10004');
@@ -131,7 +127,7 @@ function createScenario(scenario_type)
 								var fnd = false;
 								for(var j = 0; j < found.length; j++)
 								{
-									if(JSON.parse(array[i]).message == found[j])
+									if(array[i].message == found[j])
 									{
 										fnd = true;
 									}
@@ -140,17 +136,17 @@ function createScenario(scenario_type)
 								{
 									$('#latestSpan').html('&nbsp;&#10004');
 									$('#latestSpan').attr('id','');
-									found.push(JSON.parse(array[i]).message)
-									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+JSON.parse(array[i]).message+'<span id="latestSpan">...</span></i><br>');
+									found.push(array[i].message)
+									$('#loaderMessages').append('<i class="errorRes" >ERROR: '+array[i].message+'<span id="latestSpan">...</span></i><br>');
 								}
-								if(JSON.parse(array[i]).error == true)
+								if(array[i].error == true)
 								{
 									clearInterval(checkDone);
 									$('#latestSpan').html('&nbsp;&#10004');
 									$('#loader img').hide();
 									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
 									$('#chooseConfHd span').html('Scenario Creation Failed');
-									$('#confTxt').html(JSON.parse(array[i]).message);
+									$('#confTxt').html(array[i].message);
 								}
 							}
 						}

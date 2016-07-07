@@ -8,7 +8,7 @@ var read = function (req,res)
 {	
 	var v5cID = req.params.v5cID;
 	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', []);
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	if(typeof req.cookies.user != "undefined")
 	{
@@ -53,17 +53,18 @@ var read = function (req,res)
 			var result = {}
 			var vehicle = JSON.parse(body.result.message);
 			result.message = vehicle.colour;
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', JSON.stringify(result));
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', result);
 			res.send(result)
 		}
 		else 
 		{
 			res.status(400)
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', 'Unable to get colour. v5cID: '+ v5cID)
+			
 			var error = {}
 			error.message = 'Unable to read colour'
 			error.v5cID = v5cID;
 			error.error = true;
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', error)
 			res.send(error)
 		}
 	});

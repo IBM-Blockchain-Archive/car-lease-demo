@@ -12,8 +12,11 @@ var counter = 0;
 
 var registerUser = function(dataSource, req, res) {
 
+	tracing.create('ENTER', 'POST blockchain/participants', req.body)
+	
     if (!dataSource.connector) {
     	res.status(400);
+		tracing.create('ERROR', 'POST blockchain/participants', {"message":"Cannot register users before the CA connector is setup", "error":true})
     	res.send(JSON.stringify({"message":"Cannot register users before the CA connector is setup", "error":true}));
     }
     
@@ -54,13 +57,12 @@ var registerUser = function(dataSource, req, res) {
         	
         	if(counter >= 5){
         		counter = 0;
-        		console.error("RegisterUser failed:", req.body.username, JSON.stringify(err));
+        		tracing.create('ERROR', 'POST blockchain/participants', {"message": err})
         		res.status(400)
         		res.send(JSON.stringify({"message": err}));
         	}
         	else{
 	            counter++
-	            console.log("Trying again", counter);
 	            setTimeout(function(){registerUser(dataSource, req, res);},2000)	            
         	}
 
@@ -68,7 +70,7 @@ var registerUser = function(dataSource, req, res) {
         	
         	counter = 0;
         	
-            console.log("RegisterUser succeeded:", JSON.stringify(response));
+			tracing.create('INFO', 'POST blockchain/participants', "RegisterUser succeeded:", JSON.stringify(response))
             // Send the response (username and secret) for logging user in 
             var creds = {
                 id: response.identity,
@@ -99,7 +101,7 @@ function loginUser(req, res, secret)
 		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			counter = 0;
-			console.log("LOGIN SUCCESSFUL", req.body.username)
+			tracing.create('INFO', 'POST blockchain/participants', 'Login successful')
 			writeUserToFile(req, res, secret)
 		}
 		else
@@ -107,11 +109,15 @@ function loginUser(req, res, secret)
 			if(counter >= 5){
         		counter = 0;
         		res.status(400)
-				res.send(JSON.stringify({"message":"Unable to register user with peer", "error":true}))
+				var error = {}
+				error.message = 'Unable to register user with peer'
+				error.error = true
+				tracing.create('ERROR', 'POST blockchain/participants', error)
+				res.send(error)
         	}
 			else{
 	            counter++
-	            console.log("Trying logging in again", counter);
+	            tracing.create('INFO', 'POST blockchain/participants', 'Trying to log in again')
 	            setTimeout(function(){loginUser(req, res, secret);},2000)	            
         	}
 			
@@ -189,8 +195,12 @@ function writeUserToFile(req, res, secret)
 	var updatedFile = '/*eslint-env node*/\n\nvar user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
 	
 	fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
-	
-	res.send(JSON.stringify({"message":"User creation successful", "id": req.body.username, "secret": secret}))
+	var result = {}
+	result.message = 'User creation successful'
+	result.id = req.body.username
+	result.secret = secret
+	tracing.create('EXIT', 'POST blockchain/participants', result)
+	res.send(result)
 }
 
 exports.create = registerUser;

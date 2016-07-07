@@ -10,6 +10,8 @@ var crypto = require('crypto');
 function deploy(req, res)
 {
 	
+	tracing.create('ENTER', 'POST blockchain/chaincode/vehicles', {})
+	
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 	    api_url = api_url.replace('http://', '')
 	    
@@ -46,20 +48,20 @@ function deploy(req, res)
 	
 	request(options, function(error, response, body)
 	{
-		
-		console.log("VEHICLE DEPLOY RESPONSE",body)
-		
 		if (!error && response.statusCode == 200)
 		{
 			
-			console.log("Waiting 60s for chaincode to be deployed")
 			setTimeout(function() {
+				tracing.create('INFO', 'POST blockchain/chaincode/vehicles', 'Chaincode deployed. Writing to config.')
 				update_config(body.result.message, res)
 			}, 60000);
 		}
 		else
 		{
 			res.status(400)
+			var error = {}
+			error.message = "Unable to deploy chaincode"
+			error.error = true
 			res.send(error)
 		}
 	})
@@ -85,11 +87,17 @@ function update_config(name, res)
 		{
 			if (err)
 			{	
-				return console.log(err);
+				res.status(400)
+				var error = {}
+				error.message = "Unable to write chaincode deploy name to configuration file"
+				error.error = true;
+				tracing.create('ERROR', 'POST blockchain/chaincode/vehicles', error)
+				res.send(error)
 			}
 			else
 			{
-				res.send({"message":"OK"})
+				tracing.create('EXIT', 'POST blockchain/chaincode/vehicles', {"message":name})
+				res.send({"message":name})
 			}			
 		});
 	});

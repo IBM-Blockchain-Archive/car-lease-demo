@@ -21,18 +21,18 @@ var create = function(type, name, data)
 
 	if(type == 'ENTER')
 	{	
-		var parTxt = '';
-		for(var i = 0; i < data.length; i++)
-		{
-			parTxt += data[i] + ', ';
-		}
-		parTxt = parTxt.substring(0, parTxt.length - 2);
-		
-		var value = formattedTime + '\t' + type + '\t' + name + '\tINPUT: ' + parTxt + '\n';
+		var value = formattedTime + '\t' + type + '\t' + name + '\tINPUT: ' + JSON.stringify(data) + '\n';
+		console.log(type + '\t' + name + '\tINPUT: ' + JSON.stringify(data))
+	}
+	else if(type == 'INFO')
+	{
+		var value = '\t' + formattedTime + '\t' + type + '\t' + name + '\t' + data+ '\n';
+		console.log(type + '\t' + name + '\t' + data+ '\n')
 	}
 	else if(type == 'EXIT')
 	{
-		var value = formattedTime + '\t' + type + '\t' + name + '\tOUTPUT: ' + data + '\n';
+		var value = formattedTime + '\t' + type + '\t' + name + '\tOUTPUT: ' + JSON.stringify(data) + '\n';
+		console.log(type + '\t' + name + '\tOUTPUT: ' + JSON.stringify(data))
 	}
 	else if(type == 'EVENT')
 	{
@@ -40,21 +40,24 @@ var create = function(type, name, data)
 		if(name.trim() == 'toggleTrace' && eventTxt == 'OFF')
 		{
 			var value = formattedTime + '\t' + type + '\t' + name + '\t' + eventTxt + '\n----------------------------------------------------------------\n';
+			console.log("---------------------------------------LOGGING TURNED OFF---------------------------------------")
 		}
 		else
 		{
 			var value = formattedTime + '\t' + type + '\t' + name + '\t' + eventTxt + '\n';
+			console.log("---------------------------------------LOGGING TURNED ON----------------------------------------")
 		}
 	}
 	else if(type == 'ERROR')
 	{		
-		var value = '\t' + formattedTime + '\t' + type + '\t' + name + '\t' + data+ '\n';
+		var value = '\t' + formattedTime + '\t' + type + '\t' + name + '\tOUTPUT: ' + JSON.stringify(data)+ '\n';
+		console.error(type + '\t' + name + '\tOUTPUT: ' + JSON.stringify(data))
 	}	
 
 	fs.appendFile(configFile.config.traceFile, value, function (err){
 		if(err)
 		{
-			console.log(err);
+			console.error("UNABLE TO WRITE LOGS TO FILE");
 		}
 	});
 }

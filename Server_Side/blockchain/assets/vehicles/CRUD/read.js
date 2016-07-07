@@ -19,7 +19,7 @@ function get_all_cars(req, res)
 	
 	user_id = req.session.user;
 	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles', []);
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles', {});
 	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 	var ids = [];
 									
@@ -55,8 +55,10 @@ function get_all_cars(req, res)
 			var data = JSON.parse(body.result.message);
 			for(var i = 0; i < data.length; i++)
 			{
+				tracing.create('INFO', 'GET blockchain/assets/vehicles', JSON.stringify(data[i]));
 				res.write(JSON.stringify(data[i])+'&&')
 			}
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles', {});
 			res.end()
 		}
 		else
@@ -66,7 +68,7 @@ function get_all_cars(req, res)
 			error.error = true;
 			error.message = 'Unable to get blockchain assets';
 			res.end(JSON.stringify(error))
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles', 'Unable to get blockchain assets');
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles', error);
 		}
 	})
 }

@@ -7,7 +7,7 @@ var read = function (req,res)
 {	
 	var v5cID = req.params.v5cID;
 	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/reg', []);
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/reg', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	if(typeof req.cookies.user != "undefined")
 	{
@@ -52,17 +52,17 @@ var read = function (req,res)
 			var result = {}
 			var vehicle = JSON.parse(body.result.message);
 			result.message = vehicle.reg;
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/reg', JSON.stringify(result));
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/reg', result);
 			res.send(result)
 		}
 		else 
 		{
 			res.status(400)
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/reg', 'Unable to get reg. v5cID: '+ v5cID)
 			var error = {}
 			error.message = 'Unable to read reg'
 			error.v5cID = v5cID;
 			error.error = true;
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/reg', error)
 			res.send(error)
 		}
 	});
