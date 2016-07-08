@@ -629,8 +629,8 @@ func (t *SimpleChaincode) update_registration(stub *shim.ChaincodeStub, v Vehicl
 func (t *SimpleChaincode) update_colour(stub *shim.ChaincodeStub, v Vehicle, caller string, caller_affiliation int, new_value string) ([]byte, error) {
 	
 	if 		(v.Owner				== caller			&&
-			caller_affiliation	== MANUFACTURER)
-			/* || caller_affiliation	== AUTHORITY*/	&&
+			caller_affiliation	== MANUFACTURER)		&&/* ||
+			caller_affiliation	== AUTHORITY			&&*/
 			v.Scrapped			== false				{
 			
 					v.Colour = new_value
