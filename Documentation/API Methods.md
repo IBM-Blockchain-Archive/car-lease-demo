@@ -42,7 +42,7 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 	Response Format:	JSON Object
 	Success:			{"message": "performing scenario creation now"}
 #####Description: 
-Creates either a full or simple scenario. It writes to a file what stage it is at and also write errors to this file. An error JSON object with a field error:true is one that caused the call to stop at that point. This data can be retrieved using GET /admin/demo. 
+Creates a 1, 3 or 10 vehicle scenario. It writes to a file what stage it is at and also write errors to this file. An error JSON object with a field error:true is one that caused the call to stop at that point. This data can be retrieved using GET /admin/demo. 
 
 #####Successful output to demo_status.log:
 
@@ -53,7 +53,7 @@ Creates either a full or simple scenario. It writes to a file what stage it is a
 	Output:		 {"message": "Scenario type not recognised", "error": true}
 	Description: The user sent an invalid scenario type.
 	Solutions: 
-				 1. Make sure the sent JSON contains a field scenario with the value "full" or "simple".
+				 1. Make sure the sent JSON contains a field scenario with the value "1_vehicle", "3_vehicle" or "10_vehicle".
 
 	Output:		 {"message": "Initial vehicles file not found", error: true}
 	Description: Cannot find the initial vehicles JSON file.
