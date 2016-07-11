@@ -47,8 +47,8 @@ var participants_info = {
 	],
 	"dealerships": [
 		{
-			"name": "Beechwale Group",
-			"identity": "Beechwale Group",
+			"name": "Beechvale Group",
+			"identity": "Beechvale Group",
 			"password": "TvNWKDgWTrfH",
 			"address_line_1": "84 Hull Road",
 			"address_line_2": "Derby",

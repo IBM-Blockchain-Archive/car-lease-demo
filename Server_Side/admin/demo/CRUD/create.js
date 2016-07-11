@@ -30,13 +30,15 @@ var create = function(req,res)
 	tracing.create('ENTER', 'POST admin/demo', req.body);
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	
-	if(req.body.scenario == "simple")
+	var scenario = req.body.scenario;
+	
+	if(scenario == "simple")
 	{
-		cars_info = initial_vehicles.simple_scenario;	
+		cars_info = initial_vehicles.simple_scenario;
 	}
-	else if(req.body.scenario == "full")
+	else if(scenario == "full")
 	{
-		cars_info = initial_vehicles.full_scenario;
+		cars_info = initial_vehicles.full_scenario;	
 	}
 	else
 	{
@@ -67,7 +69,7 @@ var v5cIDs = []
 
 function create_cars(req, res)
 {
-	update_demo_status({"message":"Creating cars"})
+	update_demo_status({"message":"Creating vehicles"})
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	

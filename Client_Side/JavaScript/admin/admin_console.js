@@ -36,8 +36,6 @@ function createScenario(scenario_type)
 
 	$('#loaderMessages').html('<u>Creating Scenario</u><br /><br /><span id="messages"></i>waiting...</i></span><br /></div>&nbsp;')
 	
-	//$('#createScenario').html('<img src="Images/Regulator/loading.gif" height="25" width="25" alt="loading" text="please wait..." />Completed: 0%')
-	
 	var data = {};
 	data.scenario = scenario_type;
 	
