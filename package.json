@@ -11,7 +11,7 @@
     "aes-js": "^0.2.4",
     "async": "0.9.0",
     "body-parser": "1.0.2",
-    "cf-deployment-tracker-client": "0.0.8",
+    "cf-deployment-tracker-client": "*",
     "cookie-parser": "1.0.1",
     "cors": "2.5.3",
     "debug": "0.7.4",
@@ -28,6 +28,10 @@
     "request": "",
     "require-reload": "",
     "fs": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM-Blockchain/car-lease-demo.git"
   },
   "engines": {
     "node": "0.12.0"
