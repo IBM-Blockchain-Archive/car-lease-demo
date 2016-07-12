@@ -1,10 +1,14 @@
 /*eslint-env node*/
 
-var participants = require(__dirname+'/../../blockchain/participants/participants_info.js');
+var reload = require('require-reload')(require),
+    participants = require(__dirname+'/../../blockchain/participants/participants_info.js');
 
 
 var id_to_user = function(data)
 {
+	
+	participants = reload(__dirname+'/../../blockchain/participants/participants_info.js');
+	
 	for(var role in participants.participants_info)
 	{
 		for(var j = 0; j < participants.participants_info[role].length; j++)
@@ -19,6 +23,9 @@ var id_to_user = function(data)
 
 var user_to_id = function(data)
 {
+	
+	participants = reload(__dirname+'/../../blockchain/participants/participants_info.js');
+	
 	for(var role in participants.participants_info)
 	{
 		for(var j = 0; j < participants.participants_info[role].length; j++)
@@ -33,6 +40,9 @@ var user_to_id = function(data)
 
 var get_password = function(partType, data)
 {
+	
+	participants = reload(__dirname+'/../../blockchain/participants/participants_info.js');
+	
 	for(var i = 0; i < participants.participants_info[partType].length; i++)
 	{
 		if(participants.participants_info[partType][i].name == data || participants.participants_info[partType][i].identity == data)

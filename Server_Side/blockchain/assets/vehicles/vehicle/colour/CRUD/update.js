@@ -2,7 +2,6 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
-var vehicle_logs = require(__dirname+'/../../../../../vehicle_logs/vehicle_logs.js');
 
 var update = function(req, res)
 {
@@ -12,10 +11,9 @@ var update = function(req, res)
 		req.session.user = req.cookies.user;
 	}		
 
-	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', []);
+	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', req.body);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
-	var oldValue = req.body.oldValue;
 	var newValue = req.body.value;
 	var v5cID = req.params.v5cID;
 	
@@ -49,11 +47,9 @@ var update = function(req, res)
 					}
 	
 	res.write('{"message":"Updating colour value"}&&');
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', 'Updating colour value');
 	request(options, function(error, response, body)
 	{
-		
-		console.log("Update colour response", body);
-		
 		if (!error && response.statusCode == 200)
 		{
 			var j = request.jar();
@@ -66,20 +62,19 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
-			res.write('{"message":"Achieving Consensus"}&&');
+			tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', 'Achieving consensus');
+			res.write('{"message":"Achieving consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
 						
-						console.log("Update colour confirm response", body);
-						
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.colour == newValue)
+							if(JSON.parse(body).message == newValue)
 							{
 								var result = {};
 								result.message = 'Colour updated'
-								vehicle_logs.create(["Update", "Colour: " + oldValue + " →  " + req.body.value ,v5cID, req.session.user], req,res);
+								tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', result);
 								res.end(JSON.stringify(result))
 								clearInterval(interval);
 							}
@@ -90,11 +85,11 @@ var update = function(req, res)
 				else
 				{
 					res.status(400)
-					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', 'Unable to update colour. v5cID: '+ v5cID)
 					var error = {}
 					error.error = true
 					error.message = 'Unable to confirm colour update. Request timed out.'
 					error.v5cID = v5cID;
+					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', error)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}

@@ -8,19 +8,21 @@ var read = function(req, res)
 {
 	participants = reload(__dirname+'/../../participants_info.js');
 	
-	tracing.create('ENTER', 'GET blockchain/participants/manufacturers', []);
+	tracing.create('ENTER', 'GET blockchain/participants/manufacturers', {});
 
 	if(!participants.participants_info.hasOwnProperty('manufacturers'))
 	{
 		res.status(404)
-		tracing.create('ERROR', 'GET blockchain/participants/manufacturers', 'Unable to retrieve manufacturers');
 		var error = {}
 		error.message = 'Unable to retrieve manufacturers';
-		res.send(JSON.stringify(error))
+		error.error = true;
+		tracing.create('ERROR', 'GET blockchain/participants/manufacturers', error);
+		res.send(error)
 	} 
 	else
 	{
-		res.send(JSON.stringify({"result":participants.participants_info.manufacturers}))
+		tracing.create('EXIT', 'GET blockchain/participants/manufacturers', {"result":participants.participants_info.manufacturers});
+		res.send({"result":participants.participants_info.manufacturers})
 	}
 
 }

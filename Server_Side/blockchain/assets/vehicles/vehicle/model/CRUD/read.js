@@ -7,7 +7,7 @@ var read = function (req,res)
 {	
 	var v5cID = req.params.v5cID;
 	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/model', []);
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/model', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	if(typeof req.cookies.user != "undefined")
 	{
@@ -23,7 +23,7 @@ var read = function (req,res)
 												"name": configFile.config.vehicle_name
 											},
 											"ctorMsg": {
-											  "function": "get_all",
+											  "function": "get_vehicle_details",
 											  "args": [
 											  		v5cID
 											  ]
@@ -45,22 +45,22 @@ var read = function (req,res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Model update read", body);
-		
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}
-			result.vehicle = JSON.parse(body.result.message);
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/model', JSON.stringify(result));
+			var vehicle = JSON.parse(body.result.message);
+			result.message = vehicle.model;
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/model', result);
 			res.send(result)
 		}
 		else 
 		{
 			res.status(400)
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/model', 'Unable to get model. v5cID: '+ v5cID)
 			var error = {}
 			error.message = 'Unable to read model'
 			error.v5cID = v5cID;
+			error = true;
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/model', error)
 			res.send(error)
 		}
 	});

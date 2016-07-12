@@ -61,24 +61,3 @@ function getPassword()
 	}
 	return "error"
 }
-
-function readSession()
-{
-	/*
-	Reads the current session on the application server and logs info to console.
-	For debugging.
-	*/
-	$.ajax({
-		type: 'GET',
-		contentType: 'application/json',
-		crossDomain:true,
-		url: '/admin/identity',
-		success: function(d) {
-			console.log(d)
-		},
-		error: function(e){
-			console.log(e)
-		},
-		async: false
-	});
-}

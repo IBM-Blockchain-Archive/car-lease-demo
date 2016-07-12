@@ -3,10 +3,11 @@
 var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js');
-//var tracing = require(__dirname+'/../../../tools/traces/trace.js');
+var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
 var read = function(req, res)
 {
+	tracing.create('ENTER', 'GET blockchain/blocks', {})
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var options = {
 		url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
@@ -14,12 +15,20 @@ var read = function(req, res)
 	};
 	request(options, function (error, response, body){
 		if (!error && response.statusCode == 200) {
-			res.send({"height": JSON.parse(body).height, "currentBlockHash": JSON.parse(body).currentBlockHash});	
+			var result = {}
+			result.height = JSON.parse(body).height
+			result.currentBlockHash = JSON.parse(body).currentBlockHash
+			tracing.create('EXIT', 'GET blockchain/blocks', result)
+			res.send(result);	
 		}
 		else
 		{
+			var error = {}
+			error.message = 'Unable to get chain length'
+			error.error = true
 			res.status(400);
-			res.send({"error":"Unable to get chain length"});
+			tracing.create('ERROR', 'GET blockchain/blocks', error)
+			res.send(error);
 		}
 	});
 }
