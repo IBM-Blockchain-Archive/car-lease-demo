@@ -387,7 +387,7 @@ function timeConverter(UNIX_timestamp){
   var hour = a.getHours();
   var mins = a.getMinutes();
   var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + mins + ':' + sec ;
+  var time = pad(date) + ' ' + month + ' ' + pad(year) + ' ' + pad(hour) + ':' + pad(mins) + ':' + pad(sec) ;
 
   return time;
 }
@@ -823,4 +823,12 @@ function shrinkBlock(el) {
 			})
 		})
 	})
+}
+
+function pad(value) {
+    if(value < 10) {
+        return '0' + value;
+    } else {
+        return value;
+    }
 }

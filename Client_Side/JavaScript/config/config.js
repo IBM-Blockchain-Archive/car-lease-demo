@@ -86,7 +86,7 @@ config.participants.users.manufacturers[2].user = 'Mandy'
 
 // Dealerships
 config.participants.users.dealerships[0] = {}
-config.participants.users.dealerships[0].company = 'Beechwale Group'
+config.participants.users.dealerships[0].company = 'Beechvale Group'
 config.participants.users.dealerships[0].type = "Dealership"
 config.participants.users.dealerships[0].user = 'Deborah'
 
