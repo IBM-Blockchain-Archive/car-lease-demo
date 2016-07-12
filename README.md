@@ -1,6 +1,6 @@
 # Car Lease Demo
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/jpayne23/car-lease-demo-1.git)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/awjh/car-lease-demo.git)
 
 # Application Background
 
