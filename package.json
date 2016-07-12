@@ -28,7 +28,8 @@
     "request": "",
     "require-reload": "",
     "fs": "",
-    "x509": ""
+    "x509": "",
+	"crypto":""
   },
   "engines": {
     "node": "0.12.0"

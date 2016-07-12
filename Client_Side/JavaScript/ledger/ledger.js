@@ -60,7 +60,7 @@ function showList(users, parent, pos)
 		{
 			$('#theirUsers').append('<span class="userHldr userHldr'+$('#userType').html().replace(' ', '')+'" onclick="changeUser(\''+users[i].name+'\', \''+parent+'\', '+i+')" >'+users[i].name+'</span>')
 		}
-		$('#endUsers').css('top', (40*(++pos)-33)+'px')
+		$('#endUsers').css('top', (40*(++pos)-34)+'px')
 		$('#endUsers').show();
 
 		var diff = pos - endPos + users.length - 2

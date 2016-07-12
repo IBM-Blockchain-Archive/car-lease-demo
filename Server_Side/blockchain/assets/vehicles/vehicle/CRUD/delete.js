@@ -13,7 +13,7 @@ var update = function(req, res)
 
 	var v5cID = req.params.v5cID;
 
-	tracing.create('ENTER', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', []);
+	tracing.create('ENTER', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', {});
 	configFile = reload(__dirname+'/../../../../../configurations/configuration.js');	
 	
 	res.write('{"message":"Formatting request"}&&');
@@ -44,6 +44,7 @@ var update = function(req, res)
 						json: true
 					}
 	
+	tracing.create('INFO', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Updating scrap value');
 	res.write('{"message":"Updating scrap value"}&&');
 	request(options, function(error, response, body)
 	{
@@ -59,17 +60,20 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
-			res.write('{"message":"Achieving Consensus"}&&');
+			
+			tracing.create('INFO', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Achieving consensus');
+			res.write('{"message":"Achieving consensus"}&&');
 			
 			var counter = 0;
 			var interval = setInterval(function(){
 				if(counter < 5){
 					request(options, function (error, response, body) {
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.scrapped)
+							if(JSON.parse(body).message)
 							{
 								var result = {};
 								result.message = 'Scrap updated'
+								tracing.create('EXIT', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', result);
 								res.end(JSON.stringify(result))
 								clearInterval(interval);
 							}
@@ -85,6 +89,7 @@ var update = function(req, res)
 					error.error = true;
 					error.message = 'Unable to confirm scrap update. Request timed out.';
 					error.v5cID = v5cID;
+					tracing.create('ERROR', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', error);
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
@@ -98,6 +103,7 @@ var update = function(req, res)
 			error.error = true;
 			error.message = 'Unable to update scrap.';
 			error.v5cID = v5cID;
+			tracing.create('ERROR', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', error);
 			res.end(JSON.stringify(error))
 		}
 	})

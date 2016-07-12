@@ -11,13 +11,14 @@ var update = function(req, res)
 		req.session.user = req.cookies.user;
 	}
 
-	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', []);
+	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', req.body);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
 	var oldValue = req.body.oldValue;
 	var newValue = req.body.value;
 	var v5cID = req.params.v5cID;
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', 'Formatting request');
 	res.write('{"message":"Formatting request"}&&');
 	
 	var invokeSpec = 	{
@@ -47,6 +48,7 @@ var update = function(req, res)
 						json: true
 					}
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', 'Updating VIN value');
 	res.write('{"message":"Updating VIN value"}&&');
 	request(options, function(error, response, body)
 	{
@@ -65,6 +67,7 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
+			tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', 'Achieving Consensus');
 			res.write('{"message":"Achieving Consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
@@ -74,10 +77,11 @@ var update = function(req, res)
 						console.log("Update VIN confirm response", body);
 						
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.VIN == newValue)
+							if(JSON.parse(body).message == newValue)
 							{
 								var result = {};
 								result.message = 'VIN updated'
+								tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', result);
 								res.end(JSON.stringify(result))
 								clearInterval(interval);
 							}
@@ -88,11 +92,11 @@ var update = function(req, res)
 				else
 				{
 					res.status(400)
-					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', 'Unable to update VIN. v5cID: '+ v5cID)
 					var error = {}
 					error.error = true
 					error.message = 'Unable to confirm VIN update. Request timed out.'
 					error.v5cID = v5cID;
+					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', error)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
@@ -102,11 +106,11 @@ var update = function(req, res)
 		{
 			console.log(body)
 			res.status(400)
-			tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', 'Unable to update VIN. v5cID: '+ v5cID)
 			var error = {}
 			error.error = true
 			error.message = 'Unable to update VIN.'
 			error.v5cID = v5cID;
+			tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', error)
 			res.end(JSON.stringify(error))
 		}
 	})

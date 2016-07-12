@@ -78,6 +78,7 @@ type V5C_Holder struct {
 //==============================================================================================================================
 type ECertResponse struct {
 	OK string `json:"OK"`
+	Error string `json:"Error"`
 }					
 
 //==============================================================================================================================
@@ -120,17 +121,25 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 
 	response, err := http.Get("http://"+string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
     
+															fmt.Println("HTTP RESPONSE", response)
+															
 															if err != nil { return nil, errors.New("Error calling ecert API") }
 	
 	defer response.Body.Close()
 	contents, err := ioutil.ReadAll(response.Body)					// Read the response from the http callout into the variable contents
-	
+															
+															fmt.Println("HTTP BODY:", string(contents))
+															
 															if err != nil { return nil, errors.New("Could not read body") }
 	
 	err = json.Unmarshal(contents, &cert)
 	
 															if err != nil { return nil, errors.New("Could not retrieve ecert for user: "+name) }
 															
+															fmt.Println("CERT OBJECT:", cert)
+															
+															if cert.Error != "" { fmt.Println("GET ECERT ERRORED: ", cert.Error); return nil, errors.New(cert.Error)}
+	
 	return []byte(string(cert.OK)), nil
 }
 
@@ -620,7 +629,9 @@ func (t *SimpleChaincode) update_registration(stub *shim.ChaincodeStub, v Vehicl
 func (t *SimpleChaincode) update_colour(stub *shim.ChaincodeStub, v Vehicle, caller string, caller_affiliation int, new_value string) ([]byte, error) {
 	
 	if 		v.Owner				== caller				&&
-			caller_affiliation	!= SCRAP_MERCHANT	&&
+			caller_affiliation	== MANUFACTURER			&&/*((v.Owner				== caller			&&
+			caller_affiliation	== MANUFACTURER)		||
+			caller_affiliation	== AUTHORITY)			&&*/
 			v.Scrapped			== false				{
 			
 					v.Colour = new_value
