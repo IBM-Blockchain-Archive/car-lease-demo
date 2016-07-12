@@ -1,3 +1,32 @@
+var simple_scenario = {
+	"cars": [
+		{
+			"VIN": "287437467447767",
+			"Make": "Toyota",
+			"Model": "Auris",
+			"Colour": "Blue",
+			"Reg": "LM16 YHU",
+			"Owners": ["DVLA", "Toyota", "Beechvale Group", "LeaseCan"]
+		},
+		{
+			"VIN": "549523556856725",
+			"Make": "Jaguar",
+			"Model": "F-Type",
+			"Colour": "Red",
+			"Reg": "HE16 WDZ",
+			"Owners": ["DVLA", "Jaguar Land Rover", "Beechvale Group"]
+		},
+		{
+			"VIN": "880352730316924",
+			"Make": "Alfa Romeo",
+			"Model": "MiTo",
+			"Colour": "Blue",
+			"Reg": "NL65 DTU",
+			"Owners": ["DVLA", "Alfa Romeo"]
+		}
+	]
+};
+
 var full_scenario = {
 	"cars": [
 		{
@@ -83,36 +112,6 @@ var full_scenario = {
 	]
 };
 
-var simple_scenario = {
-	"cars": [
-		{
-			"VIN": "287437467447767",
-			"Make": "Toyota",
-			"Model": "Auris",
-			"Colour": "Blue",
-			"Reg": "LM16 YHU",
-			"Owners": ["DVLA", "Toyota", "Beechvale Group", "LeaseCan"]
-		},
-		{
-			"VIN": "549523556856725",
-			"Make": "Jaguar",
-			"Model": "F-Type",
-			"Colour": "Red",
-			"Reg": "HE16 WDZ",
-			"Owners": ["DVLA", "Jaguar Land Rover", "Beechvale Group"]
-		},
-		{
-			"VIN": "880352730316924",
-			"Make": "Alfa Romeo",
-			"Model": "MiTo",
-			"Colour": "Blue",
-			"Reg": "NL65 DTU",
-			"Owners": ["DVLA", "Alfa Romeo"]
-		}
-	]
-};
 
-exports.full_scenario = full_scenario;
 exports.simple_scenario = simple_scenario;
-
-
+exports.full_scenario = full_scenario;

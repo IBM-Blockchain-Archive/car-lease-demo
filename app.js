@@ -31,9 +31,10 @@ var participants 	= require(__dirname+'/Server_Side/blockchain/participants/part
 var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js');
 var vehicles	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
-var vehicle_logs	= require(__dirname+'/Server_Side/blockchain/vehicle_logs/vehicle_logs.js')
 var demo 	 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
-var chaincode 	 	 = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
+var chaincode 	 	= require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
+var transactions 	= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
+var startup			= require(__dirname+'/Server_Side/configurations/startup/startup.js');
 
 //User manager modules
 var user_manager = require(__dirname+'/utils/user.js');
@@ -102,10 +103,6 @@ app.post('/blockchain/chaincode/vehicles', function(req, res){
 	chaincode.vehicles.create(req, res)
 });
 
-app.post('/blockchain/chaincode/vehicle_logs', function(req, res){
-	chaincode.vehicle_logs.create(req, res)
-});
-
 //-----------------------------------------------------------------------------------------------
 //	Blockchain - Blocks
 //-----------------------------------------------------------------------------------------------
@@ -128,6 +125,15 @@ app.post('/blockchain/assets/vehicles' , function(req,res)
 app.get('/blockchain/assets/vehicles' , function(req,res)
 {
 	vehicles.read(req,res)
+});
+
+//-----------------------------------------------------------------------------------------------
+//	Blockchain - Assets - Vehicles - Vehicle
+//-----------------------------------------------------------------------------------------------
+
+app.get('/blockchain/assets/vehicles/:v5cID' , function(req,res)
+{
+	vehicle.read(req,res)
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -226,7 +232,7 @@ app.get('/blockchain/assets/vehicles/:v5cID/scrap' , function(req,res)
 //	Blockchain - Participants
 //-----------------------------------------------------------------------------------------------
 app.post('/blockchain/participants', function(req,res){
-	participants.create(dataSource, req.body.user,req.body.role, req.body.aff, res);
+	participants.create(dataSource, req, res);	// DataSource is the grpc connector
 });
 
 app.get('/blockchain/participants', function(req,res){
@@ -257,13 +263,13 @@ app.get('/blockchain/participants/scrap_merchants', function(req, res){
 	participants.scrap_merchants.read(req,res);
 });
 
+
 //-----------------------------------------------------------------------------------------------
-//	Blockchain - Vehicle Logs
+//	Blockchain - Transactions
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/vehicle_logs', function(req,res)
-{
-	vehicle_logs.read(req, res)
-})
+app.get('/blockchain/transactions', function(req, res){
+	transactions.read(req, res);
+});
 
 
 ///////////  Configure Webserver  ///////////
@@ -309,6 +315,9 @@ require("cf-deployment-tracker-client").track();
 // 														Launch Webserver
 // ============================================================================================================================
 var server = http.createServer(app).listen(port, function () {
+	
+	var result = startup.create(dataSource)
+	
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 process.env.NODE_ENV = 'production';

@@ -18,8 +18,6 @@ function loadRecipients()
 		url: '/blockchain/participants/'+newRecPlural.toLowerCase(),
 		success: function(d) {
 			
-			d = JSON.parse(d)
-			
 			$("#recsTbl").empty();
 			for(var i = 0; i < d.result.length; i++)
 			{

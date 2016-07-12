@@ -305,7 +305,7 @@ function updatePage()
 
 		$('.arrow_right_box').show()
 
-		prevFiftyBlocks.unshift(block.nonHashData.localLedgerCommitTimestamp.seconds)
+		prevFiftyBlocks.unshift(blockTime)
 
 		timeData.unshift(prevFiftyBlocks[0] - prevFiftyBlocks[1])
 		transData.unshift(block.transactions.length)
@@ -315,8 +315,10 @@ function updatePage()
 		timeDiff = prevFiftyBlocks[0] - prevFiftyBlocks[1];
 
 		if(timeDiff>5000) timeDiff=5000;
-		
-		$('#timeSince').html(timeDiff+'s ago');
+
+		var curr = Date.now()/1000
+
+		$('#timeSince').html(parseInt(curr-blockTime)+'s ago');
 
 		sum += timeDiff;
 
@@ -385,7 +387,7 @@ function timeConverter(UNIX_timestamp){
   var hour = a.getHours();
   var mins = a.getMinutes();
   var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + mins + ':' + sec ;
+  var time = pad(date) + ' ' + month + ' ' + pad(year) + ' ' + pad(hour) + ':' + pad(mins) + ':' + pad(sec) ;
 
   return time;
 }
@@ -821,4 +823,12 @@ function shrinkBlock(el) {
 			})
 		})
 	})
+}
+
+function pad(value) {
+    if(value < 10) {
+        return '0' + value;
+    } else {
+        return value;
+    }
 }

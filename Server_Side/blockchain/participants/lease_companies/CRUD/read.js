@@ -7,19 +7,21 @@ var reload = require('require-reload')(require),
 var read = function(req, res)
 {
 	participants = reload(__dirname+'/../../participants_info.js');
-	tracing.create('ENTER', 'GET blockchain/participants/lease_companies', []);
+	tracing.create('ENTER', 'GET blockchain/participants/lease_companies', {});
 	
 	if(!participants.participants_info.hasOwnProperty('lease_companies'))
 	{
 		res.status(404)
-		tracing.create('ERROR', 'GET blockchain/participants/lease_companies', 'Unable to retrieve lease companies');
 		var error = {}
 		error.message = 'Unable to retrieve lease companies';
-		res.send(JSON.stringify(error))
+		error.error = true;
+		tracing.create('ERROR', 'GET blockchain/participants/lease_companies', error);
+		res.send(error)
 	} 
 	else
 	{
-		res.send(JSON.stringify({"result":participants.participants_info.lease_companies}))
+		tracing.create('EXIT', 'GET blockchain/participants/lease_companies', {"result":participants.participants_info.lease_companies});
+		res.send({"result":participants.participants_info.lease_companies})
 	}
 }
 exports.read = read;
