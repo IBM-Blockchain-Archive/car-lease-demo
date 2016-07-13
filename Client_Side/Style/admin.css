@@ -204,7 +204,6 @@ label
 {
 	display:inline-block;
 	color:#00648D;
-	margin-left: 25px;
 	border-collapse:collapse;
 	border:2px solid #00648D;
 	table-layout: fixed;
@@ -250,4 +249,42 @@ label
 {
 	background-color:#00648D;
 	color:#FFF;	
+}
+.editRw
+{
+	color:#00648D;
+	border: 2px solid #00648D;
+	padding:7px;
+	background-color:#FFF;
+}
+.editRw
+{
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+.tblTxt
+{
+	width:100%;
+	border: 0;
+	color: #00648D;
+	font-size: 1em;
+	font-family: HelveticaNeue-Light,Helvetica,Arial,sans-serif;
+}
+#reg
+{
+	text-transform:uppercase;
+}
+#errorRw
+{
+	border: 2px solid #00648D;
+	background-color: #A91024;
+	display:none;
+}
+.greyOut
+{
+	background-color:#DEDEDE;
+}
+.greyOut input
+{
+	cursor: not-allowed;
 }

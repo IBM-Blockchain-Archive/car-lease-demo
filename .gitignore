@@ -2,3 +2,6 @@ launchConfigurations/
 
 # IntelliJ
 .idea
+
+# npm dependencies
+node_modules/

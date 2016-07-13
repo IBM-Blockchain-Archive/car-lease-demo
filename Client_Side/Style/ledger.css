@@ -93,7 +93,7 @@
 }
 .dropTopMargins
 {
-	margin-top: -5px;
+	margin-top: -3px;
 }
 .dropDowns
 {
@@ -147,12 +147,16 @@
 	right:-40px!important;
 }
 .usersDropMargin {
-    margin-top: -3px!important;
+    margin-top: -2px!important;
     margin-right: 0px!important;
 }
 .userHldr span
 {
 	margin-left: 15px;
+}
+#theirUsers span
+{
+	margin-left:2px;
 }
 .userHldrRegulator:hover
 {
@@ -189,4 +193,8 @@
 	background-color: #DD721B;
 	border-right-color: #DD721B;
 	color: #FFF;
+}
+.failureRow
+{
+	color:#A91024!important;
 }

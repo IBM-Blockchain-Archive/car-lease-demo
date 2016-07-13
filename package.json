@@ -27,7 +27,9 @@
     "ws": "1.0.1",
     "request": "",
     "require-reload": "",
-    "fs": ""
+    "fs": "",
+    "x509": "",
+	"crypto":""
   },
   "repository": {
     "type": "git",

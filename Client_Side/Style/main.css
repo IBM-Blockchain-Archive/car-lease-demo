@@ -218,6 +218,16 @@ body
 {
 	border:2px solid #00648D;
 }
+.prematureMsg
+{
+	display:none;
+}
+.prematureMsgTxt
+{
+	padding: 5px;
+	color:#00648D;
+	text-align: center;
+}
 .welcomeMsg
 {
 	display:none;
@@ -313,7 +323,7 @@ a:hover
 #endUsers 
 {
 	position: relative;
-	left: 2px;
+	left: 0px;
 	top: 0px;
 	display:none;
 }

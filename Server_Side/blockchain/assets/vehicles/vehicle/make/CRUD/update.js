@@ -2,7 +2,6 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
-var vehicle_logs = require(__dirname+'/../../../../../vehicle_logs/vehicle_logs.js');
 
 var update = function(req, res)
 {
@@ -12,13 +11,14 @@ var update = function(req, res)
 		req.session.user = req.cookies.user;
 	}	
 
-	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', []);
+	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', req.body);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
 	var oldValue = req.body.oldValue;
 	var newValue = req.body.value;
 	var v5cID = req.params.v5cID;
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Formatting request');
 	res.write('{"message":"Formatting request"}&&');
 									
 	var invokeSpec = 	{
@@ -48,11 +48,10 @@ var update = function(req, res)
 						json: true
 					}
 	
+	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Updating make value');
 	res.write('{"message":"Updating make value"}&&');
 	request(options, function(error, response, body)
 	{
-		
-		console.log("Update make response", body);
 		
 		if (!error && response.statusCode == 200)
 		{
@@ -66,20 +65,19 @@ var update = function(req, res)
 				method: 'GET',
 				jar: j
 			}
-			res.write('{"message":"Achieving Consensus"}&&');
+			tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Achieving consensus');
+			res.write('{"message":"Achieving consensus"}&&');
 			var counter = 0;
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
 						
-						console.log("Update make confirm response", body);
-						
 						if (!error && response.statusCode == 200) {
-							if(JSON.parse(body).vehicle.make == newValue)
+							if(JSON.parse(body).message == newValue)
 							{
 								var result = {};
 								result.message = 'Make updated'
-								vehicle_logs.create(["Update", "Make: " + oldValue + " →  " + req.body.value ,v5cID, req.session.user], req,res);
+								tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', result);
 								res.end(JSON.stringify(result))
 								clearInterval(interval);
 							}
@@ -90,11 +88,11 @@ var update = function(req, res)
 				else
 				{
 					res.status(400)
-					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Unable to update make. v5cID: '+ v5cID)
 					var error = {}
 					error.error = true
 					error.message = 'Unable to confirm make update. Request timed out.'
 					error.v5cID = v5cID;
+					tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', error)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
@@ -103,11 +101,11 @@ var update = function(req, res)
 		else 
 		{
 			res.status(400)
-			tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Unable to update make. v5cID: '+ v5cID)
 			var error = {}
 			error.error = true
 			error.message = 'Unable to update make.'
 			error.v5cID = v5cID;
+			tracing.create('ERROR', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', error)
 			res.end(JSON.stringify(error))
 		}
 	})

@@ -7,7 +7,7 @@ var read = function (req,res)
 {	
 	var v5cID = req.params.v5cID;
 	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', []);
+	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	if(typeof req.cookies.user != "undefined")
 	{
@@ -23,7 +23,7 @@ var read = function (req,res)
 												"name": configFile.config.vehicle_name
 											},
 											"ctorMsg": {
-											  "function": "get_all",
+											  "function": "get_vehicle_details",
 											  "args": [
 											  		v5cID
 											  ]
@@ -50,17 +50,19 @@ var read = function (req,res)
 		if (!error && response.statusCode == 200)
 		{
 			var result = {}
-			result.vehicle = JSON.parse(body.result.message);
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', JSON.stringify(result));
+			var vehicle = JSON.parse(body.result.message);
+			result.message = vehicle.scrapped;
+			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', result);
 			res.send(result)
 		}
 		else 
 		{
 			res.status(400)
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Unable to read scrap. v5cID: '+ v5cID)
 			var error = {}
 			error.message = 'Unable to read scrap'
 			error.v5cID = v5cID;
+			error.error = true;
+			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', error)
 			res.send(error)
 		}
 	});

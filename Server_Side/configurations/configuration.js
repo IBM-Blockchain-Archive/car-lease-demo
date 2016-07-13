@@ -15,13 +15,12 @@ config.api_port_internal = 	JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchai
 config.app_url = 'http://'+JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
 
 //Chaincode file locations
-config.vehicle_log = "https://github.com/IBM-Blockchain/car-lease-demo/Chaincode/vehicle_log_code";
-config.vehicle = "https://github.com/IBM-Blockchain/car-lease-demo/Chaincode/vehicle_code";
+config.vehicle = "https://github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code";
+
 
 
 //Chaincode deployed names
-config.vehicle_log_name = 'd8462b53eed6ffd55a9ccc4d3520c481a006b633d535e83f4647f94fa5689fbbef93934fc7eaca0914fbe85d2fb89a8c32f8506b71b5ebd986fa7c77f9e8b596';
-config.vehicle_name = '609f8a8dc3368a64df71761dd5ef22ca87f4b879d0bc1020d092ec3a0536d63ce8b2380a5af16a1f2304048f5bedf3492321d5ed4e465f4fe2c61721330cc719';
+config.vehicle_name = 'd8e23925846b3e2482693f0f0e4c486120b4a78596d8cf9e7ae5658e2d65bcbad4e4a6b6efdd617e67cfec352089471483289b1e221fd8b265c160b42abc5309';
 
 exports.config = config;
 
