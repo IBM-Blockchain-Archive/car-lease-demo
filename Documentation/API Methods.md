@@ -162,7 +162,7 @@ Returns the height of the Blockchain and the hash of the last block in the chain
 
 ###Block
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/blocks/<block_number\>
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/blocks/<\block_number\>
 
 	Type:				GET
 	Transfer Encoding:	Chunked
