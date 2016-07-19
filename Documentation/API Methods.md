@@ -26,6 +26,8 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 	* [Lease Companies](#lease-Companies)
 	* [Leasees](#leasees)
 	* [Scrap Merchants](#scrap-Merchants)
+* [Transactions](#transactions)
+* [Chaincode](#chaincodes)
 
 ##Admin
 
@@ -46,7 +48,7 @@ Creates a 1, 3 or 10 vehicle scenario. It writes to a file what stage it is at a
 
 #####Successful output to demo_status.log:
 
-	{"message":"Creating cars"}&&{"message":"Created vehicle <v5c_id>","counter":true}&&{"message":"Created vehicle <v5c_id>","counter":true}&&{"message":"Transferring vehicles to manufacturers"}&&{"message":"Transfered vehicle <v5c_id>(<username> -> <username>)","counter":true}&&{"message":"Updating vehicles' details"}&&{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&{"message":"Transferring vehicles to private owners"}&&{"message":"Transfered all owners for vehicle <v5c_id>","counter":true}&&{"message":"Demo setup"}
+	{"message":"Creating vehicles"}&&{"message":"Created vehicle <v5c_id>","counter":true}&&{"message":"Created vehicle <v5c_id>","counter":true}&&{"message":"Transferring vehicles to manufacturers"}&&{"message":"Transfered vehicle <v5c_id>(<username> -> <username>)","counter":true}&&{"message":"Updating vehicles' details"}&&{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&{"message":"Transferring vehicles to private owners"}&&{"message":"Transfered all owners for vehicle <v5c_id>","counter":true}&&{"message":"Demo setup"}
 
 #####Error output to demo_status.log:
 
@@ -160,7 +162,7 @@ Returns the height of the Blockchain and the hash of the last block in the chain
 
 ###Block
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/blocks/<block_number\>
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/blocks/<\block_number\>
 
 	Type:				GET
 	Transfer Encoding:	Chunked
@@ -306,7 +308,7 @@ Queries the vehicle chaincode and returns the colour of the vehicle.
 
 	Output: 	 {"message": "Unable to read colour", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -369,7 +371,7 @@ Queries the vehicle chaincode and returns the make of the vehicle.
 
 	Output: 	 {"message": "Unable to read make", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -432,7 +434,7 @@ Queries the vehicle chaincode and returns the model of the vehicle.
 
 	Output: 	 {"message": "Unable to read model", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -495,7 +497,7 @@ Queries the vehicle chaincode and returns the owner of the vehicle.
 
 	Output: 	 {"message": "Unable to read owner", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -558,7 +560,7 @@ Queries the vehicle chaincode and returns the registration of the vehicle.
 
 	Output: 	 {"message": "Unable to read registration", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -621,7 +623,7 @@ Queries the vehicle chaincode and returns the scrap boolean of the vehicle.
 
 	Output: 	 {"message": "Unable to read scrap", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -651,7 +653,7 @@ Queries the vehicle chaincode and returns the vin of the vehicle.
 
 	Output: 	 {"message": "Unable to read VIN", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to query the vehicle chaincode to retrieve the car's details.
+	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
 				 2. Make sure the IP and Port in configuration.js are correct.
@@ -926,7 +928,7 @@ Retrieves the participants that are identified as scrap_merchants.
 
 #####Description: 
 
-Returns a JSON Object contain an array of all the transactions the user has permission to see. For the regulator this is all transactions but for the other users it is only transactions that relate to a vehicle they own or have owned. In the case of other users it will only show transactions before and up to the point they transferred the vehicle on. They cannot see what happens to the car after they transfer it.
+Returns a JSON Object contain an array of all the transactions the user has permission to see. For the regulator this is all transactions but for the other users it is only transactions that relate to a vehicle they own or have owned. In the case of other users it will only show transactions before and up to the point they transferred the vehicle on. They cannot see what happens to the vehicle after they transfer it.
 
 #####Errors:
 

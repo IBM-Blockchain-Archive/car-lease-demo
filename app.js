@@ -401,5 +401,3 @@ function finalSetup() {
 	
     dataSource = user_manager.setup(ca)
 }
-
-
