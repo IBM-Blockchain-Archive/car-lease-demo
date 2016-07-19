@@ -20,11 +20,12 @@ import (
 //	 Participant types - Each participant type is mapped to an integer which we use to compare to the value stored in a
 //						 user's eCert
 //==============================================================================================================================
+//CURRENT WORKAROUND USES ROLES CHANGE WHEN OWN USERS CAN BE CREATED SO THAT IT READ 1, 2, 3, 4, 5
 const   AUTHORITY      =  1
 const   MANUFACTURER   =  2
 const   PRIVATE_ENTITY =  4
-const   LEASE_COMPANY  =  4	//CURRENT WORKAROUND USES ROLES CHANGE WHEN OWN USERS CAN BE CREATED
-const   SCRAP_MERCHANT =  5	
+const   LEASE_COMPANY  =  4
+const   SCRAP_MERCHANT =  8	
 
 
 //==============================================================================================================================
