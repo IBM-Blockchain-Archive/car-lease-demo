@@ -9,6 +9,8 @@ var fs = require('fs')
 
 var reload = require('require-reload')(require),
     participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
+	
+var map_ID = require(__dirname+"/../../../tools/map_ID/map_ID.js");
 
 
 var initial_vehicles = require(__dirname+"/../../../blockchain/assets/vehicles/initial_vehicles.js");
@@ -165,7 +167,7 @@ function transfer_created_cars(req, res)
 				update_demo_status({"message":"Transfered vehicle "+v5cIDs[counter]+"(DVLA -> "+cars[counter].Owners[1]+")", "counter": true})
 			}
 			prevCount = counter;
-			transfer_car("DVLA", cars[counter].Owners[1], v5cIDs[counter], 'authority_to_manufacturer', "counter")
+			transfer_car("DVLA", map_ID.user_to_id(cars[counter].Owners[1]), v5cIDs[counter], 'authority_to_manufacturer', "counter")
 		}
 	}, 500)
 }
@@ -243,7 +245,7 @@ var ind_update_counter = 0;
 
 function update_all_car_parts(id)
 {
-	var car_owner = cars[counter].Owners[1]
+	var car_owner = map_ID.user_to_id(cars[counter].Owners[1])
 	var update_fields = [{"value":cars[counter].VIN,"field":"VIN", "title": "VIN"},{"value":cars[counter].Make,"field":"make", "title": "Make"},{"value":cars[counter].Model,"field":"model", "title": "Model"},{"value":cars[counter].Colour,"field":"colour", "title": "Colour"},{"value":cars[counter].Reg,"field":"reg", "title": "Registration"}]
 	var prevCount = -1;
 	var check_ind_update = setInterval(function(){
@@ -332,8 +334,6 @@ var ind_transfer_counter = 2;
 
 function transfer_all_owners(id)
 {
-	var car_owner = cars[counter].Owners[1]
-	var update_fields = [{"value":cars[counter].VIN,"field":"VIN", "title": "VIN"},{"value":cars[counter].Make,"field":"make", "title": "Make"},{"value":cars[counter].Model,"field":"model", "title": "Model"},{"value":cars[counter].Colour,"field":"colour", "title": "Colour"},{"value":cars[counter].Reg,"field":"reg", "title": "Registration"}]
 	var prevCount = -1;
 	var check_ind_transfer = setInterval(function(){
 		if(ind_transfer_counter == cars[counter].Owners.length)
@@ -350,7 +350,7 @@ function transfer_all_owners(id)
 		{
 			var types = ["manufacturer_to_private", "private_to_lease_company", "lease_company_to_private", "private_to_scrap_merchant"]
 			prevCount = ind_transfer_counter;
-			transfer_car(cars[counter].Owners[ind_transfer_counter-1], cars[counter].Owners[ind_transfer_counter], id, types[ind_transfer_counter-2], "ind_transfer_counter")
+			transfer_car(map_ID.user_to_id(cars[counter].Owners[ind_transfer_counter-1]), map_ID.user_to_id(cars[counter].Owners[ind_transfer_counter]), id, types[ind_transfer_counter-2], "ind_transfer_counter")
 		}
 	},500)
 }
