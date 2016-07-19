@@ -77,10 +77,16 @@ function addUser()
 				userAff = "0005";
 				break;
 	}
+	
+	var userSpec = {
+		"enrollId": users[counter].identity,
+		"enrollSecret": users[counter].password
+	}
 
 	var options = 	{
-						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar/'+users[counter].identity,
-						method: "GET", 
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
+						method: "POST",
+						body: userSpec,
 						json: true
 					}
 	
@@ -105,8 +111,9 @@ function addUser()
 		else	// Runs if user hasn't been created yet
 		{
 			
-			var result = createUser(users[counter].identity, 1, userAff) //Runs the connector to produce the user
 			
+			//var result = createUser(users[counter].identity, 1, userAff) //Runs the connector to produce the user
+			/*
 			if (result) {
 				if(counter < users.length - 1)
 				{
@@ -123,6 +130,7 @@ function addUser()
 			}
 			else
 			{
+			*/
 				var error = {}
 				error.message = 'Unable to register user: '+users[counter].identity;
 				error.error = false;
@@ -136,7 +144,7 @@ function addUser()
 				{
 					deploy_vehicle();
 				}
-			}
+			//}
 
 		}
 	})

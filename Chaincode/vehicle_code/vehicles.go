@@ -22,9 +22,9 @@ import (
 //==============================================================================================================================
 const   AUTHORITY      =  1
 const   MANUFACTURER   =  2
-const   PRIVATE_ENTITY =  3
-const   LEASE_COMPANY  =  4
-const   SCRAP_MERCHANT =  5
+const   PRIVATE_ENTITY =  4
+const   LEASE_COMPANY  =  4	//CURRENT WORKAROUND USES ROLES CHANGE WHEN OWN USERS CAN BE CREATED
+const   SCRAP_MERCHANT =  5	
 
 
 //==============================================================================================================================
@@ -165,6 +165,8 @@ func (t *SimpleChaincode) get_username(stub *shim.ChaincodeStub) (string, error)
 
 func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert string) (int, error) {																																																					
 	
+	/* CURRENT WORKSAROUND AFFILLITATION UNAVAILABLE WHILST NEW USERS CANNOT BE CREATED
+	
 	decodedCert, err := url.QueryUnescape(cert);    				// make % etc normal //
 	
 															if err != nil { return -1, errors.New("Could not decode certificate") }
@@ -182,6 +184,33 @@ func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert strin
 	affiliation, _ := strconv.Atoi(res[2])
 	
 	return affiliation, nil
+	
+	*/
+	
+	ECertSubjectRole := asn1.ObjectIdentifier{2, 1, 3, 4, 5, 6, 7}																														
+	
+	decodedCert, err := url.QueryUnescape(cert);    		// make % etc normal //
+	
+															if err != nil { return -1, errors.New("Could not decode certificate") }
+	
+	pem, _ := pem.Decode([]byte(decodedCert))           	// Make Plain text   //
+
+	x509Cert, err := x509.ParseCertificate(pem.Bytes);		// Extract Certificate from argument //
+														
+															if err != nil { return -1, errors.New("Couldn't parse certificate")	}
+
+	var role int64
+	for _, ext := range x509Cert.Extensions {				// Get Role out of Certificate and return it //
+		if reflect.DeepEqual(ext.Id, ECertSubjectRole) {
+			role, err = strconv.ParseInt(string(ext.Value), 10, len(ext.Value)*8)   
+                                            			
+															if err != nil { return -1, errors.New("Failed parsing role: " + err.Error())	}
+			break
+		}
+	}
+	
+	return role, nil
+	
 }
 
 //==============================================================================================================================
