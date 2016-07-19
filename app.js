@@ -19,8 +19,8 @@ var bodyParser 		= require('body-parser');
 var http 			= require('http');
 var app 			= express();
 var url 			= require('url');
-var cors 			= require("cors");
-var fs 				= require("fs");
+var cors 			= require('cors');
+var fs 				= require('fs');
 //var cfenv		 	= require('cfenv');
 
 
@@ -372,6 +372,7 @@ if (process.env.VCAP_SERVICES) {															//load from vcap, search for serv
                 var ca_name = Object.keys(servicesObject[i][0].credentials.ca)[0];
                 console.log(TAG, "loading ca:", ca_name);
                 ca = servicesObject[i][0].credentials.ca[ca_name];
+				
                 if (servicesObject[i][0].credentials.users) {
                     console.log('overwritting users, loading from a vcap service: ', i);
                     users = servicesObject[i][0].credentials.users;
@@ -396,6 +397,9 @@ finalSetup();
 
 function finalSetup() {
 	
-	console.log("Entering final setup")
+	console.log("Entering final setup, CA url")
+	
     dataSource = user_manager.setup(ca)
 }
+
+

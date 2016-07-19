@@ -41,9 +41,10 @@ function createV5cID(req, res)
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
 	}
 	
-	user_id = req.session.user;
+	user_id = req.session.identity;
 } 
 
 function checkIfAlreadyExists(req, res, v5cID)
