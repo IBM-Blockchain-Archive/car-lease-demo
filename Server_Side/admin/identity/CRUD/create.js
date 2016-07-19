@@ -16,7 +16,7 @@ function makeAccount(req, res)
 	
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	
-	var user_id = req.body.account;
+	var user_id = map_ID.user_to_id(req.body.account);
 	var user_pass = map_ID.get_password(req.body.participantType, req.body.account);
 	
 	var enrollmentDetails = 	{
@@ -33,7 +33,8 @@ function makeAccount(req, res)
 	tracing.create('INFO', 'POST admin/identity', "Calling /registrar endpoint");
 	request(options, function (error, response, body){
 		if (!error && response.statusCode == 200) {
-			req.session.user = user_id;
+			req.session.user = req.body.account;
+			req.session.identity = user_id;
 			tracing.create('EXIT', 'POST admin/identity', {"message": "Successfully logged user in"});
 			res.send({"message": "Successfully logged user in"});
 		}

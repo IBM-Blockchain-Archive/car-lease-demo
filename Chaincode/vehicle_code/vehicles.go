@@ -119,16 +119,16 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	peer_address, err := stub.GetState("Peer_Address")
 															if err != nil { return nil, errors.New("Error retrieving peer address") }
 
-	response, err := http.Get("http://"+string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
+	response, err := http.Get("https://"+string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
     
-															fmt.Println("HTTP RESPONSE", response)
+															fmt.Println("HTTPS RESPONSE", response)
 															
 															if err != nil { return nil, errors.New("Error calling ecert API") }
 	
 	defer response.Body.Close()
 	contents, err := ioutil.ReadAll(response.Body)					// Read the response from the http callout into the variable contents
 															
-															fmt.Println("HTTP BODY:", string(contents))
+															fmt.Println("HTTPS BODY:", string(contents))
 															
 															if err != nil { return nil, errors.New("Could not read body") }
 	

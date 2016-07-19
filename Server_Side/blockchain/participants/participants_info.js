@@ -64,7 +64,7 @@ var participants_info = {
 		}/*,
 		{
 			"name": "Viewers Alfa Romeo",
-			"identity": "Viewers Alfa Romeo",
+			"identity": "Viewers_Alfa_Romeo",
 			"password": "VWjFucyEIzTn",
 			"address_line_1": "25 Lower Lens Street",
 			"address_line_2": "Penylan",
@@ -85,7 +85,7 @@ var participants_info = {
 		}/*,
 		{
 			"name": "Every Car Leasing",
-			"identity": "Every Car Leasing",
+			"identity": "Every_Car_Leasing",
 			"password": "KakjewJfwBSq",
 			"address_line_1": "9 Main Road",
 			"address_line_2": "Mobberly",
@@ -94,7 +94,7 @@ var participants_info = {
 		},
 		{
 			"name": "Regionwide Vehicle Contracts",
-			"identity": "Regionwide Vehicle Contracts",
+			"identity": "Regionwide_Vehicle_Contracts",
 			"password": "plqOUyoFTZyK",
 			"address_line_1": "Unit 9",
 			"address_line_2": "Malcom Christie Way",
@@ -122,7 +122,7 @@ var participants_info = {
 		}/*,
 		{
 			"name": "Anthony O'Dowd",
-			"identity": "Anthony O'Dowd",
+			"identity": "Anthony_O_Dowd",
 			"password": "MrcAgjpBwhmI",
 			"address_line_1": "34 Main Road",
 			"address_line_2": "Winchester",

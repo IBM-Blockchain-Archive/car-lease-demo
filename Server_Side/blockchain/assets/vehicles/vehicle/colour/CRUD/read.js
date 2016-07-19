@@ -3,6 +3,9 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
+var map_ID = require(__dirname+'/../../../../../../tools/map_ID/map_ID.js');
+
+var user_id;
 
 var read = function (req,res)
 {	
@@ -10,10 +13,14 @@ var read = function (req,res)
 	
 	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
+	
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
 	}
+	
+	user_id = req.session.identity;
 
 	var querySpec =					{
 										"jsonrpc": "2.0",
@@ -29,7 +36,7 @@ var read = function (req,res)
 											  		v5cID
 											  ]
 											},
-											"secureContext": req.session.user,
+											"secureContext": user_id
 										},
 										"id": 123
 									};

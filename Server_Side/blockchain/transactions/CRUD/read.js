@@ -3,9 +3,10 @@
 var request = require('request');
 var fs = require('fs');
 var x509 = require('x509');
-var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js');
+var tracing = require(__dirname+'/../../../tools/traces/trace.js');
+var map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
     
 var result = {"transactions":[]};
 var height = 1;
@@ -110,11 +111,14 @@ function get_block(req, res, number)
 function evaluate_transactions(req, res)
 {
 	var validV5cs = "";
+	var user_id = map_ID.user_to_id(req.session.user)
+	
+	
 	for(var i = 0; i < result.transactions.length; i++)
 	{
 		var transaction = result.transactions[i];
 		var v5cID = transaction.payload.match(/[A-Z]{2}[0-9]{7}/g);
-		if(JSON.stringify(transaction).indexOf(req.session.user) == -1 && validV5cs.indexOf(v5cID) == -1)
+		if(JSON.stringify(transaction).indexOf(user_id) == -1 && validV5cs.indexOf(v5cID) == -1)
 		{
 			result.transactions.splice(i, 1);
 			i--;

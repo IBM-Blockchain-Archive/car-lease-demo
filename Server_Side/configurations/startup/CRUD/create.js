@@ -37,7 +37,7 @@ var create = function(dataSource)
 			{
 				for(var i = 0; i < data[key].length; i++)
 				{
-					users.push({"type":key,"identity":data[key][i].name});
+					users.push({"type":key,"identity":data[key][i].identity});
 				}
 			}
 		}
@@ -231,7 +231,7 @@ function createUser(username, role, aff)
 			
 			if(innerCounter >= 5){
 				innerCounter = 0;
-				tracing.create('ERROR', 'Startup', {"message": "Create user \""+username+"\" succeeded", "error": false});
+				tracing.create('ERROR', 'Startup', {"message": "Create user \""+username+"\" failed", "error": false});
 			}
 			else{
 				innerCounter++

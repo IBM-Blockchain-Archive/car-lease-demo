@@ -2,6 +2,9 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../tools/traces/trace.js');
+var map_ID = require(__dirname+'/../../../../../tools/map_ID/map_ID.js');
+
+var user_id;
 
 var update = function(req, res)
 {
@@ -9,7 +12,10 @@ var update = function(req, res)
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
-	}
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
+	}		
+
+	user_id = req.session.identity
 
 	var v5cID = req.params.v5cID;
 
@@ -32,7 +38,7 @@ var update = function(req, res)
 						        v5cID
 						      ]
 						    },
-						    "secureContext": req.session.user
+						    "secureContext": user_id
 						  },
 						  "id": 123
 						}
