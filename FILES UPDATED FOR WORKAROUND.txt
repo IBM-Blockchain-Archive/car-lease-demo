@@ -1,0 +1,9 @@
+Server_Side/blockchain/participants/participants_info.js
+	Replaced regular identities such as "DVLA" to be those provided already
+
+Server_Side/configurations/startup/CRUD/create.js
+	Commented out that trying and create a new user if they fail to log them in
+
+Chaincode/vehicle_code/vehicles.go
+	Updated to use Roles instead of affiliation. Comments regarding this have start text "CURRENT WORKAROUND"
+
