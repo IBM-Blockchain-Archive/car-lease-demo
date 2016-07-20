@@ -211,7 +211,7 @@ func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert strin
 		}
 	}
 	
-	return role, nil
+	return int(role), nil
 	
 }
 
