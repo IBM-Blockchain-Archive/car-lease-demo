@@ -14,14 +14,14 @@ var counter = 0;
 var innerCounter = 0;
 var users = [];
 
-var connectorInfo;
+//var connectorInfo;
 
-var create = function(dataSource)
+var create = function() //dataSource was passed as a parameter. NOT ANYMORE
 {
 	
 	tracing.create('ENTER', 'Startup', {});
 	
-	connectorInfo = dataSource
+	//connectorInfo = dataSource
 	
 	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
 	
@@ -155,11 +155,9 @@ function deploy_vehicle()
 {
 	tracing.create('INFO', 'Startup', 'Deploying vehicle chaincode');
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
-	    api_url = api_url.replace('http://', '')
-		
-	console.log("API URL: "+api_url)
+	api_url = api_url.replace('http://', '')
 	    
-    var randomVal = crypto.randomBytes(256).toString('hex')
+	var randomVal = crypto.randomBytes(256).toString('hex')
 	
 				
 	var deploySpec = {
@@ -221,7 +219,7 @@ function deploy_vehicle()
 
 function createUser(username, role, aff)
 {
-	
+	/*
 	if (!connectorInfo.connector) {
 		tracing.create('ERROR', 'Startup', {"message":"Cannot register users before the CA connector is setup!", "error":true})
 		return JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true});
@@ -263,7 +261,7 @@ function createUser(username, role, aff)
 			return
 			
 		}
-	});	
+	});*/	
 }
 
 function loginUser(username, aff, secret)

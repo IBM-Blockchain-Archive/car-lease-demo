@@ -8,6 +8,9 @@ Server_Side/configurations/configurations.js
 	
 app.js
 	Removed trying to read host and port values from bluemix environemnt variables
+	Removed loopback connector stuff
+	Read port from config file
+	Removed trying to read mycreds.json
 
 Server_Side/configurations/startup/CRUD/create.js
 	Commented out that trying and create a new user if they fail to log them in
@@ -15,6 +18,20 @@ Server_Side/configurations/startup/CRUD/create.js
 
 Chaincode/vehicle_code/vehicles.go
 	Updated to use Roles instead of affiliation. Comments regarding this have start text "CURRENT WORKAROUND"
+
+
+Server_Side/blockchain/participants/CRUD/create.js
+	Removed loopback connector stuff
+
+Server_Side/configurations/configuration.js
+	Started on making it so config checks if on bluemix and uses env variables if it is
+
+Server_Side/configurations/startup/CRUD/create.js
+	Removed loopback connector stuff
+
+mycreds.json
+	DELETED
+
 
 
 

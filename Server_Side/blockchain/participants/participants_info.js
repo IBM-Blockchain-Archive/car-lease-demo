@@ -48,7 +48,7 @@ var participants_info = {
 	"dealerships": [
 		{
 			"name": "Beechvale Group",
-			"identity": "Beechvale_Group",
+			"identity": "Beechvale_Group_2",
 			"password": "TvNWKDgWTrfH",
 			"address_line_1": "84 Hull Road",
 			"address_line_2": "Derby",
@@ -56,7 +56,7 @@ var participants_info = {
 		},
 		{
 			"name": "Milescape",
-			"identity": "Milescape",
+			"identity": "Milescape_2",
 			"password": "cGJslZqjNjPK",
 			"address_line_1": "Imperial Yard",
 			"address_line_2": "Derby",
@@ -64,7 +64,7 @@ var participants_info = {
 		},
 		{
 			"name": "Viewers Alfa Romeo",
-			"identity": "Viewers_Alfa_Romeo",
+			"identity": "Viewers_Alfa_Romeo_2",
 			"password": "VWjFucyEIzTn",
 			"address_line_1": "25 Lower Lens Street",
 			"address_line_2": "Penylan",
@@ -76,7 +76,7 @@ var participants_info = {
 	"lease_companies": [
 		{
 			"name": "LeaseCan",
-			"identity": "LeaseCan",
+			"identity": "LeaseCan_2",
 			"password": "mRbbQTpZfVVa",
 			"address_line_1": "64 Zoo Lane",
 			"address_line_2": "Slough",
@@ -85,7 +85,7 @@ var participants_info = {
 		},
 		{
 			"name": "Every Car Leasing",
-			"identity": "Every_Car_Leasing",
+			"identity": "Every_Car_Leasing_2",
 			"password": "KakjewJfwBSq",
 			"address_line_1": "9 Main Road",
 			"address_line_2": "Mobberly",
@@ -94,7 +94,7 @@ var participants_info = {
 		},
 		{
 			"name": "Regionwide Vehicle Contracts",
-			"identity": "Regionwide_Vehicle_Contracts",
+			"identity": "Regionwide_Vehicle_Contracts_2",
 			"password": "plqOUyoFTZyK",
 			"address_line_1": "Unit 9",
 			"address_line_2": "Malcom Christie Way",
@@ -106,7 +106,7 @@ var participants_info = {
 	"leasees": [
 		{
 			"name": "Joe Payne",
-			"identity": "Joe_Payne",
+			"identity": "Joe_Payne_2",
 			"password": "BKwnxTfJGNyK",
 			"address_line_1": "84 Byron Road",
 			"address_line_2": "Eastleigh",
@@ -114,7 +114,7 @@ var participants_info = {
 		},
 		{
 			"name": "Andrew Hurt",
-			"identity": "Andrew_Hurt",
+			"identity": "Andrew_Hurt_2",
 			"password": "tkGIRxBywwMk",
 			"address_line_1": "16 West Street",
 			"address_line_2": "Eastleigh",
@@ -122,7 +122,7 @@ var participants_info = {
 		},
 		{
 			"name": "Anthony O'Dowd",
-			"identity": "Anthony_O_Dowd",
+			"identity": "Anthony_O_Dowd_2",
 			"password": "MrcAgjpBwhmI",
 			"address_line_1": "34 Main Road",
 			"address_line_2": "Winchester",
@@ -132,7 +132,7 @@ var participants_info = {
 	"scrap_merchants": [
 		{
 			"name": "Cray Bros (London) Ltd",
-			"identity": "Cray_Bros_London_Ltd",
+			"identity": "Cray_Bros_London_Ltd_2",
 			"password": "BTaWHtHrCZry",
 			"address_line_1": "26 Electric Eel Avenue",
 			"address_line_2": "Twickenham",
@@ -141,7 +141,7 @@ var participants_info = {
 		},
 		{
 			"name": "Aston Scrap Centre",
-			"identity": "Aston_Scrap_Centre",
+			"identity": "Aston_Scrap_Centre_2",
 			"password": "AzdeAZuGtlUT",
 			"address_line_1": "11 Willow Park Way",
 			"address_line_2": "Aston on Trent",
@@ -150,7 +150,7 @@ var participants_info = {
 		},
 		{
 			"name": "ScrapIt! UK",
-			"identity": "ScrapIt_UK",
+			"identity": "ScrapIt_UK_2",
 			"password": "WDYJcenyScyC",
 			"address_line_1": "25 Lincoln Road",
 			"address_line_2": "Winchester",

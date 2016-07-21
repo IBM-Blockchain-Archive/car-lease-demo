@@ -25,36 +25,28 @@ var fs 				= require('fs');
 
 
 //Our own modules
-var blocks 			= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
-var block 		 	= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
+var blocks 		= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
+var block 		= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
 var participants 	= require(__dirname+'/Server_Side/blockchain/participants/participants.js');
 var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js');
 var vehicles	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
-var demo 	 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
+var demo 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
 var chaincode 	 	= require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var transactions 	= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
-var startup			= require(__dirname+'/Server_Side/configurations/startup/startup.js');
+var startup		= require(__dirname+'/Server_Side/configurations/startup/startup.js');
+var configFile 		= require(__dirname+'/Server_Side/configurations/configuration.js');
+
 
 //User manager modules
 var user_manager = require(__dirname+'/utils/user.js');
 
-var configFile 		= require(__dirname+'/Server_Side/configurations/configuration.js');	 
-
-
-console.log(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
-
-//// Set Server Parameters ////
-var host = "localhost"//process.env.VCAP_APP_HOST;
-var port = "80"//process.env.VCAP_APP_PORT;
-
-console.log("Server info", host, port)
 
 // For logging
 var TAG = "app.js:";
 
-//Connector stuff
-var dataSource;
+//Define port number for app server to use
+var port = configFile.config.app_port;
 
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
@@ -232,7 +224,7 @@ app.get('/blockchain/assets/vehicles/:v5cID/scrap' , function(req,res)
 //	Blockchain - Participants
 //-----------------------------------------------------------------------------------------------
 app.post('/blockchain/participants', function(req,res){
-	participants.create(dataSource, req, res);	// DataSource is the grpc connector
+	participants.create(req, res);
 });
 
 app.get('/blockchain/participants', function(req,res){
@@ -270,6 +262,14 @@ app.get('/blockchain/participants/scrap_merchants', function(req, res){
 app.get('/blockchain/transactions', function(req, res){
 	transactions.read(req, res);
 });
+
+
+
+
+
+
+
+
 
 
 ///////////  Configure Webserver  ///////////
@@ -316,7 +316,7 @@ require("cf-deployment-tracker-client").track();
 // ============================================================================================================================
 var server = http.createServer(app).listen(port, function () {
 	
-	var result = startup.create(dataSource)
+	var result = startup.create()
 	
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -324,80 +324,23 @@ process.env.NODE_ENV = 'production';
 
 
 server.timeout = 2400000;																// Ta-da.
-console.log('------------------------------------------ Server Up - ' + host + ':' + port + ' ------------------------------------------');
+console.log('------------------------------------------ Server Up - ' + configFile.config.app_url + ' ------------------------------------------');
 
-// Track the application deployments
-require("cf-deployment-tracker-client").track();
-
-// ==================================
-// load peers manually or from VCAP, VCAP will overwrite hardcoded list!
-// ==================================
-var manual = JSON.parse(fs.readFileSync('mycreds.json', 'utf8'));
-
-var peers, users, ca;
-
-
-if (manual.credentials.peers) {
-    console.log(TAG, 'loading', manual.credentials.peers.length, 'hardcoded peers');
-    peers = manual.credentials.peers;
-}
-
-if (manual.credentials.users) {
-    console.log(TAG, "loading", manual.credentials.users.length, "hardcoded users");
-    users = manual.credentials.users;
-}
-
-if (manual.credentials.ca) {
-    var ca_name = Object.keys(manual.credentials.ca)[0];
-    console.log(TAG, "loading ca:", ca_name);
-    ca = manual.credentials.ca[ca_name];
-}
-
-if (process.env.VCAP_SERVICES) {															//load from vcap, search for service, 1 of the 3 should be found...
-    var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
-    for (var i in servicesObject) {
-        if (i.indexOf('ibm-blockchain') >= 0) {											// looks close enough (can be suffixed dev, prod, or staging)
-            if (servicesObject[i][0].credentials.error) {
-                console.log('!\n!\n! Error from Bluemix: \n', servicesObject[i][0].credentials.error, '!\n!\n');
-                peers = null;
-                users = null;
-                process.error = {
-                    type: 'network',
-                    msg: "Due to overwhelming demand the IBM Blockchain Network service is at maximum capacity.  Please try recreating this service at a later date."
-                };
-            }
-            if (servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers) {
-                console.log('overwritting peers, loading from a vcap service: ', i);
-                peers = servicesObject[i][0].credentials.peers;
-                var ca_name = Object.keys(servicesObject[i][0].credentials.ca)[0];
-                console.log(TAG, "loading ca:", ca_name);
-                ca = servicesObject[i][0].credentials.ca[ca_name];
-				
-                if (servicesObject[i][0].credentials.users) {
-                    console.log('overwritting users, loading from a vcap service: ', i);
-                    users = servicesObject[i][0].credentials.users;
-                }
-                else users = null;														//no security
-                break;
-            }
-        }
-    }
-}
 
 console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_port_external);
 
-// Start up the network!!
 //Set up connection to the CA
 finalSetup();
+
+
 
 /**
  * Configures other parts of the app that depend on the blockchain network being configured and running in
  * order to function.
  */
 
-function finalSetup() {
+function finalSetup() { //To use node SDK instead now
 	
 	console.log("Entering final setup, CA url")
-	
-    dataSource = user_manager.setup(ca)
+
 }
