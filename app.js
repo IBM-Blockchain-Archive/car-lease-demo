@@ -45,8 +45,8 @@ var configFile 		= require(__dirname+'/Server_Side/configurations/configuration.
 console.log(__dirname+'/Server_Side/blockchain/blocks/block/block.js')
 
 //// Set Server Parameters ////
-var host = process.env.VCAP_APP_HOST;
-var port = process.env.VCAP_APP_PORT;
+var host = "localhost"//process.env.VCAP_APP_HOST;
+var port = "80"//process.env.VCAP_APP_PORT;
 
 console.log("Server info", host, port)
 

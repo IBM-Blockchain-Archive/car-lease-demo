@@ -37,7 +37,7 @@ var create = function(dataSource)
 			{
 				for(var i = 0; i < data[key].length; i++)
 				{
-					users.push({"type":key,"identity":data[key][i].identity});
+					users.push({"type":key,"identity":data[key][i].identity, "password":data[key][i].password});
 				}
 			}
 		}
@@ -92,6 +92,7 @@ function addUser()
 	
 	request(options, function(error, response, body)
 	{	
+
 		if(body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
 		{
 			if(counter < users.length - 1)

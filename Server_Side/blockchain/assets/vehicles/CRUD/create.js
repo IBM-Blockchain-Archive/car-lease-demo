@@ -45,7 +45,7 @@ function createV5cID(req, res)
 	}
 	
 	user_id = req.session.identity;
-} 
+}
 
 function checkIfAlreadyExists(req, res, v5cID)
 {
