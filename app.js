@@ -16,12 +16,13 @@ var express 		= require('express');
 var session 		= require('express-session');
 var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
-var http 			= require('http');
-var app 			= express();
-var url 			= require('url');
-var cors 			= require('cors');
-var fs 				= require('fs');
-//var cfenv		 	= require('cfenv');
+var http 		= require('http');
+var app 		= express();
+var url 		= require('url');
+var cors 		= require('cors');
+var fs 			= require('fs');
+var hfc			= require('hfc');
+//var cfenv		= require('cfenv');
 
 
 //Our own modules
@@ -339,8 +340,43 @@ finalSetup();
  * order to function.
  */
 
+var chain;
+
 function finalSetup() { //To use node SDK instead now
 	
 	console.log("Entering final setup, CA url")
+/*
+	chain = hfc.newChain("targetChain");
 
+	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/KeyValStore') );
+	
+	chain.setMemberServicesUrl("grpc://localhost:50051");
+
+	chain.addPeer("grpc://localhost:30303");
+
+	chain.enroll("admin", "Xurw3yU9zI0l", function(err, webAppAdmin) {
+
+		if (err) return console.log("ERROR: failed to register, %s",err);
+		// Successfully enrolled WebAppAdmin during initialization.
+		// Set this user as the chain's registrar which is authorized to register other users.
+		chain.setRegistrar(webAppAdmin);
+
+
+		var registrationRequest = {
+			enrollmentID: "Bill",
+			// Customize account & affiliation
+			account: "bank_a",
+			affiliation: "00001"
+		};
+		chain.registerAndEnroll( registrationRequest, function(err, user) {
+			if (err) return console.log("ERROR: %s",err);
+
+			console.log("USER CREATE WORKED:",user)
+		});
+
+	});*/
 }
+
+
+
+
