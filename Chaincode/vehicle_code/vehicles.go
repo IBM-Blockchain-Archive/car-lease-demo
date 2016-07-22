@@ -11,10 +11,13 @@ import (
 	"encoding/pem"
 	"net/http"
 	"net/url"
-    "io/ioutil"
+    	"io/ioutil"
 	"regexp"
-	"reflect"
-	"encoding/asn1"	
+	//Used when we validate user's role
+	//"reflect"
+	//"encoding/asn1"
+	//Used for https request
+	//"crypto/tls"	
 )
 
 //==============================================================================================================================
@@ -24,9 +27,9 @@ import (
 //CURRENT WORKAROUND USES ROLES CHANGE WHEN OWN USERS CAN BE CREATED SO THAT IT READ 1, 2, 3, 4, 5
 const   AUTHORITY      =  1
 const   MANUFACTURER   =  2
-const   PRIVATE_ENTITY =  4
+const   PRIVATE_ENTITY =  3
 const   LEASE_COMPANY  =  4
-const   SCRAP_MERCHANT =  8	
+const   SCRAP_MERCHANT =  5	
 
 
 //==============================================================================================================================
@@ -35,9 +38,9 @@ const   SCRAP_MERCHANT =  8
 //==============================================================================================================================
 const   STATE_TEMPLATE  			=  0
 const   STATE_MANUFACTURE  			=  1
-const   STATE_PRIVATE_OWNERSHIP 	=  2
+const   STATE_PRIVATE_OWNERSHIP 		=  2
 const   STATE_LEASED_OUT 			=  3
-const   STATE_BEING_SCRAPPED  		=  4
+const   STATE_BEING_SCRAPPED  			=  4
 
 //==============================================================================================================================
 //	 Structure Definitions 
@@ -96,8 +99,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	var v5cIDs V5C_Holder
 	
 	bytes, err := json.Marshal(v5cIDs)
-	
-															if err != nil { return nil, errors.New("Error creating V5C_Holder record") }
+												if err != nil { return nil, errors.New("Error creating V5C_Holder record") }
 																
 	err = stub.PutState("v5cIDs", bytes)
 	
@@ -121,11 +123,19 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	peer_address, err := stub.GetState("Peer_Address")
 															if err != nil { return nil, errors.New("Error retrieving peer address") }
 
-	response, err := http.Get("https://"+string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
-    
-															fmt.Println("HTTPS RESPONSE", response)
+/*
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+	response, err := client.Get("https://"+string(peer_address)+"/registrar/"+name+"/ecert")
+*/
+
+	response, err := http.Get("http://"+string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
+
+															fmt.Println("HTTP RESPONSE", response)
 															
-															if err != nil { return nil, errors.New("Error calling ecert API") }
+															if err != nil { return nil, errors.New("Error calling ecert API: "+err.Error()) }
 	
 	defer response.Body.Close()
 	contents, err := ioutil.ReadAll(response.Body)					// Read the response from the http callout into the variable contents
@@ -138,9 +148,7 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	
 															if err != nil { return nil, errors.New("Could not retrieve ecert for user: "+name) }
 															
-															fmt.Println("CERT OBJECT:", cert)
-															
-															if cert.Error != "" { fmt.Println("GET ECERT ERRORED: ", cert.Error); return nil, errors.New(cert.Error)}
+															fmt.Println("CERT OBJECT:", cert)												if cert.Error != "" { fmt.Println("GET ECERT ERRORED: ", cert.Error); return nil, errors.New(cert.Error)}
 	
 	return []byte(string(cert.OK)), nil
 }
@@ -167,8 +175,7 @@ func (t *SimpleChaincode) get_username(stub *shim.ChaincodeStub) (string, error)
 
 func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert string) (int, error) {																																																					
 	
-	/* CURRENT WORKSAROUND AFFILLITATION UNAVAILABLE WHILST NEW USERS CANNOT BE CREATED
-	
+
 	decodedCert, err := url.QueryUnescape(cert);    				// make % etc normal //
 	
 															if err != nil { return -1, errors.New("Could not decode certificate") }
@@ -177,7 +184,7 @@ func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert strin
 
 	x509Cert, err := x509.ParseCertificate(pem.Bytes);				// Extract Certificate from argument //
 														
-															if err != nil { return -1, errors.New("Couldn't parse certificate")	}
+													if err != nil { return -1, errors.New("Couldn't parse certificate")	}
 
 	cn := x509Cert.Subject.CommonName
 	
@@ -187,8 +194,7 @@ func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert strin
 	
 	return affiliation, nil
 	
-	*/
-	
+	/*
 	ECertSubjectRole := asn1.ObjectIdentifier{2, 1, 3, 4, 5, 6, 7}																														
 	
 	decodedCert, err := url.QueryUnescape(cert);    		// make % etc normal //
@@ -212,6 +218,7 @@ func (t *SimpleChaincode) check_affiliation(stub *shim.ChaincodeStub, cert strin
 	}
 	
 	return int(role), nil
+	*/
 	
 }
 
@@ -243,11 +250,11 @@ func (t *SimpleChaincode) retrieve_v5c(stub *shim.ChaincodeStub, v5cID string) (
 	
 	var v Vehicle
 
-	bytes, err := stub.GetState(v5cID)	;					
+	bytes, err := stub.GetState(v5cID);					
 				
 															if err != nil {	fmt.Printf("RETRIEVE_V5C: Failed to invoke vehicle_code: %s", err); return v, errors.New("RETRIEVE_V5C: Error retrieving vehicle with v5cID = " + v5cID) }
 
-	err = json.Unmarshal(bytes, &v)	;						
+	err = json.Unmarshal(bytes, &v);						
 
 															if err != nil {	fmt.Printf("RETRIEVE_V5C: Corrupt vehicle record "+string(bytes)+": %s", err); return v, errors.New("RETRIEVE_V5C: Corrupt vehicle record"+string(bytes))	}
 	
@@ -332,11 +339,10 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 //  		initial arguments passed are passed on to the called function.
 //=================================================================================================================================	
 func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	
-															
+													
 	caller, caller_affiliation, err := t.get_caller_data(stub)
 
-																							if err != nil { fmt.Printf("QUERY: Error retrieving caller details", err); return nil, errors.New("QUERY: Error retrieving caller details") }
+																							if err != nil { fmt.Printf("QUERY: Error retrieving caller details", err); return nil, errors.New("QUERY: Error retrieving caller details: "+err.Error()) }
 															
 	if function == "get_vehicle_details" { 
 	
@@ -351,7 +357,9 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 	} else if function == "get_vehicles" {
 			return t.get_vehicles(stub, caller, caller_affiliation)
 	}
-																							return nil, errors.New("Received unknown function invocation")
+
+	return nil, errors.New("Received unknown function invocation")
+
 }
 
 //=================================================================================================================================
@@ -378,7 +386,7 @@ func (t *SimpleChaincode) create_vehicle(stub *shim.ChaincodeStub, caller string
 	
 	matched, err := regexp.Match("^[A-z][A-z][0-9]{7}", []byte(v5cID))  				// matched = true if the v5cID passed fits format of two letters followed by seven digits
 	
-																		if err != nil { fmt.Printf("CREATE_VEHICLE: Invalid v5cID: %s", err); return nil, errors.New("Invalid v5cID") }
+												if err != nil { fmt.Printf("CREATE_VEHICLE: Invalid v5cID: %s", err); return nil, errors.New("Invalid v5cID") }
 	
 	if 				v5c_ID  == "" 	 || 
 					matched == false    {

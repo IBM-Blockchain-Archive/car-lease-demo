@@ -21,7 +21,7 @@ var app 		= express();
 var url 		= require('url');
 var cors 		= require('cors');
 var fs 			= require('fs');
-var hfc			= require('hfc');
+//var hfc			= require('hfc');
 //var cfenv		= require('cfenv');
 
 
