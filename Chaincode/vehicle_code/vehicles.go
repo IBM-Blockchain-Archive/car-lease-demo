@@ -148,7 +148,9 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	
 															if err != nil { return nil, errors.New("Could not retrieve ecert for user: "+name) }
 															
-															fmt.Println("CERT OBJECT:", cert)												if cert.Error != "" { fmt.Println("GET ECERT ERRORED: ", cert.Error); return nil, errors.New(cert.Error)}
+															fmt.Println("CERT OBJECT:", cert)												
+															
+															if cert.Error != "" { fmt.Println("GET ECERT ERRORED: ", cert.Error); return nil, errors.New(cert.Error)}
 	
 	return []byte(string(cert.OK)), nil
 }
