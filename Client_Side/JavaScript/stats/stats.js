@@ -555,7 +555,7 @@ function goToBlock() //Search for block
 
 	var stringPresent = /[a-zA-Z]/.test(val); //Check to see if string is present
 	var numberPresent = /[0-9]/.test(val); //Check to see if number is present
-
+	var dotPresent = /[.]/.test(val);
 	
 	if(numberPresent && !stringPresent){ //Checks to see if ONLY a number is present
 		
@@ -563,7 +563,7 @@ function goToBlock() //Search for block
 			$('#failTxt').text("Block number "+val+" doesn't exist.");
 			$('#failTransfer').show();
 		}
-		else if(val < 0 || !val.isInteger){ //Is value entered negative or a non-integer?
+		else if(val < 0 || dotPresent){ //Is value entered negative or a non-integer?
 			$('#failTxt').text("Block number "+val+" is invalid. Block number must be a non-negative integer.");
 			$('#failTransfer').show();
 		}
