@@ -12,7 +12,7 @@ var result = {"transactions":[]};
 var height = 1;
 var stateHash = "";
 
-var get_height = function(req, res)
+var get_height = function(req, res) //Checks to see if chain height is greater than 0,
 {
 	tracing.create('ENTER', 'GET blockchain/transactions', {});
 	var validV5cs = "";
@@ -50,7 +50,7 @@ var get_height = function(req, res)
 }
 exports.read = get_height;
 
-function get_block(req, res, number)
+function get_block(req, res, number) //Retrieves block, and retrieves transactions within the block
 {
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	

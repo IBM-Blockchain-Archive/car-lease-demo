@@ -1,16 +1,16 @@
-var prevFiftyBlocks = [];
+var prevFiftyBlocks = []; //Previous 125 block times (when committed to blockchain)
 var timeData = [];
 var transData = [];
-var storeBlock;
+var storeBlock; //Latest block
 var blockTime;
 var chainHeight;
-var blockNum;
-var sum = 0;
+var blockNum; //Chain height/length
+var sum = 0; //Sum of total time between blocks
 var avg = "N/A";
 var startBlock;
 var stdDev;
 var minMax;
-var timeDiff;
+var timeDiff; //Time difference between two blocks
 var scrollWidth;
 
 $(document).ready(function(){
@@ -84,9 +84,9 @@ $(document).ready(function(){
 
 	blockTime = block.nonHashData.localLedgerCommitTimestamp.seconds;
 
-	prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
+	prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds); //Needs changing. Not past 50 blocks.
 
-	if(blockNum > 0)
+	if(blockNum > 0) //If not the genesis block..
 	{
 
 		for(var i = 0; i < block.transactions.length; i++)
@@ -143,7 +143,7 @@ $(document).ready(function(){
 
 				lastBlockHash = blk.previousBlockHash;
 			}
-			else if(blockNum - i == 0)
+			else if(blockNum - i == 0) //If genesis block..
 			{
 
 				var blk;
@@ -180,7 +180,8 @@ $(document).ready(function(){
 		
 		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash">No block hash available</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+270+'"></input></div>')
 	}
-
+	
+	//If there are more than 125 blocks, HTML is created but data isn't filled. Used to reduce page load.
 	for(var i = blockNum - 126; i > -1; i--)
 	{
 		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked noData" onclick="changeShape(this)"><span>'+(i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData" style="text-align:center" ><span><img src="Images/loading.gif" style="margin-top:10px; padding:10px" height="50" width="50" /><br />Loading Block Data...</span></div><input type="hidden" class="height" value="110"></input></div>')
@@ -198,7 +199,7 @@ $(document).ready(function(){
 
 	var endFuncTime = Date.now() / 1000;
 
-	avg = sum/(prevFiftyBlocks.length+(blockNum - startBlock));
+	avg = sum/(prevFiftyBlocks.length+(blockNum - startBlock)); //Average time for a block to be added
 
 	minMax = calcStdDeviation(prevFiftyBlocks, avg);
 
@@ -211,17 +212,17 @@ $(document).ready(function(){
 		$('#avgTime').html((Math.round((avg) * 10) / 10)+'s');	
 	}
 	
-	if(chainHeight < 126)
+	if(chainHeight < 126) //Genesis block is visible. Apply styling to show Block 0.
 	{
 		$('.timeCont').html('<g><span class="startBar"></span><span class="startMark" >Block 0</span></g>')
 		$('.transCont').html('<g><span class="startBar"></span><span class="startMark" >Block 0</span></g>')
 	}
 
-	makeCharts();
+	makeCharts(); //Charts.js
 
 	var curr = Date.now()/1000;
 	
-	$('#timeSince').html(parseInt((curr-blockTime))+'s ago');
+	$('#timeSince').html(parseInt((curr-blockTime))+'s ago'); //How long the last block was added
 
 	window.setInterval(updateTime, 1000);
 	window.setInterval(updatePage, 10000);
@@ -268,9 +269,9 @@ function updatePage()
 		async: false
 	});
 
-	chainHeight == blockNum
+	chainHeight == blockNum //Don't do this.
 
-	if(storeBlock < blockNum)
+	if(storeBlock < blockNum) //If latest block number is less than chain height
 	{
 		$.ajax({
 			type: 'GET',
@@ -546,66 +547,87 @@ function toggleSearch(el)
 	searchShowing = !searchShowing
 }
 
-function goToBlock()
+function goToBlock() //Search for block
 {
 	//scrollWidth - $('#blockScroll').width() 
-
-	var left = $($('#blockScroll').children('.singleBlockContainer').eq($('#goTo').val()).find('.exBlock')).position().left;
-	var grown = 0;
-	var val = $('#goTo').val()	
-
-	$('#blockScroll').children('.singleBlockContainer').eq(val).prevAll().each(function(){
-		if($(this).children('.exBlock').hasClass('clicked'))
-		{
-			grown++;
-		}
-	});
 	
-	var rhs = 14;
+	var val = $('#goTo').val() //Value entered
 
-	if(!($('.arrow_right_box').is(":visible")))
-	{
-		rhs = 0
+	var stringPresent = /[a-zA-Z]/.test(val); //Check to see if string is present
+	var numberPresent = /[0-9]/.test(val); //Check to see if number is present
+	var symbolPresent = /[^a-zA-Z0-9]/.test(val);
+	
+	if(numberPresent && !stringPresent){ //Checks to see if ONLY a number is present
+		
+		if(val > blockNum){ //Is value entered greater than chain height?
+			$('#failTxt').text("Block number "+val+" doesn't exist.");
+			$('#failTransfer').show();
+		}
+		else if(val < 0 || symbolPresent){ //Is value entered negative or a non-integer?
+			$('#failTxt').text("Block number "+val+" is invalid. Block number must be a non-negative integer.");
+			$('#failTransfer').show();
+		}
+		else{ //Value entered is legal 
+			var left = $($('#blockScroll').children('.singleBlockContainer').eq($('#goTo').val()).find('.exBlock')).position().left;
+			var grown = 0;
+			$('#blockScroll').children('.singleBlockContainer').eq(val).prevAll().each(function(){
+				if($(this).children('.exBlock').hasClass('clicked'))
+				{
+					grown++;
+				}
+			});
+	
+			var rhs = 14;
+
+			if(!($('.arrow_right_box').is(":visible")))
+			{
+				rhs = 0
+			}
+
+			if(!($('.arrow_left_box').is(":visible")))
+			{
+				rhs = 0
+			}
+
+			if(left > $(document).width()/2)
+			{
+				rhs += 425;
+			}
+
+			if(chainHeight == val)
+			{
+				rhs -= 27
+			}	
+
+			$('#blockHolder').animate({
+				scrollLeft: ((val- grown)*85 + grown*510 - $('#blockHolder').width()/2 + 265 - rhs) + 'px'
+			}, 1000, "easeOutCubic", function(){
+				if($('#blockHolder').scrollLeft() <= $('#blockScroll').width()-$('#blockHolder').width()-27)
+				{
+					$('.arrow_right_box').show();
+				}
+				else
+				{
+					$('.arrow_right_box').hide();
+				}
+				if($('#blockHolder').scrollLeft() > 0)
+				{
+					$('.arrow_left_box').show();
+				}
+				else
+				{
+					$('.arrow_left_box').hide();
+				}
+				if($($('#blockScroll').children('.singleBlockContainer').eq(val).find('.exBlock')).hasClass('notClicked')){
+					growBlock($($('#blockScroll').children('.singleBlockContainer').eq(val).find('.exBlock')))
+				}
+			})
+		}	
 	}
-
-	if(!($('.arrow_left_box').is(":visible")))
-	{
-		rhs = 0
+	else{ //If any non-numeric characters are detected, alert user to error.
+		$('#failTxt').text("Invalid input. Non-numeric characters are not permitted.");
+		$('#failTransfer').show();	
 	}
-
-	if(left > $(document).width()/2)
-	{
-		rhs += 425;
-	}
-
-	if(chainHeight == val)
-	{
-		rhs -= 27
-	}	
-
-	$('#blockHolder').animate({
-		scrollLeft: ((val- grown)*85 + grown*510 - $('#blockHolder').width()/2 + 265 - rhs) + 'px'
-	}, 1000, "easeOutCubic", function(){
-		if($('#blockHolder').scrollLeft() <= $('#blockScroll').width()-$('#blockHolder').width()-27)
-		{
-			$('.arrow_right_box').show();
-		}
-		else
-		{
-			$('.arrow_right_box').hide();
-		}
-		if($('#blockHolder').scrollLeft() > 0)
-		{
-			$('.arrow_left_box').show();
-		}
-		else
-		{
-			$('.arrow_left_box').hide();
-		}
-		if($($('#blockScroll').children('.singleBlockContainer').eq(val).find('.exBlock')).hasClass('notClicked')){
-			growBlock($($('#blockScroll').children('.singleBlockContainer').eq(val).find('.exBlock')))
-		}
-	})	
 }
 
 function growBlock(el) {
@@ -825,7 +847,7 @@ function shrinkBlock(el) {
 	})
 }
 
-function pad(value) {
+function pad(value) { //Used for time so that, 12:04 isn't show as 12:4.
     if(value < 10) {
         return '0' + value;
     } else {

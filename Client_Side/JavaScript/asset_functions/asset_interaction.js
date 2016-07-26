@@ -93,7 +93,7 @@ var transferArray = [];
 var scrapIndex = 0;
 var scrapArray = [];
 
-function transferAssets(input)
+function transferAssets(input) //Called from page_functions.js
 {
 	transferArray = input;
 	transferIndex = 1;
@@ -104,7 +104,7 @@ function transferAsset()
 {
 	var found = [];
 	var xhr = new XMLHttpRequest()
-	xhr.open("PUT", "/blockchain/assets/vehicles/"+transferArray[transferIndex-1].v5cID+"/owner", true)
+	xhr.open("PUT", "/blockchain/assets/vehicles/"+transferArray[transferIndex-1].v5cID+"/owner", true); //PUT (Updates)
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	xhr.overrideMimeType("text/plain");
 	xhr.onprogress = function () {
@@ -143,7 +143,7 @@ function transferAsset()
 		}
 	}
 	xhr.onreadystatechange = function (){
-		if(xhr.readyState === 4)
+		if(xhr.readyState === 4) //Request stream has finished.
 		{
 			var data = xhr.responseText;
 			var array = data.split("&&");
@@ -206,7 +206,7 @@ function scrapAsset()
 	var found = [];
 	var objects = [];
 	var xhr = new XMLHttpRequest()
-	xhr.open("DELETE", "blockchain/assets/vehicles/"+scrapArray[scrapIndex-1].v5cID, true)
+	xhr.open("DELETE", "blockchain/assets/vehicles/"+scrapArray[scrapIndex-1].v5cID, true) //As it refers to an v5, the path is: blockchain/assets/vehicles/vehicle/..
 
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	xhr.overrideMimeType("text/plain");
@@ -246,7 +246,7 @@ function scrapAsset()
 			}
 		}
 	}
-	xhr.onreadystatechange = function (){
+	xhr.onreadystatechange = function (){ //Streaming data has finished
 		if(xhr.readyState === 4)
 		{
 			var data = xhr.responseText;
@@ -293,6 +293,8 @@ function scrapAsset()
 	}
 	xhr.send(JSON.stringify(scrapArray[scrapIndex-1]))
 }
+
+
 var bigData;
 var increment;
 function updateAsset(vin, make, model, colour, reg, v5cID, el)
@@ -432,6 +434,3 @@ function updateField()
 	}
 	xhr.send(JSON.stringify(data))
 }
-
-
-

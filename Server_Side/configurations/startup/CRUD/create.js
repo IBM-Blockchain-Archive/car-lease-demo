@@ -151,7 +151,7 @@ function addUser()
 	})
 }
 
-function deploy_vehicle()
+function deploy_vehicle() //Deploy vehicle chaincode
 {
 	tracing.create('INFO', 'Startup', 'Deploying vehicle chaincode');
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
