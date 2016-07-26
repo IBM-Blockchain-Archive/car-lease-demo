@@ -31,14 +31,14 @@ $(document).ready(function(){
 	})
 	
 	
-	$("#subPg").click(function(){
+	$("#subPg").click(function(){ //Transfer button
 		
 		/*
 		Formats the transaction request for a transfer of a V5C. Needs to have at least 1 V5C to transfer and a specified recipient.
 		Constructs the transaction complete pop up at this point as well but only shows it once the transaction is complete.
 		*/
 		setCookie()
-		var table = document.getElementById("selVhclsTbl");
+		//var table = document.getElementById("selVhclsTbl");
 		var index = 1;
 		var id;
 		var last = false;
@@ -64,23 +64,20 @@ $(document).ready(function(){
 			{
 				
 				var v5cID = $(this).find('.v5cID').val();
-				if(index == $('#selVhclsTbl tr').length)
-				{
-					last = true;
-				}
-				
+								
 				$('#chooseConfHd').html('<span>Transaction Complete</span>');
 				$('#confTxt').html('Transaction committed to the blockchain. <br /><br />'+sendDets+'<br /><br />'+recDets+': '+$('.delName').html()+' (Account '+$('.accAddr').html()+')<br /><br />Vehicles: '+$('#selVhclsTbl tr').length)
 				
-				var data = {};
-				data.function_name= transferName;
-				data.value= $('.accAddr').html();
+				var data = {}; //Data to be sent
+				data.function_name= transferName; //E.g. manufacturer_to_private
+				data.value= $('.accAddr').html(); //Recipent e.g. dealership name
 				data.v5cID = v5cID;
 				
-				carDets.push(data);
+				carDets.push(data); //Adds each assets data to array
 				
 			});
-			transferAssets(carDets)
+			
+			transferAssets(carDets);
 				
 		}
 		else if(!($('#selVhclsTbl tr').length <= 1))
@@ -104,7 +101,7 @@ $(document).ready(function(){
 
 		setCookie()		
 
-		var table = document.getElementById("selVhclsTbl");
+		//var table = document.getElementById("selVhclsTbl");
 		var index = 1;
 		var id;
 		var last = false;

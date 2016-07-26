@@ -8,7 +8,7 @@ function makeCharts(){
 		.domain([0, d3.max(transData)])
 		.range([0, 75]);
 
-	var a = d3.select(".timeCont")
+	var a = d3.select(".timeCont") //Block Time graph
 	  .selectAll("span")
 		.data(timeData)
 	  .enter().insert("g",":first-child");
@@ -25,7 +25,7 @@ function makeCharts(){
 			.classed("hover-span", true)
 			.append('div')
 
-	var b = d3.select(".transCont")
+	var b = d3.select(".transCont") //Transactions per block graph
 	  .selectAll("span")
 		.data(transData)
 	  .enter().insert("g",":first-child");
@@ -45,7 +45,7 @@ function makeCharts(){
 
 $(document).ready(function(){
 
-	$(document).on('mouseenter', 'span.bar', function() {
+	$(document).on('mouseenter', 'span.bar', function() { //Adds hoverspan
 		$('.hover-span').hide();
 		$(this).children('span').show();
 

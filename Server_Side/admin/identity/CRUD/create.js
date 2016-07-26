@@ -10,7 +10,7 @@ var reload = require('require-reload')(require),
     
 
 
-function makeAccount(req, res)
+function makeAccount(req, res) //Checks to see if user details passed are valid. If so, log them in and start a session.
 {
 	tracing.create('ENTER', 'POST admin/identity', req.body);
 	

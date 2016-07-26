@@ -10,7 +10,7 @@ var participants_info = {
 			"identity": "DVLA",
 			"password": "IUZCYDngtwjW",
 			"address_line_1": "The Richard Ley Development Centre",
-			"address_line_2": "Upper Forest Way",
+			"address_line": "Upper Forest Way",
 			"address_line_3": "Swansea Vale",
 			"address_line_4": "Swansea",
 			"postcode": "SA7 0AN"
@@ -22,7 +22,7 @@ var participants_info = {
 			"identity": "Alfa_Romeo",
 			"password": "fGMMQqWEPxVy",
 			"address_line_1": "25 St James's Street",
-			"address_line_2": "London",
+			"address_line": "London",
 			"address_line_3": "United Kingdom",
 			"postcode": "SW1A 1HA"
 		},
@@ -31,7 +31,7 @@ var participants_info = {
 			"identity": "Toyota",
 			"password": "hTpPFxiOwWgS",
 			"address_line_1": "Burnaston",
-			"address_line_2": "Derby",
+			"address_line": "Derby",
 			"address_line_3": "United Kingdom",
 			"postcode": "DE1 9TA"
 		},
@@ -40,7 +40,7 @@ var participants_info = {
 			"identity": "Jaguar_Land_Rover",
 			"password": "nNRyjPKrSpUb",
 			"address_line_1": "Abbey Road",
-			"address_line_2": "Coventry",
+			"address_line": "Coventry",
 			"address_line_3": "United Kingdom",
 			"postcode": "CV3 4LF"
 		}
@@ -51,7 +51,7 @@ var participants_info = {
 			"identity": "Beechvale_Group",
 			"password": "TvNWKDgWTrfH",
 			"address_line_1": "84 Hull Road",
-			"address_line_2": "Derby",
+			"address_line": "Derby",
 			"postcode": "DE75 4PJ"
 		},
 		{
@@ -59,7 +59,7 @@ var participants_info = {
 			"identity": "Milescape",
 			"password": "cGJslZqjNjPK",
 			"address_line_1": "Imperial Yard",
-			"address_line_2": "Derby",
+			"address_line": "Derby",
 			"postcode": "DE94 8HY"
 		},
 		{
@@ -67,7 +67,7 @@ var participants_info = {
 			"identity": "Viewers_Alfa_Romeo",
 			"password": "VWjFucyEIzTn",
 			"address_line_1": "25 Lower Lens Street",
-			"address_line_2": "Penylan",
+			"address_line": "Penylan",
 			"address_line_3": "Cardiff",
 			"address_line_4": "South Glamorgan",
 			"postcode": "CF28 9LC"
@@ -79,7 +79,7 @@ var participants_info = {
 			"identity": "LeaseCan",
 			"password": "mRbbQTpZfVVa",
 			"address_line_1": "64 Zoo Lane",
-			"address_line_2": "Slough",
+			"address_line": "Slough",
 			"address_line_3": "Berkshire",
 			"postcode": "SL82 4AB"
 		},
@@ -88,7 +88,7 @@ var participants_info = {
 			"identity": "Every_Car_Leasing",
 			"password": "KakjewJfwBSq",
 			"address_line_1": "9 Main Road",
-			"address_line_2": "Mobberly",
+			"address_line": "Mobberly",
 			"address_line_3": "Cheshire",
 			"postcode": "WA18 7KJ"
 		},
@@ -97,7 +97,7 @@ var participants_info = {
 			"identity": "Regionwide_Vehicle_Contracts",
 			"password": "plqOUyoFTZyK",
 			"address_line_1": "Unit 9",
-			"address_line_2": "Malcom Christie Way",
+			"address_line": "Malcom Christie Way",
 			"address_line_3": "Riggot Fields",
 			"address_line_4": "Manchester",
 			"postcode": "M21 15QY"
@@ -109,7 +109,7 @@ var participants_info = {
 			"identity": "Joe_Payne",
 			"password": "BKwnxTfJGNyK",
 			"address_line_1": "84 Byron Road",
-			"address_line_2": "Eastleigh",
+			"address_line": "Eastleigh",
 			"postcode": "SO50 8JR"
 		},
 		{
@@ -117,7 +117,7 @@ var participants_info = {
 			"identity": "Andrew_Hurt",
 			"password": "tkGIRxBywwMk",
 			"address_line_1": "16 West Street",
-			"address_line_2": "Eastleigh",
+			"address_line": "Eastleigh",
 			"postcode": "SO50 9CL"
 		},
 		{
@@ -125,7 +125,7 @@ var participants_info = {
 			"identity": "Anthony_O_Dowd",
 			"password": "MrcAgjpBwhmI",
 			"address_line_1": "34 Main Road",
-			"address_line_2": "Winchester",
+			"address_line": "Winchester",
 			"postcode": "SO50 3QV"
 		}
 	],
@@ -135,7 +135,7 @@ var participants_info = {
 			"identity": "Cray_Bros_London_Ltd",
 			"password": "BTaWHtHrCZry",
 			"address_line_1": "26 Electric Eel Avenue",
-			"address_line_2": "Twickenham",
+			"address_line": "Twickenham",
 			"address_line_3": "Greater London",
 			"postcode": "SE51 9DR"
 		},
@@ -144,7 +144,7 @@ var participants_info = {
 			"identity": "Aston_Scrap_Centre",
 			"password": "AzdeAZuGtlUT",
 			"address_line_1": "11 Willow Park Way",
-			"address_line_2": "Aston on Trent",
+			"address_line": "Aston on Trent",
 			"address_line_3": "Derby",
 			"postcode": "DE72 2DG"
 		},
@@ -153,7 +153,7 @@ var participants_info = {
 			"identity": "ScrapIt_UK",
 			"password": "WDYJcenyScyC",
 			"address_line_1": "25 Lincoln Road",
-			"address_line_2": "Winchester",
+			"address_line": "Winchester",
 			"postcode": "SO29 9BL"
 		}
 	]
