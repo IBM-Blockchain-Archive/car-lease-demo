@@ -28,7 +28,7 @@ config.app_port = process.env.VCAP_APP_PORT || "80";
 config.vehicle = "github.com/hyperledger/fabric/vehicle_code";
 
 //Chaincode deployed names
-config.vehicle_name = 'acf6e7dcc9152d027b5a5fd112b8edbd7b13383c457d1dbdf1e2e0c8ebeb3d6824184f89e59e62e38277323e4012ba077d4335f1383f6fce29f00b19ea72fbd2';
+config.vehicle_name = '8de89dbedb42ddbae5dcb410f3ac61d9fe435c8eaae5796ceda598dbd26b0f6b088369354b6604d3efb2586d762b16de4cd281e14aa24ad9256f834a023759d9';
 
 exports.config = config;
 
