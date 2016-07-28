@@ -9,7 +9,7 @@ config.traceFile = __dirname+'/../logs/app_trace.log';
 
 
 var api_ip = "http://127.0.0.1";
-var app_url = 'http://localhost:3000';
+var app_url = 'http://localhost:80';
 
 
 var api_port_external = "5000";
