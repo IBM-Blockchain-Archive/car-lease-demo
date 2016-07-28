@@ -62,9 +62,7 @@ var update = function(req, res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Update owner response", body);
-		
-		if (!error && response.statusCode == 200) // if it appears to work run a query to check if the new owner can see the car
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200) // if it appears to work run a query to check if the new owner can see the car
 		{
 			var j = request.jar();
 			var str = "user="+map_ID.id_to_user(newValue);
@@ -83,8 +81,6 @@ var update = function(req, res)
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
-						
-						console.log("Update owner confirm response", body);
 						
 						if (!error && response.statusCode == 200)
 						{

@@ -56,7 +56,7 @@ var update = function(req, res)
 	tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', 'Updating colour value');
 	request(options, function(error, response, body)
 	{
-		if (!error && response.statusCode == 200)
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var j = request.jar();
 			var str = "user="+req.session.user

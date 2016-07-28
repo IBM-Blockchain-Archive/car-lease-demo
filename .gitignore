@@ -5,3 +5,6 @@ launchConfigurations/
 
 # npm dependencies
 node_modules/
+
+#application log files
+Server_Side/logs/

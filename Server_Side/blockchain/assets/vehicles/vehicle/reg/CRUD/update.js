@@ -59,9 +59,7 @@ var update = function(req, res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Update reg response", body);
-		
-		if (!error && response.statusCode == 200)
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var j = request.jar();
 			var str = "user="+req.session.user
@@ -80,8 +78,6 @@ var update = function(req, res)
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
-						
-						console.log("Update reg confirm response", body);
 						
 						if (!error && response.statusCode == 200) {
 							if(JSON.parse(body).message == newValue)

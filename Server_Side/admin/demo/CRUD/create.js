@@ -245,7 +245,7 @@ var ind_update_counter = 0;
 
 function update_all_car_parts(id)
 {
-	var car_owner = map_ID.user_to_id(cars[counter].Owners[1])
+	var car_owner = cars[counter].Owners[1]
 	var update_fields = [{"value":cars[counter].VIN,"field":"VIN", "title": "VIN"},{"value":cars[counter].Make,"field":"make", "title": "Make"},{"value":cars[counter].Model,"field":"model", "title": "Model"},{"value":cars[counter].Colour,"field":"colour", "title": "Colour"},{"value":cars[counter].Reg,"field":"reg", "title": "Registration"}]
 	var prevCount = -1;
 	var check_ind_update = setInterval(function(){
@@ -350,7 +350,7 @@ function transfer_all_owners(id)
 		{
 			var types = ["manufacturer_to_private", "private_to_lease_company", "lease_company_to_private", "private_to_scrap_merchant"]
 			prevCount = ind_transfer_counter;
-			transfer_car(map_ID.user_to_id(cars[counter].Owners[ind_transfer_counter-1]), map_ID.user_to_id(cars[counter].Owners[ind_transfer_counter]), id, types[ind_transfer_counter-2], "ind_transfer_counter")
+			transfer_car(cars[counter].Owners[ind_transfer_counter-1], map_ID.user_to_id(cars[counter].Owners[ind_transfer_counter]), id, types[ind_transfer_counter-2], "ind_transfer_counter")
 		}
 	},500)
 }

@@ -51,7 +51,7 @@ var read = function (req,res)
 	request(options, function(error, response, body)
 	{
 		
-		if (!error && response.statusCode == 200)
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var result = {}
 			var vehicle = JSON.parse(body.result.message);

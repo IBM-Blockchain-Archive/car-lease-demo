@@ -16,7 +16,7 @@ var update = function(req, res)
 	}		
 
 	user_id = req.session.identity
-	
+
 	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', req.body);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
@@ -59,9 +59,7 @@ var update = function(req, res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Update VIN response", body);
-		
-		if (!error && response.statusCode == 200)
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var j = request.jar();
 			var str = "user="+req.session.user
@@ -79,8 +77,6 @@ var update = function(req, res)
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
-						
-						console.log("Update VIN confirm response", body);
 						
 						if (!error && response.statusCode == 200) {
 							if(JSON.parse(body).message == newValue)
@@ -110,7 +106,6 @@ var update = function(req, res)
 		}
 		else 
 		{
-			console.log(body)
 			res.status(400)
 			var error = {}
 			error.error = true
