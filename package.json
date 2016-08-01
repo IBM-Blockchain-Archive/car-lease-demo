@@ -29,8 +29,7 @@
     "require-reload": "",
     "fs": "",
     "x509": "",
-    "crypto":"",
-    "hfc":""
+    "crypto":""
   },
   "repository": {
     "type": "git",
