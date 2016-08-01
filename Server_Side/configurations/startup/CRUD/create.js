@@ -92,8 +92,8 @@ function addUser()
 	
 	request(options, function(error, response, body)
 	{	
-
-		if(body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
+		console.log("LOGIN RESPONSE ERROR", error,"BODY",body)
+		if(body && body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
 		{
 			if(counter < users.length - 1)
 			{
