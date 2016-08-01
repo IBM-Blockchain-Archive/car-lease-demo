@@ -37,7 +37,8 @@
     "url": "https://github.com/IBM-Blockchain/car-lease-demo.git"
   },
   "engines": {
-    "node": "0.12.0"
+    "node": "4.4.7",
+    "npm": "3.10.6"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
