@@ -18,7 +18,6 @@
     "elliptic": "^6.2.3",
     "express": "4.0.0",
     "express-session": "1.2.1",
-    "grpc": "^0.13.1",
     "ibm-blockchain-js": "0.0.12",
     "js-sha3": "^0.5.1",
     "jsrsasign": "^5.0.5",
@@ -28,9 +27,8 @@
     "request": "",
     "require-reload": "",
     "fs": "",
-    "x509": "",
     "crypto":"",
-    "hfc":""
+    "hfc":"0.0.5"
   },
   "repository": {
     "type": "git",
