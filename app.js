@@ -21,7 +21,7 @@ var app 		= express();
 var url 		= require('url');
 var cors 		= require('cors');
 var fs 			= require('fs');
-//var hfc			= require('hfc');
+var hfc			= require('hfc');
 //var cfenv		= require('cfenv');
 
 
@@ -266,13 +266,6 @@ app.get('/blockchain/transactions', function(req, res){
 
 
 
-
-
-
-
-
-
-
 ///////////  Configure Webserver  ///////////
 app.use(function (req, res, next) {
     var keys;
@@ -317,7 +310,7 @@ require("cf-deployment-tracker-client").track();
 // ============================================================================================================================
 var server = http.createServer(app).listen(port, function () {
 	
-	var result = startup.create()
+	//var result = startup.create()
 	
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -331,50 +324,64 @@ console.log('------------------------------------------ Server Up - ' + configFi
 console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_port_external);
 
 //Set up connection to the CA
-finalSetup();
+//finalSetup();
 
 
 
-/**
- * Configures other parts of the app that depend on the blockchain network being configured and running in
- * order to function.
- */
-
+/**********************************TESTING HFC CREATE USER LOCALLY************************************************/
 var chain;
 
 function finalSetup() { //To use node SDK instead now
-	
-	console.log("Entering final setup, CA url")
-/*
-	chain = hfc.newChain("targetChain");
+
+	chain = hfc.newChain("theChain");
 
 	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/KeyValStore') );
-	
-	chain.setMemberServicesUrl("grpc://localhost:50051");
+	//chain.setECDSAModeForGRPC(true);
 
-	chain.addPeer("grpc://localhost:30303");
+	//var pem = fs.readFileSync('node_modules/hfc/certificate.pem');
 
-	chain.enroll("admin", "Xurw3yU9zI0l", function(err, webAppAdmin) {
+	chain.setMemberServicesUrl("grpc://localhost:50051")//, {pem:pem, hostnameOverride:'tlsca'});	//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
+
+	chain.addPeer("grpc://localhost:30303")//, {pem:pem, hostnameOverride:'tlsca'});		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
+
+	chain.enroll("WebAppAdmin", "DJY27pEnl16d", function(err, webAppAdmin) {
 
 		if (err) return console.log("ERROR: failed to register, %s",err);
 		// Successfully enrolled WebAppAdmin during initialization.
 		// Set this user as the chain's registrar which is authorized to register other users.
 		chain.setRegistrar(webAppAdmin);
 
+		//createUser();
 
-		var registrationRequest = {
-			enrollmentID: "Bill",
-			// Customize account & affiliation
-			account: "bank_a",
-			affiliation: "00001"
-		};
-		chain.registerAndEnroll( registrationRequest, function(err, user) {
-			if (err) return console.log("ERROR: %s",err);
+	});
 
-			console.log("USER CREATE WORKED:",user)
-		});
+}
 
-	});*/
+function createUser(){
+
+	var registrationRequest = {
+					enrollmentID: "AF",
+					// Customize account & affiliation
+					account: "group1",
+					affiliation: "00001"
+				};
+
+	chain.register( registrationRequest, function(err, secret) {
+		if (err) return console.log("ERROR: %s",err);
+
+		console.log("Registered user with secret:",secret)
+
+		chain.getMember("AF", function(err, member){
+			
+			member.setAccount("group1")
+			member.setAffiliation("00010")
+			member.setRoles(["1"])
+			member.saveState()
+
+			console.log("NEW USER AF", member)
+
+		})
+	});
 }
 
 

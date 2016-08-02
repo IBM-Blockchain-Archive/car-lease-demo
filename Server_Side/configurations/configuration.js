@@ -8,12 +8,12 @@ config.traceFile = __dirname+'/../logs/app_trace.log';
 
 
 
-var api_ip = "http://127.0.0.1";
+var api_ip = "https://2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com"; 		//"http://127.0.0.1";
 var app_url = 'http://localhost:80';
 
 
-var api_port_external = "5000";
-var api_port_internal = "5000";
+var api_port_external = "443";	//"5000";
+var api_port_internal = "443";	//"5000";
 
 if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
 	api_ip = "https://" + JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_host"]
@@ -35,10 +35,10 @@ config.app_url = app_url
 config.app_port = process.env.VCAP_APP_PORT || "80";
 
 //Chaincode file locations
-config.vehicle = "github.com/hyperledger/fabric/vehicle_code";
+config.vehicle = "https://github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code"		//"github.com/hyperledger/fabric/vehicle_code"
 
 //Chaincode deployed names
-config.vehicle_name = '405a0ce734ed8ad3e9b66562cc64500c7d940b5161dfa7b26fcaa38f1093284e08d06c105f87724754bdb7cc255f7b50cc48ddbb935ffc8f21b9c33badb00b6f';
+config.vehicle_name = '30b517217a870636d1230404fa88c56ea60f38b0bc84b169ec411941f4c5f6ee6680169a6595e19d60830cbcafb65ad1514d14829f9a0b3c3e356ab632bb76fc';
 
 exports.config = config;
 

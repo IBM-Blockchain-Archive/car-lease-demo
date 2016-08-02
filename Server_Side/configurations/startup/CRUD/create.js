@@ -8,20 +8,38 @@ var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var crypto = require('crypto');
+var hfc = require('hfc');
+
 
 var send_error = false;
 var counter = 0;
 var innerCounter = 0;
 var users = [];
 
-//var connectorInfo;
-
-var create = function() //dataSource was passed as a parameter. NOT ANYMORE
+var create = function()
 {
 	
 	tracing.create('ENTER', 'Startup', {});
-	
-	//connectorInfo = dataSource
+
+	chain = hfc.newChain("theBigMainChain");
+
+	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
+	chain.setECDSAModeForGRPC(true);
+
+	var pem = fs.readFileSync('node_modules/hfc/certificate.pem');
+
+	chain.setMemberServicesUrl("grpcs://2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
+
+	chain.addPeer("grpcs://2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
+
+	chain.enroll("user_type1_46e0d01e1a", "e691772fde", function(err, webAppAdmin) {
+
+		if (err) return console.log("ERROR: failed to register, %s",err);
+		// Successfully enrolled WebAppAdmin during initialization.
+		// Set this user as the chain's registrar which is authorized to register other users.
+		chain.setRegistrar(webAppAdmin);
+
+	});
 	
 	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
 	
@@ -55,26 +73,26 @@ var create = function() //dataSource was passed as a parameter. NOT ANYMORE
 
 function addUser()
 {
-	var userAff = "0000";
+	var userAff = "00000";
 
 	switch (users[counter].type) {
 			case "regulators": 
-				userAff = "0001";
+				userAff = "00001";
 				break;
 			case "manufacturers":
-				userAff = "0002";
+				userAff = "00002";
 				break;
 			case "dealerships":
-				userAff = "0003";
+				userAff = "00003";
 				break;
 			case "lease_companies":
-				userAff = "0004";
+				userAff = "00004";
 				break;
 			case "leasees":
-				userAff = "0003";
+				userAff = "00003";
 				break;
 			case "scrap_merchants":
-				userAff = "0005";
+				userAff = "00005";
 				break;
 	}
 	
@@ -92,7 +110,7 @@ function addUser()
 	
 	request(options, function(error, response, body)
 	{	
-		console.log("LOGIN RESPONSE ERROR", error,"BODY",body)
+
 		if(body && body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
 		{
 			if(counter < users.length - 1)
@@ -113,40 +131,41 @@ function addUser()
 		{
 			
 			
-			//var result = createUser(users[counter].identity, 1, userAff) //Runs the connector to produce the user
-			/*
-			if (result) {
-				if(counter < users.length - 1)
-				{
-					counter++;
-					tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-					setTimeout(function(){addUser();},1000);
-				}
-				else
-				{
-					counter = 0;
-					tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-					deploy_vehicle();
-				}
-			}
-			else
-			{
-			*/
-				var error = {}
-				error.message = 'Unable to register user: '+users[counter].identity;
-				error.error = false;
-				tracing.create('ERROR', 'Startup', error);
-				if(counter < users.length - 1)
-				{
-					counter++;
-					setTimeout(function(){addUser()}, 500);
-				}
-				else
-				{
-					deploy_vehicle();
-				}
-			//}
+			var result = createUser(users[counter].identity, 1, userAff, function(err){
 
+				if (!err) {
+					if(counter < users.length - 1)
+					{
+						counter++;
+						tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
+						setTimeout(function(){addUser();},1000);
+					}
+					else
+					{
+						counter = 0;
+						tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
+						deploy_vehicle();
+					}
+				}
+				else
+				{
+			
+					var error = {}
+					error.message = 'Unable to register user: '+users[counter].identity;
+					error.error = false;
+					tracing.create('ERROR', 'Startup', error+" "+err);
+					if(counter < users.length - 1)
+					{
+						counter++;
+						setTimeout(function(){addUser()}, 500);
+					}
+					else
+					{
+						deploy_vehicle();
+					}
+				}
+
+			})
 		}
 	})
 }
@@ -174,7 +193,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 						        api_url, randomVal
 						      ]
 						    },
-						    "secureContext": "DVLA"
+						    "secureContext": participants.participants_info.regulators[0].identity
 						  },
 						  "id": 12
 						}
@@ -217,75 +236,65 @@ function deploy_vehicle() //Deploy vehicle chaincode
 	})
 }
 
-function createUser(username, role, aff)
+function createUser(username, role, aff, cb)
 {
-	/*
-	if (!connectorInfo.connector) {
-		tracing.create('ERROR', 'Startup', {"message":"Cannot register users before the CA connector is setup!", "error":true})
-		return JSON.stringify({"message":"Cannot register users before the CA connector is setup!", "error":true});
-	}
 
-	// Register the user on the CA
-	var user = {
-		"identity": username,
-		"role": role,
-		"account": "group1",
-		"affiliation": aff
-	}
-	 
-	connectorInfo.connector.registerUser(user, function (err, response) {
-		if (err) {
-			
-			if(innerCounter >= 5){
-				innerCounter = 0;
-				tracing.create('ERROR', 'Startup', {"message": "Create user \""+username+"\" failed", "error": false});
-			}
-			else{
-				innerCounter++
-				tracing.create('INFO', 'Startup', 'Attempting to create user "'+username+'" again');
-				setTimeout(function(){createUser(username,role,aff);},2000)	            
-			}
+	var registrationRequest = {
+		enrollmentID: username,
+		// Customize account & affiliation
+		role: role,
+		account: "group1",
+		affiliation: aff
+	};
 
-		} else {
+	chain.register( registrationRequest, function(err, secret) {
+		if (err) return cb(err);
+
+		console.log("Registered user with secret:",secret)
+
+		chain.getMember(username, function(err, member){
 			
-			innerCounter = 0;
-			
-			tracing.create('ERROR', 'Startup', {"message": "Create user \""+username+"\" succeeded", "error": false});
-			// Send the response (username and secret) for logging user in 
-			var creds = {
-				id: response.identity,
-				secret: response.token
-			};
-			loginUser(username, aff, creds.secret);
-			
-			return
-			
-		}
-	});*/	
+			member.setAccount("group1")
+			member.setAffiliation(aff)
+			member.setRoles([role])
+			member.saveState()
+
+			console.log("NEW USER", username , member)
+
+			loginUser(username,aff,secret,cb)
+
+		})
+	});
+	
+	
 }
 
-function loginUser(username, aff, secret)
+function loginUser(username, aff, secret, cb)
 {
 	tracing.create('INFO', 'Startup', 'Attempting to register user "'+username+'" with CA');
 	configFile = reload(__dirname+'/../../configuration.js');
+
 	var credentials = {
 						  "enrollId": username,
 						  "enrollSecret": secret
 						}
 	
 	var options = 	{
-						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
-						method: "POST", 
-						body: credentials,
-						json: true
-					}
+				url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
+				method: "POST", 
+				body: credentials,
+				json: true
+			}
 					
 	request(options, function(error, response, body){
-		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
+
+		console.log("LOGIN RESPONSE BODY",body,"ERROR",error)		
+
+		if (body && !body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			innerCounter = 0;
 			tracing.create('INFO', 'Startup', 'Registering user "'+username+'" with CA successful');
-			writeUserToFile(username, secret)
+			writeUserToFile(username, secret,cb)
 			return true
 		}
 		else
@@ -293,12 +302,12 @@ function loginUser(username, aff, secret)
 			if(innerCounter >= 5){
 				innerCounter = 0;
 				tracing.create('ERROR', 'Startup', {"message": "Registering user \""+username+"\" with CA failed", "error": false});
-				return false
+				return cb("Registering user \""+username+"\" with CA failed")
 			}
 			else{
 				innerCounter++
 				tracing.create('INFO', 'Startup', 'Attempting to register user "'+username+'" with CA again');
-				setTimeout(function(){loginUser(username, aff, secret);},2000)	            
+				setTimeout(function(){loginUser(username, aff, secret,cb);},2000)	            
 			}
 			
 		}
@@ -339,7 +348,7 @@ function update_config(name)
 }
 
 
-function writeUserToFile(username, secret)
+function writeUserToFile(username, secret,cb)
 {
 	tracing.create('INFO', 'Startup', 'Writing user "'+username+'" to file');
 	participants = reload(__dirname+'/../../../blockchain/participants/participants_info.js');
@@ -352,26 +361,29 @@ function writeUserToFile(username, secret)
 		if (participants.participants_info.hasOwnProperty(k)) 
 		{
 			
-           var data = participants.participants_info[k];
-           for(var i = 0; i < data.length; i++)
-           {
-           		
-	       		if(data[i].identity == username)
-	       		{
-	       			userType = k;
-	       			userNumber = i;
-	       			break;
-	       		}
-           }
-        }
+			var data = participants.participants_info[k];
+			for(var i = 0; i < data.length; i++)
+			{
+	
+				if(data[i].identity == username)
+				{
+					userType = k;
+					userNumber = i;
+					break;
+				}
+			}
+		}
 	}
 	
 	var newData = participants.participants_info;
 	newData[userType][userNumber].password = secret;
 	
-	var updatedFile = '/*eslint-env node*/\n\nvar user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
+	var updatedFile = '/*eslint-env node*/\n\n\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
 	
 	fs.writeFileSync(__dirname+'/../../../blockchain/participants/participants_info.js', updatedFile);
+
+	cb(null)
+
 }
 
 exports.create = create;

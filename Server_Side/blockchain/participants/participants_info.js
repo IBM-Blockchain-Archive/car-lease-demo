@@ -1,8 +1,5 @@
 /*eslint-env node*/
 
-//var user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];
-
-
 var participants_info = {
 	"regulators": [
 		{
@@ -11,7 +8,7 @@ var participants_info = {
 			"password": "IUZCYDngtwjW",
 			"address_line_1": "The Richard Ley Development Centre",
 			"address_line": "Upper Forest Way",
-			"address_line_3": "Swansea Vale",
+			"address_line": "Swansea Vale",
 			"address_line_4": "Swansea",
 			"postcode": "SA7 0AN"
 		}
@@ -23,7 +20,7 @@ var participants_info = {
 			"password": "fGMMQqWEPxVy",
 			"address_line_1": "25 St James's Street",
 			"address_line": "London",
-			"address_line_3": "United Kingdom",
+			"address_line": "United Kingdom",
 			"postcode": "SW1A 1HA"
 		},
 		{
@@ -32,7 +29,7 @@ var participants_info = {
 			"password": "hTpPFxiOwWgS",
 			"address_line_1": "Burnaston",
 			"address_line": "Derby",
-			"address_line_3": "United Kingdom",
+			"address_line": "United Kingdom",
 			"postcode": "DE1 9TA"
 		},
 		{
@@ -41,7 +38,7 @@ var participants_info = {
 			"password": "nNRyjPKrSpUb",
 			"address_line_1": "Abbey Road",
 			"address_line": "Coventry",
-			"address_line_3": "United Kingdom",
+			"address_line": "United Kingdom",
 			"postcode": "CV3 4LF"
 		}
 	],
@@ -68,7 +65,7 @@ var participants_info = {
 			"password": "VWjFucyEIzTn",
 			"address_line_1": "25 Lower Lens Street",
 			"address_line": "Penylan",
-			"address_line_3": "Cardiff",
+			"address_line": "Cardiff",
 			"address_line_4": "South Glamorgan",
 			"postcode": "CF28 9LC"
 		}
@@ -80,7 +77,7 @@ var participants_info = {
 			"password": "mRbbQTpZfVVa",
 			"address_line_1": "64 Zoo Lane",
 			"address_line": "Slough",
-			"address_line_3": "Berkshire",
+			"address_line": "Berkshire",
 			"postcode": "SL82 4AB"
 		},
 		{
@@ -89,7 +86,7 @@ var participants_info = {
 			"password": "KakjewJfwBSq",
 			"address_line_1": "9 Main Road",
 			"address_line": "Mobberly",
-			"address_line_3": "Cheshire",
+			"address_line": "Cheshire",
 			"postcode": "WA18 7KJ"
 		},
 		{
@@ -98,7 +95,7 @@ var participants_info = {
 			"password": "plqOUyoFTZyK",
 			"address_line_1": "Unit 9",
 			"address_line": "Malcom Christie Way",
-			"address_line_3": "Riggot Fields",
+			"address_line": "Riggot Fields",
 			"address_line_4": "Manchester",
 			"postcode": "M21 15QY"
 		}
@@ -136,7 +133,7 @@ var participants_info = {
 			"password": "BTaWHtHrCZry",
 			"address_line_1": "26 Electric Eel Avenue",
 			"address_line": "Twickenham",
-			"address_line_3": "Greater London",
+			"address_line": "Greater London",
 			"postcode": "SE51 9DR"
 		},
 		{
@@ -145,7 +142,7 @@ var participants_info = {
 			"password": "AzdeAZuGtlUT",
 			"address_line_1": "11 Willow Park Way",
 			"address_line": "Aston on Trent",
-			"address_line_3": "Derby",
+			"address_line": "Derby",
 			"postcode": "DE72 2DG"
 		},
 		{
