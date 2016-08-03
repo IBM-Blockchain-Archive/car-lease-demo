@@ -26,13 +26,14 @@ var create = function()
 	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
 	chain.setECDSAModeForGRPC(true);
 
-	var pem = fs.readFileSync('node_modules/hfc/certificate.pem');
+	var pem = fs.readFileSync(__dirname + '../../../../Chaincode/vehicle_code/certificate.pem');
+	console.log("CREATION:: Finished reading certificate.  Connecting to membership services");
 
-	chain.setMemberServicesUrl("grpcs://2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
+	chain.setMemberServicesUrl("grpcs://4a668f73-21a1-43fa-bce0-d42c8013e97f_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
 
-	chain.addPeer("grpcs://2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
+	chain.addPeer("grpcs://4a668f73-21a1-43fa-bce0-d42c8013e97f_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
 
-	chain.enroll("user_type1_46e0d01e1a", "e691772fde", function(err, webAppAdmin) {
+	chain.enroll("WebAppAdmin", "b0889222bb", function(err, webAppAdmin) {
 
 		if (err) return console.log("ERROR: failed to register, %s",err);
 		// Successfully enrolled WebAppAdmin during initialization.
