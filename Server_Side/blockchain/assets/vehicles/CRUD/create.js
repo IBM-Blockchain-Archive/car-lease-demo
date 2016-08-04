@@ -81,7 +81,10 @@ function checkIfAlreadyExists(req, res, v5cID)
 	
 	request(options, function(error, response, body)
 	{	
-		if (body.hasOwnProperty("error") && body.error.data.indexOf("Error retrieving v5c") > -1)
+	
+		console.log("VEHICLE CHAINCODE QUERY RESPONSE", body)
+	
+		if (body && body.hasOwnProperty("error") && body.error.data.indexOf("Error retrieving v5c") > -1)
 		{
 			tracing.create('INFO', 'POST blockchain/assets/vehicles', "V5cID is unique");
 			createVehicle(req, res, v5cID)

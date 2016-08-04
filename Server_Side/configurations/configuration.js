@@ -44,8 +44,8 @@ config.app_port = 80; //Port that the NodeJS server is operating on
 
 config.vehicle = "github.com/hyperledger/fabric/vehicle_code"
 
-//Chaincode deployed name
-config.vehicle_name = 'adcd04749b649ff2757b7903ae18aea52cdc3707de684f459f7c26b0c03f016cc31b961887d64d643924a4f8206391fbbb109741774e426ed8f1a8ee64cc1ebf';
+//Chaincode deployed names
+config.vehicle_name = '48c887608764e913b32e25c42fd945fe6a6d8302c5019651bda1c54bd9206d76d44f200f347a326d4b5b8f3705cb895e0c7a911d47ef5842dccc8cad634eed9a';
 
 
 exports.config = config; // Exports for use in other files that require this one
