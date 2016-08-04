@@ -17,7 +17,7 @@ import (
 	//"reflect"
 	//"encoding/asn1"
 	//Used for https request
-	//"crypto/tls"	
+	"crypto/tls"	
 )
 
 //==============================================================================================================================
@@ -123,15 +123,15 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	peer_address, err := stub.GetState("Peer_Address")
 															if err != nil { return nil, errors.New("Error retrieving peer address") }
 
-/*
+
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr}
-	response, err := client.Get("https://"+string(peer_address)+"/registrar/"+name+"/ecert")
-*/
+	response, err := client.Get(string(peer_address)+"/registrar/"+name+"/ecert")
 
-	response, err := http.Get(string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
+
+	//response, err := http.Get(string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
 
 															fmt.Println("HTTP RESPONSE", response)
 															
