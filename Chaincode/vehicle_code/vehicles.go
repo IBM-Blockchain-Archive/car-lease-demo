@@ -17,7 +17,7 @@ import (
 	//"reflect"
 	//"encoding/asn1"
 	//Used for https request
-	"crypto/tls"	
+	//"crypto/tls"	
 )
 
 //==============================================================================================================================
@@ -130,7 +130,7 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	client := &http.Client{Transport: tr}
 	response, err := client.Get(string(peer_address)+"/registrar/"+name+"/ecert")
 
-*/
+
 
 	tr := &http.Transport{
 
@@ -140,10 +140,10 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 
 	client := &http.Client{Transport: tr}
 
-	response, err := client.Get("https://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com:443/registrar/DVLA_5/ecert")
+	response, err := client.Get("http://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com:443/registrar/DVLA_5/ecert")
+*/
 
-
-	//response, err := http.Get(string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
+	response, err := http.Get("http://example.com") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
 
 															fmt.Println("HTTP RESPONSE", response)
 															

@@ -104,3 +104,50 @@
 	04/08/2016 16:18:47	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
 	04/08/2016 16:18:50	INFO	POST blockchain/assets/vehicles	Generated V5cID: WK4328227
 	04/08/2016 16:18:50	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 16:47:04	ENTER	Startup	INPUT: {}
+	04/08/2016 16:47:04	INFO	Startup	Locating initial participants
+	04/08/2016 16:47:16	INFO	Startup	Attempting to register user "DVLA_5" with CA
+	04/08/2016 16:47:16	INFO	Startup	Registering user "DVLA_5" with CA successful
+	04/08/2016 16:47:16	INFO	Startup	Writing user "DVLA_5" to file
+	04/08/2016 16:47:16	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 16:47:18	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 16:47:20	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 16:47:22	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 16:47:25	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 16:47:27	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 16:47:30	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 16:47:32	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 16:47:34	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 16:47:37	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 16:47:39	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 16:47:42	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 16:47:44	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 16:47:46	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 16:47:49	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 16:47:51	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 16:47:51	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 16:48:01	INFO	Startup	Updating config file
+	04/08/2016 16:48:03	INFO	Startup	Vehicle chaincode deployed
+04/08/2016 16:48:58	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 16:48:58	EXIT	GET blockchain/blocks	OUTPUT: {"height":11,"currentBlockHash":"rnHMxGCSzQGG1MHO76XTgQYun4RwCenWiOZ2D8OvNiJu1Qjo+FI2yPyccGwU/hTDshg+2FBhy6h24HIvH4Bj5g=="}
+04/08/2016 16:49:32	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 16:49:34	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 16:49:38	EXIT	GET blockchain/blocks	OUTPUT: {"height":11,"currentBlockHash":"rnHMxGCSzQGG1MHO76XTgQYun4RwCenWiOZ2D8OvNiJu1Qjo+FI2yPyccGwU/hTDshg+2FBhy6h24HIvH4Bj5g=="}
+	04/08/2016 16:49:43	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+04/08/2016 16:50:39	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 16:50:40	EXIT	GET blockchain/blocks	OUTPUT: {"height":12,"currentBlockHash":"dw6K5xHxuRwHSwkLmbVJAuMrCKh5cAaZ4ArUskOv0haBRe7NxOh0y0LCgHCcuCxmN/knCU17sQ2bRrqLmBWkOg=="}
+04/08/2016 16:50:42	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 16:50:42	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 16:50:43	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 16:50:43	ENTER	GET blockchain/participants/regulators	INPUT: {}
+04/08/2016 16:50:43	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA_5","password":"gyJHChXtheNy","address_line_1":"The Richard Ley Development Centre","address_line":"Swansea Vale","address_line_5":"Swansea","postcode":"SA7 0AN"}]}
+04/08/2016 16:50:44	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 16:50:44	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 16:50:44	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 16:50:44	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	04/08/2016 16:50:44	INFO	POST blockchain/assets/vehicles	Generated V5cID: DY1012030
+	04/08/2016 16:50:44	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 16:50:48	INFO	POST blockchain/assets/vehicles	Generated V5cID: HY6294727
+	04/08/2016 16:50:48	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 16:50:51	INFO	POST blockchain/assets/vehicles	Generated V5cID: RV6412998
+	04/08/2016 16:50:51	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
