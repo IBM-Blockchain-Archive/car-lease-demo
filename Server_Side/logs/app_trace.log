@@ -9907,3 +9907,555 @@
 	04/08/2016 15:08:57	INFO	Startup	Created and registered user:DVLA_5
 	04/08/2016 15:08:57	INFO	Startup	Deploying vehicle chaincode
 	04/08/2016 15:08:59	ERROR	Startup	OUTPUT: {"message":"Error deploying vehicle chaincode","body":{"jsonrpc":"2.0","error":{"code":-32001,"message":"Deployment failure","data":"Error when deploying chaincode: Error getting chaincode package bytes: Error getting code 'go get' failed with error: 'exit status 1'\n# cd /go/_usercode_/987642012/src/github.com/jpayne23/car-lease-demo-1; git submodule update --init --recursive\nNo submodule mapping found in .gitmodules for path 'Chaincode/vehicle_code/vendor/github.com/hyperledger/fabric'\npackage github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code: exit status 1\n"},"id":12},"error":true}
+04/08/2016 15:28:45	ENTER	Startup	INPUT: {}
+	04/08/2016 15:28:45	INFO	Startup	Locating initial participants
+	04/08/2016 15:28:56	INFO	Startup	Attempting to register user "DVLA_5" with CA
+	04/08/2016 15:28:57	INFO	Startup	Registering user "DVLA_5" with CA successful
+	04/08/2016 15:28:57	INFO	Startup	Writing user "DVLA_5" to file
+	04/08/2016 15:28:57	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:28:58	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:29:01	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:29:03	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:29:06	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:29:08	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 15:29:10	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 15:29:13	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:29:15	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 15:29:18	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 15:29:20	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 15:29:22	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:29:25	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:29:27	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:29:29	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:29:32	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 15:29:32	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:29:38	INFO	Startup	Updating config file
+	04/08/2016 15:29:41	INFO	Startup	Vehicle chaincode deployed
+04/08/2016 15:29:56	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:29:56	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+	04/08/2016 15:30:02	INFO	POST admin/demo	Creating vehicles
+04/08/2016 15:30:02	ENTER	POST admin/demo	INPUT: {"scenario":"full"}
+04/08/2016 15:30:03	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	04/08/2016 15:30:03	INFO	POST blockchain/assets/vehicles	Generated V5cID: WS1726224
+	04/08/2016 15:30:03	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:30:06	INFO	POST blockchain/assets/vehicles	Generated V5cID: DW2518646
+	04/08/2016 15:30:06	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:07	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:30:07	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:30:09	INFO	POST blockchain/assets/vehicles	Generated V5cID: MW8519586
+	04/08/2016 15:30:09	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:12	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+04/08/2016 15:30:12	ENTER	GET admin/demo	INPUT: {}
+	04/08/2016 15:30:13	INFO	POST blockchain/assets/vehicles	Generated V5cID: GS6666175
+	04/08/2016 15:30:13	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:30:16	INFO	POST blockchain/assets/vehicles	Generated V5cID: ZY6053782
+	04/08/2016 15:30:16	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:17	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+04/08/2016 15:30:17	ENTER	GET admin/demo	INPUT: {}
+	04/08/2016 15:30:20	INFO	POST blockchain/assets/vehicles	Generated V5cID: TL5117198
+	04/08/2016 15:30:20	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:22	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:30:22	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:30:23	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:30:23	INFO	POST blockchain/assets/vehicles	Generated V5cID: AF7195598
+	04/08/2016 15:30:27	INFO	POST blockchain/assets/vehicles	Generated V5cID: SD4477335
+	04/08/2016 15:30:27	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:27	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:30:27	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:30:30	INFO	POST blockchain/assets/vehicles	Generated V5cID: JZ5320316
+	04/08/2016 15:30:30	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:32	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:30:32	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:30:34	INFO	POST blockchain/assets/vehicles	Generated V5cID: VD8316741
+	04/08/2016 15:30:34	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:30:37	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:30:37	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:30:37	INFO	POST blockchain/assets/vehicles	Generated V5cID: WD1072432
+	04/08/2016 15:30:37	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:30:38	ERROR	POST blockchain/assets/vehicles	OUTPUT: {"message":"Timeout while checking v5cID is unique","error":true,"v5cID":"WD1072432"}
+	04/08/2016 15:30:38	ERROR	POST admin/demo	OUTPUT: {"message":"Unable to write vehicle","error":true}
+04/08/2016 15:30:42	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:30:42	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"},{"message":"Unable to write vehicle","error":true}]
+04/08/2016 15:30:46	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:30:46	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:30:52	ENTER	Startup	INPUT: {}
+	04/08/2016 15:30:52	INFO	Startup	Locating initial participants
+	04/08/2016 15:30:53	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:30:56	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:30:59	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:31:01	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:31:04	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:31:06	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 15:31:08	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 15:31:11	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:31:13	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+04/08/2016 15:31:14	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:14	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+	04/08/2016 15:31:15	INFO	Startup	Created and registered user:Joe_Payne_5
+04/08/2016 15:31:16	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:17	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:31:18	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:31:18	INFO	Startup	Created and registered user:Andrew_Hurt_5
+04/08/2016 15:31:18	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:31:20	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:20	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+	04/08/2016 15:31:20	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:31:23	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:31:25	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:31:27	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:31:30	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:31:30	INFO	Startup	Deploying vehicle chaincode
+04/08/2016 15:31:35	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:31:35	INFO	Startup	Updating config file
+04/08/2016 15:31:35	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+	04/08/2016 15:31:38	INFO	Startup	Vehicle chaincode deployed
+04/08/2016 15:31:39	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:39	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:31:40	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:40	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:31:42	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:43	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:31:44	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:44	EXIT	GET blockchain/blocks	OUTPUT: {"height":3,"currentBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ=="}
+04/08/2016 15:31:44	ENTER	GET blockchain/blocks/2	INPUT: {}
+04/08/2016 15:31:45	EXIT	GET blockchain/blocks/2	OUTPUT: {"block":{"transactions":[{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQx","uuid":"0324ef71-5d6a-42be-b46d-d387a425032b","timestamp":{"seconds":1470312690,"nanos":784791340},"nonce":"mlHygVNlxz4QHOI16X8oIqSYP6j6mD/z","cert":"MIICWTCCAf+gAwIBAgIRAJrIbUwpqEm2uhqEDaP6ogwwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEaJ4gO8EJKKnO4KwKSGl1erqpBlRcxNmvBmuDwRIXdLsAIHcfR6LOxdMr7exyZyRJ/uifDDdz8wXn+6/CGMsi7aOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAcEcqQeHq7lKehCnHj7Qseupw9eXOiyeo3qgYd4BNyTbHirwunKv6IsCp2Oza/HwkXKimdY4Weo0r/W6K/91CADBaBgYqAwQFBggEUFMKZkSoW+e+i/H7O4YnfOk9mffrhoy67OfwR3CMaNmEUY+7OJnBgi9pVYaOt1Sp/H2EY9ndJWTyzFIRM1qbn+TrgJyEJ/npbUtoFAy6NC5TMAoGCCqGSM49BAMDA0gAMEUCIQCEmhq44aYVpmyWoielABbv8wXzYD+7F7gf+bjRBHEKFgIgWud97StD20KECmMOr1hKrTK8BVj5g12dDj+raKMnzBA=","signature":"MEUCIEzVU8Z3Lc0kAkhVHL7lOYWTWeIjA39hYy3zcxPubRXBAiEAmymTFavquO5aQcVGkMxCpBWmsYH5jtHX73ZIxsTInK8="},{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQy","uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540","timestamp":{"seconds":1470312690,"nanos":785028974},"nonce":"UyuliwaeIBa5XkjQPoW+Xro9U0LGC7ZI","cert":"MIICWDCCAf+gAwIBAgIRANdzRf52GEGbqw6jaLEYjuswCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAESIelsursHmbg5kRVcZEPE9Ej/mXBMZLPDORo8bCXQWYlQaJFSkwbU0uyID2F14FIftC7vVqZ368nhE1360a9pqOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRA0Z8M8xxT4382qPiSCnMlcj6oL9jup3mmPLHpKsNvhQkpT8SehkzBDwvkV7kcBvvRmKKOh/Emt2l1dsvhLagrvzBaBgYqAwQFBggEUBBJ5ny+5lZxDxJvePEW36L8kxzlG0VRYz/Djaf+PApsIExkJ/oWssTZVntepralKcaDU64QJqzSVr952ibx6pB4eVotjkQS6k+xG3pacXJ2MAoGCCqGSM49BAMDA0cAMEQCIDgjpyDqOkBDI3OcLIsN94J7MaoCeIQrrLC/dQ/tOv00AiBZHMEOHZslzZMtYwlBTe16fo5D03QN7OCuToqK0jNo8g==","signature":"MEUCIQCTItfNw0EPYZCiN8Sqa0yUG0ZVrZDanrOACedA7VYTlAIgUGVGrAlUX4p1CxJL0ACWFRU1JF9Ttop6pxHwPwEcB9Y="}],"stateHash":"1E2/4ZEoAGZEl2+0I9de6KJ1SrdBbSir6F9F34Tom0eAE60lQdczO4vseRU9uAd0BiQQV7R0HigQC15lsTbAfg==","previousBlockHash":"Kz2cUDYplfZv4obuPbMdbzKu86yJUdVexPpb8DUW3+TR8TrWjzz8IE3Mnyg9FX1W883ozgKPL5BSesgsld+T/g==","consensusMetadata":"CAI=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470312691,"nanos":803667867},"transactionResults":[{"uuid":"0324ef71-5d6a-42be-b46d-d387a425032b"},{"uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540"}]}}}
+04/08/2016 15:31:45	ENTER	GET blockchain/blocks/1	INPUT: {}
+04/08/2016 15:31:45	EXIT	GET blockchain/blocks/1	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"Cj1odHRwczovL2dpdGh1Yi5jb20vSUJNLUJsb2NrY2hhaW4vY3AtY2hhaW5jb2RlLXYyL2h5cGVybGVkZ2VyEoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"Cs8BCAESwgEKPWh0dHBzOi8vZ2l0aHViLmNvbS9JQk0tQmxvY2tjaGFpbi9jcC1jaGFpbmNvZGUtdjIvaHlwZXJsZWRnZXISgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoGCgRpbml0","uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f","timestamp":{"seconds":1470213796,"nanos":828260733},"nonce":"ldXE8P6usczyXegjx1SIDN508/8ZgSjg","cert":"MIICWTCCAf+gAwIBAgIRAL6e0+nma08MqpMCEPkIOZcwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjWfjQEbR7t1J/1W6ME8VT96+OqvTJoKCxzbPb/qZDtgeMdtq5bTBtQ7CXI+cJNWh3EG7MxqLtAGhi/MEMWiApKOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAdRuUPjQFQV7kkH4KNxQ3y8NjRqE6fYmMXlwLgShvrKqwlPqk7Tn0tw/pdtzmod9SQPfeai47ZU327hC3fTy+kjBaBgYqAwQFBggEULsQ2iuaHfnofd/+wdnYPGKBXCwfjPaWnPRw9Nuhfk+SepKAvbHSYm/SuzrxTGzPH2o7aVRMgkBaX3WmLjLp7mXEtT4eiocW/T0PEA8ONW3MMAoGCCqGSM49BAMDA0gAMEUCIAvEjhC01w7ynP1ZV5N4HrdwaepRFloNdOoWHIYjqjLHAiEAuYd+c6NQ7j94H21oyUDgJWVf2pbfQxhKUVuCFLkzNoY=","signature":"MEQCIEaBvPsDEynIitAMUGYTbbrlWCrY46PJ43fm7aijqN4UAiAJPhJXvwhYqht7+LNxPWyQYStveQG30uycqwHXXuW/Dw=="}],"stateHash":"XbaZBsxIwQRwZipTJq1EmnsGz2lukEIKg/tYnu/Sgib/5zYzyCtyKoVjgtQWQ6YSWFPUk61ohojYAEOx8Ur/gg==","previousBlockHash":"RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==","consensusMetadata":"CAE=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470213869,"nanos":371222869},"transactionResults":[{"uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f"}]}}}
+04/08/2016 15:31:45	ENTER	GET blockchain/blocks/0	INPUT: {}
+04/08/2016 15:31:45	EXIT	GET blockchain/blocks/0	OUTPUT: {"block":{"nonHashData":{"localLedgerCommitTimestamp":{"seconds":1469813286,"nanos":188869652}}}}
+04/08/2016 15:31:56	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:31:56	EXIT	GET blockchain/blocks	OUTPUT: {"height":4,"currentBlockHash":"CJ6b87hr36bOAUUWPsl2JKLbePigMYa/ClvNDL0DvnwxtfDfQedMGV35bQLh52bCeP9UYdBEcZ29BJP4NgGF9A=="}
+04/08/2016 15:31:56	ENTER	GET blockchain/blocks/3	INPUT: {}
+04/08/2016 15:31:56	EXIT	GET blockchain/blocks/3	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABY2VlOTIyNmFhYjAwOWFkZGUyYWJlMjYwZmRlNjllODlhOTQ4YTI4NDUyMzJlMGE5YmU1OTMwNDg2OWU2ZDUwOWNhNjFmZTUxNWY0ZjhkNTQ4MjgxMGMyZDgyNjZjZjdhOWMzYWQ0MjJhM2JjMGYwYTE3ZjNhODM1YzFkYmJiMTE=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFjZWU5MjI2YWFiMDA5YWRkZTJhYmUyNjBmZGU2OWU4OWE5NDhhMjg0NTIzMmUwYTliZTU5MzA0ODY5ZTZkNTA5Y2E2MWZlNTE1ZjRmOGQ1NDgyODEwYzJkODI2NmNmN2E5YzNhZDQyMmEzYmMwZjBhMTdmM2E4MzVjMWRiYmIxMRrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgARjNDk2OGZhMTEyZDM5ZjRlZTE4OWJkYjhlZjc5YjdkYjMwZDYyNDUxMzE3OTMzYjVmNTU3MDVjNWNlMGIzY2VjOTliYzgwNmNhY2NkMDUyNjA2ZjQwNmUwZWExMzY2M2QzMTIwNjdmMDMyOGM0YTNhZDIyNDc1YTJiYTFmYmJjYjQ0ODY4MDQ5MDA5NWJlMjk4Y2VkODA4ODMyMjQ4NWVmZTZhNWRkZGIzMjViMTVlNDY5NjAwMGFiZGY1ZjRjMzQ2MTVmYTBiMTE3MWYzZGIzZDZkYzBmMDcxYWMxZWM4NGY5ODNlMjljNDMzMTMwNmQ5MzY3MjUxZGEwMWY2NTA3NWFmNTBiZGNkOTU2YjQxZjU4NjJiNWNhYzM5YTY2NmUyNGNhYmNjZTEzZjM5ZTRjYzIxMzljMTIwNzViZTFhYjQyYjUyMmJmOTBiNmE4NGQ5MmU3NTgxN2FkOWE0NzZlYjYyNTRhNWRmODcyYWEyYzY0ZGU0YTdmYzdjMWQxMWZkYmYzMGM5YmUxZTg0MWM2ZDI5ZjllNzllMzE4OGY4MmE1ZGM3YTNiNjBhYWJiOWQwMGQzNmRlMGQ5MTliMTYzNjgyMTUzMTIzNDRiYmRmYTAzYTY2YTUzZjU1ZjZmOGNjNDFmNjY4OGQ3MTY4MzAxYTQ0ZDc3MzA1Mzk5ZGIwMQ==","uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11","timestamp":{"seconds":1470320976,"nanos":123176220},"nonce":"DHwQmwlQUklBAizcgsXQ7yoLGsw3PBnF","cert":"MIICMjCCAdegAwIBAgIRAK2BlQRhT08ynC+q24huOpQwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwNDE0MjgzNVoXDTE2MTEwMjE0MjgzNVowLDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEPMA0GA1UEAwwGRFZMQV81MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEm+5zk6CBs0Qu+jLL6HfaNFIMM7iDBP6SplK3svO/QMcG2/8ntVrO9PNeK+nD3YhEfj45G2RbD6XNY7T1z9t/naOB3DCB2TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAKtjcHn9nZ7LZ4v8MA6EdBMG6r9Ys2igj0VwrlLA+SoBm46rU+znUm7yQSoMPMOBLf1FDcDA7mXDBQIkzYnwZMjBKBgYqAwQFBggEQJfaN8Fz6OlWqPb24rc/LLmZ/7KOxGHcL+rvAx546DFqHqS9YpPyZLb8K06wxFZWA9wrQaTb4czhrJ4rYb2cOmkwCgYIKoZIzj0EAwMDSQAwRgIhALMN9EbkAsoVBBHNyQXXQYwwAnaJXKvrn+J+qcrkNivFAiEAoeRTQNbFE8sMt9OY2D2mOTGDY1w9HaxEp1FUcDhMwxE=","signature":"MEUCIDRzdNZznXCB19FTThEo3zuYj+US0dWuOPev/v6otwvSAiEAqhDnJX6u5ZApQLBizkU4sX+sfOdNcpYS7upI2MX3yr0="}],"stateHash":"C7FH6qEtV82zqNgF0JIeChT3rhsCyeJwnxzO4StLrLhVm0rs1hdyoI7dwPq1WbSqiNZgvCyapsyE+Mjj7A6uWQ==","previousBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ==","consensusMetadata":"CAM=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321109,"nanos":79341438},"transactionResults":[{"uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11"}]}}}
+04/08/2016 15:32:00	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:32:00	EXIT	GET blockchain/blocks	OUTPUT: {"height":4,"currentBlockHash":"CJ6b87hr36bOAUUWPsl2JKLbePigMYa/ClvNDL0DvnwxtfDfQedMGV35bQLh52bCeP9UYdBEcZ29BJP4NgGF9A=="}
+04/08/2016 15:32:03	ENTER	POST admin/demo	INPUT: {"scenario":"full"}
+	04/08/2016 15:32:03	INFO	POST admin/demo	Creating vehicles
+04/08/2016 15:32:03	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	04/08/2016 15:32:03	INFO	POST blockchain/assets/vehicles	Generated V5cID: SF0183897
+	04/08/2016 15:32:03	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:32:07	INFO	POST blockchain/assets/vehicles	Generated V5cID: QO4863443
+	04/08/2016 15:32:07	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:32:08	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+04/08/2016 15:32:08	ENTER	GET admin/demo	INPUT: {}
+	04/08/2016 15:32:10	INFO	POST blockchain/assets/vehicles	Generated V5cID: BE3696942
+	04/08/2016 15:32:10	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:32:13	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:32:13	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:32:14	INFO	POST blockchain/assets/vehicles	Generated V5cID: OZ6709134
+	04/08/2016 15:32:14	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:32:17	INFO	POST blockchain/assets/vehicles	Generated V5cID: BS5823994
+	04/08/2016 15:32:17	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:32:18	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+04/08/2016 15:32:18	ENTER	GET admin/demo	INPUT: {}
+	04/08/2016 15:32:21	INFO	POST blockchain/assets/vehicles	Generated V5cID: VD8523842
+	04/08/2016 15:32:21	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:32:23	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:32:23	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:32:24	INFO	POST blockchain/assets/vehicles	Generated V5cID: HK6581314
+	04/08/2016 15:32:24	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:32:28	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:32:28	INFO	POST blockchain/assets/vehicles	Generated V5cID: IW9284670
+04/08/2016 15:32:28	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:32:28	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:32:31	INFO	POST blockchain/assets/vehicles	Generated V5cID: VM2284509
+	04/08/2016 15:32:31	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:32:33	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:32:33	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:32:35	INFO	POST blockchain/assets/vehicles	Generated V5cID: YT3505105
+	04/08/2016 15:32:35	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:32:38	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:32:38	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"}]
+	04/08/2016 15:32:38	INFO	POST blockchain/assets/vehicles	Generated V5cID: AR3598366
+	04/08/2016 15:32:38	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:32:39	ERROR	POST blockchain/assets/vehicles	OUTPUT: {"message":"Timeout while checking v5cID is unique","error":true,"v5cID":"AR3598366"}
+	04/08/2016 15:32:39	ERROR	POST admin/demo	OUTPUT: {"message":"Unable to write vehicle","error":true}
+04/08/2016 15:32:43	ENTER	GET admin/demo	INPUT: {}
+04/08/2016 15:32:43	EXIT	GET admin/demo	OUTPUT: [{"message":"Creating vehicles"},{"message":"Unable to write vehicle","error":true}]
+04/08/2016 15:38:50	ENTER	Startup	INPUT: {}
+	04/08/2016 15:38:50	INFO	Startup	Locating initial participants
+	04/08/2016 15:38:51	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:38:53	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:38:56	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:38:58	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:39:01	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:39:03	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 15:39:05	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 15:39:08	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:39:11	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 15:39:13	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 15:39:16	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 15:39:18	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:39:20	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:39:23	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:39:25	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:39:28	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:39:28	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 15:39:33	INFO	Startup	Updating config file
+	04/08/2016 15:39:35	INFO	Startup	Vehicle chaincode deployed
+04/08/2016 15:40:26	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:40:27	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:40:27	ENTER	GET blockchain/blocks/4	INPUT: {}
+04/08/2016 15:40:27	EXIT	GET blockchain/blocks/4	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABYWMxN2M2M2Y5MDBmNjk1Njg2MDA0MjNmMDg4N2UxOGQxN2NiMzU3OWZkMGNjODA0YzQ1MDA4OTFlOTRmYzA3MDRmM2VjZjdmNGVmMWJhMjVkM2JjMzAwYjYzMDAzM2Y2Nzg0NWFjZjE1OWVlZDM4ZjdiNDY5ZGU1NTY4ZDA2Yzc=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFhYzE3YzYzZjkwMGY2OTU2ODYwMDQyM2YwODg3ZTE4ZDE3Y2IzNTc5ZmQwY2M4MDRjNDUwMDg5MWU5NGZjMDcwNGYzZWNmN2Y0ZWYxYmEyNWQzYmMzMDBiNjMwMDMzZjY3ODQ1YWNmMTU5ZWVkMzhmN2I0NjlkZTU1NjhkMDZjNxrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgAQ0NDE2ZGIyNGQzNzdjYzlhY2Q2YzkzYzllOGY1ZjQ4ZWE4YTZkY2ZkOTk3ZWIyNWY1MDkyYjZlYWQzYzdiMjlmYWQ3MzMxMzAxZmQwMTEwMzBkNDBkMjU2NWNhZTRiZTEwM2JhMDc2ZTNkYjYwZmQ5YjViNThiZmE5MjdjODRiMWE0MTczOTEwNjNhNjM4MmM2ZTZjZjdiZTliNzYxNWQyMDhhMjMwNDk1YmI5NWM4YjQyODUxYjRlNGQyYWE1Nzk2MWYzMWEzNDYwNmIzMDY4ZDFmNTRlMTljMjM4YzM1OTJkZjA1ODA3ZWY4MzcwYWY5MWFhODMxODQxZDA3ZDI5NjNhMjgzODAyYWYxYTc2YWExMTNhOGE2OWZjZjI1NGNjYTM2MTM4OWMyM2JkZjA3MWE2ZTljZTVkZTQ3ZWIyNThmNGNhZTJjNWM4ZTkzMTVkZDMwMjQxZmE4Mjc1MjZjNzQ0ZWI1NDU0OWQ4OTJhNmNmN2IyNGJkYzI5YmRiN2M1MzgyYmE2ZmM0ODliZjE3NWM2MDgxZDEzZDJjYTAzNzkyMDg2OGVlODU0MTk3M2E3NGFjNTQ3MjBmZDI5N2E4NGFkZGFmMzAzNjE4NDRlNjEzMWE4ZTUwZmEyNTM1ZGIxMWMwNWJlNzBjMTUzMjg2ZTEyMjQyYjBmYTQ0MjUyZA==","uuid":"ac17c63f900f69568600423f0887e18d17cb3579fd0cc804c4500891e94fc0704f3ecf7f4ef1ba25d3bc300b630033f67845acf159eed38f7b469de5568d06c7","timestamp":{"seconds":1470321092,"nanos":970930115},"nonce":"gTymd1egdbZB2EUAnkpzxI2bEZGhJwgU","cert":"MIICLzCCAdagAwIBAgIQTcTHHANXTR2y2/5i9wX4TTAKBggqhkjOPQQDAzApMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQwwCgYDVQQDEwN0Y2EwHhcNMTYwODA0MTQyODM1WhcNMTYxMTAyMTQyODM1WjAsMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQ8wDQYDVQQDDAZEVkxBXzUwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARPFPjvP9Hq3rjzS2hXkDb0QhyRu6qIgV1/guvbUxkxnsDyc/OBr6E0tpA7/69NrTnKcDtCf6dr3Bwh35H1DVMIo4HcMIHZMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMA0GA1UdDgQGBAQBAgMEMA8GA1UdIwQIMAaABAECAwQwTQYGKgMEBQYHAQH/BEBq0/jQa9hRXYixQvAzLdLEXM6qkzI+RBUI4bmVB6yW5/Z9ZzP8G5r2Zofl1oVju0qDYlDDxUom/XzzkumfXytxMEoGBioDBAUGCARAIsx7Nyjgy7vTKf9Ys/rz5Bf2basJwDzAt3n+o9+ZTX/Zq1/o9wBUrPwhrWsCsUBdXgTuLoabmCVOY7CcRXGYOzAKBggqhkjOPQQDAwNHADBEAiA0zBvoBiyT2eGOfsxvZbg5p0PuXoD3zZwFd5fugMvDXAIgMjeqDzdpyzkLJ7BlIg04xyob51yJKMbOYX4U9FgyqrY=","signature":"MEUCICbw3ShaBRbZk4Iu/6nAJlycOPNil86sDaJOazGzkjk0AiEA+dqU8QHBTF7haJJ3pH0p1Vi4WzbdUzy2wC3xYI0at4g="}],"stateHash":"lzpCxiH64xRv1Z9f/jfcne/8ISGSMHKdyI+8YfZ7ojmDKfEWBpcBShX6+v5yEpdz7Kv6NA9ob4dmiNtZgaR2jg==","previousBlockHash":"CJ6b87hr36bOAUUWPsl2JKLbePigMYa/ClvNDL0DvnwxtfDfQedMGV35bQLh52bCeP9UYdBEcZ29BJP4NgGF9A==","consensusMetadata":"CAQ=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321274,"nanos":64612794},"transactionResults":[{"uuid":"ac17c63f900f69568600423f0887e18d17cb3579fd0cc804c4500891e94fc0704f3ecf7f4ef1ba25d3bc300b630033f67845acf159eed38f7b469de5568d06c7"}]}}}
+04/08/2016 15:40:27	ENTER	GET blockchain/blocks/3	INPUT: {}
+04/08/2016 15:40:27	EXIT	GET blockchain/blocks/3	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABY2VlOTIyNmFhYjAwOWFkZGUyYWJlMjYwZmRlNjllODlhOTQ4YTI4NDUyMzJlMGE5YmU1OTMwNDg2OWU2ZDUwOWNhNjFmZTUxNWY0ZjhkNTQ4MjgxMGMyZDgyNjZjZjdhOWMzYWQ0MjJhM2JjMGYwYTE3ZjNhODM1YzFkYmJiMTE=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFjZWU5MjI2YWFiMDA5YWRkZTJhYmUyNjBmZGU2OWU4OWE5NDhhMjg0NTIzMmUwYTliZTU5MzA0ODY5ZTZkNTA5Y2E2MWZlNTE1ZjRmOGQ1NDgyODEwYzJkODI2NmNmN2E5YzNhZDQyMmEzYmMwZjBhMTdmM2E4MzVjMWRiYmIxMRrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgARjNDk2OGZhMTEyZDM5ZjRlZTE4OWJkYjhlZjc5YjdkYjMwZDYyNDUxMzE3OTMzYjVmNTU3MDVjNWNlMGIzY2VjOTliYzgwNmNhY2NkMDUyNjA2ZjQwNmUwZWExMzY2M2QzMTIwNjdmMDMyOGM0YTNhZDIyNDc1YTJiYTFmYmJjYjQ0ODY4MDQ5MDA5NWJlMjk4Y2VkODA4ODMyMjQ4NWVmZTZhNWRkZGIzMjViMTVlNDY5NjAwMGFiZGY1ZjRjMzQ2MTVmYTBiMTE3MWYzZGIzZDZkYzBmMDcxYWMxZWM4NGY5ODNlMjljNDMzMTMwNmQ5MzY3MjUxZGEwMWY2NTA3NWFmNTBiZGNkOTU2YjQxZjU4NjJiNWNhYzM5YTY2NmUyNGNhYmNjZTEzZjM5ZTRjYzIxMzljMTIwNzViZTFhYjQyYjUyMmJmOTBiNmE4NGQ5MmU3NTgxN2FkOWE0NzZlYjYyNTRhNWRmODcyYWEyYzY0ZGU0YTdmYzdjMWQxMWZkYmYzMGM5YmUxZTg0MWM2ZDI5ZjllNzllMzE4OGY4MmE1ZGM3YTNiNjBhYWJiOWQwMGQzNmRlMGQ5MTliMTYzNjgyMTUzMTIzNDRiYmRmYTAzYTY2YTUzZjU1ZjZmOGNjNDFmNjY4OGQ3MTY4MzAxYTQ0ZDc3MzA1Mzk5ZGIwMQ==","uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11","timestamp":{"seconds":1470320976,"nanos":123176220},"nonce":"DHwQmwlQUklBAizcgsXQ7yoLGsw3PBnF","cert":"MIICMjCCAdegAwIBAgIRAK2BlQRhT08ynC+q24huOpQwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwNDE0MjgzNVoXDTE2MTEwMjE0MjgzNVowLDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEPMA0GA1UEAwwGRFZMQV81MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEm+5zk6CBs0Qu+jLL6HfaNFIMM7iDBP6SplK3svO/QMcG2/8ntVrO9PNeK+nD3YhEfj45G2RbD6XNY7T1z9t/naOB3DCB2TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAKtjcHn9nZ7LZ4v8MA6EdBMG6r9Ys2igj0VwrlLA+SoBm46rU+znUm7yQSoMPMOBLf1FDcDA7mXDBQIkzYnwZMjBKBgYqAwQFBggEQJfaN8Fz6OlWqPb24rc/LLmZ/7KOxGHcL+rvAx546DFqHqS9YpPyZLb8K06wxFZWA9wrQaTb4czhrJ4rYb2cOmkwCgYIKoZIzj0EAwMDSQAwRgIhALMN9EbkAsoVBBHNyQXXQYwwAnaJXKvrn+J+qcrkNivFAiEAoeRTQNbFE8sMt9OY2D2mOTGDY1w9HaxEp1FUcDhMwxE=","signature":"MEUCIDRzdNZznXCB19FTThEo3zuYj+US0dWuOPev/v6otwvSAiEAqhDnJX6u5ZApQLBizkU4sX+sfOdNcpYS7upI2MX3yr0="}],"stateHash":"C7FH6qEtV82zqNgF0JIeChT3rhsCyeJwnxzO4StLrLhVm0rs1hdyoI7dwPq1WbSqiNZgvCyapsyE+Mjj7A6uWQ==","previousBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ==","consensusMetadata":"CAM=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321109,"nanos":79341438},"transactionResults":[{"uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11"}]}}}
+04/08/2016 15:40:28	ENTER	GET blockchain/blocks/2	INPUT: {}
+04/08/2016 15:40:28	EXIT	GET blockchain/blocks/2	OUTPUT: {"block":{"transactions":[{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQx","uuid":"0324ef71-5d6a-42be-b46d-d387a425032b","timestamp":{"seconds":1470312690,"nanos":784791340},"nonce":"mlHygVNlxz4QHOI16X8oIqSYP6j6mD/z","cert":"MIICWTCCAf+gAwIBAgIRAJrIbUwpqEm2uhqEDaP6ogwwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEaJ4gO8EJKKnO4KwKSGl1erqpBlRcxNmvBmuDwRIXdLsAIHcfR6LOxdMr7exyZyRJ/uifDDdz8wXn+6/CGMsi7aOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAcEcqQeHq7lKehCnHj7Qseupw9eXOiyeo3qgYd4BNyTbHirwunKv6IsCp2Oza/HwkXKimdY4Weo0r/W6K/91CADBaBgYqAwQFBggEUFMKZkSoW+e+i/H7O4YnfOk9mffrhoy67OfwR3CMaNmEUY+7OJnBgi9pVYaOt1Sp/H2EY9ndJWTyzFIRM1qbn+TrgJyEJ/npbUtoFAy6NC5TMAoGCCqGSM49BAMDA0gAMEUCIQCEmhq44aYVpmyWoielABbv8wXzYD+7F7gf+bjRBHEKFgIgWud97StD20KECmMOr1hKrTK8BVj5g12dDj+raKMnzBA=","signature":"MEUCIEzVU8Z3Lc0kAkhVHL7lOYWTWeIjA39hYy3zcxPubRXBAiEAmymTFavquO5aQcVGkMxCpBWmsYH5jtHX73ZIxsTInK8="},{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQy","uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540","timestamp":{"seconds":1470312690,"nanos":785028974},"nonce":"UyuliwaeIBa5XkjQPoW+Xro9U0LGC7ZI","cert":"MIICWDCCAf+gAwIBAgIRANdzRf52GEGbqw6jaLEYjuswCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAESIelsursHmbg5kRVcZEPE9Ej/mXBMZLPDORo8bCXQWYlQaJFSkwbU0uyID2F14FIftC7vVqZ368nhE1360a9pqOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRA0Z8M8xxT4382qPiSCnMlcj6oL9jup3mmPLHpKsNvhQkpT8SehkzBDwvkV7kcBvvRmKKOh/Emt2l1dsvhLagrvzBaBgYqAwQFBggEUBBJ5ny+5lZxDxJvePEW36L8kxzlG0VRYz/Djaf+PApsIExkJ/oWssTZVntepralKcaDU64QJqzSVr952ibx6pB4eVotjkQS6k+xG3pacXJ2MAoGCCqGSM49BAMDA0cAMEQCIDgjpyDqOkBDI3OcLIsN94J7MaoCeIQrrLC/dQ/tOv00AiBZHMEOHZslzZMtYwlBTe16fo5D03QN7OCuToqK0jNo8g==","signature":"MEUCIQCTItfNw0EPYZCiN8Sqa0yUG0ZVrZDanrOACedA7VYTlAIgUGVGrAlUX4p1CxJL0ACWFRU1JF9Ttop6pxHwPwEcB9Y="}],"stateHash":"1E2/4ZEoAGZEl2+0I9de6KJ1SrdBbSir6F9F34Tom0eAE60lQdczO4vseRU9uAd0BiQQV7R0HigQC15lsTbAfg==","previousBlockHash":"Kz2cUDYplfZv4obuPbMdbzKu86yJUdVexPpb8DUW3+TR8TrWjzz8IE3Mnyg9FX1W883ozgKPL5BSesgsld+T/g==","consensusMetadata":"CAI=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470312691,"nanos":803667867},"transactionResults":[{"uuid":"0324ef71-5d6a-42be-b46d-d387a425032b"},{"uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540"}]}}}
+04/08/2016 15:40:28	ENTER	GET blockchain/blocks/1	INPUT: {}
+04/08/2016 15:40:28	EXIT	GET blockchain/blocks/1	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"Cj1odHRwczovL2dpdGh1Yi5jb20vSUJNLUJsb2NrY2hhaW4vY3AtY2hhaW5jb2RlLXYyL2h5cGVybGVkZ2VyEoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"Cs8BCAESwgEKPWh0dHBzOi8vZ2l0aHViLmNvbS9JQk0tQmxvY2tjaGFpbi9jcC1jaGFpbmNvZGUtdjIvaHlwZXJsZWRnZXISgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoGCgRpbml0","uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f","timestamp":{"seconds":1470213796,"nanos":828260733},"nonce":"ldXE8P6usczyXegjx1SIDN508/8ZgSjg","cert":"MIICWTCCAf+gAwIBAgIRAL6e0+nma08MqpMCEPkIOZcwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjWfjQEbR7t1J/1W6ME8VT96+OqvTJoKCxzbPb/qZDtgeMdtq5bTBtQ7CXI+cJNWh3EG7MxqLtAGhi/MEMWiApKOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAdRuUPjQFQV7kkH4KNxQ3y8NjRqE6fYmMXlwLgShvrKqwlPqk7Tn0tw/pdtzmod9SQPfeai47ZU327hC3fTy+kjBaBgYqAwQFBggEULsQ2iuaHfnofd/+wdnYPGKBXCwfjPaWnPRw9Nuhfk+SepKAvbHSYm/SuzrxTGzPH2o7aVRMgkBaX3WmLjLp7mXEtT4eiocW/T0PEA8ONW3MMAoGCCqGSM49BAMDA0gAMEUCIAvEjhC01w7ynP1ZV5N4HrdwaepRFloNdOoWHIYjqjLHAiEAuYd+c6NQ7j94H21oyUDgJWVf2pbfQxhKUVuCFLkzNoY=","signature":"MEQCIEaBvPsDEynIitAMUGYTbbrlWCrY46PJ43fm7aijqN4UAiAJPhJXvwhYqht7+LNxPWyQYStveQG30uycqwHXXuW/Dw=="}],"stateHash":"XbaZBsxIwQRwZipTJq1EmnsGz2lukEIKg/tYnu/Sgib/5zYzyCtyKoVjgtQWQ6YSWFPUk61ohojYAEOx8Ur/gg==","previousBlockHash":"RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==","consensusMetadata":"CAE=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470213869,"nanos":371222869},"transactionResults":[{"uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f"}]}}}
+04/08/2016 15:40:28	ENTER	GET blockchain/blocks/0	INPUT: {}
+04/08/2016 15:40:29	EXIT	GET blockchain/blocks/0	OUTPUT: {"block":{"nonHashData":{"localLedgerCommitTimestamp":{"seconds":1469813286,"nanos":188869652}}}}
+04/08/2016 15:40:39	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:40:39	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:40:47	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:40:48	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:40:48	ENTER	GET blockchain/blocks/4	INPUT: {}
+04/08/2016 15:40:48	EXIT	GET blockchain/blocks/4	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABYWMxN2M2M2Y5MDBmNjk1Njg2MDA0MjNmMDg4N2UxOGQxN2NiMzU3OWZkMGNjODA0YzQ1MDA4OTFlOTRmYzA3MDRmM2VjZjdmNGVmMWJhMjVkM2JjMzAwYjYzMDAzM2Y2Nzg0NWFjZjE1OWVlZDM4ZjdiNDY5ZGU1NTY4ZDA2Yzc=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFhYzE3YzYzZjkwMGY2OTU2ODYwMDQyM2YwODg3ZTE4ZDE3Y2IzNTc5ZmQwY2M4MDRjNDUwMDg5MWU5NGZjMDcwNGYzZWNmN2Y0ZWYxYmEyNWQzYmMzMDBiNjMwMDMzZjY3ODQ1YWNmMTU5ZWVkMzhmN2I0NjlkZTU1NjhkMDZjNxrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgAQ0NDE2ZGIyNGQzNzdjYzlhY2Q2YzkzYzllOGY1ZjQ4ZWE4YTZkY2ZkOTk3ZWIyNWY1MDkyYjZlYWQzYzdiMjlmYWQ3MzMxMzAxZmQwMTEwMzBkNDBkMjU2NWNhZTRiZTEwM2JhMDc2ZTNkYjYwZmQ5YjViNThiZmE5MjdjODRiMWE0MTczOTEwNjNhNjM4MmM2ZTZjZjdiZTliNzYxNWQyMDhhMjMwNDk1YmI5NWM4YjQyODUxYjRlNGQyYWE1Nzk2MWYzMWEzNDYwNmIzMDY4ZDFmNTRlMTljMjM4YzM1OTJkZjA1ODA3ZWY4MzcwYWY5MWFhODMxODQxZDA3ZDI5NjNhMjgzODAyYWYxYTc2YWExMTNhOGE2OWZjZjI1NGNjYTM2MTM4OWMyM2JkZjA3MWE2ZTljZTVkZTQ3ZWIyNThmNGNhZTJjNWM4ZTkzMTVkZDMwMjQxZmE4Mjc1MjZjNzQ0ZWI1NDU0OWQ4OTJhNmNmN2IyNGJkYzI5YmRiN2M1MzgyYmE2ZmM0ODliZjE3NWM2MDgxZDEzZDJjYTAzNzkyMDg2OGVlODU0MTk3M2E3NGFjNTQ3MjBmZDI5N2E4NGFkZGFmMzAzNjE4NDRlNjEzMWE4ZTUwZmEyNTM1ZGIxMWMwNWJlNzBjMTUzMjg2ZTEyMjQyYjBmYTQ0MjUyZA==","uuid":"ac17c63f900f69568600423f0887e18d17cb3579fd0cc804c4500891e94fc0704f3ecf7f4ef1ba25d3bc300b630033f67845acf159eed38f7b469de5568d06c7","timestamp":{"seconds":1470321092,"nanos":970930115},"nonce":"gTymd1egdbZB2EUAnkpzxI2bEZGhJwgU","cert":"MIICLzCCAdagAwIBAgIQTcTHHANXTR2y2/5i9wX4TTAKBggqhkjOPQQDAzApMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQwwCgYDVQQDEwN0Y2EwHhcNMTYwODA0MTQyODM1WhcNMTYxMTAyMTQyODM1WjAsMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQ8wDQYDVQQDDAZEVkxBXzUwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARPFPjvP9Hq3rjzS2hXkDb0QhyRu6qIgV1/guvbUxkxnsDyc/OBr6E0tpA7/69NrTnKcDtCf6dr3Bwh35H1DVMIo4HcMIHZMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMA0GA1UdDgQGBAQBAgMEMA8GA1UdIwQIMAaABAECAwQwTQYGKgMEBQYHAQH/BEBq0/jQa9hRXYixQvAzLdLEXM6qkzI+RBUI4bmVB6yW5/Z9ZzP8G5r2Zofl1oVju0qDYlDDxUom/XzzkumfXytxMEoGBioDBAUGCARAIsx7Nyjgy7vTKf9Ys/rz5Bf2basJwDzAt3n+o9+ZTX/Zq1/o9wBUrPwhrWsCsUBdXgTuLoabmCVOY7CcRXGYOzAKBggqhkjOPQQDAwNHADBEAiA0zBvoBiyT2eGOfsxvZbg5p0PuXoD3zZwFd5fugMvDXAIgMjeqDzdpyzkLJ7BlIg04xyob51yJKMbOYX4U9FgyqrY=","signature":"MEUCICbw3ShaBRbZk4Iu/6nAJlycOPNil86sDaJOazGzkjk0AiEA+dqU8QHBTF7haJJ3pH0p1Vi4WzbdUzy2wC3xYI0at4g="}],"stateHash":"lzpCxiH64xRv1Z9f/jfcne/8ISGSMHKdyI+8YfZ7ojmDKfEWBpcBShX6+v5yEpdz7Kv6NA9ob4dmiNtZgaR2jg==","previousBlockHash":"CJ6b87hr36bOAUUWPsl2JKLbePigMYa/ClvNDL0DvnwxtfDfQedMGV35bQLh52bCeP9UYdBEcZ29BJP4NgGF9A==","consensusMetadata":"CAQ=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321274,"nanos":64612794},"transactionResults":[{"uuid":"ac17c63f900f69568600423f0887e18d17cb3579fd0cc804c4500891e94fc0704f3ecf7f4ef1ba25d3bc300b630033f67845acf159eed38f7b469de5568d06c7"}]}}}
+04/08/2016 15:40:48	ENTER	GET blockchain/blocks/3	INPUT: {}
+04/08/2016 15:40:49	EXIT	GET blockchain/blocks/3	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABY2VlOTIyNmFhYjAwOWFkZGUyYWJlMjYwZmRlNjllODlhOTQ4YTI4NDUyMzJlMGE5YmU1OTMwNDg2OWU2ZDUwOWNhNjFmZTUxNWY0ZjhkNTQ4MjgxMGMyZDgyNjZjZjdhOWMzYWQ0MjJhM2JjMGYwYTE3ZjNhODM1YzFkYmJiMTE=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFjZWU5MjI2YWFiMDA5YWRkZTJhYmUyNjBmZGU2OWU4OWE5NDhhMjg0NTIzMmUwYTliZTU5MzA0ODY5ZTZkNTA5Y2E2MWZlNTE1ZjRmOGQ1NDgyODEwYzJkODI2NmNmN2E5YzNhZDQyMmEzYmMwZjBhMTdmM2E4MzVjMWRiYmIxMRrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgARjNDk2OGZhMTEyZDM5ZjRlZTE4OWJkYjhlZjc5YjdkYjMwZDYyNDUxMzE3OTMzYjVmNTU3MDVjNWNlMGIzY2VjOTliYzgwNmNhY2NkMDUyNjA2ZjQwNmUwZWExMzY2M2QzMTIwNjdmMDMyOGM0YTNhZDIyNDc1YTJiYTFmYmJjYjQ0ODY4MDQ5MDA5NWJlMjk4Y2VkODA4ODMyMjQ4NWVmZTZhNWRkZGIzMjViMTVlNDY5NjAwMGFiZGY1ZjRjMzQ2MTVmYTBiMTE3MWYzZGIzZDZkYzBmMDcxYWMxZWM4NGY5ODNlMjljNDMzMTMwNmQ5MzY3MjUxZGEwMWY2NTA3NWFmNTBiZGNkOTU2YjQxZjU4NjJiNWNhYzM5YTY2NmUyNGNhYmNjZTEzZjM5ZTRjYzIxMzljMTIwNzViZTFhYjQyYjUyMmJmOTBiNmE4NGQ5MmU3NTgxN2FkOWE0NzZlYjYyNTRhNWRmODcyYWEyYzY0ZGU0YTdmYzdjMWQxMWZkYmYzMGM5YmUxZTg0MWM2ZDI5ZjllNzllMzE4OGY4MmE1ZGM3YTNiNjBhYWJiOWQwMGQzNmRlMGQ5MTliMTYzNjgyMTUzMTIzNDRiYmRmYTAzYTY2YTUzZjU1ZjZmOGNjNDFmNjY4OGQ3MTY4MzAxYTQ0ZDc3MzA1Mzk5ZGIwMQ==","uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11","timestamp":{"seconds":1470320976,"nanos":123176220},"nonce":"DHwQmwlQUklBAizcgsXQ7yoLGsw3PBnF","cert":"MIICMjCCAdegAwIBAgIRAK2BlQRhT08ynC+q24huOpQwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwNDE0MjgzNVoXDTE2MTEwMjE0MjgzNVowLDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEPMA0GA1UEAwwGRFZMQV81MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEm+5zk6CBs0Qu+jLL6HfaNFIMM7iDBP6SplK3svO/QMcG2/8ntVrO9PNeK+nD3YhEfj45G2RbD6XNY7T1z9t/naOB3DCB2TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAKtjcHn9nZ7LZ4v8MA6EdBMG6r9Ys2igj0VwrlLA+SoBm46rU+znUm7yQSoMPMOBLf1FDcDA7mXDBQIkzYnwZMjBKBgYqAwQFBggEQJfaN8Fz6OlWqPb24rc/LLmZ/7KOxGHcL+rvAx546DFqHqS9YpPyZLb8K06wxFZWA9wrQaTb4czhrJ4rYb2cOmkwCgYIKoZIzj0EAwMDSQAwRgIhALMN9EbkAsoVBBHNyQXXQYwwAnaJXKvrn+J+qcrkNivFAiEAoeRTQNbFE8sMt9OY2D2mOTGDY1w9HaxEp1FUcDhMwxE=","signature":"MEUCIDRzdNZznXCB19FTThEo3zuYj+US0dWuOPev/v6otwvSAiEAqhDnJX6u5ZApQLBizkU4sX+sfOdNcpYS7upI2MX3yr0="}],"stateHash":"C7FH6qEtV82zqNgF0JIeChT3rhsCyeJwnxzO4StLrLhVm0rs1hdyoI7dwPq1WbSqiNZgvCyapsyE+Mjj7A6uWQ==","previousBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ==","consensusMetadata":"CAM=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321109,"nanos":79341438},"transactionResults":[{"uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11"}]}}}
+04/08/2016 15:40:49	ENTER	GET blockchain/blocks/2	INPUT: {}
+04/08/2016 15:40:49	EXIT	GET blockchain/blocks/2	OUTPUT: {"block":{"transactions":[{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQx","uuid":"0324ef71-5d6a-42be-b46d-d387a425032b","timestamp":{"seconds":1470312690,"nanos":784791340},"nonce":"mlHygVNlxz4QHOI16X8oIqSYP6j6mD/z","cert":"MIICWTCCAf+gAwIBAgIRAJrIbUwpqEm2uhqEDaP6ogwwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEaJ4gO8EJKKnO4KwKSGl1erqpBlRcxNmvBmuDwRIXdLsAIHcfR6LOxdMr7exyZyRJ/uifDDdz8wXn+6/CGMsi7aOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAcEcqQeHq7lKehCnHj7Qseupw9eXOiyeo3qgYd4BNyTbHirwunKv6IsCp2Oza/HwkXKimdY4Weo0r/W6K/91CADBaBgYqAwQFBggEUFMKZkSoW+e+i/H7O4YnfOk9mffrhoy67OfwR3CMaNmEUY+7OJnBgi9pVYaOt1Sp/H2EY9ndJWTyzFIRM1qbn+TrgJyEJ/npbUtoFAy6NC5TMAoGCCqGSM49BAMDA0gAMEUCIQCEmhq44aYVpmyWoielABbv8wXzYD+7F7gf+bjRBHEKFgIgWud97StD20KECmMOr1hKrTK8BVj5g12dDj+raKMnzBA=","signature":"MEUCIEzVU8Z3Lc0kAkhVHL7lOYWTWeIjA39hYy3zcxPubRXBAiEAmymTFavquO5aQcVGkMxCpBWmsYH5jtHX73ZIxsTInK8="},{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQy","uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540","timestamp":{"seconds":1470312690,"nanos":785028974},"nonce":"UyuliwaeIBa5XkjQPoW+Xro9U0LGC7ZI","cert":"MIICWDCCAf+gAwIBAgIRANdzRf52GEGbqw6jaLEYjuswCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAESIelsursHmbg5kRVcZEPE9Ej/mXBMZLPDORo8bCXQWYlQaJFSkwbU0uyID2F14FIftC7vVqZ368nhE1360a9pqOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRA0Z8M8xxT4382qPiSCnMlcj6oL9jup3mmPLHpKsNvhQkpT8SehkzBDwvkV7kcBvvRmKKOh/Emt2l1dsvhLagrvzBaBgYqAwQFBggEUBBJ5ny+5lZxDxJvePEW36L8kxzlG0VRYz/Djaf+PApsIExkJ/oWssTZVntepralKcaDU64QJqzSVr952ibx6pB4eVotjkQS6k+xG3pacXJ2MAoGCCqGSM49BAMDA0cAMEQCIDgjpyDqOkBDI3OcLIsN94J7MaoCeIQrrLC/dQ/tOv00AiBZHMEOHZslzZMtYwlBTe16fo5D03QN7OCuToqK0jNo8g==","signature":"MEUCIQCTItfNw0EPYZCiN8Sqa0yUG0ZVrZDanrOACedA7VYTlAIgUGVGrAlUX4p1CxJL0ACWFRU1JF9Ttop6pxHwPwEcB9Y="}],"stateHash":"1E2/4ZEoAGZEl2+0I9de6KJ1SrdBbSir6F9F34Tom0eAE60lQdczO4vseRU9uAd0BiQQV7R0HigQC15lsTbAfg==","previousBlockHash":"Kz2cUDYplfZv4obuPbMdbzKu86yJUdVexPpb8DUW3+TR8TrWjzz8IE3Mnyg9FX1W883ozgKPL5BSesgsld+T/g==","consensusMetadata":"CAI=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470312691,"nanos":803667867},"transactionResults":[{"uuid":"0324ef71-5d6a-42be-b46d-d387a425032b"},{"uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540"}]}}}
+04/08/2016 15:40:49	ENTER	GET blockchain/blocks/1	INPUT: {}
+04/08/2016 15:40:50	EXIT	GET blockchain/blocks/1	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"Cj1odHRwczovL2dpdGh1Yi5jb20vSUJNLUJsb2NrY2hhaW4vY3AtY2hhaW5jb2RlLXYyL2h5cGVybGVkZ2VyEoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"Cs8BCAESwgEKPWh0dHBzOi8vZ2l0aHViLmNvbS9JQk0tQmxvY2tjaGFpbi9jcC1jaGFpbmNvZGUtdjIvaHlwZXJsZWRnZXISgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoGCgRpbml0","uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f","timestamp":{"seconds":1470213796,"nanos":828260733},"nonce":"ldXE8P6usczyXegjx1SIDN508/8ZgSjg","cert":"MIICWTCCAf+gAwIBAgIRAL6e0+nma08MqpMCEPkIOZcwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjWfjQEbR7t1J/1W6ME8VT96+OqvTJoKCxzbPb/qZDtgeMdtq5bTBtQ7CXI+cJNWh3EG7MxqLtAGhi/MEMWiApKOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAdRuUPjQFQV7kkH4KNxQ3y8NjRqE6fYmMXlwLgShvrKqwlPqk7Tn0tw/pdtzmod9SQPfeai47ZU327hC3fTy+kjBaBgYqAwQFBggEULsQ2iuaHfnofd/+wdnYPGKBXCwfjPaWnPRw9Nuhfk+SepKAvbHSYm/SuzrxTGzPH2o7aVRMgkBaX3WmLjLp7mXEtT4eiocW/T0PEA8ONW3MMAoGCCqGSM49BAMDA0gAMEUCIAvEjhC01w7ynP1ZV5N4HrdwaepRFloNdOoWHIYjqjLHAiEAuYd+c6NQ7j94H21oyUDgJWVf2pbfQxhKUVuCFLkzNoY=","signature":"MEQCIEaBvPsDEynIitAMUGYTbbrlWCrY46PJ43fm7aijqN4UAiAJPhJXvwhYqht7+LNxPWyQYStveQG30uycqwHXXuW/Dw=="}],"stateHash":"XbaZBsxIwQRwZipTJq1EmnsGz2lukEIKg/tYnu/Sgib/5zYzyCtyKoVjgtQWQ6YSWFPUk61ohojYAEOx8Ur/gg==","previousBlockHash":"RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==","consensusMetadata":"CAE=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470213869,"nanos":371222869},"transactionResults":[{"uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f"}]}}}
+04/08/2016 15:40:50	ENTER	GET blockchain/blocks/0	INPUT: {}
+04/08/2016 15:40:50	EXIT	GET blockchain/blocks/0	OUTPUT: {"block":{"nonHashData":{"localLedgerCommitTimestamp":{"seconds":1469813286,"nanos":188869652}}}}
+04/08/2016 15:41:00	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:41:01	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:41:07	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:41:08	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:41:10	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 15:41:10	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 15:41:11	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 15:41:11	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA_5","password":"gyJHChXtheNy","address_line_1":"The Richard Ley Development Centre","address_line":"Swansea Vale","address_line_5":"Swansea","postcode":"SA7 0AN"}]}
+04/08/2016 15:41:11	ENTER	GET blockchain/participants/regulators	INPUT: {}
+04/08/2016 15:41:11	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 15:41:11	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 15:41:12	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 15:41:12	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	04/08/2016 15:41:12	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:12	INFO	POST blockchain/assets/vehicles	Generated V5cID: XZ7006486
+	04/08/2016 15:41:15	INFO	POST blockchain/assets/vehicles	Generated V5cID: EH7140448
+	04/08/2016 15:41:15	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:19	INFO	POST blockchain/assets/vehicles	Generated V5cID: EF6118546
+	04/08/2016 15:41:19	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:22	INFO	POST blockchain/assets/vehicles	Generated V5cID: XB4807380
+	04/08/2016 15:41:22	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:26	INFO	POST blockchain/assets/vehicles	Generated V5cID: VH7389839
+	04/08/2016 15:41:26	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:29	INFO	POST blockchain/assets/vehicles	Generated V5cID: TC5899026
+	04/08/2016 15:41:29	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:33	INFO	POST blockchain/assets/vehicles	Generated V5cID: FZ2971034
+	04/08/2016 15:41:33	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:36	INFO	POST blockchain/assets/vehicles	Generated V5cID: SS6692406
+	04/08/2016 15:41:36	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:40	INFO	POST blockchain/assets/vehicles	Generated V5cID: LX0959919
+	04/08/2016 15:41:40	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:41:43	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:41:43	INFO	POST blockchain/assets/vehicles	Generated V5cID: KB2427337
+	04/08/2016 15:41:43	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:41:43	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:41:43	ENTER	GET blockchain/blocks/4	INPUT: {}
+04/08/2016 15:41:44	EXIT	GET blockchain/blocks/4	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABYWMxN2M2M2Y5MDBmNjk1Njg2MDA0MjNmMDg4N2UxOGQxN2NiMzU3OWZkMGNjODA0YzQ1MDA4OTFlOTRmYzA3MDRmM2VjZjdmNGVmMWJhMjVkM2JjMzAwYjYzMDAzM2Y2Nzg0NWFjZjE1OWVlZDM4ZjdiNDY5ZGU1NTY4ZDA2Yzc=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFhYzE3YzYzZjkwMGY2OTU2ODYwMDQyM2YwODg3ZTE4ZDE3Y2IzNTc5ZmQwY2M4MDRjNDUwMDg5MWU5NGZjMDcwNGYzZWNmN2Y0ZWYxYmEyNWQzYmMzMDBiNjMwMDMzZjY3ODQ1YWNmMTU5ZWVkMzhmN2I0NjlkZTU1NjhkMDZjNxrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgAQ0NDE2ZGIyNGQzNzdjYzlhY2Q2YzkzYzllOGY1ZjQ4ZWE4YTZkY2ZkOTk3ZWIyNWY1MDkyYjZlYWQzYzdiMjlmYWQ3MzMxMzAxZmQwMTEwMzBkNDBkMjU2NWNhZTRiZTEwM2JhMDc2ZTNkYjYwZmQ5YjViNThiZmE5MjdjODRiMWE0MTczOTEwNjNhNjM4MmM2ZTZjZjdiZTliNzYxNWQyMDhhMjMwNDk1YmI5NWM4YjQyODUxYjRlNGQyYWE1Nzk2MWYzMWEzNDYwNmIzMDY4ZDFmNTRlMTljMjM4YzM1OTJkZjA1ODA3ZWY4MzcwYWY5MWFhODMxODQxZDA3ZDI5NjNhMjgzODAyYWYxYTc2YWExMTNhOGE2OWZjZjI1NGNjYTM2MTM4OWMyM2JkZjA3MWE2ZTljZTVkZTQ3ZWIyNThmNGNhZTJjNWM4ZTkzMTVkZDMwMjQxZmE4Mjc1MjZjNzQ0ZWI1NDU0OWQ4OTJhNmNmN2IyNGJkYzI5YmRiN2M1MzgyYmE2ZmM0ODliZjE3NWM2MDgxZDEzZDJjYTAzNzkyMDg2OGVlODU0MTk3M2E3NGFjNTQ3MjBmZDI5N2E4NGFkZGFmMzAzNjE4NDRlNjEzMWE4ZTUwZmEyNTM1ZGIxMWMwNWJlNzBjMTUzMjg2ZTEyMjQyYjBmYTQ0MjUyZA==","uuid":"ac17c63f900f69568600423f0887e18d17cb3579fd0cc804c4500891e94fc0704f3ecf7f4ef1ba25d3bc300b630033f67845acf159eed38f7b469de5568d06c7","timestamp":{"seconds":1470321092,"nanos":970930115},"nonce":"gTymd1egdbZB2EUAnkpzxI2bEZGhJwgU","cert":"MIICLzCCAdagAwIBAgIQTcTHHANXTR2y2/5i9wX4TTAKBggqhkjOPQQDAzApMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQwwCgYDVQQDEwN0Y2EwHhcNMTYwODA0MTQyODM1WhcNMTYxMTAyMTQyODM1WjAsMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQ8wDQYDVQQDDAZEVkxBXzUwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARPFPjvP9Hq3rjzS2hXkDb0QhyRu6qIgV1/guvbUxkxnsDyc/OBr6E0tpA7/69NrTnKcDtCf6dr3Bwh35H1DVMIo4HcMIHZMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMA0GA1UdDgQGBAQBAgMEMA8GA1UdIwQIMAaABAECAwQwTQYGKgMEBQYHAQH/BEBq0/jQa9hRXYixQvAzLdLEXM6qkzI+RBUI4bmVB6yW5/Z9ZzP8G5r2Zofl1oVju0qDYlDDxUom/XzzkumfXytxMEoGBioDBAUGCARAIsx7Nyjgy7vTKf9Ys/rz5Bf2basJwDzAt3n+o9+ZTX/Zq1/o9wBUrPwhrWsCsUBdXgTuLoabmCVOY7CcRXGYOzAKBggqhkjOPQQDAwNHADBEAiA0zBvoBiyT2eGOfsxvZbg5p0PuXoD3zZwFd5fugMvDXAIgMjeqDzdpyzkLJ7BlIg04xyob51yJKMbOYX4U9FgyqrY=","signature":"MEUCICbw3ShaBRbZk4Iu/6nAJlycOPNil86sDaJOazGzkjk0AiEA+dqU8QHBTF7haJJ3pH0p1Vi4WzbdUzy2wC3xYI0at4g="}],"stateHash":"lzpCxiH64xRv1Z9f/jfcne/8ISGSMHKdyI+8YfZ7ojmDKfEWBpcBShX6+v5yEpdz7Kv6NA9ob4dmiNtZgaR2jg==","previousBlockHash":"CJ6b87hr36bOAUUWPsl2JKLbePigMYa/ClvNDL0DvnwxtfDfQedMGV35bQLh52bCeP9UYdBEcZ29BJP4NgGF9A==","consensusMetadata":"CAQ=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321274,"nanos":64612794},"transactionResults":[{"uuid":"ac17c63f900f69568600423f0887e18d17cb3579fd0cc804c4500891e94fc0704f3ecf7f4ef1ba25d3bc300b630033f67845acf159eed38f7b469de5568d06c7"}]}}}
+04/08/2016 15:41:44	ENTER	GET blockchain/blocks/3	INPUT: {}
+04/08/2016 15:41:44	EXIT	GET blockchain/blocks/3	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"CkNodHRwczovL2dpdGh1Yi5jb20vanBheW5lMjMvY2FyLWxlYXNlLWRlbW8tMS9DaGFpbmNvZGUvdmVoaWNsZV9jb2RlEoABY2VlOTIyNmFhYjAwOWFkZGUyYWJlMjYwZmRlNjllODlhOTQ4YTI4NDUyMzJlMGE5YmU1OTMwNDg2OWU2ZDUwOWNhNjFmZTUxNWY0ZjhkNTQ4MjgxMGMyZDgyNjZjZjdhOWMzYWQ0MjJhM2JjMGYwYTE3ZjNhODM1YzFkYmJiMTE=","payload":"CqUGCAESyAEKQ2h0dHBzOi8vZ2l0aHViLmNvbS9qcGF5bmUyMy9jYXItbGVhc2UtZGVtby0xL0NoYWluY29kZS92ZWhpY2xlX2NvZGUSgAFjZWU5MjI2YWFiMDA5YWRkZTJhYmUyNjBmZGU2OWU4OWE5NDhhMjg0NTIzMmUwYTliZTU5MzA0ODY5ZTZkNTA5Y2E2MWZlNTE1ZjRmOGQ1NDgyODEwYzJkODI2NmNmN2E5YzNhZDQyMmEzYmMwZjBhMTdmM2E4MzVjMWRiYmIxMRrVBAoEaW5pdBJKaHR0cHM6Ly80MmJlNjJlMy1lMzQ1LTRhYzYtYWVjNS1kYTEyOGEwMTI4ZWNfdnAwLnVzLmJsb2NrY2hhaW4uaWJtLmNvbTo0NDMSgARjNDk2OGZhMTEyZDM5ZjRlZTE4OWJkYjhlZjc5YjdkYjMwZDYyNDUxMzE3OTMzYjVmNTU3MDVjNWNlMGIzY2VjOTliYzgwNmNhY2NkMDUyNjA2ZjQwNmUwZWExMzY2M2QzMTIwNjdmMDMyOGM0YTNhZDIyNDc1YTJiYTFmYmJjYjQ0ODY4MDQ5MDA5NWJlMjk4Y2VkODA4ODMyMjQ4NWVmZTZhNWRkZGIzMjViMTVlNDY5NjAwMGFiZGY1ZjRjMzQ2MTVmYTBiMTE3MWYzZGIzZDZkYzBmMDcxYWMxZWM4NGY5ODNlMjljNDMzMTMwNmQ5MzY3MjUxZGEwMWY2NTA3NWFmNTBiZGNkOTU2YjQxZjU4NjJiNWNhYzM5YTY2NmUyNGNhYmNjZTEzZjM5ZTRjYzIxMzljMTIwNzViZTFhYjQyYjUyMmJmOTBiNmE4NGQ5MmU3NTgxN2FkOWE0NzZlYjYyNTRhNWRmODcyYWEyYzY0ZGU0YTdmYzdjMWQxMWZkYmYzMGM5YmUxZTg0MWM2ZDI5ZjllNzllMzE4OGY4MmE1ZGM3YTNiNjBhYWJiOWQwMGQzNmRlMGQ5MTliMTYzNjgyMTUzMTIzNDRiYmRmYTAzYTY2YTUzZjU1ZjZmOGNjNDFmNjY4OGQ3MTY4MzAxYTQ0ZDc3MzA1Mzk5ZGIwMQ==","uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11","timestamp":{"seconds":1470320976,"nanos":123176220},"nonce":"DHwQmwlQUklBAizcgsXQ7yoLGsw3PBnF","cert":"MIICMjCCAdegAwIBAgIRAK2BlQRhT08ynC+q24huOpQwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwNDE0MjgzNVoXDTE2MTEwMjE0MjgzNVowLDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEPMA0GA1UEAwwGRFZMQV81MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEm+5zk6CBs0Qu+jLL6HfaNFIMM7iDBP6SplK3svO/QMcG2/8ntVrO9PNeK+nD3YhEfj45G2RbD6XNY7T1z9t/naOB3DCB2TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAKtjcHn9nZ7LZ4v8MA6EdBMG6r9Ys2igj0VwrlLA+SoBm46rU+znUm7yQSoMPMOBLf1FDcDA7mXDBQIkzYnwZMjBKBgYqAwQFBggEQJfaN8Fz6OlWqPb24rc/LLmZ/7KOxGHcL+rvAx546DFqHqS9YpPyZLb8K06wxFZWA9wrQaTb4czhrJ4rYb2cOmkwCgYIKoZIzj0EAwMDSQAwRgIhALMN9EbkAsoVBBHNyQXXQYwwAnaJXKvrn+J+qcrkNivFAiEAoeRTQNbFE8sMt9OY2D2mOTGDY1w9HaxEp1FUcDhMwxE=","signature":"MEUCIDRzdNZznXCB19FTThEo3zuYj+US0dWuOPev/v6otwvSAiEAqhDnJX6u5ZApQLBizkU4sX+sfOdNcpYS7upI2MX3yr0="}],"stateHash":"C7FH6qEtV82zqNgF0JIeChT3rhsCyeJwnxzO4StLrLhVm0rs1hdyoI7dwPq1WbSqiNZgvCyapsyE+Mjj7A6uWQ==","previousBlockHash":"psBbCA385zREiLDpbgKoWgYEewRwfValI6U3tSE96sWGU+kgM058PfqKeJ3SWmiLA/SAfTE1gL1KhInxn7DIHQ==","consensusMetadata":"CAM=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321109,"nanos":79341438},"transactionResults":[{"uuid":"cee9226aab009adde2abe260fde69e89a948a2845232e0a9be59304869e6d509ca61fe515f4f8d5482810c2d8266cf7a9c3ad422a3bc0f0a17f3a835c1dbbb11"}]}}}
+04/08/2016 15:41:44	ENTER	GET blockchain/blocks/2	INPUT: {}
+04/08/2016 15:41:45	EXIT	GET blockchain/blocks/2	OUTPUT: {"block":{"transactions":[{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQx","uuid":"0324ef71-5d6a-42be-b46d-d387a425032b","timestamp":{"seconds":1470312690,"nanos":784791340},"nonce":"mlHygVNlxz4QHOI16X8oIqSYP6j6mD/z","cert":"MIICWTCCAf+gAwIBAgIRAJrIbUwpqEm2uhqEDaP6ogwwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEaJ4gO8EJKKnO4KwKSGl1erqpBlRcxNmvBmuDwRIXdLsAIHcfR6LOxdMr7exyZyRJ/uifDDdz8wXn+6/CGMsi7aOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAcEcqQeHq7lKehCnHj7Qseupw9eXOiyeo3qgYd4BNyTbHirwunKv6IsCp2Oza/HwkXKimdY4Weo0r/W6K/91CADBaBgYqAwQFBggEUFMKZkSoW+e+i/H7O4YnfOk9mffrhoy67OfwR3CMaNmEUY+7OJnBgi9pVYaOt1Sp/H2EY9ndJWTyzFIRM1qbn+TrgJyEJ/npbUtoFAy6NC5TMAoGCCqGSM49BAMDA0gAMEUCIQCEmhq44aYVpmyWoielABbv8wXzYD+7F7gf+bjRBHEKFgIgWud97StD20KECmMOr1hKrTK8BVj5g12dDj+raKMnzBA=","signature":"MEUCIEzVU8Z3Lc0kAkhVHL7lOYWTWeIjA39hYy3zcxPubRXBAiEAmymTFavquO5aQcVGkMxCpBWmsYH5jtHX73ZIxsTInK8="},{"type":2,"chaincodeID":"EoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"CqgBCAESgwESgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoeCg1jcmVhdGVBY2NvdW50Eg1kZW1vX2FjY291bnQy","uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540","timestamp":{"seconds":1470312690,"nanos":785028974},"nonce":"UyuliwaeIBa5XkjQPoW+Xro9U0LGC7ZI","cert":"MIICWDCCAf+gAwIBAgIRANdzRf52GEGbqw6jaLEYjuswCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAESIelsursHmbg5kRVcZEPE9Ej/mXBMZLPDORo8bCXQWYlQaJFSkwbU0uyID2F14FIftC7vVqZ368nhE1360a9pqOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRA0Z8M8xxT4382qPiSCnMlcj6oL9jup3mmPLHpKsNvhQkpT8SehkzBDwvkV7kcBvvRmKKOh/Emt2l1dsvhLagrvzBaBgYqAwQFBggEUBBJ5ny+5lZxDxJvePEW36L8kxzlG0VRYz/Djaf+PApsIExkJ/oWssTZVntepralKcaDU64QJqzSVr952ibx6pB4eVotjkQS6k+xG3pacXJ2MAoGCCqGSM49BAMDA0cAMEQCIDgjpyDqOkBDI3OcLIsN94J7MaoCeIQrrLC/dQ/tOv00AiBZHMEOHZslzZMtYwlBTe16fo5D03QN7OCuToqK0jNo8g==","signature":"MEUCIQCTItfNw0EPYZCiN8Sqa0yUG0ZVrZDanrOACedA7VYTlAIgUGVGrAlUX4p1CxJL0ACWFRU1JF9Ttop6pxHwPwEcB9Y="}],"stateHash":"1E2/4ZEoAGZEl2+0I9de6KJ1SrdBbSir6F9F34Tom0eAE60lQdczO4vseRU9uAd0BiQQV7R0HigQC15lsTbAfg==","previousBlockHash":"Kz2cUDYplfZv4obuPbMdbzKu86yJUdVexPpb8DUW3+TR8TrWjzz8IE3Mnyg9FX1W883ozgKPL5BSesgsld+T/g==","consensusMetadata":"CAI=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470312691,"nanos":803667867},"transactionResults":[{"uuid":"0324ef71-5d6a-42be-b46d-d387a425032b"},{"uuid":"0562fa15-e269-47ac-a777-2b4d7d0b0540"}]}}}
+04/08/2016 15:41:45	ENTER	GET blockchain/blocks/1	INPUT: {}
+04/08/2016 15:41:45	EXIT	GET blockchain/blocks/1	OUTPUT: {"block":{"transactions":[{"type":1,"chaincodeID":"Cj1odHRwczovL2dpdGh1Yi5jb20vSUJNLUJsb2NrY2hhaW4vY3AtY2hhaW5jb2RlLXYyL2h5cGVybGVkZ2VyEoABYmMyNWU0Mjg2NDQ3N2ZlZWVlZGJmYjVmZWNiN2ZlYTBjNWJiYTYyN2Y5YWYyYWNmOWMxOTc0NmY3MDVlNjcxMDE5ZGQwNGMxZjdmNzI4MmY2MmE3Y2JlZmJhMTc4MGQ3OGIyNzUwN2U3NzdiMzYyMDcxM2Q3ZGYzNzEzMTQ0MmY=","payload":"Cs8BCAESwgEKPWh0dHBzOi8vZ2l0aHViLmNvbS9JQk0tQmxvY2tjaGFpbi9jcC1jaGFpbmNvZGUtdjIvaHlwZXJsZWRnZXISgAFiYzI1ZTQyODY0NDc3ZmVlZWVkYmZiNWZlY2I3ZmVhMGM1YmJhNjI3ZjlhZjJhY2Y5YzE5NzQ2ZjcwNWU2NzEwMTlkZDA0YzFmN2Y3MjgyZjYyYTdjYmVmYmExNzgwZDc4YjI3NTA3ZTc3N2IzNjIwNzEzZDdkZjM3MTMxNDQyZhoGCgRpbml0","uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f","timestamp":{"seconds":1470213796,"nanos":828260733},"nonce":"ldXE8P6usczyXegjx1SIDN508/8ZgSjg","cert":"MIICWTCCAf+gAwIBAgIRAL6e0+nma08MqpMCEPkIOZcwCgYIKoZIzj0EAwMwKTELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEMMAoGA1UEAxMDdGNhMB4XDTE2MDgwMzA4NDIxNloXDTE2MTEwMTA4NDIxNlowRDELMAkGA1UEBhMCVVMxDDAKBgNVBAoTA0lCTTEnMCUGA1UEAwweZGFzaGJvYXJkdXNlcl90eXBlMV9iNzdkMjRmZjAwMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjWfjQEbR7t1J/1W6ME8VT96+OqvTJoKCxzbPb/qZDtgeMdtq5bTBtQ7CXI+cJNWh3EG7MxqLtAGhi/MEMWiApKOB7DCB6TAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADANBgNVHQ4EBgQEAQIDBDAPBgNVHSMECDAGgAQBAgMEME0GBioDBAUGBwEB/wRAdRuUPjQFQV7kkH4KNxQ3y8NjRqE6fYmMXlwLgShvrKqwlPqk7Tn0tw/pdtzmod9SQPfeai47ZU327hC3fTy+kjBaBgYqAwQFBggEULsQ2iuaHfnofd/+wdnYPGKBXCwfjPaWnPRw9Nuhfk+SepKAvbHSYm/SuzrxTGzPH2o7aVRMgkBaX3WmLjLp7mXEtT4eiocW/T0PEA8ONW3MMAoGCCqGSM49BAMDA0gAMEUCIAvEjhC01w7ynP1ZV5N4HrdwaepRFloNdOoWHIYjqjLHAiEAuYd+c6NQ7j94H21oyUDgJWVf2pbfQxhKUVuCFLkzNoY=","signature":"MEQCIEaBvPsDEynIitAMUGYTbbrlWCrY46PJ43fm7aijqN4UAiAJPhJXvwhYqht7+LNxPWyQYStveQG30uycqwHXXuW/Dw=="}],"stateHash":"XbaZBsxIwQRwZipTJq1EmnsGz2lukEIKg/tYnu/Sgib/5zYzyCtyKoVjgtQWQ6YSWFPUk61ohojYAEOx8Ur/gg==","previousBlockHash":"RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==","consensusMetadata":"CAE=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470213869,"nanos":371222869},"transactionResults":[{"uuid":"bc25e42864477feeeedbfb5fecb7fea0c5bba627f9af2acf9c19746f705e671019dd04c1f7f7282f62a7cbefba1780d78b27507e777b3620713d7df37131442f"}]}}}
+04/08/2016 15:41:45	ENTER	GET blockchain/blocks/0	INPUT: {}
+04/08/2016 15:41:46	EXIT	GET blockchain/blocks/0	OUTPUT: {"block":{"nonHashData":{"localLedgerCommitTimestamp":{"seconds":1469813286,"nanos":188869652}}}}
+	04/08/2016 15:41:47	INFO	POST blockchain/assets/vehicles	Generated V5cID: FN9123933
+	04/08/2016 15:41:47	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:41:47	ERROR	POST blockchain/assets/vehicles	OUTPUT: {"message":"Timeout while checking v5cID is unique","error":true,"v5cID":"FN9123933"}
+04/08/2016 15:41:56	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:41:56	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:42:06	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:42:06	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:42:16	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:42:27	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+04/08/2016 15:42:28	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:42:39	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+04/08/2016 15:42:39	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:42:39	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:42:49	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:42:49	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:42:59	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:42:59	EXIT	GET blockchain/blocks	OUTPUT: {"height":5,"currentBlockHash":"rw14yjM/pRCA+FEZThwsUsdKs87YYul/7LFFrYqQWSpF2niTaBJa2cco+Kxl7VPTB5PHR5mJxvXgPMg9Gp70Gg=="}
+04/08/2016 15:43:05	ENTER	Startup	INPUT: {}
+	04/08/2016 15:43:05	INFO	Startup	Locating initial participants
+	04/08/2016 15:43:06	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:43:08	INFO	Startup	Created and registered user:Toyota_5
+04/08/2016 15:43:09	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:09	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:43:09	ENTER	GET blockchain/blocks/6	INPUT: {}
+04/08/2016 15:43:10	EXIT	GET blockchain/blocks/6	OUTPUT: {"block":{"transactions":[{"type":2,"chaincodeID":"EoABYWMxN2M2M2Y5MDBmNjk1Njg2MDA0MjNmMDg4N2UxOGQxN2NiMzU3OWZkMGNjODA0YzQ1MDA4OTFlOTRmYzA3MDRmM2VjZjdmNGVmMWJhMjVkM2JjMzAwYjYzMDAzM2Y2Nzg0NWFjZjE1OWVlZDM4ZjdiNDY5ZGU1NTY4ZDA2Yzc=","payload":"CqUBCAESgwESgAFhYzE3YzYzZjkwMGY2OTU2ODYwMDQyM2YwODg3ZTE4ZDE3Y2IzNTc5ZmQwY2M4MDRjNDUwMDg5MWU5NGZjMDcwNGYzZWNmN2Y0ZWYxYmEyNWQzYmMzMDBiNjMwMDMzZjY3ODQ1YWNmMTU5ZWVkMzhmN2I0NjlkZTU1NjhkMDZjNxobCg5jcmVhdGVfdmVoaWNsZRIJVkQxMjM0NTY3","uuid":"b4a2f589-0e15-41ea-9ac3-9f14881805ad","timestamp":{"seconds":1470321579,"nanos":268654738},"nonce":"A5wXxAq2xfmfz8V1bMNbl/fVmveShqxm","cert":"MIICLzCCAdagAwIBAgIQEr81DfmaThiZQTB+okoTODAKBggqhkjOPQQDAzApMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQwwCgYDVQQDEwN0Y2EwHhcNMTYwODA0MTQyODM1WhcNMTYxMTAyMTQyODM1WjAsMQswCQYDVQQGEwJVUzEMMAoGA1UEChMDSUJNMQ8wDQYDVQQDDAZEVkxBXzUwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATHzNi7eEcYV/gunDg2vyqz+k5J2076cWzW9R+n0uvoclEJ/fj/oVHiZy/5QF0kTKZM7qHSE5p8cZY526ezmMNso4HcMIHZMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMA0GA1UdDgQGBAQBAgMEMA8GA1UdIwQIMAaABAECAwQwTQYGKgMEBQYHAQH/BEBp6p0q+mXdO/29Lnp0FAJuV7eRjYXEAiyDeiUGZTfMOaKkrZZXGm7QR4WzmicVkQlKUF3yN18EAYUiRVfcimHLMEoGBioDBAUGCARAsE7MtBnE9/vfl9L4IT+UrWKhq7NSBLhHWS8QBZE6Un2qjXPiFANo0iFfOat0OT0vUBngh/dcu6Yu/0s8WhDbwjAKBggqhkjOPQQDAwNHADBEAiA4OzzkGWcqwvD1ZEVqR6FwBeEmQTQeblhpqTixQhAhcAIgCwfBK5bpMPqRJUZKv1cICAtLhB/BDknxoUFj84HPYeo=","signature":"MEUCIQCq3wRfWRf48uTdADmUSql7DCMr7TraFV5OIS4wDvhDyQIgIPxGXaBSV8mOxtQwfLooXvAAy09BWg4dRTIozQ6iZ+Y="}],"stateHash":"9Y8ivCp1RaaKme5fgZLSZtVFc28TPHW5wclc/PDYjUfNLGv4Xs95k8JMV7senxELpkjq0YjC2td4ceD7HT9Q2Q==","previousBlockHash":"s/UcY7K9mhYSRucma63eVD1C7o9Uqa+fknDxJ0ZDpYAGhLGg+/bVw0bXl/2d5CN9xgtN7ubBQvwxNKLpf07sWA==","consensusMetadata":"CAY=","nonHashData":{"localLedgerCommitTimestamp":{"seconds":1470321779,"nanos":103637088},"transactionResults":[{"uuid":"b4a2f589-0e15-41ea-9ac3-9f14881805ad","errorCode":1,"error":"Transaction or query returned with failure: Error retrieving caller information"}]}}}
+	04/08/2016 15:43:11	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:43:13	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:43:15	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:43:18	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+04/08/2016 15:43:19	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:19	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+	04/08/2016 15:43:20	INFO	Startup	Created and registered user:LeaseCan_5
+04/08/2016 15:43:21	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:21	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+	04/08/2016 15:43:23	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:43:25	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 15:43:27	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 15:43:30	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 15:43:33	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:43:35	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:43:37	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:43:40	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:43:42	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:43:42	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 15:43:48	INFO	Startup	Updating config file
+04/08/2016 15:43:48	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:49	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:43:50	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:50	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+	04/08/2016 15:43:50	INFO	Startup	Vehicle chaincode deployed
+04/08/2016 15:43:51	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:52	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:43:54	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:55	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:43:57	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:43:58	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:03	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:03	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:09	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:09	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:13	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:14	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:19	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:19	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:20	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:20	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:21	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:22	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:27	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:27	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:28	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:28	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:29	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:30	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:31	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:32	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:33	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:34	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:38	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:38	EXIT	GET blockchain/blocks	OUTPUT: {"height":7,"currentBlockHash":"/rzJqiLVt3rwphHm4DEqrG7qC/p8cN/CmI59nZ3GnugWjsqTOIysBqwTEHQiwQ/19NriLwEkCQ7VdyF1WKH6Wg=="}
+04/08/2016 15:44:42	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:42	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:44:45	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:44:45	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:44:48	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 15:44:48	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 15:44:48	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 15:44:48	ENTER	GET blockchain/participants/regulators	INPUT: {}
+04/08/2016 15:44:48	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA_5","password":"gyJHChXtheNy","address_line_1":"The Richard Ley Development Centre","address_line":"Swansea Vale","address_line_5":"Swansea","postcode":"SA7 0AN"}]}
+04/08/2016 15:44:49	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 15:44:49	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 15:44:49	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 15:44:49	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	04/08/2016 15:44:49	INFO	POST blockchain/assets/vehicles	Generated V5cID: MI1846950
+	04/08/2016 15:44:49	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:44:53	INFO	POST blockchain/assets/vehicles	Generated V5cID: DU3172834
+	04/08/2016 15:44:53	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:44:56	INFO	POST blockchain/assets/vehicles	Generated V5cID: SP2467867
+	04/08/2016 15:44:56	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:00	INFO	POST blockchain/assets/vehicles	Generated V5cID: KX6569538
+	04/08/2016 15:45:00	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:07	INFO	POST blockchain/assets/vehicles	Generated V5cID: AJ0690668
+	04/08/2016 15:45:07	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:11	INFO	POST blockchain/assets/vehicles	Generated V5cID: PX8150188
+	04/08/2016 15:45:11	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:19	INFO	POST blockchain/assets/vehicles	Generated V5cID: YB8075189
+	04/08/2016 15:45:19	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:27	INFO	POST blockchain/assets/vehicles	Generated V5cID: GX1701110
+	04/08/2016 15:45:27	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:34	INFO	POST blockchain/assets/vehicles	Generated V5cID: UO7166240
+	04/08/2016 15:45:34	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:42	INFO	POST blockchain/assets/vehicles	Generated V5cID: LZ4922540
+	04/08/2016 15:45:42	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:45	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:45:45	INFO	POST blockchain/assets/vehicles	Generated V5cID: IE6731467
+	04/08/2016 15:45:46	ERROR	POST blockchain/assets/vehicles	OUTPUT: {"message":"Timeout while checking v5cID is unique","error":true,"v5cID":"IE6731467"}
+04/08/2016 15:46:21	ENTER	Startup	INPUT: {}
+	04/08/2016 15:46:21	INFO	Startup	Locating initial participants
+04/08/2016 15:46:25	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:46:28	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:46:32	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:46:33	INFO	Startup	Attempting to register user "DVLA_5" with CA
+04/08/2016 15:46:35	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:46:37	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+	04/08/2016 15:46:38	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+04/08/2016 15:46:39	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:46:44	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+	04/08/2016 15:46:45	INFO	Startup	Attempting to register user "DVLA_5" with CA again
+	04/08/2016 15:46:46	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+	04/08/2016 15:46:47	INFO	Startup	Attempting to register user "DVLA_5" with CA
+	04/08/2016 15:46:50	ERROR	GET blockchain/blocks	OUTPUT: {"message":"Unable to get chain length","error":true}
+	04/08/2016 15:46:51	INFO	Startup	Registering user "DVLA_5" with CA successful
+	04/08/2016 15:46:51	INFO	Startup	Writing user "DVLA_5" to file
+	04/08/2016 15:46:51	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:46:52	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:46:54	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+04/08/2016 15:46:57	ENTER	GET blockchain/blocks	INPUT: {}
+	04/08/2016 15:46:57	INFO	Startup	Created and registered user:Beechvale_Group_5
+04/08/2016 15:46:57	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+	04/08/2016 15:46:59	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:47:02	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 15:47:04	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 15:47:06	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:47:09	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 15:47:11	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 15:47:14	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 15:47:16	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:47:19	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:47:21	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:47:23	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:47:26	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:47:26	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 15:47:31	INFO	Startup	Updating config file
+	04/08/2016 15:47:34	INFO	Startup	Vehicle chaincode deployed
+04/08/2016 15:48:33	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:33	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:34	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:35	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:35	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:36	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:38	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:39	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:43	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:43	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:45	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:46	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:47	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:47	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:49	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:50	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:51	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:51	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:52	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:53	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:48:53	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:48:54	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:11	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:11	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:13	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:14	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:16	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:17	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:19	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:20	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:23	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:24	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:26	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:27	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:28	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:28	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:29	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:30	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:54	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:55	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:49:55	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:49:56	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:08	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:09	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:15	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:15	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:17	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:17	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:19	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:19	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:20	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:21	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:22	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:22	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:24	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:24	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:25	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:26	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:27	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:27	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:29	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:30	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:31	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:31	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:32	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:33	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:33	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:34	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:35	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:35	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:36	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:37	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:37	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:38	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:38	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:39	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:39	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:40	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:41	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:42	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:53	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:53	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:54	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:55	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:57	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:50:57	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:50:59	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:00	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:01	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:01	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:02	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:03	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:04	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:04	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:05	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:05	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:06	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:07	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:09	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:09	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:11	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:12	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:14	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:14	EXIT	GET blockchain/blocks	OUTPUT: {"height":8,"currentBlockHash":"eQhnJftnb8SP4KTrVNWlX3VNOs2NwaRHlv2BMoNjZGJBi27P1SPpo1n7vSSqV7OEipAmGThMK+yw21C36G6Q4w=="}
+04/08/2016 15:51:35	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:35	EXIT	GET blockchain/blocks	OUTPUT: {"height":9,"currentBlockHash":"6bcTEGe7ylS1AqKlJi4aPB4/nsoms2b7VTTaztzoMM1VcJ/HHgdrDee3sieJXJG16rP+9S2eYoppBvKw2Fje7A=="}
+04/08/2016 15:51:36	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:37	EXIT	GET blockchain/blocks	OUTPUT: {"height":9,"currentBlockHash":"6bcTEGe7ylS1AqKlJi4aPB4/nsoms2b7VTTaztzoMM1VcJ/HHgdrDee3sieJXJG16rP+9S2eYoppBvKw2Fje7A=="}
+04/08/2016 15:51:41	ENTER	GET blockchain/blocks	INPUT: {}
+04/08/2016 15:51:41	EXIT	GET blockchain/blocks	OUTPUT: {"height":9,"currentBlockHash":"6bcTEGe7ylS1AqKlJi4aPB4/nsoms2b7VTTaztzoMM1VcJ/HHgdrDee3sieJXJG16rP+9S2eYoppBvKw2Fje7A=="}
+04/08/2016 15:51:42	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 15:51:42	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 15:51:42	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 15:51:42	ENTER	GET blockchain/participants/regulators	INPUT: {}
+04/08/2016 15:51:42	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA_5","password":"gyJHChXtheNy","address_line_1":"The Richard Ley Development Centre","address_line":"Swansea Vale","address_line_5":"Swansea","postcode":"SA7 0AN"}]}
+04/08/2016 15:51:43	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	04/08/2016 15:51:43	INFO	POST admin/identity	Calling /registrar endpoint
+04/08/2016 15:51:44	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+04/08/2016 15:51:44	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	04/08/2016 15:51:44	INFO	POST blockchain/assets/vehicles	Generated V5cID: VI1712909
+	04/08/2016 15:51:44	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:51:47	INFO	POST blockchain/assets/vehicles	Generated V5cID: MO3744951
+	04/08/2016 15:51:47	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:51:51	INFO	POST blockchain/assets/vehicles	Generated V5cID: LA4193058
+	04/08/2016 15:51:51	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:51:54	INFO	POST blockchain/assets/vehicles	Generated V5cID: XO5158796
+	04/08/2016 15:51:54	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:51:58	INFO	POST blockchain/assets/vehicles	Generated V5cID: RH3487741
+	04/08/2016 15:51:58	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:52:01	INFO	POST blockchain/assets/vehicles	Generated V5cID: WK1254597
+	04/08/2016 15:52:01	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:52:05	INFO	POST blockchain/assets/vehicles	Generated V5cID: AH1711667
+	04/08/2016 15:52:05	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	04/08/2016 15:52:08	INFO	POST blockchain/assets/vehicles	Generated V5cID: II6546907
+	04/08/2016 15:52:08	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+04/08/2016 15:54:04	ENTER	Startup	INPUT: {}
+	04/08/2016 15:54:05	INFO	Startup	Locating initial participants
+	04/08/2016 15:54:05	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:54:07	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:54:10	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:54:12	INFO	Startup	Created and registered user:Beechvale_Group_5

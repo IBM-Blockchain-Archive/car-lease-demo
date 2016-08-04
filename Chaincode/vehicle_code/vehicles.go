@@ -131,7 +131,7 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	response, err := client.Get("https://"+string(peer_address)+"/registrar/"+name+"/ecert")
 */
 
-	response, err := http.Get("http://"+string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
+	response, err := http.Get(string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
 
 															fmt.Println("HTTP RESPONSE", response)
 															

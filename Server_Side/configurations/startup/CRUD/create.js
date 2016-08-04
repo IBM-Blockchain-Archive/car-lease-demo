@@ -180,7 +180,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 {
 	tracing.create('INFO', 'Startup', 'Deploying vehicle chaincode');
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
-	api_url = api_url.replace('http://', '')
+	//api_url = api_url.replace('https://', '')
 	    
 	var randomVal = crypto.randomBytes(256).toString('hex')
 	

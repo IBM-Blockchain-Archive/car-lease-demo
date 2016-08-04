@@ -35,7 +35,7 @@ config.app_port = process.env.VCAP_APP_PORT || "80";
 config.vehicle = "https://github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code"			//"https://github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code"		//"github.com/hyperledger/fabric/vehicle_code"
 
 //Chaincode deployed names
-config.vehicle_name = '7a6cfd67e50e19e7392ab9303c2a6bcd9df46732fc17567f60e7e9eab5f4fb6942e6de592c004d27cdbf5d152a1d4a18aadfa4be24184fc7ecbfe5de55b71c76';
+config.vehicle_name = '48c887608764e913b32e25c42fd945fe6a6d8302c5019651bda1c54bd9206d76d44f200f347a326d4b5b8f3705cb895e0c7a911d47ef5842dccc8cad634eed9a';
 
 exports.config = config;
 
