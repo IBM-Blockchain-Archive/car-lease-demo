@@ -9714,3 +9714,196 @@
 	02/08/2016 09:30:44	INFO	Startup	Created and registered user:Alfa_Romeo_2
 	02/08/2016 09:30:46	INFO	Startup	Created and registered user:Toyota_2
 	02/08/2016 09:30:48	INFO	Startup	Created and registered user:Jaguar_Land_Rover_2
+03/08/2016 16:17:16	ENTER	Startup	INPUT: {}
+	03/08/2016 16:17:16	INFO	Startup	Locating initial participants
+	03/08/2016 16:17:17	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	03/08/2016 16:17:18	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	03/08/2016 16:17:19	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	03/08/2016 16:17:20	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+03/08/2016 16:18:22	ENTER	Startup	INPUT: {}
+	03/08/2016 16:18:22	INFO	Startup	Locating initial participants
+03/08/2016 16:19:39	ENTER	Startup	INPUT: {}
+	03/08/2016 16:19:39	INFO	Startup	Locating initial participants
+03/08/2016 16:22:47	ENTER	Startup	INPUT: {}
+	03/08/2016 16:22:47	INFO	Startup	Locating initial participants
+03/08/2016 16:23:11	ENTER	Startup	INPUT: {}
+	03/08/2016 16:23:11	INFO	Startup	Locating initial participants
+03/08/2016 16:25:17	ENTER	Startup	INPUT: {}
+	03/08/2016 16:25:17	INFO	Startup	Locating initial participants
+03/08/2016 16:29:06	ENTER	Startup	INPUT: {}
+	03/08/2016 16:29:06	INFO	Startup	Locating initial participants
+03/08/2016 16:47:45	ENTER	Startup	INPUT: {}
+	03/08/2016 16:47:45	INFO	Startup	Locating initial participants
+04/08/2016 09:37:22	ENTER	Startup	INPUT: {}
+	04/08/2016 09:37:22	INFO	Startup	Locating initial participants
+04/08/2016 09:38:27	ENTER	Startup	INPUT: {}
+	04/08/2016 09:38:27	INFO	Startup	Locating initial participants
+04/08/2016 09:44:13	ENTER	Startup	INPUT: {}
+	04/08/2016 09:44:13	INFO	Startup	Locating initial participants
+04/08/2016 09:46:38	ENTER	Startup	INPUT: {}
+	04/08/2016 09:46:39	INFO	Startup	Locating initial participants
+04/08/2016 09:49:01	ENTER	Startup	INPUT: {}
+	04/08/2016 09:49:01	INFO	Startup	Locating initial participants
+04/08/2016 09:51:03	ENTER	Startup	INPUT: {}
+	04/08/2016 09:51:03	INFO	Startup	Locating initial participants
+04/08/2016 09:51:56	ENTER	Startup	INPUT: {}
+	04/08/2016 09:51:56	INFO	Startup	Locating initial participants
+04/08/2016 09:59:25	ENTER	Startup	INPUT: {}
+	04/08/2016 09:59:25	INFO	Startup	Locating initial participants
+04/08/2016 10:53:52	ENTER	Startup	INPUT: {}
+	04/08/2016 10:53:52	INFO	Startup	Locating initial participants
+04/08/2016 15:03:33	ENTER	Startup	INPUT: {}
+	04/08/2016 15:03:33	INFO	Startup	Locating initial participants
+04/08/2016 15:03:50	ENTER	Startup	INPUT: {}
+	04/08/2016 15:03:50	INFO	Startup	Locating initial participants
+04/08/2016 15:05:15	ENTER	Startup	INPUT: {}
+	04/08/2016 15:05:15	INFO	Startup	Locating initial participants
+	04/08/2016 15:05:16	INFO	Startup	Attempting to register user "DVLA_4" with CA
+	04/08/2016 15:05:17	INFO	Startup	Registering user "DVLA_4" with CA successful
+	04/08/2016 15:05:17	INFO	Startup	Writing user "DVLA_4" to file
+	04/08/2016 15:05:17	INFO	Startup	Created and registered user:Alfa_Romeo_4
+	04/08/2016 15:05:19	INFO	Startup	Attempting to register user "Alfa_Romeo_4" with CA
+	04/08/2016 15:05:19	INFO	Startup	Registering user "Alfa_Romeo_4" with CA successful
+	04/08/2016 15:05:19	INFO	Startup	Writing user "Alfa_Romeo_4" to file
+	04/08/2016 15:05:19	INFO	Startup	Created and registered user:Toyota_4
+	04/08/2016 15:05:21	INFO	Startup	Attempting to register user "Toyota_4" with CA
+	04/08/2016 15:05:22	INFO	Startup	Registering user "Toyota_4" with CA successful
+	04/08/2016 15:05:22	INFO	Startup	Writing user "Toyota_4" to file
+	04/08/2016 15:05:22	INFO	Startup	Created and registered user:Jaguar_Land_Rover_4
+	04/08/2016 15:05:23	INFO	Startup	Attempting to register user "Jaguar_Land_Rover_4" with CA
+	04/08/2016 15:05:24	INFO	Startup	Registering user "Jaguar_Land_Rover_4" with CA successful
+	04/08/2016 15:05:24	INFO	Startup	Writing user "Jaguar_Land_Rover_4" to file
+	04/08/2016 15:05:24	INFO	Startup	Created and registered user:Beechvale_Group_4
+	04/08/2016 15:05:26	INFO	Startup	Attempting to register user "Beechvale_Group_4" with CA
+	04/08/2016 15:05:26	INFO	Startup	Registering user "Beechvale_Group_4" with CA successful
+	04/08/2016 15:05:26	INFO	Startup	Writing user "Beechvale_Group_4" to file
+	04/08/2016 15:05:26	INFO	Startup	Created and registered user:Milescape_4
+	04/08/2016 15:05:28	INFO	Startup	Attempting to register user "Milescape_4" with CA
+	04/08/2016 15:05:28	INFO	Startup	Registering user "Milescape_4" with CA successful
+	04/08/2016 15:05:28	INFO	Startup	Writing user "Milescape_4" to file
+	04/08/2016 15:05:28	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_4
+	04/08/2016 15:05:30	INFO	Startup	Attempting to register user "Viewers_Alfa_Romeo_4" with CA
+	04/08/2016 15:05:31	INFO	Startup	Registering user "Viewers_Alfa_Romeo_4" with CA successful
+	04/08/2016 15:05:31	INFO	Startup	Writing user "Viewers_Alfa_Romeo_4" to file
+	04/08/2016 15:05:31	INFO	Startup	Created and registered user:LeaseCan_4
+	04/08/2016 15:05:32	INFO	Startup	Attempting to register user "LeaseCan_4" with CA
+	04/08/2016 15:05:33	INFO	Startup	Registering user "LeaseCan_4" with CA successful
+	04/08/2016 15:05:33	INFO	Startup	Writing user "LeaseCan_4" to file
+	04/08/2016 15:05:33	INFO	Startup	Created and registered user:Every_Car_Leasing_4
+	04/08/2016 15:05:35	INFO	Startup	Attempting to register user "Every_Car_Leasing_4" with CA
+	04/08/2016 15:05:35	INFO	Startup	Registering user "Every_Car_Leasing_4" with CA successful
+	04/08/2016 15:05:35	INFO	Startup	Writing user "Every_Car_Leasing_4" to file
+	04/08/2016 15:05:35	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_4
+	04/08/2016 15:05:37	INFO	Startup	Attempting to register user "Regionwide_Vehicle_Contracts_4" with CA
+	04/08/2016 15:05:38	INFO	Startup	Registering user "Regionwide_Vehicle_Contracts_4" with CA successful
+	04/08/2016 15:05:38	INFO	Startup	Writing user "Regionwide_Vehicle_Contracts_4" to file
+	04/08/2016 15:05:38	INFO	Startup	Created and registered user:Joe_Payne_4
+	04/08/2016 15:05:39	INFO	Startup	Attempting to register user "Joe_Payne_4" with CA
+	04/08/2016 15:05:40	INFO	Startup	Registering user "Joe_Payne_4" with CA successful
+	04/08/2016 15:05:40	INFO	Startup	Writing user "Joe_Payne_4" to file
+	04/08/2016 15:05:40	INFO	Startup	Created and registered user:Andrew_Hurt_4
+	04/08/2016 15:05:41	INFO	Startup	Attempting to register user "Andrew_Hurt_4" with CA
+	04/08/2016 15:05:42	INFO	Startup	Registering user "Andrew_Hurt_4" with CA successful
+	04/08/2016 15:05:42	INFO	Startup	Writing user "Andrew_Hurt_4" to file
+	04/08/2016 15:05:42	INFO	Startup	Created and registered user:Anthony_O_Dowd_4
+	04/08/2016 15:05:44	INFO	Startup	Attempting to register user "Anthony_O_Dowd_4" with CA
+	04/08/2016 15:05:44	INFO	Startup	Registering user "Anthony_O_Dowd_4" with CA successful
+	04/08/2016 15:05:44	INFO	Startup	Writing user "Anthony_O_Dowd_4" to file
+	04/08/2016 15:05:44	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_4
+	04/08/2016 15:05:46	INFO	Startup	Attempting to register user "Cray_Bros_London_Ltd_4" with CA
+	04/08/2016 15:05:46	INFO	Startup	Registering user "Cray_Bros_London_Ltd_4" with CA successful
+	04/08/2016 15:05:46	INFO	Startup	Writing user "Cray_Bros_London_Ltd_4" to file
+	04/08/2016 15:05:46	INFO	Startup	Created and registered user:Aston_Scrap_Centre_4
+	04/08/2016 15:05:48	INFO	Startup	Attempting to register user "Aston_Scrap_Centre_4" with CA
+	04/08/2016 15:05:49	INFO	Startup	Registering user "Aston_Scrap_Centre_4" with CA successful
+	04/08/2016 15:05:49	INFO	Startup	Writing user "Aston_Scrap_Centre_4" to file
+	04/08/2016 15:05:49	INFO	Startup	Created and registered user:ScrapIt_UK_4
+	04/08/2016 15:05:50	INFO	Startup	Attempting to register user "ScrapIt_UK_4" with CA
+04/08/2016 15:06:32	ENTER	Startup	INPUT: {}
+	04/08/2016 15:06:32	INFO	Startup	Locating initial participants
+	04/08/2016 15:06:34	INFO	Startup	Attempting to register user "DVLA_5" with CA
+	04/08/2016 15:06:35	INFO	Startup	Registering user "DVLA_5" with CA successful
+	04/08/2016 15:06:35	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:06:35	INFO	Startup	Writing user "DVLA_5" to file
+	04/08/2016 15:06:36	INFO	Startup	Attempting to register user "Alfa_Romeo_5" with CA
+	04/08/2016 15:06:37	INFO	Startup	Registering user "Alfa_Romeo_5" with CA successful
+	04/08/2016 15:06:37	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:06:37	INFO	Startup	Writing user "Alfa_Romeo_5" to file
+	04/08/2016 15:06:39	INFO	Startup	Attempting to register user "Toyota_5" with CA
+	04/08/2016 15:06:40	INFO	Startup	Writing user "Toyota_5" to file
+	04/08/2016 15:06:40	INFO	Startup	Registering user "Toyota_5" with CA successful
+	04/08/2016 15:06:40	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:06:41	INFO	Startup	Attempting to register user "Jaguar_Land_Rover_5" with CA
+	04/08/2016 15:06:42	INFO	Startup	Registering user "Jaguar_Land_Rover_5" with CA successful
+	04/08/2016 15:06:42	INFO	Startup	Writing user "Jaguar_Land_Rover_5" to file
+	04/08/2016 15:06:42	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:06:44	INFO	Startup	Attempting to register user "Beechvale_Group_5" with CA
+	04/08/2016 15:06:44	INFO	Startup	Registering user "Beechvale_Group_5" with CA successful
+	04/08/2016 15:06:44	INFO	Startup	Writing user "Beechvale_Group_5" to file
+	04/08/2016 15:06:44	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:06:46	INFO	Startup	Attempting to register user "Milescape_5" with CA
+	04/08/2016 15:06:46	INFO	Startup	Registering user "Milescape_5" with CA successful
+	04/08/2016 15:06:46	INFO	Startup	Writing user "Milescape_5" to file
+	04/08/2016 15:06:46	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 15:06:48	INFO	Startup	Attempting to register user "Viewers_Alfa_Romeo_5" with CA
+	04/08/2016 15:06:49	INFO	Startup	Registering user "Viewers_Alfa_Romeo_5" with CA successful
+	04/08/2016 15:06:49	INFO	Startup	Writing user "Viewers_Alfa_Romeo_5" to file
+	04/08/2016 15:06:49	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 15:06:50	INFO	Startup	Attempting to register user "LeaseCan_5" with CA
+	04/08/2016 15:06:51	INFO	Startup	Registering user "LeaseCan_5" with CA successful
+	04/08/2016 15:06:51	INFO	Startup	Writing user "LeaseCan_5" to file
+	04/08/2016 15:06:51	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:06:53	INFO	Startup	Attempting to register user "Every_Car_Leasing_5" with CA
+	04/08/2016 15:06:53	INFO	Startup	Registering user "Every_Car_Leasing_5" with CA successful
+	04/08/2016 15:06:53	INFO	Startup	Writing user "Every_Car_Leasing_5" to file
+	04/08/2016 15:06:53	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 15:06:55	INFO	Startup	Attempting to register user "Regionwide_Vehicle_Contracts_5" with CA
+	04/08/2016 15:06:55	INFO	Startup	Registering user "Regionwide_Vehicle_Contracts_5" with CA successful
+	04/08/2016 15:06:55	INFO	Startup	Writing user "Regionwide_Vehicle_Contracts_5" to file
+	04/08/2016 15:06:55	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 15:06:57	INFO	Startup	Attempting to register user "Joe_Payne_5" with CA
+	04/08/2016 15:06:58	INFO	Startup	Registering user "Joe_Payne_5" with CA successful
+	04/08/2016 15:06:58	INFO	Startup	Writing user "Joe_Payne_5" to file
+	04/08/2016 15:06:58	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 15:06:59	INFO	Startup	Attempting to register user "Andrew_Hurt_5" with CA
+	04/08/2016 15:07:00	INFO	Startup	Registering user "Andrew_Hurt_5" with CA successful
+	04/08/2016 15:07:00	INFO	Startup	Writing user "Andrew_Hurt_5" to file
+	04/08/2016 15:07:00	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:07:02	INFO	Startup	Attempting to register user "Anthony_O_Dowd_5" with CA
+	04/08/2016 15:07:02	INFO	Startup	Registering user "Anthony_O_Dowd_5" with CA successful
+	04/08/2016 15:07:02	INFO	Startup	Writing user "Anthony_O_Dowd_5" to file
+	04/08/2016 15:07:02	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:07:04	INFO	Startup	Attempting to register user "Cray_Bros_London_Ltd_5" with CA
+	04/08/2016 15:07:06	INFO	Startup	Registering user "Cray_Bros_London_Ltd_5" with CA successful
+	04/08/2016 15:07:06	INFO	Startup	Writing user "Cray_Bros_London_Ltd_5" to file
+	04/08/2016 15:07:06	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:07:08	INFO	Startup	Attempting to register user "Aston_Scrap_Centre_5" with CA
+	04/08/2016 15:07:08	INFO	Startup	Registering user "Aston_Scrap_Centre_5" with CA successful
+	04/08/2016 15:07:08	INFO	Startup	Writing user "Aston_Scrap_Centre_5" to file
+	04/08/2016 15:07:08	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:07:10	INFO	Startup	Attempting to register user "ScrapIt_UK_5" with CA
+	04/08/2016 15:07:10	INFO	Startup	Registering user "ScrapIt_UK_5" with CA successful
+	04/08/2016 15:07:11	INFO	Startup	Writing user "ScrapIt_UK_5" to file
+	04/08/2016 15:07:11	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 15:07:11	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:07:14	ERROR	Startup	OUTPUT: {"message":"Error deploying vehicle chaincode","body":{"jsonrpc":"2.0","error":{"code":-32001,"message":"Deployment failure","data":"Error when deploying chaincode: Error getting chaincode package bytes: Error getting code 'go get' failed with error: 'exit status 1'\n# cd /go/_usercode_/454542833/src/github.com/jpayne23/car-lease-demo-1; git submodule update --init --recursive\nNo submodule mapping found in .gitmodules for path 'Chaincode/vehicle_code/vendor/github.com/hyperledger/fabric'\npackage github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code: exit status 1\n"},"id":12},"error":true}
+04/08/2016 15:08:20	ENTER	Startup	INPUT: {}
+	04/08/2016 15:08:20	INFO	Startup	Locating initial participants
+	04/08/2016 15:08:21	INFO	Startup	Created and registered user:Alfa_Romeo_5
+	04/08/2016 15:08:23	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:08:26	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:08:28	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:08:31	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:08:33	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
+	04/08/2016 15:08:35	INFO	Startup	Created and registered user:LeaseCan_5
+	04/08/2016 15:08:38	INFO	Startup	Created and registered user:Every_Car_Leasing_5
+	04/08/2016 15:08:40	INFO	Startup	Created and registered user:Regionwide_Vehicle_Contracts_5
+	04/08/2016 15:08:43	INFO	Startup	Created and registered user:Joe_Payne_5
+	04/08/2016 15:08:45	INFO	Startup	Created and registered user:Andrew_Hurt_5
+	04/08/2016 15:08:48	INFO	Startup	Created and registered user:Anthony_O_Dowd_5
+	04/08/2016 15:08:50	INFO	Startup	Created and registered user:Cray_Bros_London_Ltd_5
+	04/08/2016 15:08:52	INFO	Startup	Created and registered user:Aston_Scrap_Centre_5
+	04/08/2016 15:08:55	INFO	Startup	Created and registered user:ScrapIt_UK_5
+	04/08/2016 15:08:57	INFO	Startup	Created and registered user:DVLA_5
+	04/08/2016 15:08:57	INFO	Startup	Deploying vehicle chaincode
+	04/08/2016 15:08:59	ERROR	Startup	OUTPUT: {"message":"Error deploying vehicle chaincode","body":{"jsonrpc":"2.0","error":{"code":-32001,"message":"Deployment failure","data":"Error when deploying chaincode: Error getting chaincode package bytes: Error getting code 'go get' failed with error: 'exit status 1'\n# cd /go/_usercode_/987642012/src/github.com/jpayne23/car-lease-demo-1; git submodule update --init --recursive\nNo submodule mapping found in .gitmodules for path 'Chaincode/vehicle_code/vendor/github.com/hyperledger/fabric'\npackage github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code: exit status 1\n"},"id":12},"error":true}

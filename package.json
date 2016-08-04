@@ -21,15 +21,13 @@
     "express-session": "1.2.1",
     "fs": "",
     "hfc": "0.5.0",
-    "ibm-blockchain-js": "0.0.12",
     "js-sha3": "^0.5.1",
     "jsrsasign": "^5.0.5",
     "key-encoder": "^1.1.6",
     "request": "",
     "require-reload": "",
     "sjcl": "^1.0.3",
-    "ws": "1.0.1",
-    "x509": "^0.2.6"
+    "ws": "1.0.1"
   },
   "repository": {
     "type": "git",

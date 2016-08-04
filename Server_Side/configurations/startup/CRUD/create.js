@@ -16,28 +16,33 @@ var counter = 0;
 var innerCounter = 0;
 var users = [];
 
+var chain;
+
 var create = function()
 {
 	
 	tracing.create('ENTER', 'Startup', {});
 
-	chain = hfc.newChain("theBigMainChain");
+	chain = hfc.newChain("theChain");
 
 	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
+	chain.setDeployWaitTime(60);
 	chain.setECDSAModeForGRPC(true);
 
-	var pem = fs.readFileSync(__dirname + '../../../../Chaincode/vehicle_code/certificate.pem');
+	var pem = fs.readFileSync('us.blockchain.ibm.com.cert');
 	console.log("CREATION:: Finished reading certificate.  Connecting to membership services");
 
-	chain.setMemberServicesUrl("grpcs://4a668f73-21a1-43fa-bce0-d42c8013e97f_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
+	chain.setMemberServicesUrl("grpcs://42be62e3-e345-4ac6-aec5-da128a0128ec_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
 
-	chain.addPeer("grpcs://4a668f73-21a1-43fa-bce0-d42c8013e97f_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
+	chain.addPeer("grpcs://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
 
-	chain.enroll("WebAppAdmin", "b0889222bb", function(err, webAppAdmin) {
+	chain.enroll("WebAppAdmin", "1a9513992f", function(err, webAppAdmin) {
 
 		if (err) return console.log("ERROR: failed to register, %s",err);
 		// Successfully enrolled WebAppAdmin during initialization.
 		// Set this user as the chain's registrar which is authorized to register other users.
+		console.log("ENROLL WORKED", webAppAdmin)
+
 		chain.setRegistrar(webAppAdmin);
 
 	});
@@ -251,8 +256,6 @@ function createUser(username, role, aff, cb)
 	chain.register( registrationRequest, function(err, secret) {
 		if (err) return cb(err);
 
-		console.log("Registered user with secret:",secret)
-
 		chain.getMember(username, function(err, member){
 			
 			member.setAccount("group1")
@@ -265,9 +268,7 @@ function createUser(username, role, aff, cb)
 			loginUser(username,aff,secret,cb)
 
 		})
-	});
-	
-	
+	});	
 }
 
 function loginUser(username, aff, secret, cb)
