@@ -120,15 +120,27 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	
 	var cert ECertResponse
 	
-	peer_address, err := stub.GetState("Peer_Address")
-															if err != nil { return nil, errors.New("Error retrieving peer address") }
+	//peer_address, err := stub.GetState("Peer_Address")
+															//if err != nil { return nil, errors.New("Error retrieving peer address") }
 
-
+/*
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr}
 	response, err := client.Get(string(peer_address)+"/registrar/"+name+"/ecert")
+
+*/
+
+	tr := &http.Transport{
+
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+
+	}
+
+	client := &http.Client{Transport: tr}
+
+	response, err := client.Get("https://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com:443/registrar/DVLA_5/ecert")
 
 
 	//response, err := http.Get(string(peer_address)+"/registrar/"+name+"/ecert") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
