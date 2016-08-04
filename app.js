@@ -44,6 +44,9 @@ var user_manager = require(__dirname+'/utils/user.js');
 // For logging
 var TAG = "app.js:";
 
+//Check if running on Bluemix or if using a local Network JSON file
+check_if_config_requires_overwriting()
+
 //Define port number for app server to use
 var port = configFile.config.app_port;
 
@@ -318,3 +321,88 @@ console.log('------------------------------------------ Server Up - ' + configFi
 
 
 console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_port_external);
+
+//--------------------------------------------------------------------------------------------------------------------
+//	Functions that will overwrite default config values
+//--------------------------------------------------------------------------------------------------------------------
+
+function check_if_config_requires_overwriting()
+{
+	console.log("I'VE BEEN CALLED")
+	var app_url = configFile.config.app_url
+	var app_port = configFile.config.app_port
+	var api_ip = configFile.config.api_ip
+	var api_port_external = configFile.config.api_port_external
+	var api_port_internal = configFile.config.api_port_internal
+	if (configFile.config.networkFile != null) // If network file is defined then overwrite the api variables to use these
+	{
+		console.log("Attempting to use network JSON specified")
+		try
+		{
+			var networkDetails = JSON.parse(fs.readFileSync(configFile.config.networkFile, 'utf8'))
+
+			api_ip = configFile.config.networkProtocol+'://'+networkDetails.credentials.peers[0].api_host;
+			api_port_external = networkDetails.credentials.peers[0].api_port;
+			api_port_internal = networkDetails.credentials.peers[0].api_port;
+			console.log("Network JSON load successful")
+		}
+		catch(err)
+		{
+			console.error("Unable to read network JSON") // File either does not exist or JSON was invalid
+			return
+		}
+	} 
+
+	if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
+		console.log("Attempting to use Bluemix VCAP Services")
+		try
+		{
+			app_url = "http://" + JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
+			app_port = process.env.VCAP_APP_PORT;
+			api_ip = "https://"+JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_host"];
+			api_port_external = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_port"];
+			api_port_internal = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_port"];
+		}
+		catch(err)
+		{
+			console.error("Unable to use VCAP Services") //The VCAP Services JSON does not match the expected format
+			return
+		}
+	}
+	
+	//Start rewriting the config file with new values
+	var data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8')
+	var regex = new RegExp('config.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+addSlashes(configFile.config.api_ip)+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
+	var result = data.replace(regex, "config.api_ip = '"+api_ip+"';");
+
+	regex = new RegExp('config\.api_port_external(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_external+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
+	result = result.replace(regex, "config.api_port_external = '"+api_port_external+"';");
+
+	regex = new RegExp('config\.api_port_internal(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_internal+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
+	result = result.replace(regex, "config.api_port_internal = '"+api_port_internal+"';");
+
+	regex = new RegExp('config.app_url(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+addSlashes(configFile.config.app_url)+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
+	result = result.replace(regex, "config.app_url = '"+app_url+"';");
+
+	regex = new RegExp('config\.app_port(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.app_port+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
+	result = result.replace(regex, "config.app_port = '"+app_port+"';");
+
+	try
+	{
+		fs.writeFileSync(__dirname+'/Server_Side/configurations/configuration.js', result, 'utf8');
+		console.log("Updated config file.")
+	}
+	catch(err)
+	{
+		console.error("Unable to write new variables to config file.")
+			
+	}
+	return;	
+
+}
+
+function addSlashes(str)
+{ 
+   //no need to do (str+'') anymore because 'this' can only be a string
+   return str.split('/').join('\\/')
+} 

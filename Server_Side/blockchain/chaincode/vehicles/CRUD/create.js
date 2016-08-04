@@ -14,6 +14,7 @@ function deploy(req, res)
 {
 	
 	tracing.create('ENTER', 'POST blockchain/chaincode/vehicles', {})
+	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 	
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 	    api_url = api_url.replace('http://', '')

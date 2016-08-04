@@ -9907,3 +9907,53 @@
 	04/08/2016 15:08:57	INFO	Startup	Created and registered user:DVLA_5
 	04/08/2016 15:08:57	INFO	Startup	Deploying vehicle chaincode
 	04/08/2016 15:08:59	ERROR	Startup	OUTPUT: {"message":"Error deploying vehicle chaincode","body":{"jsonrpc":"2.0","error":{"code":-32001,"message":"Deployment failure","data":"Error when deploying chaincode: Error getting chaincode package bytes: Error getting code 'go get' failed with error: 'exit status 1'\n# cd /go/_usercode_/987642012/src/github.com/jpayne23/car-lease-demo-1; git submodule update --init --recursive\nNo submodule mapping found in .gitmodules for path 'Chaincode/vehicle_code/vendor/github.com/hyperledger/fabric'\npackage github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code: exit status 1\n"},"id":12},"error":true}
+04/08/2016 15:54:08	ENTER	Startup	INPUT: {}
+	04/08/2016 15:54:08	INFO	Startup	Locating initial participants
+	04/08/2016 15:54:09	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:10	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:12	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:13	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:14	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:15	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:16	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:17	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:18	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:19	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+04/08/2016 15:54:56	ENTER	Startup	INPUT: {}
+	04/08/2016 15:54:56	INFO	Startup	Locating initial participants
+	04/08/2016 15:54:56	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:57	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:54:59	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:00	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:01	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:02	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+04/08/2016 15:55:33	ENTER	Startup	INPUT: {}
+	04/08/2016 15:55:33	INFO	Startup	Locating initial participants
+	04/08/2016 15:55:33	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:35	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:36	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:37	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:55:38	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+04/08/2016 15:56:44	ENTER	Startup	INPUT: {}
+	04/08/2016 15:56:44	INFO	Startup	Locating initial participants
+	04/08/2016 15:56:44	ERROR	Startup	OUTPUT: "[object Object] Error: chain registrar is not set"
+	04/08/2016 15:56:46	INFO	Startup	Attempting to register user "Alfa_Romeo_5" with CA
+	04/08/2016 15:56:47	INFO	Startup	Registering user "Alfa_Romeo_5" with CA successful
+	04/08/2016 15:56:47	INFO	Startup	Created and registered user:Toyota_5
+	04/08/2016 15:56:47	INFO	Startup	Writing user "Alfa_Romeo_5" to file
+	04/08/2016 15:56:49	INFO	Startup	Attempting to register user "Toyota_5" with CA
+	04/08/2016 15:56:50	INFO	Startup	Registering user "Toyota_5" with CA successful
+	04/08/2016 15:56:50	INFO	Startup	Writing user "Toyota_5" to file
+	04/08/2016 15:56:50	INFO	Startup	Created and registered user:Jaguar_Land_Rover_5
+	04/08/2016 15:56:51	INFO	Startup	Attempting to register user "Jaguar_Land_Rover_5" with CA
+	04/08/2016 15:56:52	INFO	Startup	Registering user "Jaguar_Land_Rover_5" with CA successful
+	04/08/2016 15:56:52	INFO	Startup	Created and registered user:Beechvale_Group_5
+	04/08/2016 15:56:52	INFO	Startup	Writing user "Jaguar_Land_Rover_5" to file
+	04/08/2016 15:56:54	INFO	Startup	Attempting to register user "Beechvale_Group_5" with CA
+	04/08/2016 15:56:55	INFO	Startup	Registering user "Beechvale_Group_5" with CA successful
+	04/08/2016 15:56:55	INFO	Startup	Created and registered user:Milescape_5
+	04/08/2016 15:56:55	INFO	Startup	Writing user "Beechvale_Group_5" to file
+	04/08/2016 15:56:56	INFO	Startup	Attempting to register user "Milescape_5" with CA
+	04/08/2016 15:56:57	INFO	Startup	Registering user "Milescape_5" with CA successful
+	04/08/2016 15:56:57	INFO	Startup	Writing user "Milescape_5" to file
+	04/08/2016 15:56:57	INFO	Startup	Created and registered user:Viewers_Alfa_Romeo_5
