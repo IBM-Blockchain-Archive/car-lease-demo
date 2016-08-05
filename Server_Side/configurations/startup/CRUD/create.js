@@ -76,6 +76,9 @@ var create = function()
 				}
 			}
 		}
+		
+		console.log("FIRST USER", users[0].identity)
+		
 		addUser()
 	}
 	else
@@ -211,7 +214,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 						    "ctorMsg": {
 						      "function": "init",
 						      "args": [
-						        api_url, randomVal
+						        JSON.stringify(userEcertHolder[0]),JSON.stringify(userEcertHolder[1]),JSON.stringify(userEcertHolder[2]),JSON.stringify(userEcertHolder[3]),JSON.stringify(userEcertHolder[4]),JSON.stringify(userEcertHolder[5]),JSON.stringify(userEcertHolder[6]),JSON.stringify(userEcertHolder[7]),JSON.stringify(userEcertHolder[8]),JSON.stringify(userEcertHolder[9]),JSON.stringify(userEcertHolder[10]),JSON.stringify(userEcertHolder[11]),JSON.stringify(userEcertHolder[12]),JSON.stringify(userEcertHolder[13]),JSON.stringify(userEcertHolder[14]),JSON.stringify(userEcertHolder[15])																													
 						      ]
 						    },
 						    "secureContext": participants.participants_info.regulators[0].identity

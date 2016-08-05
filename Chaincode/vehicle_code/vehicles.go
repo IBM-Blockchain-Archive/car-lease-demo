@@ -195,7 +195,7 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 		columns = append(columns, col1)
 	row, err := stub.GetRow("E_Certs", columns)
 
-															if err != nil { return 	nil, errors.new("Unable to read eCerts table") } 
+															if err != nil { return 	nil, errors.New("Unable to read eCerts table") } 
 
 	cert := row.Columns[1].GetString_()
 	
