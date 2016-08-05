@@ -16,6 +16,9 @@ var counter = 0;
 var innerCounter = 0;
 var users = [];
 
+var userEcert;
+var userEcertHolder = [];
+
 var chain;
 
 var create = function()
@@ -23,8 +26,13 @@ var create = function()
 	configFile = reload(__dirname+'/../../configuration.js');
 	tracing.create('ENTER', 'Startup', {});
 
+	var api_ip = configFile.config.api_ip
+	api_ip = api_ip.substring(api_ip.indexOf("://")+3 );
+	
+	var registrar_name = configFile.config.registrar_name
+	var registrar_password = configFile.config.registrar_password
+	
 	chain = hfc.newChain("theChain");
-
 	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
 	chain.setDeployWaitTime(60);
 	chain.setECDSAModeForGRPC(true);
@@ -32,18 +40,21 @@ var create = function()
 	var pem = fs.readFileSync('us.blockchain.ibm.com.cert');
 	console.log("CREATION:: Finished reading certificate.  Connecting to membership services");
 
-	chain.setMemberServicesUrl("grpcs://42be62e3-e345-4ac6-aec5-da128a0128ec_ca.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
+	chain.setMemberServicesUrl("grpcs://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
+	
+	chain.addPeer("grpcs://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
 
-	chain.addPeer("grpcs://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com:30303", {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
-
-	chain.enroll("WebAppAdmin", "1a9513992f", function(err, webAppAdmin) {
+	
+	console.log("REGISTRAR INFO", registrar_name, registrar_password)
+	
+	chain.enroll(registrar_name, registrar_password, function(err, registrar) {
 
 		if (err) return console.log("ERROR: failed to register, %s",err);
 		// Successfully enrolled WebAppAdmin during initialization.
 		// Set this user as the chain's registrar which is authorized to register other users.
-		console.log("ENROLL WORKED", webAppAdmin)
+		console.log("ENROLL WORKED", registrar)
 
-		chain.setRegistrar(webAppAdmin);
+		chain.setRegistrar(registrar);
 
 	});
 	
@@ -184,6 +195,10 @@ function deploy_vehicle() //Deploy vehicle chaincode
 	    
 	var randomVal = crypto.randomBytes(256).toString('hex')
 	
+	
+	
+	console.log(" Final userEcertHolder", userEcertHolder)
+	
 				
 	var deploySpec = {
 						  "jsonrpc": "2.0",
@@ -214,7 +229,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 	request(options, function(error, response, body)
 	{
 		
-		if (!body.hasOwnProperty('error') && response.statusCode == 200)
+		if (body && !body.hasOwnProperty('error') && response.statusCode == 200)
 		{
 			update_config(body.result.message)
 			
@@ -263,8 +278,6 @@ function createUser(username, role, aff, cb)
 			member.setRoles([role])
 			member.saveState()
 
-			console.log("NEW USER", username , member)
-
 			loginUser(username,aff,secret,cb)
 
 		})
@@ -288,16 +301,16 @@ function loginUser(username, aff, secret, cb)
 				json: true
 			}
 					
-	request(options, function(error, response, body){
-
-		console.log("LOGIN RESPONSE BODY",body,"ERROR",error)		
+	request(options, function(error, response, body){		
 
 		if (body && !body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			innerCounter = 0;
 			tracing.create('INFO', 'Startup', 'Registering user "'+username+'" with CA successful');
-			writeUserToFile(username, secret,cb)
-			return true
+			
+			get_user_ecert(username, secret, cb)
+			
+			//writeUserToFile(username, secret,cb)
 		}
 		else
 		{
@@ -349,6 +362,34 @@ function update_config(name)
 	});
 }
 
+
+function get_user_ecert(user, secret, cb){
+	
+	
+	var options = 	{
+						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar/'+user+'/ecert',
+						method: "GET",
+					}
+			
+	request(options, function(error, response, body){
+		
+		
+		
+		if(body){
+			console.log("ECERT RESPONSE", JSON.parse(body).OK)
+			
+			userEcert = {"identity":user,"ecert":JSON.parse(body).OK}
+			userEcertHolder.push(userEcert)
+			
+			writeUserToFile(user,secret,cb)
+			
+		}
+		else{
+			console.log("BAD ECERT RESPONSE", response, "ERROR", error)
+		}
+	});
+
+}
 
 function writeUserToFile(username, secret,cb)
 {

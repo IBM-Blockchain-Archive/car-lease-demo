@@ -9,9 +9,11 @@ import (
 	"encoding/json"
 	"crypto/x509"
 	"encoding/pem"
-	"net/http"
+	//Used for HTTP requests
+	//"net/http"
 	"net/url"
-    	"io/ioutil"
+	//Used for HTTP requests
+    	//"io/ioutil"
 	"regexp"
 	//Used when we validate user's role
 	//"reflect"
@@ -81,10 +83,21 @@ type V5C_Holder struct {
 //==============================================================================================================================
 //	ECertResponse - Struct for storing the JSON response of retrieving an ECert. JSON OK -> Struct OK
 //==============================================================================================================================
+/*
 type ECertResponse struct {
 	OK string `json:"OK"`
 	Error string `json:"Error"`
-}					
+}
+*/
+
+//==============================================================================================================================
+//	User_and_eCert - Struct for storing the JSON of a user and their ecert
+//==============================================================================================================================
+
+type User_and_eCert struct {
+	Identity string `json:"identity"`
+	eCert string `json:"ecert"`
+}		
 
 //==============================================================================================================================
 //	Init Function - Called when the user deploys the chaincode																	
@@ -104,8 +117,29 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	err = stub.PutState("v5cIDs", bytes)
 	
 	
+	/*
 	err = stub.PutState("Peer_Address", []byte(args[0]))
-															if err != nil { return nil, errors.New("Error storing peer address") }										
+															if err != nil { return nil, errors.New("Error storing peer address") }
+	*/
+	
+	var columnDefsForEcertTable []*shim.ColumnDefinition
+	columnOne := shim.ColumnDefinition{Name: "identity", Type: shim.ColumnDefinition_STRING, Key: true}
+	columnTwo := shim.ColumnDefinition{Name: "ecert", Type: shim.ColumnDefinition_STRING, Key: false}
+	columnDefsForEcertTable = append(columnDefsForEcertTable, &columnOne)
+	columnDefsForEcertTable = append(columnDefsForEcertTable, &columnTwo)
+	err = stub.CreateTable("E_Certs", columnDefsForEcertTable)
+	
+															if err != nil { return nil, errors.New("Error creating eCert table")}
+	
+	
+	var ecert User_and_eCert
+	
+	for i:= 0; i < len(args); i++ {
+		err := json.Unmarshal([]byte(args[i]), &ecert)
+															if err != nil { return nil , errors.New(args[i] + " was invalid. Should be JSON with fields identity and eCert")}
+															
+		t.add_ecert(stub, ecert.Identity, ecert.eCert)
+	}
 	
 	return nil, nil
 }
@@ -118,12 +152,13 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 //==============================================================================================================================
 func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]byte, error) {
 	
+	/* ORGINAL WAY WE GOT ECERTS USING CALLOUT
+	
 	var cert ECertResponse
 	
-	//peer_address, err := stub.GetState("Peer_Address")
-															//if err != nil { return nil, errors.New("Error retrieving peer address") }
+	peer_address, err := stub.GetState("Peer_Address")
+															if err != nil { return nil, errors.New("Error retrieving peer address") }
 
-/*
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -141,30 +176,53 @@ func (t *SimpleChaincode) get_ecert(stub *shim.ChaincodeStub, name string) ([]by
 	client := &http.Client{Transport: tr}
 
 	response, err := client.Get("http://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com:443/registrar/DVLA_5/ecert")
-*/
-
-	response, err := http.Get("http://example.com") 	// Calls out to the HyperLedger REST API to get the ecert of the user with that name
-
-															fmt.Println("HTTP RESPONSE", response)
 															
 															if err != nil { return nil, errors.New("Error calling ecert API: "+err.Error()) }
 	
 	defer response.Body.Close()
 	contents, err := ioutil.ReadAll(response.Body)					// Read the response from the http callout into the variable contents
 															
-															fmt.Println("HTTPS BODY:", string(contents))
-															
 															if err != nil { return nil, errors.New("Could not read body") }
-	
 	err = json.Unmarshal(contents, &cert)
 	
-															if err != nil { return nil, errors.New("Could not retrieve ecert for user: "+name) }
-															
-															fmt.Println("CERT OBJECT:", cert)												
+															if err != nil { return nil, errors.New("Could not retrieve ecert for user: "+name) }										
 															
 															if cert.Error != "" { fmt.Println("GET ECERT ERRORED: ", cert.Error); return nil, errors.New(cert.Error)}
+	*/
 	
-	return []byte(string(cert.OK)), nil
+	var columns []shim.Column
+		col1 := shim.Column{Value: &shim.Column_String_{String_: name}}
+		columns = append(columns, col1)
+	row, err := stub.GetRow("E_Certs", columns)
+
+															if err != nil { return 	nil, errors.new("Unable to read eCerts table") } 
+
+	cert := row.Columns[1].GetString_()
+	
+	return []byte(cert), nil
+}
+
+//==============================================================================================================================
+//	 add_ecert - Adds a new ecert and user pair to the table of ecerts
+//==============================================================================================================================
+
+func (t *SimpleChaincode) add_ecert(stub *shim.ChaincodeStub, name string, ecert string) (string, error) {
+	var columns []*shim.Column
+	col1 := shim.Column{Value: &shim.Column_String_{String_: name}}
+	col2 := shim.Column{Value: &shim.Column_String_{String_: ecert}}
+	columns = append(columns, &col1)
+	columns = append(columns, &col2)
+
+	row := shim.Row{Columns: columns}
+	ok, err := stub.InsertRow("E_Certs", row)
+	if err != nil {
+		return "", errors.New("Insert eCert to table failed")
+	}
+	if !ok {
+		return "", errors.New("Insert eCert operation failed. Row with given key already exists")
+	}
+	
+	return "User Added", nil
 }
 
 //==============================================================================================================================

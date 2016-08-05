@@ -8,8 +8,8 @@ var config = {};
 //	Tracing
 //--------------------------------------------------------------------------------------------------------------------
 
-config.trace = true; // If true then the tracing will be written to file
-config.traceFile = __dirname+'/../logs/app_trace.log'; // File where traces should be written to
+config.trace		= true; 								// If true then the tracing will be written to file
+config.traceFile 	= __dirname+'/../logs/app_trace.log'; 	// File where traces should be written to
 
 
 
@@ -17,8 +17,8 @@ config.traceFile = __dirname+'/../logs/app_trace.log'; // File where traces shou
 //	Network file - A JSON file that holds the details of the peers, CA etc example at my_creds.json
 //--------------------------------------------------------------------------------------------------------------------
 
-config.networkFile = __dirname+"/../../mycreds.json"; //Put filepath to network data here from bluemix if not using VCAP
-config.networkProtocol = 'https'
+config.networkFile 		= null;				 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
+config.networkProtocol 	= 'https'
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -26,16 +26,28 @@ config.networkProtocol = 'https'
 //--------------------------------------------------------------------------------------------------------------------
 //IP and port configuration
 
-config.api_ip = 'https://42be62e3-e345-4ac6-aec5-da128a0128ec_vp0.us.blockchain.ibm.com'; //IP of the peer attempting to be connected to
+config.api_ip = 'http://127.0.0.1'; //IP of the peer attempting to be connected to
 
 //When using blockchain on bluemix, api_port_external and api_port_internal will be the same
-config.api_port_external = '443'; //port number used when calling api from outside of the vagrant environment
-config.api_port_internal = '443'; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
+config.api_port_external 	= '5000'; //port number used when calling api from outside of the vagrant environment
+config.api_port_internal 	= '5000'; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
+config.api_port_discovery 	= '30303' //port number used for HFC
+
+//IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
+config.ca_ip 	= '127.0.0.1'; 	//IP of the CA attempting to be connected to
+config.ca_port 	= '50051'; 		//Discovery port of the Certificate Authority. Used for HFC
+
 
 //Settings for the nodeJS application server
-config.app_url = 'http://localhost:80'; //Url of the NodeJS Server
-config.app_port = 80; //Port that the NodeJS server is operating on
+config.app_url 	= 'http://localhost:80'; 	//Url of the NodeJS Server
+config.app_port = 80; 						//Port that the NodeJS server is operating on
 
+//--------------------------------------------------------------------------------------------------------------------
+//	User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.
+//--------------------------------------------------------------------------------------------------------------------
+
+config.registrar_name 		= "WebAppAdmin";
+config.registrar_password 	= "1a9513992f";
 
 //--------------------------------------------------------------------------------------------------------------------
 //	Chaincode
