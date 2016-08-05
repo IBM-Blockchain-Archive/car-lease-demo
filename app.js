@@ -25,18 +25,20 @@ var path 			= require('path')
 var hfc				= require('hfc');
 
 
+
+var reload = require('require-reload')(require),
+    configFile = reload(__dirname+'/Server_Side/configurations/configuration.js');
 //Our own modules
-var blocks 		= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
-var block 		= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
+var blocks 			= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
+var block 			= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
 var participants 	= require(__dirname+'/Server_Side/blockchain/participants/participants.js');
 var identity 	 	= require(__dirname+'/Server_Side/admin/identity/identity.js');
 var vehicles	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js')
 var vehicle 	 	= require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js')
-var demo 	 	= require(__dirname+'/Server_Side/admin/demo/demo.js')
+var demo 	 		= require(__dirname+'/Server_Side/admin/demo/demo.js')
 var chaincode 	 	= require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var transactions 	= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
-var startup		= require(__dirname+'/Server_Side/configurations/startup/startup.js');
-var configFile 		= require(__dirname+'/Server_Side/configurations/configuration.js');
+var startup			= require(__dirname+'/Server_Side/configurations/startup/startup.js');
 
 //User manager modules
 var user_manager = require(__dirname+'/utils/user.js');
@@ -397,6 +399,9 @@ function check_if_config_requires_overwriting()
 		console.error("Unable to write new variables to config file.")
 			
 	}
+	
+	configFile = reload(__dirname+'/Server_Side/configurations/configuration.js');
+	
 	return;	
 
 }

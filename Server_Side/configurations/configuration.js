@@ -45,7 +45,7 @@ config.app_port = 80; //Port that the NodeJS server is operating on
 config.vehicle = "https://github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code"
 
 //Chaincode deployed names
-config.vehicle_name = '2057d4fa1442cc510c6fa586787282c5952cad8a58c78e0c6d762e5a6b7b3fdb6b04d93fe7bfd429a4f0145cc97d1ba4a49b7ee82cebdeaba4570ad6b66557d1';
+config.vehicle_name = '2e436d1363bb9f7c00342fa3fe30eff2c303f06ed4a396a06416a5e1e488ead7edd99f337e31fc6692d785bc0d9a30e942f111caccae15e7c34de6c716f0d92a';
 
 
 exports.config = config; // Exports for use in other files that require this one
