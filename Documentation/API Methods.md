@@ -27,7 +27,8 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 	* [Leasees](#leasees)
 	* [Scrap Merchants](#scrap-Merchants)
 * [Transactions](#transactions)
-* [Chaincode](#chaincodes)
+* [Chaincode](#chaincode)
+	* [Vehicles](#vehicles)
 
 ##Admin
 
@@ -44,18 +45,29 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 	Response Format:	JSON Object
 	Success:			{"message": "performing scenario creation now"}
 #####Description: 
-Creates a 1, 3 or 10 vehicle scenario. It writes to a file what stage it is at and also write errors to this file. An error JSON object with a field error:true is one that caused the call to stop at that point. This data can be retrieved using GET /admin/demo. 
+Creates a 3 or 10 vehicle scenario. It writes to a file what stage it is at and also write errors to this file. An error JSON object with a field error:true is one that caused the call to stop at that point. This data can be retrieved using GET /admin/demo.
 
 #####Successful output to demo_status.log:
 
-	{"message":"Creating vehicles"}&&{"message":"Created vehicle <v5c_id>","counter":true}&&{"message":"Created vehicle <v5c_id>","counter":true}&&{"message":"Transferring vehicles to manufacturers"}&&{"message":"Transfered vehicle <v5c_id>(<username> -> <username>)","counter":true}&&{"message":"Updating vehicles' details"}&&{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&{"message":"Transferring vehicles to private owners"}&&{"message":"Transfered all owners for vehicle <v5c_id>","counter":true}&&{"message":"Demo setup"}
+	{"message": "Creating vehicles"}&&
+	{"message": "Created vehicle <v5c_id>", counter":true}&&
+	{"message":"Created vehicle <v5c_id>", "counter":true}&&
+	{"message":"Transferring vehicles to manufacturers"}&&
+	{"message":"Transfered vehicle <v5c_id>(<username> -> <username>)","counter":true}&&
+	{"message":"Updating vehicles' details"}&&
+	{"message":"Updated all fields for vehicle <v5c_id>","counter":true}&&
+	{"message":"Updated all fields for vehicle <v5c_id>", "counter":true}&&
+	{"message":"Transferring vehicles to private owners"}&&
+	{"message":"Transfered all owners for vehicle <v5c_id>","counter":true}&&
+	{"message":"Demo setup"}
+
 
 #####Error output to demo_status.log:
 
 	Output:		 {"message": "Scenario type not recognised", "error": true}
 	Description: The user sent an invalid scenario type.
 	Solutions: 
-				 1. Make sure the sent JSON contains a field scenario with the value "1_vehicle", "3_vehicle" or "10_vehicle".
+				 1. Make sure the sent JSON contains a field scenario with the value "3_vehicle" or "10_vehicle".
 
 	Output:		 {"message": "Initial vehicles file not found", error: true}
 	Description: Cannot find the initial vehicles JSON file.
@@ -67,19 +79,19 @@ Creates a 1, 3 or 10 vehicle scenario. It writes to a file what stage it is at a
 	Solutions:	 
 				 1. Make sure that the chaincode is deployed and that the name in the configuration file is correct.
 				 2. Make sure that the Blockchain network is running.
-				 3. Make sure the IP and Port in configuration.js are correct.
+				 3. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 
 	Output: 	 {"message": "Unable to transfer vehicles", "error": true}
 	Description: The app was unable to invoke the chaincode to transfer a vehicle's ownership and confirm the change with a query.
 	Solutions:	 
-				 1. Make sure the chaincode is deployed and the name in the configuration file is correct.
+				 1. Make sure the chaincode is deployed and the name in Server_Side/Configurations/configuration.js is correct.
 				 2. Make sure that the Blockchain network is running.
-				 3. Make sure that the transfer in the intial_vehicles.json is allowed by the chaincode. For example a vehicle cannot be owned by Alfa Romeo then immediately after a Scrap Merchant.
+				 3. Make sure that the transfer in the Server_Side/blockchain/assets/vehicles/intial_vehicles.js is allowed by the chaincode. For example a vehicle cannot be owned by Alfa Romeo then immediately after a Scrap Merchant.
 
 	Ouput:		 {"message": "Unable to update vehicles", "error":true}
 	Description: The app was unable to invoke the chaincode to update a vehicles field and confirm the change with a query.
 	Solutions: 	 
-				 1. Make sure the chaincode is deployed and the name in the configuration file is correct.
+				 1. Make sure the chaincode is deployed and the name in Server_Side/Configurations/configuration.js is correct.
 				 2. Make sure that the Blockchain network is running.
 
 ####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/admin/demo
@@ -91,7 +103,7 @@ Creates a 1, 3 or 10 vehicle scenario. It writes to a file what stage it is at a
 	Success: 			<demo_status.log>
 
 #####Description:
-Returns the contents of the demo_status.log file which is updated by running POST /admin/demo.
+Returns the contents of the Server_Side/logs/demo_status.log file which is updated by running POST /admin/demo.
 
 #####Errors:
 	Output:		 {"message": "Unable to load demo_status.log file", "error": true}
@@ -102,7 +114,7 @@ Returns the contents of the demo_status.log file which is updated by running POS
 	Output:		 {"message": "Invalid JSON Object", "error": true}
 	Status:		 400
 	Description: 
-				 1. Make sure that the demo_status.log file is valid JSON
+				 1. Make sure that the Server_Side/logs/demo_status.log file is valid JSON
 
 ##
 
@@ -130,7 +142,7 @@ Registers the user passed with the peer.
 				 1. Make sure the user has been created with the CA. If not use POST /blockchain/participants.
 				 2. Make sure the user is in the Server_Side/blockchain/participants/participants_info.js file.
 				 3. Make sure the Blockchain network is running.
-				 4. Make sure the IP and Port in configuration.js are correct.
+				 4. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 <hr />
 
 ##Blockchain
@@ -156,13 +168,13 @@ Returns the height of the Blockchain and the hash of the last block in the chain
 	Description: The length of the chain was unobtainable.
 	Solutions:
 				 1. Make sure the Blockchain network is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 <hr />
 
 ###Block
 
-####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/blocks/<\block_number\>
+####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/blocks/\<block_number\>
 
 	Type:				GET
 	Transfer Encoding:	Chunked
@@ -182,7 +194,7 @@ Takes a number and returns the block data for the block at that position in the 
 	Solutions:
 				 1. Make sure the Blockchain network is running.
 				 2. Make sure the block requested exists in the chain e.g. block 240 doesn't exist in a chain that is only 239 blocks long. Note that the height of the chain is 1 greater than the position of the last block. 
-				 3. Make sure the IP and Port in configuration.js are correct.
+				 3. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 <hr />
 
@@ -194,7 +206,11 @@ Takes a number and returns the block data for the block at that position in the 
 	Transfer Encoding:	Chunked
 	Response Type: 		Streamed
 	Response Format:	JSON Objects Split by && Delimiter
-	Success: 			{"message":"Generating V5cID"}&&{"message":"Checking V5cID is unique"}&&{"message":"Creating vehicle with v5cID: <v5c_ID>"}&&{"message": "Achieving Consensus"}&&{"message": "Creation confirmed", "v5cID": <v5c_ID>}
+	Success: 			{"message":"Generating V5cID"}&&
+					{"message":"Checking V5cID is unique"}&&
+					{"message":"Creating vehicle with v5cID: <v5c_ID>"}&&
+					{"message": "Achieving Consensus"}&&
+					{"message": "Creation confirmed", "v5cID": <v5c_ID>}
 
 #####Description:
 
@@ -214,9 +230,9 @@ Invokes the vehicle chaincode to store a new vehicle in the world state.
 	Description: The function was unable to contact the Blockchain network to query the generated v5cID.
 	Solutions:	 
 				 1. Make sure the Blockchain network is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 
 	Output:		 {"message": "Unable to create vehicle", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
@@ -224,7 +240,7 @@ Invokes the vehicle chaincode to store a new vehicle in the world state.
 	Solutions:	 
 				 1. Make sure the Blockchain network is running.
 				 2. Make sure the chaincode is running.
-				 3. Make sure the chaincode name in configuration.js is correct.
+				 3. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 
 	Output:		 {"message": "Unable to confirm vehicle create. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
@@ -239,7 +255,9 @@ Invokes the vehicle chaincode to store a new vehicle in the world state.
 	Transfer Encoding:	Chunked
 	Response Type:		Streamed
 	Response Format:	JSON Objects Split by && Delimiter
-	Success:			{"VIN": <vin> , "make": <make> , "model": <model> , "reg": <reg> , "owner": <owner> , "colour": <colour> , "scrapped": <scrapped> , "status": <status> , "v5cID" : <v5c_id> }&&{"VIN": <vin> , "make": <make> , "model": <model> , "reg": <reg> , "owner": <owner> , "colour": <colour> , "scrapped": <scrapped> , "status": <status> , "v5cID" : <v5c_id> }&&...
+	Success:			{"VIN": <vin>, "make": <string>, "model": <string>, "reg": <string>, "owner": <username>, "colour": <string>, "scrapped": <bool>, "status": <int>, "v5cID": <v5c_id>}&&
+					{"VIN": <vin>, "make": <string>, "model": <string>, "reg": <string>, "owner": <username>, "colour": <colour>, "scrapped": <bool>, "status": <int>, "v5cID": <v5c_id>}&&...
+
 
 #####Description:
 
@@ -252,7 +270,7 @@ Queries the vehicle chaincode and returns all the vehicles that the current user
 	Descriptipon: The function was unable to query the chaincode to retrieve the vehicle assets owned by the current session's user.
 	Solutions:
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 <hr />
 
 ##Vehicle
@@ -263,7 +281,10 @@ Queries the vehicle chaincode and returns all the vehicles that the current user
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating scrap value"}&&{"message": "Achieving consensus"}&&{"message": "Scrap updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating scrap value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "Scrap updated"}
 
 #####Description:
 
@@ -276,14 +297,14 @@ Invokes the vehicle chaincode function to update the scrapped field to true.
 	Description: The function was unable to invoke the chaincode to scrap the vehicle.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm scrap update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
 	Description: The function was unable to confirm that the scrap was updated within the time limit by querying the chaincode.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform a scrap update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -311,9 +332,9 @@ Queries the vehicle chaincode and returns the colour of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -326,7 +347,10 @@ Queries the vehicle chaincode and returns the colour of the vehicle.
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating colour value"}&&{"message": "Achieving consensus"}&&{"message": "Colour updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating colour value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "Colour updated"}
 
 #####Description:
 
@@ -339,14 +363,14 @@ Invokes the vehicle chaincode function to update the colour field to the value p
 	Description: The function was unable to invoke the chaincode to cause the colour to update.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm colour update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
 	Description: The function was unable to confirm that the colour was updated within the time limit by querying the chaincode using the GET colour API.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform a colour update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -374,9 +398,9 @@ Queries the vehicle chaincode and returns the make of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -389,27 +413,30 @@ Queries the vehicle chaincode and returns the make of the vehicle.
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating make value"}&&{"message": "Achieving consensus"}&&{"message": "Make updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating make value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "Make updated"}
 
 #####Description:
 
-Invokes the vehicle chaincode function to update the colour field to the value passed.
+Invokes the vehicle chaincode function to update the make field to the value passed.
 
 #####Errors:
 
 	Output:		 {"message": "Unable to update make", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to invoke the chaincode to cause the colour to update.
+	Description: The function was unable to invoke the chaincode to cause the make to update.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm make update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to confirm that the colour was updated within the time limit by querying the chaincode using the GET colour API.
+	Description: The function was unable to confirm that the make was updated within the time limit by querying the chaincode using the GET make API.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform a make update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -437,9 +464,9 @@ Queries the vehicle chaincode and returns the model of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -452,27 +479,30 @@ Queries the vehicle chaincode and returns the model of the vehicle.
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating model value"}&&{"message": "Achieving consensus"}&&{"message": "Model updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating model value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "Model updated"}
 
 #####Description:
 
-Invokes the vehicle chaincode function to update the colour field to the value passed.
+Invokes the vehicle chaincode function to update the model field to the value passed.
 
 #####Errors:
 
 	Output:		 {"message": "Unable to update model", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to invoke the chaincode to cause the colour to update.
+	Description: The function was unable to invoke the chaincode to cause the model to update.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm model update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to confirm that the colour was updated within the time limit by querying the chaincode using the GET colour API.
+	Description: The function was unable to confirm that the model was updated within the time limit by querying the chaincode using the GET model API.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform a model update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -500,9 +530,9 @@ Queries the vehicle chaincode and returns the owner of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -515,27 +545,30 @@ Queries the vehicle chaincode and returns the owner of the vehicle.
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating owner value"}&&{"message": "Achieving consensus"}&&{"message": "Owner updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating owner value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "Owner updated"}
 
 #####Description:
 
-Invokes the vehicle chaincode function to update the colour field to the value passed.
+Invokes the vehicle chaincode function to update the owner field to the value passed.
 
 #####Errors:
 
 	Output:		 {"message": "Unable to update owner", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to invoke the chaincode to cause the colour to update.
+	Description: The function was unable to invoke the chaincode to cause the owner to update.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm owner update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to confirm that the colour was updated within the time limit by querying the chaincode using the GET colour API.
+	Description: The function was unable to confirm that the owner was updated within the time limit by querying the chaincode using the GET owner API.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform an owner update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -563,9 +596,9 @@ Queries the vehicle chaincode and returns the registration of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -578,27 +611,30 @@ Queries the vehicle chaincode and returns the registration of the vehicle.
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating registration value"}&&{"message": "Achieving consensus"}&&{"message": "Registration updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating registration value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "Registration updated"}
 
 #####Description:
 
-Invokes the vehicle chaincode function to update the colour field to the value passed.
+Invokes the vehicle chaincode function to update the registration field to the value passed.
 
 #####Errors:
 
 	Output:		 {"message": "Unable to update registration", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to invoke the chaincode to cause the colour to update.
+	Description: The function was unable to invoke the chaincode to cause the registration to update.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm registration update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to confirm that the colour was updated within the time limit by querying the chaincode using the GET colour API.
+	Description: The function was unable to confirm that the registration was updated within the time limit by querying the chaincode using the GET registration API.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform an registration update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -626,9 +662,9 @@ Queries the vehicle chaincode and returns the scrap boolean of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -656,9 +692,9 @@ Queries the vehicle chaincode and returns the vin of the vehicle.
 	Description: The function was unable to query the vehicle chaincode to retrieve the vehicle's details.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 				 3. Make sure that the chaincode is running.
-				 4. Make sure the chaincode name in configuration.js is correct.
+				 4. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 5. Make sure the user calling has permission to read the vehicle.
 				 6. Make sure the <v5c_ID> passed exists.
 				 7. Make sure the CA is running and eCerts are queryable.
@@ -671,27 +707,30 @@ Queries the vehicle chaincode and returns the vin of the vehicle.
 	Transfer Encoding: 	Chunked
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
-	Success: 			{"message": "Formatting request"}&&{"message": "Updating VIN value"}&&{"message": "Achieving consensus"}&&{"message": "VIN updated"}
+	Success: 			{"message": "Formatting request"}&&
+					{"message": "Updating VIN value"}&&
+					{"message": "Achieving consensus"}&&
+					{"message": "VIN updated"}
 
 #####Description:
 
-Invokes the vehicle chaincode function to update the colour field to the value passed.
+Invokes the vehicle chaincode function to update the VIN field to the value passed.
 
 #####Errors:
 
 	Output:		 {"message": "Unable to update VIN", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to invoke the chaincode to cause the colour to update.
+	Description: The function was unable to invoke the chaincode to cause the VIN to update.
 	Solutions:
 				 1. Make sure the Blockchain nework is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output:		 {"message": "Unable to confirm VIN update. Request timed out.", "error": true, "v5cID": <v5c_ID>}
 	Status:		 400
-	Description: The function was unable to confirm that the colour was updated within the time limit by querying the chaincode using the GET colour API.
+	Description: The function was unable to confirm that the VIN was updated within the time limit by querying the chaincode using the GET VIN API.
 	Solutions: 	 
 				 1. Make sure that the chaincode is running.
-				 2. Make sure the chaincode name in configuration.js is correct.
+				 2. Make sure the chaincode name in Server_Side/Configurations/configuration.js is correct.
 				 3. Make sure the user calling has permission to perform an VIN update.
 				 4. Make sure the <v5c_ID> passed exists.
 				 5. Make sure the CA is running and eCerts are queryable.
@@ -729,7 +768,7 @@ Takes a username, affiliation and role and creates a new user with that account 
 	             1. Make sure the user has been created with the CA. If not use POST /blockchain/participants.
 	             2. Make sure the user is in the Server_Side/blockchain/participants/participants_info.js file.
 	             3. Make sure the Blockchain network is running.
-	             4. Make sure the IP and Port in configuration.js are correct.
+	             4. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 ####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/participants
 
@@ -937,14 +976,14 @@ Returns a JSON Object contain an array of all the transactions the user has perm
 	Description: The length of the chain was unobtainable.
 	Solutions:
 				 1. Make sure the Blockchain network is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 
 	Output: 	 {"message": "Unable to get block <block_number>", "error": true}
 	Status:		 400
 	Description: The block was unobtainable.
 	Solutions:
 				 1. Make sure the Blockchain network is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
 <hr />
 
 ##Chaincode
@@ -969,8 +1008,8 @@ Deploys the vehicle chaincode.
 	Status:		 400
 	Description: The vehicle chaincode was unable to be deployed
 				 1. Make sure the Blockchain network is running.
-				 2. Make sure the IP and Port in configuration.js are correct.
-				 3. Make sure the chaincode path in configuration.js is correct.
+				 2. Make sure the IP and Port in Server_Side/Configurations/configuration.js are correct.
+				 3. Make sure the chaincode path in Server_Side/Configurations/configuration.js is correct.
 
 	Output:		 {"message": "Unable to write chaincode deploy name to configuration file", error: true}
 	Status:		 400
