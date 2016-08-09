@@ -15,11 +15,12 @@ var update = function(req, res)
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
-	}	
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
+	}		
+
+	user_id = req.session.identity	
 	
 	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', req.body);
-	
-	user_id = req.session.user;
 
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 	
@@ -61,12 +62,10 @@ var update = function(req, res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Update owner response", body);
-		
-		if (!error && response.statusCode == 200) // if it appears to work run a query to check if the new owner can see the car
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200) // if it appears to work run a query to check if the new owner can see the car
 		{
 			var j = request.jar();
-			var str = "user="+newValue;
+			var str = "user="+map_ID.id_to_user(newValue);
 			var cookie = request.cookie(str);
 			var url = configFile.config.app_url +'/blockchain/assets/vehicles/'+v5cID+'/owner';
 			j.setCookie(cookie, url);
@@ -82,8 +81,6 @@ var update = function(req, res)
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
-						
-						console.log("Update owner confirm response", body);
 						
 						if (!error && response.statusCode == 200)
 						{

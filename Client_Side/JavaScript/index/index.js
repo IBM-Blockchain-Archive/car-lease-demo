@@ -3,6 +3,7 @@ $(document).ready(function(){
 })
 
 //If theres already blocks then we can't set up the demo scenario
+
 function checkBlocksAlready()
 {
 	$.ajax({
@@ -12,13 +13,13 @@ function checkBlocksAlready()
 		crossDomain:true,
 		url: '/blockchain/blocks',
 		success: function(d) {
-			if(d.height == 2)
+			if(d.height == 2) //checks to see if the genesis block and a block containing the transaction of the chaincode deployment, exists.
 			{
 				$('a').removeClass('greyOutLink')
 				$('.prematureMsg').hide()
 				$('.welcomeMsg').show()
 			}
-			else if(d.height < 2)
+			else if(d.height < 2) //chaincode hasn't been deployed
 			{
 				$('.prematureMsg').show()
 				$('a').addClass('greyOutLink')

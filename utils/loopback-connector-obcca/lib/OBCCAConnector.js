@@ -40,6 +40,9 @@ var connector;
 //Implement Loopback.io connector interface
 exports.initialize = function (dataSource, callback) {
 
+	console.log("Datasource object",dataSource.settings)
+
+
     //instantiate OBCCAConnector with dataSource.settings
     connector = new OBCCAConnector(dataSource.settings);
 	
@@ -448,10 +451,10 @@ OBCCAConnector.prototype.tcaCreateCertificateSet = function (tCertSetRequest, ca
 setRemoting(OBCCAConnector.prototype.registerUser, {
     description: 'Register a new user with the Certificate Authority',
     accepts: [
-        { arg: 'RegisterUserRequest', type: 'RegisterUserRequest', description: 'Unique user to register', http: { source: 'body' } }
+        { arg: 'RegisterUserRequest', type: 'RegisterUserRequest', description: 'Unique user to register', https: { source: 'body' } }
     ],
     returns: { arg: 'RegisterUserResponse', type: 'RegisterUserResponse', root: true },
-    http: { verb: 'post', path: '/registerUser' }
+    https: { verb: 'post', path: '/registerUser' }
 });
 
 //helper function to expose remote functions for loopback datasource / models

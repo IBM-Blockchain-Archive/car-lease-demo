@@ -2,6 +2,9 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
+var map_ID = require(__dirname+'/../../../../../../tools/map_ID/map_ID.js');
+
+var user_id;
 
 var update = function(req, res)
 {
@@ -9,7 +12,10 @@ var update = function(req, res)
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
-	}
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
+	}		
+
+	user_id = req.session.identity
 
 	tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', req.body);
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
@@ -35,7 +41,7 @@ var update = function(req, res)
 						        newValue.toString(), v5cID
 						      ]
 						    },
-						    "secureContext": req.session.user
+						    "secureContext": user_id
 						  },
 						  "id": 123
 						}
@@ -53,9 +59,7 @@ var update = function(req, res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("Update VIN response", body);
-		
-		if (!error && response.statusCode == 200)
+		if (!error && !body.hasOwnProperty("error") && response.statusCode == 200)
 		{
 			var j = request.jar();
 			var str = "user="+req.session.user
@@ -73,8 +77,6 @@ var update = function(req, res)
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
-						
-						console.log("Update VIN confirm response", body);
 						
 						if (!error && response.statusCode == 200) {
 							if(JSON.parse(body).message == newValue)
@@ -104,7 +106,6 @@ var update = function(req, res)
 		}
 		else 
 		{
-			console.log(body)
 			res.status(400)
 			var error = {}
 			error.error = true

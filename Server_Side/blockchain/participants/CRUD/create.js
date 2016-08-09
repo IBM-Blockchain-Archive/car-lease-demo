@@ -10,15 +10,10 @@ var reload = require('require-reload')(require),
 
 var counter = 0;
 
-var registerUser = function(dataSource, req, res) {
+var registerUser = function(req, res) {
 
 	tracing.create('ENTER', 'POST blockchain/participants', req.body)
 	
-    if (!dataSource.connector) {
-    	res.status(400);
-		tracing.create('ERROR', 'POST blockchain/participants', {"message":"Cannot register users before the CA connector is setup", "error":true})
-    	res.send(JSON.stringify({"message":"Cannot register users before the CA connector is setup", "error":true}));
-    }
     
     var numberAff = "0000"
     
@@ -44,41 +39,9 @@ var registerUser = function(dataSource, req, res) {
 			break;
 	}
 
-    // Register the user on the CA
-    var user = {
-    	"identity": req.body.company,
-    	"role": req.body.role,
-    	"account": "group1",
-    	"affiliation": numberAff
-    }
- 
-    dataSource.connector.registerUser(user, function (err, response) {
-        if (err) {
-        	
-        	if(counter >= 5){
-        		counter = 0;
-        		tracing.create('ERROR', 'POST blockchain/participants', {"message": err})
-        		res.status(400)
-        		res.send(JSON.stringify({"message": err}));
-        	}
-        	else{
-	            counter++
-	            setTimeout(function(){registerUser(dataSource, req, res);},2000)	            
-        	}
-
-        } else {
-        	
-        	counter = 0;
-        	
-			tracing.create('INFO', 'POST blockchain/participants', "RegisterUser succeeded:", JSON.stringify(response))
-            // Send the response (username and secret) for logging user in 
-            var creds = {
-                id: response.identity,
-                secret: response.token
-            };
-            loginUser(req, res, creds.secret);
-        }
-    });
+    //TEMPORARY, REMOVE WHEN USING NODE SDK
+    var secret = ""
+    loginUser(req, res,secret);
 }
 
 function loginUser(req, res, secret)

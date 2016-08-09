@@ -41,10 +41,11 @@ function createV5cID(req, res)
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
 	}
 	
-	user_id = req.session.user;
-} 
+	user_id = req.session.identity;
+}
 
 function checkIfAlreadyExists(req, res, v5cID)
 {
@@ -80,7 +81,10 @@ function checkIfAlreadyExists(req, res, v5cID)
 	
 	request(options, function(error, response, body)
 	{	
-		if (body.hasOwnProperty("error") && body.error.data.indexOf("Error retrieving v5c") > -1)
+	
+		console.log("VEHICLE CHAINCODE QUERY RESPONSE", body)
+	
+		if (body && body.hasOwnProperty("error") && body.error.data.indexOf("Error retrieving v5c") > -1)
 		{
 			tracing.create('INFO', 'POST blockchain/assets/vehicles', "V5cID is unique");
 			createVehicle(req, res, v5cID)

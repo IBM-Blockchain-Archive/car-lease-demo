@@ -6,11 +6,15 @@ var reload = require('require-reload')(require),
 var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
 var crypto = require('crypto');
 
-
+/*
+Used to manually deploy vehicle chaincode.
+Not used for Bluemix demo which instead uses "\Server_Side\configurations\startup\CRUD\create.js" to automatically deploy chaincode.
+*/
 function deploy(req, res)
 {
 	
 	tracing.create('ENTER', 'POST blockchain/chaincode/vehicles', {})
+	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
 	
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 	    api_url = api_url.replace('http://', '')
@@ -67,7 +71,7 @@ function deploy(req, res)
 	})
 }
 
-function update_config(name, res)
+function update_config(name, res) //Updates config.vehicle_name (ID of Chaincode) depending on chaincode provided
 {
 
 	configFile = reload(__dirname+'/../../../../configurations/configuration.js');

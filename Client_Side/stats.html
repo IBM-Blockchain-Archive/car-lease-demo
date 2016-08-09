@@ -11,10 +11,24 @@
 		<script src="JavaScript/config/config.js" type="text/javascript"></script>
 		<script src="JavaScript/stats/charts.js" type="text/javascript"></script>
 		<script src="JavaScript/stats/stats.js" type="text/javascript"></script>
+		<script src="JavaScript/page_functions/general_page_functions.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div id="fade" ></div>
 		<div id="loader" ><img src="Images/loading.gif" height="100" width="100" alt="loading" text="please wait..." /></div>
+		<table id="failTransfer" >
+			<tr>
+				<td class="bxHd" id="failHd"><span>Search Error</span></td>
+			</tr>
+			<tr>
+				<td class="bxMd" id="failMd">
+					<div id="failTxt" ></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="bxBtm" id="failBtm"><img src="Icons/tickRed.svg" class="rtBtn" id="doneFail" width="20" height="15" /></td>
+			</tr>
+		</table>
 		<table id="mainTbl" >
 			<tr>
 				<td class="smlBrk"></td>

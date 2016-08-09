@@ -2,6 +2,9 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
+var map_ID = require(__dirname+'/../../../../../../tools/map_ID/map_ID.js');
+
+var user_id;
 
 var read = function (req,res)
 {	
@@ -12,7 +15,10 @@ var read = function (req,res)
 	if(typeof req.cookies.user != "undefined")
 	{
 		req.session.user = req.cookies.user;
-	}
+		req.session.identity = map_ID.user_to_id(req.cookies.user);
+	}		
+
+	user_id = req.session.identity
 	
 	var querySpec =					{
 										"jsonrpc": "2.0",
@@ -28,7 +34,7 @@ var read = function (req,res)
 											  		v5cID
 											  ]
 											},
-											"secureContext": req.session.user,
+											"secureContext": user_id
 										},
 										"id": 123
 									};
@@ -45,9 +51,7 @@ var read = function (req,res)
 	request(options, function(error, response, body)
 	{
 		
-		console.log("VIN update read", body);
-		
-		if (!error && response.statusCode == 200)
+		if (!error && !body.hasOwnProperty('error') && response.statusCode == 200)
 		{
 			var result = {}
 			var vehicle = JSON.parse(body.result.message);
