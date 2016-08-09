@@ -17,7 +17,7 @@ This document outlines the interface for communicating with the Vehicle Chaincod
 	* [Update make](#update-make)
 	* [Update model](#update-model)
 	* [Update Registration](#update-registration)
-	* [Update VIN](#update-VIN)
+	* [Update VIN](#update-vin)
 	* [Scrap Vehicle](#scrap-vehicle)
 * [Query](#query)
 	* [Get Vehicle Details](#get-vehicle-details)
@@ -44,7 +44,7 @@ This document outlines the interface for communicating with the Vehicle Chaincod
 					<api_url>
 				]
 			},
-			"secureContext": "<username>"
+			"secureContext": "<caller>"
 		},
 		"id": <id>
 	}
@@ -822,7 +822,7 @@ If the user is the owner or an authority the code returns the JSON Object with t
 		} 
 	Reason: The data stored with the key <v5c_ID> is not in the format expected for a vehicle.
 
-###Get Vehicle Details
+###Get Vehicles
 
 #####Server Side API Call:
 
@@ -905,3 +905,51 @@ Goes through all vehicles that have been created and indexed and if the owner is
 		  "id": <id>
 		}
 	Reason: One of the vehicle's that has a key stored in the index is corrupt or missing.
+	
+##Glossary
+
+####api_url
+> The URL of the peer and its API port that the chaincode should use to call out to.
+
+####caller
+> The identity of the user on the Blockchain who made the call.
+
+####chaincode_name
+> The id of the chaincode. It is returned when chaincode is deployed and is used to tell the API which chaincode you wish to invoke or query. It is a 128 character string.
+
+####chaincode_path
+> The link to where the chaincode is located either on the local file system or on GitHub. The link is not to the actual file but the folder containing the go file.
+
+####id
+> Chaincode requests via the HyperLedger Fabric API use an integer ID that will appear on the response so that a user can send multiple requests at once and know which response ties to which request. If the ID is 0 then the request is treated by fabric as a notification.
+
+####recipient
+> The identity of the user on the Blockchain who is receiving the vehicle.
+
+####transaction_id
+> The ID of a transaction on the ledger. This uuid can be used with the HyperLedger API to select a transaction and view it. 
+
+####username
+> The identity of a user on the Blockchain.
+
+####v5c_ID
+> The unique identifier for a vehicle object. It is used as the key for the vehicles JSON object when it is written to the world state. It consists of 2 uppercase letters followed by 7 letters for example AB1234567.
+
+####vehicle_json
+> The JSON object that defines a vehicle and is stored in the world state. The object is defined as: 
+> 
+	{
+		"v5cID": "<v5c_ID>", 
+		"VIN": <VIN>, 
+		"make": "<string>",
+		"model": "<string>",
+		"reg": "<string>",
+		"owner": <username>, 
+		"colour": "<string>",
+		"leaseContractID": "<string>", 
+		"status": <int>, 
+		"scrapped": <bool>
+	}
+
+####VIN
+> 15 character integer or 0 if the vehicle has yet to be defined.
