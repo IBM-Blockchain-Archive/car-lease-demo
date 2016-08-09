@@ -29,6 +29,7 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 * [Transactions](#transactions)
 * [Chaincode](#chaincode)
 	* [Vehicles](#vehicles_chaincode)
+* [Glossary](#glossary)
 
 ##Admin
 
@@ -1016,3 +1017,59 @@ Deploys the vehicle chaincode.
 	Description: The name of the deployed chaincode was unable to be written to Server_Side/configurations/configuration.js
 	Solutions:	 
 				 1. Make sure that Server_Side/configurations/configuration.js exists.
+
+##Glossary
+####affiliation
+> Defines the type of user they are. They can be a Regulator, Manufacturer, Dealership, Lease Company, Leasee, Scrap Merchant. This affilitation is then mapped to a number for use in HyperLedger.
+
+####block
+> A block object defined in the HyperLedger fabric protocol spec.
+
+####block_hash
+> The hash of the contents of a block. Defined further in the HyperLedger fabric protocol spec.
+
+####block_number
+> An integer value for the number of a block in the chain. 
+
+####chaincode_name
+> The id of the chaincode. It is returned when chaincode is deployed and is used to tell the API which chaincode you wish to invoke or query. It is a 128 character string.
+
+####demo_status.log
+> A file that stores the output of the demo setup process. Located in Server_Side/logs.
+
+####height
+> Integer value for the length of the blockchain. 1 greater than the last block number.
+
+####participant
+> A JSON object outlining a user. Formatted as:  
+>
+	{  
+		"name": "<string>",  
+		"identity": "<username>",  
+		"password": "<string>",  
+		"address_line_1": "<string>",  
+		"address_line_2": "<string>",  
+		"address_line_3": "<string>",  
+		"address_line_4": "<username>",  
+		"postcode": "<string>"  
+	}  
+	
+####participant_type
+> A string defining the type of a user can be regulators, manufacturers, dealerships, lease_companies, leasees, scrap_merchants. Used to get the participants password from the participants info file.
+
+####role
+> Defines the role of the user. All users are currently set to 1. Roles are the same as defined in HyperLedger.
+
+####scenario_type
+> The scenario type defines which scenario will be deployed when the POST admin/demo API is called. The values for this can be “full” or “simple” full will be interpreted to create the 10 car scenario and simple the 3. 
+
+####transaction
+> A transaction object as defined by HyperLedger but with the payload converted from base64 to plain text and the cert parsed. It has the added fields of caller (who created the transaction) and failed (did the transaction changed the world state).
+####username
+> The identity of a user on the Blockchain.
+
+####v5c_ID
+> The unique identifier for a vehicle object. It is used as the key for the vehicles JSON object when it is written to the world state. It consists of 2 uppercase letters followed by 7 letters for example AB1234567.
+
+####VIN
+> 15 character integer or 0 if the vehicle has yet to be defined.
