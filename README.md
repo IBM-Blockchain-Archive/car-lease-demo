@@ -56,6 +56,6 @@ The scenario goes through the lifecycle of a car which has the following stages:
  8. Scrap merchant scraps the vehicle.
 
 ##Component model##
-The demo is built uising a 3 tier architecture with a NodeJS middle tier and HyperLedger fabric as the backend. The NodeJS server serves up the client side pages as well as providing an [API](Documentation/API_Methods.md) that can be called for the application server. This is what interacts with the HyperLedger fabric causing the chaincode to be run implementing the smart contract for a vehicle allowing us to transfer vehicles.
+The demo is built using a 3 tier architecture. The user interacts with the demo using a [web front end](Documentation/Client_Side.md) that is provided by the NodeJS server in the middle tier. This web front end uses JavaScript to make HTTP requests to the NodeJS server which has an API ([defined here](Documentation/API_Methods.md)) which in turn makes calls via HTTP to the HyperLedger fabric to get details about the blockchain and also interact with the [chaincode](Chaincode/vehicle_code). Information on the chaincode interaction can be found [here](Documentation/Chaincode_Interaction.md)
 
 ![Technical Component Model](/Images/Technical_Component_Model.png)
