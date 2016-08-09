@@ -33,9 +33,11 @@ The application makes use of a number of modules developed externally that must 
 
 If you run everything as its default settings locally then you should only have to make one change to the configurations file.
 
+More information on the configuration file can be found in [Server Side.md](/Documentation/Server Side.md)
+
 ####Pointing to chaincode file
 
-By default the configuration file will point at chaincode on github.com. If you are running the peer locally you will need to change config.vehicle to $GOPATH/src/github.com/fabric/vehicle_code.
+By default the configuration file will point at chaincode on github.com. If you are running the peer locally you will need to change config.vehicle to github.com/fabric/vehicle_code.
 
 ####Connecting to a non-default NodeJS server####
 
