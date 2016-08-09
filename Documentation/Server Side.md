@@ -1,5 +1,11 @@
 #Server Side
 
+* [Overview](#overview)
+* [Folder Structure](#folder-structure)
+* [API Methods](#api-methods)
+* [Configuration File](#configuration-file)
+* [Sessions](#sessions)
+
 ##Overview
 The Application’s server side logic is a NodeJS server that uses express to create a RESTful API served using expressjs that can be called by the client side using HTTP requests. The API is outlined in the API methods file and is designed to try and be general so that most of it can be swapped out of a car leasing scenario and used in another demo with the majority of functions formatting data in a generic manner that the client side can then turn into the demo. The NodeJS server is the component of the application which directly interacts with the HyperLedger fabric making call outs using HTTP requests to the API HyperLedger provides. The HTTP requests can invoke, query and deploy chaincode as well as querying the Blockchain.
 
@@ -87,3 +93,7 @@ The address that the vehicle chaincode is located at. If running locally the cha
 ###config.vehicle_name
 
 The name returned when deploying the vehicle chaincode. It is overwritten when the server deploys it to be the latest one returned. It is used by all files that interact with the chaincode.
+
+##Sessions
+
+The server uses sessions to handle which users are making the call. Each call made to the API will have a req.session field. The sessions are created by the Server_Side/admin/identity/create.js file and the req.session object has two fields: user and identity. User is the username of the user such as Andrew Hurt whilst identity stores their identity on the Blockchain so in the case of Andrew Hurt this is Andrew_Hurt. The identity is used for when they interact with the fabric and the user is used by the transaction API to see whether the user is the DVLA who has powers to read all.
