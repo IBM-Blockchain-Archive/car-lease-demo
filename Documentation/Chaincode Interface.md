@@ -22,6 +22,7 @@ This document outlines the interface for communicating with the Vehicle Chaincod
 * [Query](#query)
 	* [Get Vehicle Details](#get-vehicle-details)
 	* [Get Vehicles](#get-vehicles)
+* [Glossary](#glossary)  
 
 ##Deploy
 
