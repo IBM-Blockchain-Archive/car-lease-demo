@@ -6,7 +6,7 @@ To deploy to Bluemix simply use the button below then follow the instructions. T
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/jpayne23/car-lease-demo-1.git)
 
-To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md)
+To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md#deploying-locally)
 
 ##Application overview##
 This application is designed to demonstrate how assets can be modeled on the Blockchain using a car leasing scenario. In the scenario vehicles are modeled using Blockchain technology with the following attributes:
