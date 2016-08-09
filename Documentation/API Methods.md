@@ -28,7 +28,7 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 	* [Scrap Merchants](#scrap-merchants)
 * [Transactions](#transactions)
 * [Chaincode](#chaincode)
-	* [Vehicles](#vehicles)
+	* [Vehicles](#vehicles_chaincode)
 
 ##Admin
 
@@ -988,7 +988,7 @@ Returns a JSON Object contain an array of all the transactions the user has perm
 
 ##Chaincode
 
-###Vehicles
+###<a name="vehicles_chaincode"></a>Vehicles
 
 ####POST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/chaincode/vehicles
 
