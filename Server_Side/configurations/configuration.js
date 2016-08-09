@@ -18,7 +18,7 @@ config.traceFile 	= __dirname+'/../logs/app_trace.log'; 	// File where traces sh
 //--------------------------------------------------------------------------------------------------------------------
 
 config.networkFile 		= null;				 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
-config.networkProtocol 	= 'https'
+config.networkProtocol 	= 'https'			 // The protocol to be used for connecting via rest to the network data peers
 
 
 //--------------------------------------------------------------------------------------------------------------------
