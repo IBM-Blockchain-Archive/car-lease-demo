@@ -23,9 +23,9 @@ This document defines the API that runs on the NodeJS server. For the Hyperledge
 	* [Regulators](#regulators)
 	* [Manufacturers](#manufacturers)
 	* [Dealerships](#dealerships)
-	* [Lease Companies](#lease-Companies)
+	* [Lease Companies](#lease-companies)
 	* [Leasees](#leasees)
-	* [Scrap Merchants](#scrap-Merchants)
+	* [Scrap Merchants](#scrap-merchants)
 * [Transactions](#transactions)
 * [Chaincode](#chaincode)
 	* [Vehicles](#vehicles)
@@ -207,10 +207,10 @@ Takes a number and returns the block data for the block at that position in the 
 	Response Type: 		Streamed
 	Response Format:	JSON Objects Split by && Delimiter
 	Success: 			{"message":"Generating V5cID"}&&
-					{"message":"Checking V5cID is unique"}&&
-					{"message":"Creating vehicle with v5cID: <v5c_ID>"}&&
-					{"message": "Achieving Consensus"}&&
-					{"message": "Creation confirmed", "v5cID": <v5c_ID>}
+						{"message":"Checking V5cID is unique"}&&
+						{"message":"Creating vehicle with v5cID: <v5c_ID>"}&&
+						{"message": "Achieving Consensus"}&&
+						{"message": "Creation confirmed", "v5cID": <v5c_ID>}
 
 #####Description:
 
@@ -256,7 +256,7 @@ Invokes the vehicle chaincode to store a new vehicle in the world state.
 	Response Type:		Streamed
 	Response Format:	JSON Objects Split by && Delimiter
 	Success:			{"VIN": <vin>, "make": <string>, "model": <string>, "reg": <string>, "owner": <username>, "colour": <string>, "scrapped": <bool>, "status": <int>, "v5cID": <v5c_id>}&&
-					{"VIN": <vin>, "make": <string>, "model": <string>, "reg": <string>, "owner": <username>, "colour": <colour>, "scrapped": <bool>, "status": <int>, "v5cID": <v5c_id>}&&...
+						{"VIN": <vin>, "make": <string>, "model": <string>, "reg": <string>, "owner": <username>, "colour": <colour>, "scrapped": <bool>, "status": <int>, "v5cID": <v5c_id>}&&...
 
 
 #####Description:
@@ -282,9 +282,9 @@ Queries the vehicle chaincode and returns all the vehicles that the current user
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating scrap value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "Scrap updated"}
+						{"message": "Updating scrap value"}&&
+						{"message": "Achieving consensus"}&&
+						{"message": "Scrap updated"}
 
 #####Description:
 
@@ -348,9 +348,9 @@ Queries the vehicle chaincode and returns the colour of the vehicle.
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating colour value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "Colour updated"}
+						{"message": "Updating colour value"}&&
+						{"message": "Achieving consensus"}&&
+						{"message": "Colour updated"}
 
 #####Description:
 
@@ -414,9 +414,9 @@ Queries the vehicle chaincode and returns the make of the vehicle.
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating make value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "Make updated"}
+						{"message": "Updating make value"}&&
+						{"message": "Achieving consensus"}&&
+						{"message": "Make updated"}
 
 #####Description:
 
@@ -480,9 +480,9 @@ Queries the vehicle chaincode and returns the model of the vehicle.
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating model value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "Model updated"}
+						{"message": "Updating model value"}&&
+						{"message": "Achieving consensus"}&&
+						{"message": "Model updated"}
 
 #####Description:
 
@@ -546,9 +546,9 @@ Queries the vehicle chaincode and returns the owner of the vehicle.
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating owner value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "Owner updated"}
+						{"message": "Updating owner value"}&&
+						{"message": "Achieving consensus"}&&
+						{"message": "Owner updated"}
 
 #####Description:
 
@@ -612,9 +612,9 @@ Queries the vehicle chaincode and returns the registration of the vehicle.
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating registration value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "Registration updated"}
+						{"message": "Updating registration value"}&&
+						{"message": "Achieving consensus"}&&
+						{"message": "Registration updated"}
 
 #####Description:
 
@@ -708,9 +708,9 @@ Queries the vehicle chaincode and returns the vin of the vehicle.
 	Response Type:		Streamed 
 	Response Format:	JSON Object Split By && Delimiter
 	Success: 			{"message": "Formatting request"}&&
-					{"message": "Updating VIN value"}&&
-					{"message": "Achieving consensus"}&&
-					{"message": "VIN updated"}
+							{"message": "Updating VIN value"}&&
+							{"message": "Achieving consensus"}&&
+							{"message": "VIN updated"}
 
 #####Description:
 
@@ -903,7 +903,7 @@ Retrieves the participants that are identified as lease_companies.
 
 ##
 
-###Leaseese
+###Leasees
 
 ####GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/blockchain/participants/leasees
 
