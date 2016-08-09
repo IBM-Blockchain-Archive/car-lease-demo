@@ -54,7 +54,7 @@ config.registrar_password 	= "1a9513992f";
 //--------------------------------------------------------------------------------------------------------------------
 //Chaincode file location
 
-config.vehicle = "https://github.com/jpayne23/testDeployCC/Chaincode/vehicle_code/"
+config.vehicle = "https://github.com/jpayne23/car-lease-demo-1/Chaincode/vehicle_code/"
 
 //Chaincode deployed names
 config.vehicle_name = '2e436d1363bb9f7c00342fa3fe30eff2c303f06ed4a396a06416a5e1e488ead7edd99f337e31fc6692d785bc0d9a30e942f111caccae15e7c34de6c716f0d92a';
