@@ -26,14 +26,14 @@ This application is designed to demonstrate how assets can be modeled on the Blo
 
 The application is designed to allow participants to interact with the vehicle assets creating, updating and transferring them as their permissions allow. The participants included in the application are as follows:
 
-| Participant    | Permissions                                |
-| -------------- | -------------------------------------------|
-| Regulator      | Create, Read (All), Transfer               |
-| Manufacturer   | Read (Own), Update (All), Transfer         |
-| Dealership     | Read (Own), Update (Colour, Reg), Transfer |
-| Lease Company  | Read (Own), Update (Colour, Reg), Transfer |
-| Leasee         | Read (Own), Update (Colour, Reg), Transfer |
-| Scrap Merchant | Read (Own), Scrap                          |
+| Participant    | Permissions                                                          |
+| -------------- | ---------------------------------------------------------------------|
+| Regulator      | Create, Read (All vehicles), Transfer                                |
+| Manufacturer   | Read (Own vehicles), Update (VIN, Make, Model, Colour, Reg), Transfer|
+| Dealership     | Read (Own vehicles), Update (Colour, Reg), Transfer                  |
+| Lease Company  | Read (Own vehicles), Update (Colour, Reg), Transfer                  |
+| Leasee         | Read (Own vehicles), Update (Colour, Reg), Transfer                  |
+| Scrap Merchant | Read (Own vehicles), Scrap                                           |
 
 The demonstration allows a view of the ledger that stores all the interactions that the above participants have has with their assets. The ledger view shows the regulator every transaction that has occurred showing who tried to to what at what time and to which vehicle. The ledger view also allows the user to see transactions that they were involved with as well as showing the interactions with the assets they own before they owned them e.g. they can see when it was created.
 
