@@ -25,7 +25,6 @@ config.networkProtocol 	= 'https'
 //	Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
 //--------------------------------------------------------------------------------------------------------------------
 //IP and port configuration
-
 config.api_ip = 'http://127.0.0.1'; //IP of the peer attempting to be connected to
 
 //When using blockchain on bluemix, api_port_external and api_port_internal will be the same
