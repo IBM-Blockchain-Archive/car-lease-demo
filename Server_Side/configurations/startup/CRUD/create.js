@@ -1,5 +1,12 @@
 /*eslint-env node */
 
+
+//TO DO:
+// -- If user is already logged in, still get there eCert and add to userEcertHolder
+// -- Add grpc protocol to config 
+// -- Add cert location to config
+// -- Add key store location to config
+
 var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../configuration.js'),
@@ -25,38 +32,7 @@ var create = function()
 {
 	configFile = reload(__dirname+'/../../configuration.js');
 	tracing.create('ENTER', 'Startup', {});
-
-	var api_ip = configFile.config.api_ip
-	api_ip = api_ip.substring(api_ip.indexOf("://")+3 );
 	
-	var registrar_name = configFile.config.registrar_name
-	var registrar_password = configFile.config.registrar_password
-	
-	chain = hfc.newChain("theChain");
-	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
-	chain.setDeployWaitTime(60);
-	chain.setECDSAModeForGRPC(true);
-
-	var pem = fs.readFileSync('us.blockchain.ibm.com.cert');
-	console.log("CREATION:: Finished reading certificate.  Connecting to membership services");
-
-	chain.setMemberServicesUrl("grpcs://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem}); //HAVE ADDRESS IN CONFIG		//2aee5d0d-16c7-4e3e-9f8e-d18845452201_ca.us.blockchain.ibm.com:30303 	, {pem:pem, hostnameOverride:'tlsca'}
-	
-	chain.addPeer("grpcs://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem}); //HAVE ADDRESS IN CONFIG			//2aee5d0d-16c7-4e3e-9f8e-d18845452201_vp0.us.blockchain.ibm.com:30303	, {pem:pem, hostnameOverride:'tlsca'}
-
-	
-	console.log("REGISTRAR INFO", registrar_name, registrar_password)
-	
-	chain.enroll(registrar_name, registrar_password, function(err, registrar) {
-
-		if (err) return console.log("ERROR: failed to register, %s",err);
-		// Successfully enrolled WebAppAdmin during initialization.
-		// Set this user as the chain's registrar which is authorized to register other users.
-		console.log("ENROLL WORKED", registrar)
-
-		chain.setRegistrar(registrar);
-
-	});
 	
 	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
 	
@@ -77,9 +53,6 @@ var create = function()
 			}
 		}
 		
-		console.log("FIRST USER", users[0].identity)
-		
-		addUser()
 	}
 	else
 	{
@@ -89,6 +62,37 @@ var create = function()
 		tracing.create('ERROR', 'Startup', error);
 		return JSON.stringify(error)
 	}
+	
+	var api_ip = configFile.config.api_ip
+	api_ip = api_ip.substring(api_ip.indexOf("://")+3 );
+	
+	var registrar_name = configFile.config.registrar_name
+	var registrar_password = configFile.config.registrar_password
+	
+	chain = hfc.newChain("theChain");
+	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
+	chain.setDeployWaitTime(60);
+	chain.setECDSAModeForGRPC(true);
+
+	var pem = fs.readFileSync('us.blockchain.ibm.com.cert');
+
+	chain.setMemberServicesUrl("grpcs://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem});
+	
+	chain.addPeer("grpcs://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem});	
+	
+	chain.enroll(registrar_name, registrar_password, function(err, registrar) {
+
+		if (err) return console.log("ERROR: failed to register, %s",err);
+		// Successfully enrolled WebAppAdmin during initialization.
+		// Set this user as the chain's registrar which is authorized to register other users.
+		
+		console.log("ENROLL WORKED", registrar_name, registrar_password)
+		
+		chain.setRegistrar(registrar);
+		
+		addUser()
+
+	});
 }
 
 function addUser()
@@ -130,29 +134,57 @@ function addUser()
 	
 	request(options, function(error, response, body)
 	{	
-
+		
 		if(body && body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
 		{
-			if(counter < users.length - 1)
-			{
-				counter++;
-				tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-				setTimeout(function(){addUser()}, 2000);
-			}
-			else
-			{
-				counter = 0;
-				tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-				deploy_vehicle();
-			}
+			
+			get_user_ecert(users[counter].identity, users[counter].password, function(err){
+				
+				if(!err){
+					if(counter < users.length - 1)
+					{
+						counter++;
+						tracing.create('INFO', 'Startup', "User already registered and enrolled:" + users[counter].identity);
+						
+						//want to get user ecert and add to userEcertHolder here
+						
+						setTimeout(function(){addUser()}, 2000);
+					}
+					else
+					{
+						counter = 0;
+						tracing.create('INFO', 'Startup', "User already registered and enrolled:" + users[counter].identity);
+						deploy_vehicle();
+					}
+				}
+				else
+				{
+					var error = {}
+					error.message = 'Unable to get user ecert: '+users[counter].identity;
+					error.error = false;
+					tracing.create('ERROR', 'Startup', error+" "+err);
+					
+					if(counter < users.length - 1)
+					{
+						counter++;
+						setTimeout(function(){addUser()}, 500);
+					}
+					else
+					{
+						deploy_vehicle();
+					}
+				}
+				
+			})
+			
+			
 			
 		}
 		else	// Runs if user hasn't been created yet
 		{
 			
-			
 			var result = createUser(users[counter].identity, 1, userAff, function(err){
-
+			
 				if (!err) {
 					if(counter < users.length - 1)
 					{
@@ -188,20 +220,17 @@ function addUser()
 			})
 		}
 	})
+	
 }
 
 function deploy_vehicle() //Deploy vehicle chaincode
 {
 	tracing.create('INFO', 'Startup', 'Deploying vehicle chaincode');
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
-	//api_url = api_url.replace('https', 'http')
 	    
 	var randomVal = crypto.randomBytes(256).toString('hex')
-	
-	
-	
-	console.log(" Final userEcertHolder", userEcertHolder)
-	
+				
+	//add check userEcertHolder has data in it
 				
 	var deploySpec = {
 						  "jsonrpc": "2.0",
@@ -213,9 +242,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 						    },
 						    "ctorMsg": {
 						      "function": "init",
-						      "args": [
-						        JSON.stringify(userEcertHolder[0]),JSON.stringify(userEcertHolder[1]),JSON.stringify(userEcertHolder[2]),JSON.stringify(userEcertHolder[3]),JSON.stringify(userEcertHolder[4]),JSON.stringify(userEcertHolder[5]),JSON.stringify(userEcertHolder[6]),JSON.stringify(userEcertHolder[7]),JSON.stringify(userEcertHolder[8]),JSON.stringify(userEcertHolder[9]),JSON.stringify(userEcertHolder[10]),JSON.stringify(userEcertHolder[11]),JSON.stringify(userEcertHolder[12]),JSON.stringify(userEcertHolder[13]),JSON.stringify(userEcertHolder[14]),JSON.stringify(userEcertHolder[15])																													
-						      ]
+						      "args": userEcertHolder
 						    },
 						    "secureContext": participants.participants_info.regulators[0].identity
 						  },
@@ -245,7 +272,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 					}
 					
 				request(options, function(error, response, body){
-					if(body.height >= 2){
+					if(body && body.height >= 2){
 						tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed');
 						clearInterval(interval)
 					}
@@ -259,7 +286,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 		}
 	})
 }
-
+var createCounter = 0;
 function createUser(username, role, aff, cb)
 {
 
@@ -272,16 +299,27 @@ function createUser(username, role, aff, cb)
 	};
 
 	chain.register( registrationRequest, function(err, secret) {
-		if (err) return cb(err);
+		if (err) {
+			
+			if(createCounter < 5){
+				createCounter++
+				setTimeout(function(){createUser(username, role, aff, cb)}, 500);
+			}
+			else{
+				createCounter = 0;
+				return cb(err);
+			}
+			
+		}
 
 		chain.getMember(username, function(err, member){
 			
-			member.setAccount("group1")
-			member.setAffiliation(aff)
-			member.setRoles([role])
-			member.saveState()
+		member.setAccount("group1")
+		member.setAffiliation(aff)
+		member.setRoles([role])
+		member.saveState()
 
-			loginUser(username,aff,secret,cb)
+		loginUser(username,aff,secret,cb)
 
 		})
 	});	
@@ -289,9 +327,9 @@ function createUser(username, role, aff, cb)
 
 function loginUser(username, aff, secret, cb)
 {
-	tracing.create('INFO', 'Startup', 'Attempting to register user "'+username+'" with CA');
+	tracing.create('INFO', 'Startup', 'Attempting to enroll user "'+username+'" with CA');
 	configFile = reload(__dirname+'/../../configuration.js');
-
+	
 	var credentials = {
 						  "enrollId": username,
 						  "enrollSecret": secret
@@ -305,26 +343,25 @@ function loginUser(username, aff, secret, cb)
 			}
 					
 	request(options, function(error, response, body){		
-
+	
 		if (body && !body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
 			innerCounter = 0;
-			tracing.create('INFO', 'Startup', 'Registering user "'+username+'" with CA successful');
+			tracing.create('INFO', 'Startup', 'Enrolling user "'+username+'" with CA successful');
 			
 			get_user_ecert(username, secret, cb)
 			
-			//writeUserToFile(username, secret,cb)
 		}
 		else
 		{
 			if(innerCounter >= 5){
 				innerCounter = 0;
-				tracing.create('ERROR', 'Startup', {"message": "Registering user \""+username+"\" with CA failed", "error": false});
-				return cb("Registering user \""+username+"\" with CA failed")
+				tracing.create('ERROR', 'Startup', {"message": "Enrolling user \""+username+"\" with CA failed", "error": false});
+				return cb("Enroll user \""+username+"\" with CA failed")
 			}
 			else{
 				innerCounter++
-				tracing.create('INFO', 'Startup', 'Attempting to register user "'+username+'" with CA again');
+				tracing.create('INFO', 'Startup', 'Attempting to enroll user "'+username+'" with CA again');
 				setTimeout(function(){loginUser(username, aff, secret,cb);},2000)	            
 			}
 			
@@ -365,7 +402,7 @@ function update_config(name)
 	});
 }
 
-
+var ecertCounter = 0;
 function get_user_ecert(user, secret, cb){
 	
 	
@@ -378,17 +415,24 @@ function get_user_ecert(user, secret, cb){
 		
 		
 		
-		if(body){
-			console.log("ECERT RESPONSE", JSON.parse(body).OK)
+		if(body && JSON.parse(body).hasOwnProperty("OK")){
 			
-			userEcert = {"identity":user,"ecert":JSON.parse(body).OK}
-			userEcertHolder.push(userEcert)
+			userEcertHolder.push(user)
+			userEcertHolder.push(JSON.parse(body).OK)
 			
 			writeUserToFile(user,secret,cb)
 			
 		}
 		else{
-			console.log("BAD ECERT RESPONSE", response, "ERROR", error)
+			if(ecertCounter > 5){
+				console.log("BAD ECERT REQUEST", body)
+				ecertCounter = 0;
+			}
+			else{
+				ecertCounter++
+				get_user_ecert(user,secret,cb)
+			}
+			
 		}
 	});
 

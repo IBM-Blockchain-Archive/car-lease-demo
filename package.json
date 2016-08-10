@@ -27,7 +27,8 @@
     "request": "",
     "require-reload": "",
     "sjcl": "^1.0.3",
-    "ws": "1.0.1"
+    "ws": "1.0.1",
+	"x509": ""
   },
   "repository": {
     "type": "git",
