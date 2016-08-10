@@ -3,6 +3,7 @@ Car Lease Demo
 
 ##Deploying the demo##
 To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
+
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
 
 To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md#deploying-locally)
