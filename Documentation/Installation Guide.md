@@ -56,7 +56,13 @@ The configurations file by default is set up to use a local peer set up using th
 ####Connecting to an external Bluemix Peer####
 To connect to an external Bluemix peer copy the peers VCAP varibales into a file locally to the NodeJS server (An example file is myCreds.json).  In the Server_Side/configurations/configuration.js file change `networkFile` to be the filepath to the file. The app will overwrite the configuration file to update it with the settings from this file.
 
-More information on the configuration file can be found in the Application Overview document.
+More information on the configuration file can be found in the [Server Side.md](/Documentation/Server Side.md) file.
+
+###Setting up the GRPC connection###
+By default the grpc connection is set to grpcs to accomodate Bluemix. If you are running your CA locally then you will need to change this to grpc on lines 43 and 45 of Server_Side/configurations/startup/CRUD/create.js. You will also need to pem to equal null on line 40.
+
+You will also need to ensure that the folder /tmp/keyValStore exists on the machine NodeJS is running on.
+
 ###Running the application###
 To run the app start the NodeJS server by opening a terminal or command prompt window in the car-lease-demo folder and then running:
 
