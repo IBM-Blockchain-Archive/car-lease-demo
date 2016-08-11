@@ -154,7 +154,7 @@ function createScenario(scenario_type)
 									$('#latestSpan').html('&nbsp;&#10004');
 									$('#loader img').hide();
 									$('#loaderMessages').append('<br /><br /><span id="okTransaction" onclick="showError();">OK</span>');
-									$('#chooseConfHd span').html('Scenario Creation Failed');
+									$('#failHd span').html('Scenario Creation Failed');
 									$('#confTxt').html(array[i].message);
 								}
 							}
