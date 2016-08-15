@@ -25,9 +25,9 @@ var path 			= require('path')
 var hfc				= require('hfc');
 
 
-
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/Server_Side/configurations/configuration.js');
+	
 //Our own modules
 var blocks 			= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
 var block 			= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
@@ -39,9 +39,6 @@ var demo 	 		= require(__dirname+'/Server_Side/admin/demo/demo.js')
 var chaincode 	 	= require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js')
 var transactions 	= require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
 var startup			= require(__dirname+'/Server_Side/configurations/startup/startup.js');
-
-//User manager modules
-var user_manager = require(__dirname+'/utils/user.js');
 
 // For logging
 var TAG = "app.js:";
@@ -55,9 +52,6 @@ check_if_config_requires_overwriting(function(updatedPort){
 	port = updatedPort;
 	
 })
-
-
-
 
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
@@ -337,7 +331,7 @@ console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_por
 
 function check_if_config_requires_overwriting(assignPort)
 {
-	console.log("I'VE BEEN CALLED")
+
 	var app_url = configFile.config.app_url
 	var app_port = configFile.config.app_port
 	var api_ip = configFile.config.api_ip
@@ -355,71 +349,103 @@ function check_if_config_requires_overwriting(assignPort)
 		try
 		{
 			var networkDetails = JSON.parse(fs.readFileSync(configFile.config.networkFile, 'utf8'))
+			var ca = networkDetails.credentials.ca;
+			var peers = networkDetails.credentials.peers;
+			var peer_ip;
+			var peers_array = [];			
+			
+			//Get address of every peer on the network
+			for(var i in peers){
+				peer_ip = configFile.config.networkProtocol+'://'+peers[i].api_host  
+				peers_array.push(peer_ip)
+			}
 
-			api_ip = configFile.config.networkProtocol+'://'+networkDetails.credentials.peers[0].api_host;
+			api_ip = peers_array;
+
+			//Get details of the Certificate Authority
+			for(var i in ca){
+				ca_ip		= ca[i].discovery_host;
+				ca_port		= ca[i].discovery_port;
+			}
+
 			api_port_external = networkDetails.credentials.peers[0].api_port;
 			api_port_internal = networkDetails.credentials.peers[0].api_port;
 			api_port_discovery = networkDetails.credentials.peers[0].discovery_port;
-			ca_ip = networkDetails.credentials.ca[0].discovery_host;
-			ca_port = networkDetails.credentials.ca[0].discovery_port;
+			
+			//Username and password for the user we will assign as the registrar with the HFC module
 			registrar_name = networkDetails.credentials.users[1].username;
 			registrar_password = networkDetails.credentials.users[1].secret;
+
 			console.log("Network JSON load successful")
 		}
 		catch(err)
 		{
-			console.error("Unable to read network JSON") // File either does not exist or JSON was invalid
+			console.error("Unable to read network JSON. Error:",err) // File either does not exist or JSON was invalid
 			return
 		}
 	} 
 
 	if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
-		console.log("Attempting to use Bluemix VCAP Services NEW17")
-		try
-		{
+		console.log("Attempting to use Bluemix VCAP Services")
+		if(JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"]){		
+
+			try
+			{
+				var credentials = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"];
 			
-			//var credentials = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"];
-			
-			app_url 				= "http://" + JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
-			app_port 				= process.env.VCAP_APP_PORT;
-			api_ip 					= "https://"+JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_host"];
-			api_port_external 		= JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_port"];
-			api_port_internal		= JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["api_port"];
-			api_port_discovery 		= JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"][0]["discovery_port"];
-			registrar_name 			= JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"][1]["username"];
-			registrar_password 		= JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"][1]["secret"];
-			
-			var ca = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["ca"];
-			
-			for(var i in ca){
-				ca_ip		= ca[i]["discovery_host"]
-				ca_port		= ca[i]["discovery_port"]
+				app_url 				= "http://" + JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
+				app_port 				= process.env.VCAP_APP_PORT;
+				api_ip 					= "https://"+credentials["peers"][0]["api_host"];
+				api_port_external 		= credentials["peers"][0]["api_port"];
+				api_port_internal		= credentials["peers"][0]["api_port"];
+				api_port_discovery 		= credentials["peers"][0]["discovery_port"];
+				registrar_name 			= credentials["users"][1]["username"];
+				registrar_password 		= credentials["users"][1]["secret"];
+
+				var ca = credentials["ca"];
+				var peers = credentials["peers"];
+
+				//Get address of every peer on the network
+				for(var peer in peers){
+					peer_ip = "https://"+peer["api_host"]  
+					api_ip.push(peer_ip)
+				}
+
+				//Get details of the Certificate Authority
+				for(var i in ca){
+					ca_ip		= ca[i]["discovery_host"]
+					ca_port		= ca[i]["discovery_port"]
+				}
 			}
-			
-			//ca = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["ca"];
-			
-			console.log("REGISTRAR INFO",registrar_name, registrar_password)
-			/*
-			for (var z in ca){
-				
-				console.log("CA INFO",ca[z])
-				
-				ca_ip = ca[z].discovery_host;
-				ca_port = ca[z].discovery_port
-			}*/
-			
+			catch(err)
+			{
+				console.error("Unable to use VCAP Services. Error:",err) //The VCAP Services JSON does not match the expected format
+				return
+			}
 		}
-		catch(err)
-		{
-			console.error("Unable to use VCAP Services",err) //The VCAP Services JSON does not match the expected format
-			return
+		else{
+			console.error("Unable to access blockchain service environment variables. The blockchain service may not exist or be working.",err)
 		}
 	}
 	
 	//Start rewriting the config file with new values
 	var data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8')
-	var regex = new RegExp('config.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+addSlashes(configFile.config.api_ip)+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
-	var result = data.replace(regex, "config.api_ip = '"+api_ip+"';");
+	
+	var str = 'config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.api_ip[0]+'\'.*?\\](\\t*\\ *)*(;)?'
+
+	var regex = new RegExp(str, "g")
+
+	var peersArrayAsString='';
+
+	for(var i in api_ip){
+		peersArrayAsString += '\''+api_ip[i]+'\''
+		
+		if(i != api_ip.length-1){
+			peersArrayAsString += ','
+		}
+	}
+
+	var result = data.replace(regex, "config.api_ip = ["+peersArrayAsString+"];");
 
 	regex = new RegExp('config\.api_port_external(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_external+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.api_port_external = '"+api_port_external+"';");
