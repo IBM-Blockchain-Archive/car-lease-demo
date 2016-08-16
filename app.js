@@ -322,7 +322,6 @@ process.env['GRPC_SSL_CIPHER_SUITES'] = 'ECDHE-ECDSA-AES128-GCM-SHA256';
 server.timeout = 2400000;
 console.log('------------------------------------------ Server Up - ' + configFile.config.app_url + ' ------------------------------------------');
 
-
 console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_port_external);
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -340,6 +339,8 @@ function check_if_config_requires_overwriting(assignPort)
 	var api_port_discovery = configFile.config.api_port_discovery
 	var ca_ip = configFile.config.ca_ip
 	var ca_port = configFile.config.ca_port
+	var peers = configFile.config.peers
+	
 	var registrar_name = configFile.config.registrar_name
 	var registrar_password = configFile.config.registrar_password
 	
@@ -352,7 +353,7 @@ function check_if_config_requires_overwriting(assignPort)
 			var ca = networkDetails.credentials.ca;
 			var peers = networkDetails.credentials.peers;
 			var peer_ip;
-			var peers_array = [];			
+			var peers_array = [];
 			
 			//Get address of every peer on the network
 			for(var i in peers){
@@ -360,8 +361,9 @@ function check_if_config_requires_overwriting(assignPort)
 				peers_array.push(peer_ip)
 			}
 
-			api_ip = peers_array;
-
+			api_ip = peers_array[0];
+			peers = peers_array;
+			
 			//Get details of the Certificate Authority
 			for(var i in ca){
 				ca_ip		= ca[i].discovery_host;
@@ -387,7 +389,8 @@ function check_if_config_requires_overwriting(assignPort)
 
 	if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
 		console.log("Attempting to use Bluemix VCAP Services")
-		if(JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"]){		
+		
+		if(JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"]){		
 
 			try
 			{
@@ -395,21 +398,25 @@ function check_if_config_requires_overwriting(assignPort)
 			
 				app_url 				= "http://" + JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
 				app_port 				= process.env.VCAP_APP_PORT;
-				api_ip 					= "https://"+credentials["peers"][0]["api_host"];
 				api_port_external 		= credentials["peers"][0]["api_port"];
 				api_port_internal		= credentials["peers"][0]["api_port"];
 				api_port_discovery 		= credentials["peers"][0]["discovery_port"];
+				
 				registrar_name 			= credentials["users"][1]["username"];
 				registrar_password 		= credentials["users"][1]["secret"];
 
 				var ca = credentials["ca"];
 				var peers = credentials["peers"];
-
+				var peers_array = [];
+				
 				//Get address of every peer on the network
-				for(var peer in peers){
-					peer_ip = "https://"+peer["api_host"]  
-					api_ip.push(peer_ip)
+				for(var i in peers){
+					peer_ip = "https://"+peers[i]["api_host"]
+					peers_array.push(peer_ip)
 				}
+				
+				api_ip = peers_array[0]
+				peers = peers_array
 
 				//Get details of the Certificate Authority
 				for(var i in ca){
@@ -424,28 +431,34 @@ function check_if_config_requires_overwriting(assignPort)
 			}
 		}
 		else{
-			console.error("Unable to access blockchain service environment variables. The blockchain service may not exist or be working.",err)
+			console.error("Unable to access blockchain service environment variables. The blockchain service may not exist or be working.")
+			return
 		}
 	}
 	
 	//Start rewriting the config file with new values
 	var data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8')
 	
-	var str = 'config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.api_ip[0]+'\'.*?\\](\\t*\\ *)*(;)?'
+	var str = 'config\.peers(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.peers[0]+'\'.*?\\](\\t*\\ *)*(;)?'
 
 	var regex = new RegExp(str, "g")
 
 	var peersArrayAsString='';
 
-	for(var i in api_ip){
-		peersArrayAsString += '\''+api_ip[i]+'\''
+	for(var i in peers){
+		peersArrayAsString += '\''+peers[i]+'\''
 		
-		if(i != api_ip.length-1){
+		if(i != peers.length-1){
 			peersArrayAsString += ','
 		}
 	}
 
-	var result = data.replace(regex, "config.api_ip = ["+peersArrayAsString+"];");
+	console.log("String", peersArrayAsString)
+	
+	var result = data.replace(regex, "config.peers = ["+peersArrayAsString+"];");
+	
+	regex = new RegExp('config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_ip+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
+	result = result.replace(regex, "config.api_ip = '"+api_ip+"';");
 
 	regex = new RegExp('config\.api_port_external(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_external+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.api_port_external = '"+api_port_external+"';");

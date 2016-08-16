@@ -2,20 +2,15 @@
 
 var request = require('request');
 var reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../configurations/configuration.js');
+    configFile = reload(__dirname+'/../../../configurations/configuration.js'),
+	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
 var tracing = require(__dirname+'/../../../tools/traces/trace.js');	
 var spawn = require('child_process').spawn;
 var fs = require('fs')
-
-var reload = require('require-reload')(require),
-    participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
-	
 var map_ID = require(__dirname+"/../../../tools/map_ID/map_ID.js");
 
 
 var initial_vehicles = require(__dirname+"/../../../blockchain/assets/vehicles/initial_vehicles.js");
-
-
 var send_error = false;
 var counter = 0;
 var users = [];
