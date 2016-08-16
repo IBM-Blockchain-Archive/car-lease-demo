@@ -1,9 +1,6 @@
 /*eslint-env node */
 
-
 //TO DO:
-// -- Add cert location to config
-// -- Add key store location to config
 // -- Clean up vehicle chaincode and process for passing in users and eCert. Use JSON objects instead
 
 var request = require('request');
@@ -15,7 +12,6 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var crypto = require('crypto');
 var hfc = require('hfc');
-
 
 var send_error = false;
 var counter = 0;
@@ -69,17 +65,17 @@ var create = function()
 
 	chain = hfc.newChain("theChain");
 	//This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
-	chain.setKeyValStore( hfc.newFileKeyValStore('/tmp/keyValStore') );
+	chain.setKeyValStore( hfc.newFileKeyValStore(configFile.config.key_store_location) );
 	chain.setDeployWaitTime(60);
 
 	//Retrieve the certificate if grpcs is being used
-	if(configFile.config.hfcProtocol == 'grpcs'){
+	if(configFile.config.hfc_protocol == 'grpcs'){
 		chain.setECDSAModeForGRPC(true);
-		pem = fs.readFileSync('us.blockchain.ibm.com.cert');
+		pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_location);		
 	}
 	
-	chain.setMemberServicesUrl(configFile.config.hfcProtocol+"://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem});
-	chain.addPeer(configFile.config.hfcProtocol+"://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem});
+	chain.setMemberServicesUrl(configFile.config.hfc_protocol+"://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem});
+	chain.addPeer(configFile.config.hfc_protocol+"://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem});
 	chain.enroll(registrar_name, registrar_password, function(err, registrar) {
 		
 		if (err) return console.log("ERROR: failed to register, %s",err);
@@ -259,8 +255,8 @@ function deploy_vehicle() //Deploy vehicle chaincode
 		{
 			update_config(body.result.message)
 			
-			var peers = configFile.config.api_ip
-			var peerCounter
+			var peers = configFile.config.peers
+			var peerCounter = 0;
 			
 			var interval = setInterval(function(){
 				var options = 	{
@@ -270,15 +266,13 @@ function deploy_vehicle() //Deploy vehicle chaincode
 					}
 					
 				request(options, function(error, response, body){
-
 					if(body && body.height >= 2){
-						if(peerCounter < peers.length-1){
+						if(peerCounter < peers.length-1){							
 							tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on peer '+peers[peerCounter]);							
 							peerCounter++										
 						}
 						else{
 							tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on all peers');
-
 							clearInterval(interval)
 						}
 					}
@@ -288,7 +282,6 @@ function deploy_vehicle() //Deploy vehicle chaincode
 		else
 		{
 			tracing.create('ERROR', 'Startup', {"message":"Error deploying vehicle chaincode","body":body,"error":true});
-
 			return JSON.stringify({"message":"Error deploying vehicle chaincode","body":body,"error":true})
 		}
 	})
