@@ -74,6 +74,9 @@ var update = function(req, res)
 			tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/VIN', 'Achieving Consensus');
 			res.write('{"message":"Achieving Consensus"}&&');
 			var counter = 0;
+			//var timeout_check_interval = configFile.config.timeout / configFile.config.number_of_timeout_checks
+			
+			
 			var interval = setInterval(function(){
 				if(counter < 15){
 					request(options, function (error, response, body) {
@@ -102,7 +105,7 @@ var update = function(req, res)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
-			}, 2000)
+			}, 4000)
 		}
 		else 
 		{
