@@ -25,7 +25,7 @@ function checkChainHeight()
 			{
 				$('.prematureMsg').show()
 				$('a').addClass('greyOutLink')
-				setTimeout(function(){checkBlocksAlready()}, 5000)
+				setTimeout(function(){checkChainHeight()}, 5000)
 				
 			}
 			else
@@ -39,7 +39,7 @@ function checkChainHeight()
 			
 			if(errorNumber < 5){
 				errorNumber++
-				setTimeout(function(){checkBlocksAlready()}, 5000)
+				setTimeout(function(){checkChainHeight()}, 5000)
 			}else{
 				console.log("Error count exceeded:",err)
 				errorNumber = 0;
