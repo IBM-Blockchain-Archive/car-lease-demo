@@ -1,10 +1,11 @@
 $(document).ready(function(){
-	checkBlocksAlready()
+	checkChainHeight();
 })
 
-//If theres already blocks then we can't set up the demo scenario
+var error_number = 0;
 
-function checkBlocksAlready()
+//Check chain height to see if chaincode has been deployed
+function checkChainHeight()
 {
 	$.ajax({
 		type: 'GET',
@@ -15,6 +16,7 @@ function checkBlocksAlready()
 		success: function(d) {
 			if(d.height == 2) //checks to see if the genesis block and a block containing the transaction of the chaincode deployment, exists.
 			{
+				errorNumber = 0;
 				$('a').removeClass('greyOutLink')
 				$('.prematureMsg').hide()
 				$('.welcomeMsg').show()
@@ -23,17 +25,27 @@ function checkBlocksAlready()
 			{
 				$('.prematureMsg').show()
 				$('a').addClass('greyOutLink')
-				setTimeout(function(){checkBlocksAlready()}, 2000)
+				setTimeout(function(){checkBlocksAlready()}, 5000)
 				
 			}
 			else
 			{
+				errorNumber = 0;
 				$('.prematureMsg').hide()
 				$('a').removeClass('greyOutLink')
 			}
 		},
-		error: function(e) {
-			console.log(e)
+		error: function(err) {
+			
+			if(errorNumber < 5){
+				errorNumber++
+				setTimeout(function(){checkBlocksAlready()}, 5000)
+			}else{
+				console.log("Error count exceeded:",err)
+				errorNumber = 0;
+			}
+			
+			
 		}
 	});
 }

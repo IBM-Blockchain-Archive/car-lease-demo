@@ -19,7 +19,6 @@ var cars_info;
 
 var create = function(req,res)
 {
-	
 	//req.body.scenario valid values = simple, full
 	res.end(JSON.stringify({"message": "performing scenario creation now"}));
 	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
