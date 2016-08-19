@@ -74,9 +74,11 @@ function get_block(req, res, number) //Retrieves block, and retrieves transactio
 				{
 					block.transactions[i].failed = true;
 				}
+				
+				result.transactions.push(block.transactions[i]);
 			}
 			stateHash = block.stateHash;
-			console.log("Transactions user", req.session.user)
+
 			if(number + 1 < height)
 			{
 				get_block(req, res, number + 1);

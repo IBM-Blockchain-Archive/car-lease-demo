@@ -21,8 +21,6 @@ var allUsers;
 var endPos;
 var bottomOverhang = 0;
 
-//var currentColour = colours.regulator;
-
 function getAltUsers()
 {
 	$.ajax({
