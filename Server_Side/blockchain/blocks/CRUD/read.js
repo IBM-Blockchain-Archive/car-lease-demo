@@ -14,7 +14,7 @@ var read = function(req, res)
 		method: "GET"
 	};
 	request(options, function (error, response, body){
-		if (!error && response.statusCode == 200) {
+		if (!error && response && response.statusCode == 200) {
 			var result = {}
 			result.height = JSON.parse(body).height
 			result.currentBlockHash = JSON.parse(body).currentBlockHash

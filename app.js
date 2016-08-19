@@ -337,10 +337,9 @@ function check_if_config_requires_overwriting(assignPort)
 	var api_port_external = configFile.config.api_port_external
 	var api_port_internal = configFile.config.api_port_internal
 	var api_port_discovery = configFile.config.api_port_discovery
+	var peers = configFile.config.peers
 	var ca_ip = configFile.config.ca_ip
 	var ca_port = configFile.config.ca_port
-	var peers = configFile.config.peers
-	
 	var registrar_name = configFile.config.registrar_name
 	var registrar_password = configFile.config.registrar_password
 	
@@ -386,8 +385,7 @@ function check_if_config_requires_overwriting(assignPort)
 			return
 		}
 	} 
-
-	if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
+	else if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
 		console.log("Attempting to use Bluemix VCAP Services")
 		
 		if(JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"]){		
@@ -402,8 +400,8 @@ function check_if_config_requires_overwriting(assignPort)
 				api_port_internal		= credentials["peers"][0]["api_port"];
 				api_port_discovery 		= credentials["peers"][0]["discovery_port"];
 				
-				registrar_name 			= credentials["users"][1]["username"];
-				registrar_password 		= credentials["users"][1]["secret"];
+				registrar_name 			= credentials["users"][0]["username"];
+				registrar_password 		= credentials["users"][0]["secret"];
 
 				var ca = credentials["ca"];
 				var peers = credentials["peers"];

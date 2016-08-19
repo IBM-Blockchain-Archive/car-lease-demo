@@ -16,6 +16,8 @@ var hfc = require('hfc');
 var send_error = false;
 var counter = 0;
 var innerCounter = 0;
+var error_number = 0;
+var ecertCounter = 0;
 var users = [];
 var userEcert;
 var userEcertHolder = [];
@@ -57,7 +59,7 @@ var create = function()
 	}
 	//Load the array of peers in the blockchain network, by default we use the first peer in the array
 	var api_ip = configFile.config.api_ip
-	api_ip = api_ip[0].substring(api_ip.indexOf("://")+3 );
+	api_ip = api_ip[0].substring(api_ip.indexOf("://")+3);
 
 	var pem = null	
 	var registrar_name = configFile.config.registrar_name
@@ -71,18 +73,22 @@ var create = function()
 	//Retrieve the certificate if grpcs is being used
 	if(configFile.config.hfc_protocol == 'grpcs'){
 		chain.setECDSAModeForGRPC(true);
-		pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_location);		
+		pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_file_name);		
 	}
-	
+
 	chain.setMemberServicesUrl(configFile.config.hfc_protocol+"://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem});
 	chain.addPeer(configFile.config.hfc_protocol+"://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem});
 	chain.enroll(registrar_name, registrar_password, function(err, registrar) {
 		
-		if (err) return console.log("ERROR: failed to register, %s",err);
-		// Successfully enrolled registrar and set this user as the chain's registrar which is authorized to register other users.
-		console.log("ENROLL WORKED", registrar_name, registrar_password)
-		chain.setRegistrar(registrar);
-
+		if (!err){
+			// Successfully enrolled registrar and set this user as the chain's registrar which is authorized to register other users.
+			tracing.create('INFO', 'Startup', 'Registrar enroll worked with user ' + registrar_name);
+			chain.setRegistrar(registrar);
+		} 
+		else{
+			tracing.create('INFO', 'Startup', 'Failed to register using HFC, user may have already been enrolled. '+err);
+		}
+		
 		//Start the process of registering and enrolling the demo participants with the CA
 		addUser()
 	});
@@ -129,9 +135,11 @@ function addUser()
 
 	request(options, function(error, response, body)
 	{	
+	
+		console.log("INITIAL LOGIN ATTEMPT", body)
+	
 		if(body && body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
 		{
-
 			get_user_ecert(users[counter].identity, users[counter].password, function(err){
 
 				if(!err){
@@ -147,7 +155,7 @@ function addUser()
 					{
 						counter = 0;
 						tracing.create('INFO', 'Startup', "User already registered and enrolled:" + users[counter].identity);
-						deploy_vehicle();
+						get_height(function(){deploy_vehicle()});
 					}
 				}
 				else
@@ -165,7 +173,7 @@ function addUser()
 					}
 					else
 					{
-						deploy_vehicle();
+						get_height(function(){deploy_vehicle()});
 					}
 				}
 			})
@@ -177,16 +185,14 @@ function addUser()
 					if(counter < users.length - 1)
 					{
 						counter++;
-						
 						tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-						
 						setTimeout(function(){addUser();},1000);
 					}
 					else
 					{
 						counter = 0;
 						tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-						deploy_vehicle();
+						get_height(function(){deploy_vehicle()});
 					}
 				}
 				else
@@ -204,7 +210,7 @@ function addUser()
 					}
 					else
 					{
-						deploy_vehicle();
+						get_height(function(){deploy_vehicle()});
 					}
 				}
 			})
@@ -212,18 +218,49 @@ function addUser()
 	})
 }
 
+function get_height(cb){
+	
+	tracing.create('INFO', 'Startup', 'Getting initial height of the blockchain');
+	
+	var interval = setInterval(function(){
+		var options = 	{
+			url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
+			method: "GET",
+			json: true
+		}
+			
+		request(options, function(error, response, body){
+			if(!error && body && body.height >= 1){
+					error_number = 0;
+					update_config("start_height",body.height)
+					cb();
+					clearInterval(interval)		
+			}
+			else{
+				if(error_number > 5){
+					error_number = 0;
+					tracing.create('ERROR', 'Startup', {"message": "Couldn't get blockchain height", "error": false});
+					clearInterval(interval)
+				}
+				error_number++
+				tracing.create('INFO', 'Startup', 'Error, trying to get the blockchain height again');
+			}
+		});	
+	}, 5000)
+}
+
 function deploy_vehicle() //Deploy vehicle chaincode
 {
-
+	configFile = reload(__dirname+'/../../configuration.js');
 	tracing.create('INFO', 'Startup', 'Deploying vehicle chaincode');
 
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 
 	//add check userEcertHolder has data in it
 
-
+	console.log("UserEcertHolder",userEcertHolder.length)
+	
 	var deploySpec = {
-
 						  "jsonrpc": "2.0",
 						  "method": "deploy",
 						  "params": {
@@ -237,7 +274,6 @@ function deploy_vehicle() //Deploy vehicle chaincode
 						    },
 						    "secureContext": participants.participants_info.regulators[0].identity
 						  },
-
 						  "id": 12
 						}
 
@@ -253,10 +289,12 @@ function deploy_vehicle() //Deploy vehicle chaincode
 
 		if (body && !body.hasOwnProperty('error') && response.statusCode == 200)
 		{
-			update_config(body.result.message)
+			update_config("vehicle_name",body.result.message)
 			
 			var peers = configFile.config.peers
 			var peerCounter = 0;
+			
+			console.log("Start height", configFile.config.start_height)
 			
 			var interval = setInterval(function(){
 				var options = 	{
@@ -266,7 +304,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
 					}
 					
 				request(options, function(error, response, body){
-					if(body && body.height >= 2){
+					if(body && body.height > parseInt(configFile.config.start_height)){
 						if(peerCounter < peers.length-1){							
 							tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on peer '+peers[peerCounter]);							
 							peerCounter++										
@@ -298,7 +336,7 @@ function createUser(username, role, aff, cb)
 		account: "group1",
 		affiliation: aff
 	};
-	
+
 	chain.register( registrationRequest, function(err, secret) {
 		if (err) {
 			if(createCounter < 5){
@@ -307,20 +345,20 @@ function createUser(username, role, aff, cb)
 			}
 			else{
 				createCounter = 0;
-				
 				return cb(err);
 			}
-		}
-		
-		chain.getMember(username, function(err, member){
-		
-			member.setAccount("group1")
-			member.setAffiliation(aff)
-			member.setRoles([role])
-			member.saveState()
+		} else{
 
-			loginUser(username,aff,secret,cb)
-		})
+			chain.getMember(username, function(err, member){
+
+				member.setAccount("group1")
+				member.setAffiliation(aff)
+				member.setRoles([role])
+				member.saveState()
+
+				loginUser(username,aff,secret,cb)
+			})
+		}
 	});	
 }
 
@@ -352,7 +390,7 @@ function loginUser(username, aff, secret, cb)
 		}
 		else
 		{
-			if(innerCounter >= 5){
+			if(innerCounter > 5){
 				innerCounter = 0;
 				tracing.create('ERROR', 'Startup', {"message": "Enrolling user \""+username+"\" with CA failed", "error": false});
 
@@ -368,7 +406,7 @@ function loginUser(username, aff, secret, cb)
 	});
 }
 
-function update_config(name)
+function update_config(attr, name)
 {
 	tracing.create('INFO', 'Startup', 'Updating config file');
 	configFile = reload(__dirname+'/../../configuration.js');
@@ -382,30 +420,28 @@ function update_config(name)
 			return false
 		}
 		
-		var toMatch = "config.vehicle_name = '"+ configFile.config.vehicle_name+"';"
+		var toMatch = "config."+attr+" = '"+ configFile.config[attr]+"';"
 		var re = new RegExp(toMatch, "g")
 
-		var result = data.replace(re, "config.vehicle_name = '"+name+"';");
+		var result = data.replace(re, "config."+attr+" = '"+name+"';");
 
 		fs.writeFileSync(__dirname+'/../../configuration.js', result, 'utf8', function (err)
 		{
 			if (err)
 			{	
 				tracing.create('ERROR', 'Startup', {"message": "Unable to update config file", "error": false});
-
 				return false
 			}
 			else
 			{
+				
 				tracing.create('INFO', 'Startup', {"message": "Config file updated", "error": false});
-
+				configFile = reload(__dirname+'/../../configuration.js');
 				return true
 			}			
 		});
 	});
 }
-
-var ecertCounter = 0;
 
 function get_user_ecert(user, secret, cb){
 
@@ -415,24 +451,23 @@ function get_user_ecert(user, secret, cb){
 					}
 
 	request(options, function(error, response, body){
-
 		if(body && JSON.parse(body).hasOwnProperty("OK")){
-
-			userEcertHolder.push(user)
-
-			userEcertHolder.push(JSON.parse(body).OK)
-
+			tracing.create('INFO', 'Startup', 'eCert for user '+user+': '+JSON.parse(body).OK);
+			userEcertHolder.push(user,JSON.parse(body).OK)
+			ecertCounter = 0;
 			writeUserToFile(user,secret,cb)
 		}
 		else{
 			if(ecertCounter > 5){
+				tracing.create('INFO', 'Startup', 'Couldn\'t get eCert for user '+user);
 				console.log("BAD ECERT REQUEST", body)
 				ecertCounter = 0;
 			}
 			else{
-				ecertCounter++
+				console.log("TRYING TO GET ECERT AGAIN")
 				
-				get_user_ecert(user,secret,cb)
+				ecertCounter++
+				setTimeout(function(){get_user_ecert(user,secret,cb);},2000)
 			}
 		}
 	});
