@@ -51,7 +51,7 @@ function getAltUsers()
 			
 			for(var i = 0; i < data.length; i++)
 			{
-				 $('#users').append('<span class="userHldr userGroup" onclick="changeUser(\''+data[i].name.split('\'').join('\\\'')+'\', \''+pgNmPlural+'\','+i+')" ><span>'+data[i].name+'</span></span>')
+				 $('#users').append('<span class="userHldr userGroup" onclick="changeUser(\''+data[i].name.replace('\'','\\\'')+'\', \''+pgNmPlural+'\','+i+')" ><span>'+data[i].name+'</span></span>')
 			}			
 		},
 		error: function(e)

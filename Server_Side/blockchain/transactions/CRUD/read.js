@@ -74,12 +74,11 @@ function get_block(req, res, number) //Retrieves block, and retrieves transactio
 				{
 					block.transactions[i].failed = true;
 				}
-				if(block.transactions[i].payload.indexOf("create_vehicle_log") == -1)
-				{
-					result.transactions.push(block.transactions[i]);
-				}
+				
+				result.transactions.push(block.transactions[i]);
 			}
 			stateHash = block.stateHash;
+
 			if(number + 1 < height)
 			{
 				get_block(req, res, number + 1);
@@ -112,7 +111,6 @@ function evaluate_transactions(req, res)
 {
 	var validV5cs = "";
 	var user_id = map_ID.user_to_id(req.session.user)
-	
 	
 	for(var i = 0; i < result.transactions.length; i++)
 	{

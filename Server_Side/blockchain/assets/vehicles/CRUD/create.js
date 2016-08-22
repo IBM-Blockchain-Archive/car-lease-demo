@@ -89,7 +89,7 @@ function checkIfAlreadyExists(req, res, v5cID)
 			tracing.create('INFO', 'POST blockchain/assets/vehicles', "V5cID is unique");
 			createVehicle(req, res, v5cID)
 		}
-		else if (response.statusCode == 200)
+		else if (response && response.statusCode == 200)
 		{
 			if(counter < 10){
 				counter++
@@ -154,7 +154,7 @@ function createVehicle(req, res, v5cID)
 					}
 					
 	request(options, function(error, response, body){
-				if (!error && response.statusCode == 200) {
+		if (!error && response && response.statusCode == 200) {
 			var result = {};
 			result.message = "Achieving consensus"
 			tracing.create('INFO', 'POST blockchain/assets/vehicles', "Achieving consensus");
@@ -207,7 +207,7 @@ function confirmCreated(req, res, v5cID)
 	var interval = setInterval(function(){
 		if(counter < 15){				
 			request(options, function(error, response, body){				
-				if (!body.hasOwnProperty("error") && response.statusCode == 200) {
+				if (body && !body.hasOwnProperty("error") && response.statusCode == 200){
 					var result = {}
 					result.message = "Creation confirmed";
 					result.v5cID = v5cID;

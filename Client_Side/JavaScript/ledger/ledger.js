@@ -58,7 +58,7 @@ function showList(users, parent, pos)
 		$('#theirUsers').html('')
 		for(var i = 0; i < users.length; i++)
 		{
-			$('#theirUsers').append('<span class="userHldr userHldr'+$('#userType').html().replace(' ', '')+'" onclick="changeUser(\''+users[i].name+'\', \''+parent+'\', '+i+')" >'+users[i].name+'</span>')
+			$('#theirUsers').append('<span class="userHldr userHldr'+$('#userType').html().replace(' ', '')+'" onclick="changeUser(\''+users[i].name.replace('\'','\\\'')+'\', \''+parent+'\', '+i+')" >'+users[i].name+'</span>')
 		}
 		$('#endUsers').css('top', (40*(++pos)-34)+'px')
 		$('#endUsers').show();
@@ -123,7 +123,10 @@ function toggleMenu()
 }
 
 var found_cars = {};
+
 function getTransactions(){
+	
+	$('#menuBtn').hide()
 	found_cars = {};
 	$.ajax({
 		type: 'GET',
@@ -285,6 +288,7 @@ function getTransactions(){
 			$('.failureRw').css('color', '#A91024')
 			$('.transRw').css('borderTopColor', colour)
 			$('.transRw').css('borderBottomColor', colour)
+			$('#menuBtn').show()
 		},
 		error: function(e)
 		{
@@ -332,7 +336,8 @@ function toggleFilters()
 	{
 		$('#filters').slideUp(500);
 		setTimeout(function(){
-			$('#filtTxt').css('border-bottom', '2px solid #00648D');
+			$('#filtTxt').css('border-bottom', '2px solid');
+			$('#filtTxt').css('border-bottom-color', colours[$('#userType').html().toLowerCase().replace(' ', '_')]);
 			$('#filtTxt').html('Filters &or;<span id="filtBlock" class="whiteBlock" ></span>');
 			$('#filtBlock').css('display', 'none');
 			$('#sortTxt').show()
@@ -377,7 +382,8 @@ function toggleSorts()
 		setTimeout(function(){
 			$('#sortTxt').html('Sort &or;<span id="sortBlock" class="whiteBlock" ></span>');
 			$('#sortBlock').css('display', 'none');
-			$('#sortTxt').css('border-bottom', '2px solid #00648D');
+			$('#sortTxt').css('border-bottom', '2px solid');
+			$('#sortTxt').css('border-bottom-color', colours[$('#userType').html().toLowerCase().replace(' ', '_')]);
 			$('#filtTxt').show();
 			$('#filtTxt').animate({
 				left: "-=122"
@@ -556,6 +562,9 @@ function toTitleCase(str)
 
 function changeUser(company, parent, pos)
 {
+	
+	//xhr.abort();
+	
 	$('.userHldr').removeClass('userHldr'+$('#userType').html().replace(' ', ''))
 	$('#userDets').html('<span id="username" >'+config.participants.users[parent][pos].user+'</span> (<span id="userType">'+config.participants.users[parent][pos].type+'</span>: <span id="company">'+config.participants.users[parent][pos].company+'</span>)')
 	changePageColour(config.participants.users[parent][pos].type.toLowerCase().replace(' ', '_'));
@@ -601,6 +610,8 @@ function changePageColour(type)
 	$('.bgColorChng').css('background-color', colours[type])
 	$('.bdrColorChng').css('border-color', colours[type])
 	$('.userHdr').css('border-bottom-color', colours[type])
+	$('#sorts').css('border-color', colours[type])
+	$('#filters').css('border-color', colours[type])
 }
 
 function pad(value) {
