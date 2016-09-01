@@ -27,11 +27,11 @@ import (
 //						 user's eCert
 //==============================================================================================================================
 //CURRENT WORKAROUND USES ROLES CHANGE WHEN OWN USERS CAN BE CREATED SO THAT IT READ 1, 2, 3, 4, 5
-const   AUTHORITY      =  1
-const   MANUFACTURER   =  2
-const   PRIVATE_ENTITY =  3
-const   LEASE_COMPANY  =  4
-const   SCRAP_MERCHANT =  5	
+const   HUD_AUTHORITY        =  1
+const   HOME_MANUFACTURER    =  2
+const   OWNER_ENTITY         =  3
+const   MORTGAGE_BANK        =  4
+const   DEMOLITION_MERCHANT  =  5	
 
 
 //==============================================================================================================================
@@ -65,9 +65,9 @@ type Vehicle struct {
 	Owner           string `json:"owner"`
 	Scrapped        bool   `json:"scrapped"`
 	Status          int    `json:"status"`
-	Colour          string `json:"colour"`
+	Materiel        string `json:"materiel"`
 	V5cID           string `json:"v5cID"`
-	LeaseContractID string `json:"leaseContractID"`
+	BankContractID  string `json:"BankContractID"`
 }
 
 
