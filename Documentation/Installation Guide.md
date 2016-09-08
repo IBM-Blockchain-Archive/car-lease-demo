@@ -9,7 +9,7 @@ To deploy to Bluemix simply use the button below then follow the instructions. T
 ###Prerequisites###
 To deploy locally you will need to have installed:
 
- - [HyperLedger Fabric](https://github.com/hyperledger/fabric/blob/master/docs/dev-setup/devenv.md) (commit level: [3e0e80a898b259fe463295eabff80ee64f20695e](https://github.com/hyperledger/fabric/commit/3e0e80a898b259fe463295eabff80ee64f20695e)) (Note: This is only required if you are going to run a blockchain peer locally as well)
+ - [HyperLedger Fabric](https://github.com/hyperledger-archives/fabric/blob/master/docs/dev-setup/devenv.md) (commit level: [3e0e80a898b259fe463295eabff80ee64f20695e](https://github.com/hyperledger-archives/fabric/commit/3e0e80a898b259fe463295eabff80ee64f20695e)) (Note: This is only required if you are going to run a blockchain peer locally as well)
  - [NodeJS v4.x](https://nodejs.org/en/download/)
  - [npm](https://docs.npmjs.com/getting-started/installing-node)
  - [Git](https://git-scm.com/download)
