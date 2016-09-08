@@ -229,5 +229,5 @@ function confirmCreated(req, res, v5cID)
 			clearInterval(interval);
 			tracing.create('ERROR', 'POST blockchain/assets/vehicles', error)
 		}
-	},2000)
+	},4000)
 }

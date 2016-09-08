@@ -102,7 +102,7 @@ var update = function(req, res)
 					res.end(JSON.stringify(error))
 					clearInterval(interval);
 				}
-			}, 2000)
+			}, 4000)
 		}
 		else 
 		{
