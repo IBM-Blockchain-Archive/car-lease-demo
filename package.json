@@ -26,7 +26,7 @@
     "key-encoder": "^1.1.6",
     "request": "",
     "require-reload": "",
-    "sjcl": "^1.0.3",
+    "sjcl": "1.0.3",
     "ws": "1.0.1",
 	"x509": ""
   },
