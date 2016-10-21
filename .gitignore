@@ -7,4 +7,5 @@ launchConfigurations/
 node_modules/
 
 #application log files
-Server_Side/logs/
+Server_Side/logs/*
+
