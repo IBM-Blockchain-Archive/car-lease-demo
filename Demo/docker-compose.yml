@@ -1,0 +1,38 @@
+version: "2"
+services:
+  membersrvc:
+    build:
+      context: membersrvc
+    command: membersrvc start
+    ports:
+      - "50051:50051"
+  vp0:
+    build:
+      context: peer
+    ports:
+      - "5000:5000"
+      - "30303:30303"
+      - "30304:30304"
+    environment:
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_VM_ENDPOINT=unix:///var/run/docker.sock
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_ID=vp0
+      - CORE_SECURITY_ENROLLID=test_vp0
+      - CORE_SECURITY_ENROLLSECRET=MwYpmSRjupbT
+      - CORE_PEER_PKI_ECA_PADDR=membersrvc:50051
+      - CORE_PEER_PKI_TCA_PADDR=membersrvc:50051
+      - CORE_PEER_PKI_TLSCA_PADDR=membersrvc:50051
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    links:
+      - membersrvc
+    command: sh -c "sleep 5; peer node start"
+  # car-lease-demo:
+  #   build:
+  #     context: ".."
+  #   ports:
+  #     - "8080:8080"
+  #   links:
+  #     - vp0
+  #     - membersrvc
