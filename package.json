@@ -1,6 +1,6 @@
 {
   "name": "Car-Lease-Demo",
-  "version": "0.0.1",
+  "version": "0.7.3",
   "description": "A Node.js web application that demonstrates utilizing IBM Blockchain JS to call REST APIs on the blockchain.",
   "main": "app.js",
   "scripts": {
@@ -17,10 +17,11 @@
     "crypto": "",
     "debug": "0.7.4",
     "elliptic": "^6.2.3",
+    "eslint": "^3.8.1",
     "express": "4.0.0",
     "express-session": "1.2.1",
     "fs": "",
-    "hfc": "0.5.0",
+    "hfc": "^0.6.5",
     "js-sha3": "^0.5.1",
     "jsrsasign": "^5.0.5",
     "key-encoder": "^1.1.6",
@@ -28,7 +29,7 @@
     "require-reload": "",
     "sjcl": "1.0.3",
     "ws": "1.0.1",
-	"x509": ""
+    "x509": ""
   },
   "repository": {
     "type": "git",
