@@ -23,6 +23,7 @@ let ecertCounter = 0;
 let users = [];
 // let userEcert;
 let userEcertHolder = [];
+let chainName = 'theChain';
 let chain;
 let usersToSecurityContext = {};
 
@@ -36,7 +37,7 @@ let create = function()
     // let registrar_name = configFile.config.registrar_name;
     // let registrar_password = configFile.config.registrar_password;
 
-    chain = hfc.newChain('theChain');
+    chain = hfc.newChain(chainName);
     //This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
     chain.setKeyValStore( hfc.newFileKeyValStore(configFile.config.key_store_location) );
     // chain.setDeployWaitTime(60);
@@ -84,35 +85,44 @@ let create = function()
 
                 liveTx.on('error', function(err) {
                     tracing.create('INFO', 'Startup', 'Deploying chaincode again');
-                    resolve(true);
+                    resolve('');
                 });
 
                 liveTx.on('complete', function() {
                     tracing.create('INFO', 'Startup', 'Chaincode already deployed');
-                    resolve(false);
+                    resolve(chaincodeID);
                 });
             } else {
                 tracing.create('INFO', 'Startup', 'Deploying chaincode for the first time');
-                resolve(true);
+                resolve('');
             }
         });
     })
-    .then(function(pingRejected) {
-        if (pingRejected) {
+    .then(function(chaincodeID) {
+        if (chaincodeID === '') {
             return deployChaincode(deployUser, 'vehicle_code', 'Init', []);
         } else {
-            return false;
+            return chaincodeID;
         }
     })
     .then(function(deploy) {
-        if (deploy) {
-            fs.writeFile('/tmp/chaincode', deploy.chaincodeID, function(err) {
-                if(err) {
-                    console.log(err);
-                }
-            });
+        let chaincodeID;
+        if (typeof chaincodeID === 'string') {
+            chaincodeID = deploy;
+        } else {
+            chaincodeID = deploy.chaincodeID;
         }
+        fs.writeFile('/tmp/chaincode', chaincodeID, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        });
+
         tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on all peers');
+
+        for (let user in usersToSecurityContext) {
+            usersToSecurityContext[user].setChaincodeID(chaincodeID);
+        }
 
         return usersToSecurityContext;
     })

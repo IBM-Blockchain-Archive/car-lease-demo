@@ -8,3 +8,5 @@ node_modules/
 
 #application log files
 Server_Side/logs/
+
+npm-debug.log

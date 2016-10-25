@@ -76,11 +76,7 @@ app.use(express.static(__dirname + '/Client_Side'));
 //-----------------------------------------------------------------------------------------------
 app.post('/admin/identity', function(req, res, next)     //Sets the session user to have the account address for the page they are currently on
 {
-    if (!req.body.account) {
-        next();
-    }
-    let securitycontext = usersToSecurityContext[req.body.account];
-    identity.create(req, res, securitycontext);
+    identity.create(req, res, usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -118,9 +114,9 @@ app.get('/blockchain/blocks/:blockNum(\\d+)', function(req, res){
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles
 //-----------------------------------------------------------------------------------------------
-app.post('/blockchain/assets/vehicles' , function(req,res)
+app.post('/blockchain/assets/vehicles' , function(req,res,next)
 {
-    vehicles.create(req,res);
+    vehicles.create(req,res,next,usersToSecurityContext);
 });
 
 app.get('/blockchain/assets/vehicles' , function(req,res)

@@ -7,8 +7,10 @@ let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 // let configFile = require(__dirname+'/../../../configurations/configuration.js');
 
-function makeAccount(req, res, securityContext) //Checks to see if user details passed are valid. If so, log them in and start a session.
+function makeAccount(req, res, usersToSecurityContext) //Checks to see if user details passed are valid. If so, log them in and start a session.
 {
+    let securityContext = usersToSecurityContext[req.body.account];
+
     tracing.create('ENTER', 'POST admin/identity', req.body);
 
     tracing.create('INFO', 'POST admin/identity', 'Calling /registrar endpoint');

@@ -8,30 +8,14 @@ let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
 let user_id;
 let counter = 0;
 
-function create (req, res)
+let securityContext;
+let user;
+
+
+function create (req, res, next, usersToSecurityContext)
 {
     tracing.create('ENTER', 'POST blockchain/assets/vehicles', req.body);
-    createV5cID(req, res);
-}
 
-exports.create = create;
-
-function createV5cID(req, res)
-{
-
-    res.write(JSON.stringify({'message':'Generating V5cID'})+'&&');
-
-    let numbers = '1234567890';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let v5cID = '';
-    for(let i = 0; i < 7; i++)
-    {
-        v5cID += numbers.charAt(Math.floor(Math.random() * numbers.length));
-    }
-    v5cID = characters.charAt(Math.floor(Math.random() * characters.length)) + v5cID;
-    v5cID = characters.charAt(Math.floor(Math.random() * characters.length)) + v5cID;
-
-    tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Generated V5cID: '+v5cID);
     if(typeof req.cookies.user !== 'undefined')
     {
         req.session.user = req.cookies.user;
@@ -40,135 +24,185 @@ function createV5cID(req, res)
 
     user_id = req.session.identity;
 
-    checkIfAlreadyExists(req, res, v5cID);
+    securityContext = usersToSecurityContext[user_id];
+    user = securityContext.getEnrolledMember();
+
+    createV5cID(req, res)
+    .then(function(v5cID){
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Generated V5cID: '+v5cID);
+        res.write(JSON.stringify({'message':'Generating V5cID'})+'&&');
+        return checkIfAlreadyExists(v5cID);
+    })
+    .then(function(v5cID) {
+        return createVehicle(req, res, v5cID);
+    })
+    .then(function(v5cID) {
+        let result = {};
+        result.message = 'Achieving consensus';
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Achieving consensus');
+        res.end(JSON.stringify(result));
+    })
+    .catch(function(err) {
+        tracing.create('ERROR', 'POST blockchain/assets/vehicles', err);
+        res.end(JSON.stringify(err));
+    });
 }
 
-function checkIfAlreadyExists(req, res, v5cID)
+exports.create = create;
+
+function createV5cID(req, res)
 {
-    res.write(JSON.stringify({'message':'Checking V5cID is unique'})+'&&');
-    tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Checking V5cID is unique');
-
-    let querySpec =                {
-        'jsonrpc': '2.0',
-        'method': 'query',
-        'params': {
-            'type': 1,
-            'chaincodeID': {
-                'name': configFile.config.vehicle_name
-            },
-            'ctorMsg': {
-                'function': 'get_vehicle_details',
-                'args': [
-                    v5cID
-                ]
-            },
-            'secureContext': user_id
-        },
-        'id': 123
-    };
-
-
-    let options =     {
-        url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
-        method: 'POST',
-        body: querySpec,
-        json: true
-    };
-
-    request(options, function(error, response, body)
-    {
-
-        console.log('VEHICLE CHAINCODE QUERY RESPONSE', body);
-
-        if (body && body.hasOwnProperty('error') && body.error.data.indexOf('Error retrieving v5c') > -1)
+    return new Promise(function(resolve, reject) {
+        let numbers = '1234567890';
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let v5cID = '';
+        for(let i = 0; i < 7; i++)
         {
-            tracing.create('INFO', 'POST blockchain/assets/vehicles', 'V5cID is unique');
-            createVehicle(req, res, v5cID);
+            v5cID += numbers.charAt(Math.floor(Math.random() * numbers.length));
         }
-        else if (response && response.statusCode == 200)
-        {
-            if(counter < 10){
-                counter++;
-                setTimeout(function(){createV5cID(req, res);},3000);
+        v5cID = characters.charAt(Math.floor(Math.random() * characters.length)) + v5cID;
+        v5cID = characters.charAt(Math.floor(Math.random() * characters.length)) + v5cID;
+        resolve(v5cID);
+    });
+}
+
+function checkIfAlreadyExists(v5cID)
+{
+    // res.write(JSON.stringify({'message':'Checking V5cID is unique'})+'&&');
+
+    // request(options, function(error, response, body)
+    // {
+    //
+    //     console.log('VEHICLE CHAINCODE QUERY RESPONSE', body);
+    //
+    //     if (body && body.hasOwnProperty('error') && body.error.data.indexOf('Error retrieving v5c') > -1)
+    //     {
+    //         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'V5cID is unique');
+    //         createVehicle(req, res, v5cID);
+    //     }
+    //     else if (response && response.statusCode === 200)
+    //     {
+    //         if(counter < 10){
+    //             counter++;
+    //             setTimeout(function(){createV5cID(req, res);},3000);
+    //         }
+    //         else{
+    //             counter = 0;
+    //             var error = {};
+    //             error.message = 'Timeout while checking v5cID is unique';
+    //             error.error = true;
+    //             error.v5cID = v5cID;
+    //             tracing.create('ERROR', 'POST blockchain/assets/vehicles', error);
+    //             res.end(JSON.stringify(error));
+    //         }
+    //
+    //     }
+    //     else
+    //     {
+    //
+    //         counter = 0;
+    //         res.status(400);
+    //         var error = {};
+    //         error.message = 'Unable to confirm v5cID is unique';
+    //         error.error = true;
+    //         error.v5cID = v5cID;
+    //         res.end(JSON.stringify(error));
+    //         tracing.create('ERROR', 'POST blockchain/assets/vehicles', error);
+    //     }
+    // });
+
+    return new Promise(function(resolve, reject) {
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Checking V5cID is unique');
+        let tx = user.query({
+            'args': [ v5cID ],
+            'attrs': ['role'],
+            'chaincodeID': securityContext.getChaincodeID(),
+            'fcn': 'get_vehicle_details'
+        });
+
+        tx.on('complete', function(success) {
+            reject();
+        });
+
+        tx.on('error', function(err) {
+            if (err && err.hasOwnProperty('error') && err.msg.indexOf('Error retrieving v5c') > -1) {
+                resolve(v5cID);
+            } else {
+                reject();
             }
-            else{
-                counter = 0;
-                var error = {};
-                error.message = 'Timeout while checking v5cID is unique';
-                error.error = true;
-                error.v5cID = v5cID;
-                tracing.create('ERROR', 'POST blockchain/assets/vehicles', error);
-                res.end(JSON.stringify(error));
-            }
-
-        }
-        else
-        {
-
-            counter = 0;
-            res.status(400);
-            var error = {};
-            error.message = 'Unable to confirm v5cID is unique';
-            error.error = true;
-            error.v5cID = v5cID;
-            res.end(JSON.stringify(error));
-            tracing.create('ERROR', 'POST blockchain/assets/vehicles', error);
-        }
+        });
     });
 }
 
 function createVehicle(req, res, v5cID)
 {
-    tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+v5cID);
-    res.write(JSON.stringify({'message':'Creating vehicle with v5cID: '+ v5cID})+'&&');
+    // res.write(JSON.stringify({'message':'Creating vehicle with v5cID: '+ v5cID})+'&&');
 
-    let invokeSpec = {
-        'jsonrpc': '2.0',
-        'method': 'invoke',
-        'params': {
-            'type': 1,
-            'chaincodeID': {
-                'name': configFile.config.vehicle_name
-            },
-            'ctorMsg': {
-                'function': 'create_vehicle',
-                'args': [
-                    v5cID
-                ]
-            },
-            'secureContext': user_id
-        },
-        'id': 123
-    };
+    // let invokeSpec = {
+    //     'jsonrpc': '2.0',
+    //     'method': 'invoke',
+    //     'params': {
+    //         'type': 1,
+    //         'chaincodeID': {
+    //             'name': configFile.config.vehicle_name
+    //         },
+    //         'ctorMsg': {
+    //             'function': 'create_vehicle',
+    //             'args': [
+    //                 v5cID
+    //             ]
+    //         },
+    //         'secureContext': user_id
+    //     },
+    //     'id': 123
+    // };
+    //
+    // let options =     {
+    //     url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
+    //     method: 'POST',
+    //     body: invokeSpec,
+    //     json: true
+    // };
+    //
+    // request(options, function(error, response, body){
+    //     if (!error && response && response.statusCode === 200) {
+    //         let result = {};
+    //         result.message = 'Achieving consensus';
+    //         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Achieving consensus');
+    //         res.write(JSON.stringify(result) + '&&');
+    //         confirmCreated(req, res, v5cID);
+    //     }
+    //     else
+    //     {
+    //         res.status(400);
+    //         var error = {};
+    //         error.message = 'Unable to create vehicle';
+    //         error.error = true;
+    //         error.v5cID = v5cID;
+    //         tracing.create('ERROR', 'POST blockchain/assets/vehicles', error);
+    //         res.end(JSON.stringify(error));
+    //     }
+    // });
+    //
+    return new Promise(function(resolve, reject) {
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+v5cID);
+        let tx = user.invoke({
+            'args': [ v5cID ],
+            'attrs': ['role'],
+            'chaincodeID': securityContext.getChaincodeID(),
+            'fcn': 'create_vehicle'
+        });
 
-    let options =     {
-        url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
-        method: 'POST',
-        body: invokeSpec,
-        json: true
-    };
+        tx.on('complete', function(result) {
+            resolve(v5cID);
+        });
 
-    request(options, function(error, response, body){
-        if (!error && response && response.statusCode == 200) {
-            let result = {};
-            result.message = 'Achieving consensus';
-            tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Achieving consensus');
-            res.write(JSON.stringify(result) + '&&');
-            confirmCreated(req, res, v5cID);
-        }
-        else
-        {
-            res.status(400);
-            var error = {};
-            error.message = 'Unable to create vehicle';
-            error.error = true;
-            error.v5cID = v5cID;
-            tracing.create('ERROR', 'POST blockchain/assets/vehicles', error);
-            res.end(JSON.stringify(error));
-        }
+        tx.on('error', function(err) {
+            reject();
+        });
     });
 }
-
+/*
 function confirmCreated(req, res, v5cID)
 {
 
@@ -225,3 +259,4 @@ function confirmCreated(req, res, v5cID)
         }
     },4000);
 }
+*/
