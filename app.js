@@ -39,6 +39,9 @@ let chaincode          = require(__dirname+'/Server_Side/blockchain/chaincode/ch
 let transactions     = require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
 let startup            = require(__dirname+'/Server_Side/configurations/startup/startup.js');
 
+// Object of users' names linked to their security context
+let usersToSecurityContext;
+
 // For logging
 let TAG = 'app.js:';
 
@@ -71,9 +74,13 @@ app.use(express.static(__dirname + '/Client_Side'));
 //-----------------------------------------------------------------------------------------------
 //    Admin - Identity
 //-----------------------------------------------------------------------------------------------
-app.post('/admin/identity', function(req, res)     //Sets the session user to have the account address for the page they are currently on
+app.post('/admin/identity', function(req, res, next)     //Sets the session user to have the account address for the page they are currently on
 {
-    identity.create(req, res);
+    if (!req.body.account) {
+        next();
+    }
+    let securitycontext = usersToSecurityContext[req.body.account];
+    identity.create(req, res, securitycontext);
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -312,9 +319,10 @@ require('cf-deployment-tracker-client').track();
 //                                                         Launch Webserver
 // ============================================================================================================================
 let server = http.createServer(app).listen(port, function () {
-
-    let result = startup.create();
-
+    startup.create()
+    .then(function(usersToSC) {
+        usersToSecurityContext = usersToSC;
+    });
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 process.env.NODE_ENV = 'production';

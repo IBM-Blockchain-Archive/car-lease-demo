@@ -32,7 +32,6 @@ function createV5cID(req, res)
     v5cID = characters.charAt(Math.floor(Math.random() * characters.length)) + v5cID;
 
     tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Generated V5cID: '+v5cID);
-    console.log(req.cookies.user);
     if(typeof req.cookies.user !== 'undefined')
     {
         req.session.user = req.cookies.user;

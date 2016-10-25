@@ -6,6 +6,9 @@ let request = require('request');
 let configFile = require(__dirname+'/../../configuration.js'),
     participants = require(__dirname+'/../../../blockchain/participants/participants_info.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
+
+const SecurityContext = require(__dirname+'/../../../tools/security/securitycontext');
+
 const path = require('path');
 // let spawn = require('child_process').spawn;
 let fs = require('fs');
@@ -21,6 +24,7 @@ let users = [];
 // let userEcert;
 let userEcertHolder = [];
 let chain;
+let usersToSecurityContext = {};
 
 let create = function()
 {
@@ -48,9 +52,12 @@ let create = function()
     chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
     // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
 
-    enrollUsers()
+    return enrollUsers()
     .then(function(users) {
         tracing.create('INFO', 'Startup', 'All users registered');
+        users.forEach(function(user) {
+            usersToSecurityContext[user.getName()] = new SecurityContext(user);
+        });
         return users[0];
     })
     .then(function(user) {
@@ -65,16 +72,17 @@ let create = function()
             });
         });
     })
-    .then(function(chaincodeId) {
+    .then(function(chaincodeID) {
         return new Promise(function(resolve, reject) {
-            if (chaincodeId) {
+            if (chaincodeID) {
                 let liveTx = deployUser.query({
                     args: [],
-                    fnc: 'ping',
-                    chaincodeID: chaincodeId
+                    attrs: ['role'],
+                    fcn: 'ping',
+                    chaincodeID: chaincodeID
                 });
 
-                liveTx.on('error', function() {
+                liveTx.on('error', function(err) {
                     tracing.create('INFO', 'Startup', 'Deploying chaincode again');
                     resolve(true);
                 });
@@ -105,6 +113,8 @@ let create = function()
             });
         }
         tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on all peers');
+
+        return usersToSecurityContext;
     })
     .catch(function(err) {
         console.log(err);

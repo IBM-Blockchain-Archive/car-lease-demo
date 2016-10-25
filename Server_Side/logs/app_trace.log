@@ -2807,3 +2807,1344 @@
 	25/10/2016 11:44:08	INFO	Startup	Deploying chaincode for the first time
 	25/10/2016 11:44:46	INFO	Startup	Vehicle chaincode deployed on all peers
 25/10/2016 11:45:22	ENTER	GET blockchain/assets/vehicles	INPUT: {}
+25/10/2016 14:06:41	ENTER	Startup	INPUT: {}
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:06:41	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:06:41	INFO	Startup	All users registered
+25/10/2016 14:22:37	ENTER	Startup	INPUT: {}
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:22:37	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:22:37	INFO	Startup	All users registered
+25/10/2016 14:22:58	ENTER	Startup	INPUT: {}
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:22:58	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:22:58	INFO	Startup	All users registered
+25/10/2016 14:24:13	ENTER	Startup	INPUT: {}
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:24:13	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:24:13	INFO	Startup	All users registered
+25/10/2016 14:25:06	ENTER	Startup	INPUT: {}
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:25:06	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:25:06	INFO	Startup	All users registered
+25/10/2016 14:26:15	ENTER	Startup	INPUT: {}
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:26:15	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:26:15	INFO	Startup	All users registered
+	25/10/2016 14:26:16	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:26:50	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:28:13	ENTER	Startup	INPUT: {}
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:28:14	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:28:14	INFO	Startup	All users registered
+	25/10/2016 14:28:15	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:28:49	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:33:03	ENTER	Startup	INPUT: {}
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:33:03	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:33:03	INFO	Startup	All users registered
+	25/10/2016 14:33:05	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:33:38	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:34:14	ENTER	Startup	INPUT: {}
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:34:14	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:34:14	INFO	Startup	All users registered
+	25/10/2016 14:34:16	INFO	Startup	Deploying chaincode again
+25/10/2016 14:34:59	ENTER	Startup	INPUT: {}
+	25/10/2016 14:35:10	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:35:10	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:35:10	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:35:10	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:35:11	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:35:11	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:35:11	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:35:11	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:35:11	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:35:12	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:35:12	INFO	Startup	All users registered
+	25/10/2016 14:35:12	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 14:35:50	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:36:12	ENTER	Startup	INPUT: {}
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:36:12	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:36:12	INFO	Startup	All users registered
+	25/10/2016 14:36:14	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:36:47	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:40:50	ENTER	Startup	INPUT: {}
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:40:50	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:40:50	INFO	Startup	All users registered
+	25/10/2016 14:40:52	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:41:26	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:42:18	ENTER	Startup	INPUT: {}
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:42:18	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:42:18	INFO	Startup	All users registered
+	25/10/2016 14:42:20	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:42:53	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:47:05	ENTER	Startup	INPUT: {}
+	25/10/2016 14:47:13	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:47:14	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:47:15	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:47:16	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:47:16	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:47:17	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:47:17	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:47:17	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:47:17	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:47:18	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:47:18	INFO	Startup	All users registered
+	25/10/2016 14:47:18	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 14:47:56	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:50:52	ENTER	Startup	INPUT: {}
+	25/10/2016 14:51:00	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:51:01	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:51:02	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:51:03	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:51:04	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:51:04	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:51:04	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:51:04	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:51:05	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:51:05	INFO	Startup	All users registered
+	25/10/2016 14:51:05	INFO	Startup	Deploying chaincode for the first time
+25/10/2016 14:51:32	ENTER	Startup	INPUT: {}
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:51:32	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:51:32	INFO	Startup	All users registered
+	25/10/2016 14:51:32	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 14:52:10	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 14:52:23	ENTER	Startup	INPUT: {}
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 14:52:23	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 14:52:23	INFO	Startup	All users registered
+	25/10/2016 14:52:24	INFO	Startup	Deploying chaincode again
+	25/10/2016 14:52:58	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:04:47	ENTER	Startup	INPUT: {}
+	25/10/2016 15:04:57	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:04:57	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:04:58	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:04:58	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:04:58	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:04:59	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:04:59	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:04:59	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:04:59	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:04:59	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:04:59	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:05:00	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:05:00	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:05:00	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:05:00	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:05:00	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:05:00	INFO	Startup	All users registered
+	25/10/2016 15:05:00	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:05:35	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:05:39	ENTER	Startup	INPUT: {}
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:05:39	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:05:39	INFO	Startup	All users registered
+	25/10/2016 15:05:41	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:06:14	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:14:15	ENTER	Startup	INPUT: {}
+	25/10/2016 15:14:25	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:14:25	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:14:25	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:14:25	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:14:26	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:14:27	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:14:27	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:14:28	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:14:28	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:14:28	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:14:29	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:14:29	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:14:29	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:14:29	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:14:29	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:14:29	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:14:29	INFO	Startup	All users registered
+	25/10/2016 15:14:29	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:15:06	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:15:17	ENTER	Startup	INPUT: {}
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:15:17	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:15:17	INFO	Startup	All users registered
+	25/10/2016 15:15:18	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:15:52	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:19:56	ENTER	Startup	INPUT: {}
+	25/10/2016 15:20:06	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:20:07	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:20:07	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:20:07	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:20:07	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:20:07	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:20:08	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:20:08	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:20:08	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:20:08	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:20:08	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:20:09	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:20:09	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:20:09	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:20:09	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:20:09	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:20:09	INFO	Startup	All users registered
+	25/10/2016 15:20:09	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:20:46	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:20:52	ENTER	Startup	INPUT: {}
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:20:52	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:20:52	INFO	Startup	All users registered
+	25/10/2016 15:20:54	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:21:27	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:23:29	ENTER	Startup	INPUT: {}
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:23:29	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:23:29	INFO	Startup	All users registered
+	25/10/2016 15:23:31	INFO	Startup	Deploying chaincode again
+25/10/2016 15:23:46	ENTER	Startup	INPUT: {}
+	25/10/2016 15:23:55	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:23:55	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:23:55	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:23:56	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:23:56	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:23:57	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:23:57	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:23:58	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:23:58	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:23:59	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:23:59	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:23:59	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:23:59	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:24:00	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:24:00	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:24:00	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:24:00	INFO	Startup	All users registered
+	25/10/2016 15:24:00	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:24:34	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:24:47	ENTER	Startup	INPUT: {}
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:24:47	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:24:47	INFO	Startup	All users registered
+	25/10/2016 15:24:49	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:25:22	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:30:37	ENTER	Startup	INPUT: {}
+	25/10/2016 15:30:51	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:30:51	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:30:52	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:30:52	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:30:53	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:30:53	INFO	Startup	All users registered
+	25/10/2016 15:30:53	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:31:28	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:31:33	ENTER	Startup	INPUT: {}
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:31:33	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:31:33	INFO	Startup	All users registered
+	25/10/2016 15:31:35	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:32:08	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:40:19	ENTER	Startup	INPUT: {}
+	25/10/2016 15:40:30	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:40:31	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:40:31	INFO	Startup	All users registered
+	25/10/2016 15:40:31	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:41:08	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:41:22	ENTER	Startup	INPUT: {}
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:41:22	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:41:22	INFO	Startup	All users registered
+	25/10/2016 15:41:24	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:41:57	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:42:16	ENTER	Startup	INPUT: {}
+	25/10/2016 15:42:16	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:42:16	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:42:16	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:42:16	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:42:17	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:42:17	INFO	Startup	All users registered
+	25/10/2016 15:42:18	INFO	Startup	Deploying chaincode again
+25/10/2016 15:42:30	ENTER	Startup	INPUT: {}
+	25/10/2016 15:42:37	INFO	Startup	Failed to enroll DVLA using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Alfa_Romeo using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll ScrapIt_UK using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Aston_Scrap_Centre using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Cray_Bros_London_Ltd using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Anthony_O_Dowd using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Andrew_Hurt using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Joe_Payne using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Regionwide_Vehicle_Contracts using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll LeaseCan using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Every_Car_Leasing using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Viewers_Alfa_Romeo using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Milescape using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Beechvale_Group using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Jaguar_Land_Rover using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:42:38	INFO	Startup	Failed to enroll Toyota using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+25/10/2016 15:42:58	ENTER	Startup	INPUT: {}
+	25/10/2016 15:43:08	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:43:09	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:43:09	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:43:10	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:43:10	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:43:10	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:43:11	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:43:11	INFO	Startup	All users registered
+	25/10/2016 15:43:11	INFO	Startup	Deploying chaincode for the first time
+	25/10/2016 15:43:46	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:44:11	ENTER	Startup	INPUT: {}
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:44:11	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:44:11	INFO	Startup	All users registered
+	25/10/2016 15:44:13	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:44:46	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:49:04	ENTER	Startup	INPUT: {}
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:49:04	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:49:04	INFO	Startup	All users registered
+25/10/2016 15:49:49	ENTER	Startup	INPUT: {}
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:49:49	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:49:49	INFO	Startup	All users registered
+	25/10/2016 15:49:51	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:50:24	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:50:32	ENTER	Startup	INPUT: {}
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:50:32	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:50:32	INFO	Startup	All users registered
+	25/10/2016 15:50:34	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:51:07	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:53:10	ENTER	Startup	INPUT: {}
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:53:10	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:53:10	INFO	Startup	All users registered
+	25/10/2016 15:53:12	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:53:45	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:54:16	ENTER	Startup	INPUT: {}
+	25/10/2016 15:54:28	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:54:28	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:54:29	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:54:29	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:54:29	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:54:29	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:54:30	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:54:30	INFO	Startup	All users registered
+	25/10/2016 15:54:32	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:55:07	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:55:11	ENTER	Startup	INPUT: {}
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:55:11	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:55:11	INFO	Startup	All users registered
+	25/10/2016 15:55:13	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:55:46	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:58:09	ENTER	Startup	INPUT: {}
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:58:09	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:58:09	INFO	Startup	All users registered
+	25/10/2016 15:58:11	INFO	Startup	Deploying chaincode again
+25/10/2016 15:58:17	ENTER	Startup	INPUT: {}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll DVLA using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Alfa_Romeo using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll ScrapIt_UK using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Aston_Scrap_Centre using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Cray_Bros_London_Ltd using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Anthony_O_Dowd using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Andrew_Hurt using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Joe_Payne using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Regionwide_Vehicle_Contracts using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Every_Car_Leasing using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll LeaseCan using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Viewers_Alfa_Romeo using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Milescape using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Beechvale_Group using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Jaguar_Land_Rover using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+	25/10/2016 15:58:24	INFO	Startup	Failed to enroll Toyota using HFC. Error: {"code":14,"metadata":{"_internal_repr":{}}}
+25/10/2016 15:58:51	ENTER	Startup	INPUT: {}
+	25/10/2016 15:59:02	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:59:03	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:59:03	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:59:03	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:59:04	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:59:04	INFO	Startup	All users registered
+	25/10/2016 15:59:06	INFO	Startup	Deploying chaincode again
+	25/10/2016 15:59:39	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 15:59:58	ENTER	Startup	INPUT: {}
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 15:59:58	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 15:59:58	INFO	Startup	All users registered
+	25/10/2016 15:59:59	INFO	Startup	Deploying chaincode again
+	25/10/2016 16:00:32	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:05:17	ENTER	Startup	INPUT: {}
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:05:17	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:05:17	INFO	Startup	All users registered
+	25/10/2016 16:05:19	INFO	Startup	Deploying chaincode again
+	25/10/2016 16:05:52	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:07:52	ENTER	Startup	INPUT: {}
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:07:52	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:07:52	INFO	Startup	All users registered
+	25/10/2016 16:07:54	INFO	Startup	Deploying chaincode again
+25/10/2016 16:09:00	ENTER	Startup	INPUT: {}
+	25/10/2016 16:09:11	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:09:12	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:09:12	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:09:13	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:09:13	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:09:14	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:09:14	INFO	Startup	All users registered
+	25/10/2016 16:09:16	INFO	Startup	Deploying chaincode again
+	25/10/2016 16:09:50	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:09:54	ENTER	Startup	INPUT: {}
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:09:54	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:09:54	INFO	Startup	All users registered
+	25/10/2016 16:09:55	INFO	Startup	Deploying chaincode again
+	25/10/2016 16:10:30	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:12:21	ENTER	Startup	INPUT: {}
+	25/10/2016 16:12:32	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:12:32	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:12:33	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:12:34	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:12:34	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:12:34	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:12:34	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:12:35	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:12:35	INFO	Startup	All users registered
+	25/10/2016 16:12:37	INFO	Startup	Deploying chaincode again
+	25/10/2016 16:13:14	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:14:06	ENTER	Startup	INPUT: {}
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:14:06	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:14:06	INFO	Startup	All users registered
+	25/10/2016 16:14:07	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:14:07	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:19:20	ENTER	Startup	INPUT: {}
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:19:20	INFO	Startup	All users registered
+	25/10/2016 16:19:20	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:19:22	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:19:22	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:22:40	ENTER	Startup	INPUT: {}
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:22:40	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:22:40	INFO	Startup	All users registered
+	25/10/2016 16:22:41	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:22:41	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:23:28	ENTER	Startup	INPUT: {}
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:23:28	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:23:28	INFO	Startup	All users registered
+	25/10/2016 16:23:31	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:23:31	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:23:53	ENTER	Startup	INPUT: {}
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:23:53	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:23:53	INFO	Startup	All users registered
+	25/10/2016 16:23:55	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:23:55	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:25:13	ENTER	Startup	INPUT: {}
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:25:13	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:25:13	INFO	Startup	All users registered
+25/10/2016 16:25:34	ENTER	Startup	INPUT: {}
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:25:34	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:25:34	INFO	Startup	All users registered
+	25/10/2016 16:25:36	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:25:36	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:26:18	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:26:18	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:27:18	ENTER	Startup	INPUT: {}
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:27:18	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:27:18	INFO	Startup	All users registered
+	25/10/2016 16:27:20	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:27:20	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:27:24	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:27:24	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:28:09	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:10	ENTER	Startup	INPUT: {}
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:28:10	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:28:10	INFO	Startup	All users registered
+25/10/2016 16:28:11	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:12	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:13	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:14	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:14	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:15	ENTER	Startup	INPUT: {}
+25/10/2016 16:28:19	ENTER	Startup	INPUT: {}
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:28:19	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:28:19	INFO	Startup	All users registered
+	25/10/2016 16:28:21	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:28:21	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:28:54	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:28:54	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:29:47	ENTER	Startup	INPUT: {}
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:29:47	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:29:47	INFO	Startup	All users registered
+	25/10/2016 16:29:49	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:29:49	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:29:55	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:29:55	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:30:12	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:30:12	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:30:32	ENTER	Startup	INPUT: {}
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:30:32	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:30:32	INFO	Startup	All users registered
+	25/10/2016 16:30:34	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:30:34	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:30:35	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:30:35	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:30:36	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	25/10/2016 16:30:36	INFO	POST blockchain/assets/vehicles	Generated V5cID: JY1141237
+	25/10/2016 16:30:36	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+25/10/2016 16:30:38	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:30:38	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+	25/10/2016 16:30:39	INFO	POST blockchain/assets/vehicles	Generated V5cID: EM0815286
+	25/10/2016 16:30:39	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:30:42	INFO	POST blockchain/assets/vehicles	Generated V5cID: UE6989603
+	25/10/2016 16:30:42	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:30:45	INFO	POST blockchain/assets/vehicles	Generated V5cID: RM5061478
+	25/10/2016 16:30:45	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:30:48	INFO	POST blockchain/assets/vehicles	Generated V5cID: PC6760615
+	25/10/2016 16:30:48	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:30:51	INFO	POST blockchain/assets/vehicles	Generated V5cID: HF7974996
+	25/10/2016 16:30:51	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:30:54	INFO	POST blockchain/assets/vehicles	Generated V5cID: DL0758009
+	25/10/2016 16:30:54	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:30:57	INFO	POST blockchain/assets/vehicles	Generated V5cID: VU8427405
+	25/10/2016 16:30:57	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:31:00	INFO	POST blockchain/assets/vehicles	Generated V5cID: NI2369434
+	25/10/2016 16:31:00	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:31:03	INFO	POST blockchain/assets/vehicles	Generated V5cID: GZ8440386
+	25/10/2016 16:31:03	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:31:06	INFO	POST blockchain/assets/vehicles	Generated V5cID: FY6200986
+	25/10/2016 16:31:06	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:31:06	ERROR	POST blockchain/assets/vehicles	OUTPUT: {"message":"Timeout while checking v5cID is unique","error":true,"v5cID":"FY6200986"}
+25/10/2016 16:31:17	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:31:17	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:31:24	ENTER	Startup	INPUT: {}
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:31:24	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:31:24	INFO	Startup	All users registered
+	25/10/2016 16:31:26	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:31:26	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:31:40	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:31:40	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:31:47	ENTER	Startup	INPUT: {}
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:31:47	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:31:47	INFO	Startup	All users registered
+	25/10/2016 16:31:49	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:31:49	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:33:31	ENTER	Startup	INPUT: {}
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:33:32	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:33:32	INFO	Startup	All users registered
+	25/10/2016 16:33:34	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:33:34	INFO	Startup	Vehicle chaincode deployed on all peers
+25/10/2016 16:33:41	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	25/10/2016 16:33:41	INFO	POST admin/identity	Calling /registrar endpoint
+25/10/2016 16:33:41	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+25/10/2016 16:33:41	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:33:41	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+25/10/2016 16:33:52	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	25/10/2016 16:33:52	INFO	POST admin/identity	Calling /registrar endpoint
+25/10/2016 16:33:52	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+25/10/2016 16:33:52	ENTER	POST blockchain/assets/vehicles	INPUT: {}
+	25/10/2016 16:33:52	INFO	POST blockchain/assets/vehicles	Generated V5cID: VH2995657
+	25/10/2016 16:33:52	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+	25/10/2016 16:33:55	INFO	POST blockchain/assets/vehicles	Generated V5cID: GD4316998
+	25/10/2016 16:33:55	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+25/10/2016 16:33:56	ENTER	POST admin/identity	INPUT: {"participantType":"regulators","account":"DVLA"}
+	25/10/2016 16:33:56	INFO	POST admin/identity	Calling /registrar endpoint
+25/10/2016 16:33:56	EXIT	POST admin/identity	OUTPUT: {"message":"Successfully logged user in"}
+25/10/2016 16:33:56	ENTER	GET blockchain/participants/regulators	INPUT: {}
+25/10/2016 16:33:56	EXIT	GET blockchain/participants/regulators	OUTPUT: {"result":[{"name":"DVLA","identity":"DVLA","password":"IUZCYDngtwjW","address_line_1":"The Richard Ley Development Centre","address_line_2":"Upper Forest Way","address_line_3":"Swansea Vale","address_line_4":"Swansea","postcode":"SA7 0AN"}]}
+	25/10/2016 16:33:58	INFO	POST blockchain/assets/vehicles	Generated V5cID: GA8265815
+	25/10/2016 16:33:58	INFO	POST blockchain/assets/vehicles	Checking V5cID is unique
+25/10/2016 16:34:07	ENTER	Startup	INPUT: {}
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user DVLA
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Toyota
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Milescape
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user LeaseCan
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	25/10/2016 16:34:07	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	25/10/2016 16:34:07	INFO	Startup	All users registered
+	25/10/2016 16:34:08	INFO	Startup	Chaincode already deployed
+	25/10/2016 16:34:08	INFO	Startup	Vehicle chaincode deployed on all peers

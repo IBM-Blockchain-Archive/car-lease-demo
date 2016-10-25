@@ -8,7 +8,7 @@ let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
 
 let user_id;
 
-function get_all_cars(req, res)
+function get_all_cars(req, res, securityContext)
 {
 
     if(typeof req.cookies.user !== 'undefined')

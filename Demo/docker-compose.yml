@@ -5,6 +5,8 @@ services:
       context: 'membersrvc'
     ports:
       - '7054:7054'
+    environment:
+        - MEMBERSRVC_CA_ACA_ENABLED=true
     command: sh -c 'membersrvc start'
   vp0:
     build:
