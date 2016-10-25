@@ -71,7 +71,6 @@ app.use(express.static(__dirname + '/Client_Side'));
 //-----------------------------------------------------------------------------------------------
 //    Admin - Identity
 //-----------------------------------------------------------------------------------------------
-
 app.post('/admin/identity', function(req, res)     //Sets the session user to have the account address for the page they are currently on
 {
     identity.create(req, res);
@@ -296,8 +295,12 @@ app.use(function (err, req, res, next) {        // = development error handler, 
     console.log('Error Handler -', req.url, err);
     let errorCode = err.status || 500;
     res.status(errorCode);
-    req.bag.error = {msg: err.stack, status: errorCode};
-    if (req.bag.error.status == 404) {req.bag.error.msg = 'Sorry, I cannot locate that file';}
+    if (req.bag) {
+        req.bag.error = {msg: err.stack, status: errorCode};
+        if (req.bag.error.status === 404) {
+            req.bag.error.msg = 'Sorry, I cannot locate that file';
+        }
+    }
     //res.render('template/error', {bag: req.bag});
     res.send({'message':err});
 });
@@ -342,7 +345,7 @@ function check_if_config_requires_overwriting(assignPort)
     let registrar_name = configFile.config.registrar_name;
     let registrar_password = configFile.config.registrar_password;
 
-    if (configFile.config.networkFile != null) // If network file is defined then overwrite the api variables to use these
+    if (configFile.config.networkFile !== null) // If network file is defined then overwrite the api variables to use these
     {
         console.log('Attempting to use network JSON specified');
         try

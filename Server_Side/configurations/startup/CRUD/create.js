@@ -24,38 +24,7 @@ let chain;
 
 let create = function()
 {
-    // configFile = reload(__dirname+'/../../configuration.js');
     tracing.create('ENTER', 'Startup', {});
-
-    // participants = reload(__dirname+'/../../../blockchain/participants/participants_info.js');
-
-    // tracing.create('INFO', 'Startup', 'Locating initial participants');
-
-    /*
-    //Build the array of JSON objects from participants_info.js to use for registering if they don't already exist and enrolling
-    if(participants.hasOwnProperty('regulators'))
-    {
-        let data = participants.participants_info;
-
-        for(let key in data)
-        {
-            if(data.hasOwnProperty(key))
-            {
-                for(let i = 0; i < data[key].length; i++)
-                {
-                    users.push({'type':key,'identity':data[key][i].identity, 'password':data[key][i].password});
-                }
-            }
-        }
-    } else {
-        let error = {};
-        error.error = true;
-        error.message = 'Participants information not found';
-        tracing.create('ERROR', 'Startup', error);
-
-        return JSON.stringify(error);
-    }
-    */
 
     let pem = null;
 
@@ -77,7 +46,7 @@ let create = function()
 
     chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port, {pem:pem});
     chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
-    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
 
     enrollUsers()
     .then(function(users) {
@@ -97,7 +66,6 @@ let create = function()
         });
     })
     .then(function(chaincodeId) {
-        console.log(chaincodeId);
         return new Promise(function(resolve, reject) {
             if (chaincodeId) {
                 let liveTx = deployUser.query({
@@ -129,7 +97,6 @@ let create = function()
         }
     })
     .then(function(deploy) {
-        console.log(deploy);
         if (deploy) {
             fs.writeFile('/tmp/chaincode', deploy.chaincodeID, function(err) {
                 if(err) {
@@ -330,7 +297,7 @@ function get_height(cb){
 
     let interval = setInterval(function(){
         let options =     {
-            url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
+            url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
             method: 'GET',
             json: true
         };

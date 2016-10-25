@@ -48,7 +48,7 @@ config.ca_port = '7054';         //Discovery port of the Certificate Authority. 
 
 //TODO: Merge these two
 //Settings for the nodeJS application server
-config.app_url = 'http://http://http://http://http://http://http://http://localhost:8080';     //Url of the NodeJS Server
+config.app_url = 'http://http://http://http://http://http://http://http://http://localhost:8080';     //Url of the NodeJS Server
 config.app_port = 8080;                         //Port that the NodeJS server is operating on
 
 config.eventHubUrl = '127.0.0.1';

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"encoding/json"
-	"crypto/x509"
+	// "crypto/x509"
 	// "encoding/pem"
 	// "net/url"
 	"regexp"
@@ -160,7 +160,7 @@ func (t *SimpleChaincode) add_ecert(stub shim.ChaincodeStubInterface, name strin
 // 				  		certificates common name. The affiliation is stored as part of the common name.
 //==============================================================================================================================
 
-func (t *SimpleChaincode) check_affiliation(stub shim.ChaincodeStubInterface, cert string) (string, error) {
+func (t *SimpleChaincode) check_affiliation(stub shim.ChaincodeStubInterface) (string, error) {
     affiliation, err := stub.ReadCertAttribute("affiliation");
     if err != nil { return "", errors.New("Couldn't get affiliation 'affiliation'")	}
 	return string(affiliation), nil
@@ -176,13 +176,13 @@ func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (str
 
 	//user, err := t.get_username(stub)
 
-    if err != nil { return "", "", err }
+    // if err != nil { return "", "", err }
 
-	ecert, err := t.get_ecert(stub, user);
+	// ecert, err := t.get_ecert(stub, user);
 
-    if err != nil { return "", "", err }
+    // if err != nil { return "", "", err }
 
-	affiliation, err := t.check_affiliation(stub,string(ecert));
+	affiliation, err := t.check_affiliation(stub);
 
     if err != nil { return "", "", err }
 
@@ -255,11 +255,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		if strings.Contains(function, "update") == false           &&
 		   function 							!= "scrap_vehicle"    { 									// If the function is not an update or a scrappage it must be a transfer so we need to get the ecert of the recipient.
 
-				ecert, err := t.get_ecert(stub, args[0]);
+				// ecert, err := t.get_ecert(stub, args[0]);
 
-																		if err != nil { return nil, err }
+																		// if err != nil { return nil, err }
 
-				rec_affiliation, err := t.check_affiliation(stub,string(ecert));
+				rec_affiliation, err := t.check_affiliation(stub);
 
 																		if err != nil { return nil, err }
 
