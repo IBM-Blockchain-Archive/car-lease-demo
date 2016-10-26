@@ -7470,3 +7470,30 @@
 26/10/2016 14:00:45	ENTER	POST admin/identity	INPUT: {"participantType":"manufacturers","account":"Alfa Romeo"}
 	26/10/2016 14:00:45	INFO	POST admin/identity	Calling /registrar endpoint
 26/10/2016 14:00:46	ENTER	GET blockchain/assets/vehicles	INPUT: {}
+26/10/2016 14:01:52	ENTER	Startup	INPUT: {}
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user DVLA
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Alfa_Romeo
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Toyota
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Jaguar_Land_Rover
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Beechvale_Group
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Milescape
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Viewers_Alfa_Romeo
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user LeaseCan
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Every_Car_Leasing
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Regionwide_Vehicle_Contracts
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Joe_Payne
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Andrew_Hurt
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Anthony_O_Dowd
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Cray_Bros_London_Ltd
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user ScrapIt_UK
+	26/10/2016 14:01:52	INFO	Startup	Registrar enroll worked with user Aston_Scrap_Centre
+	26/10/2016 14:01:52	INFO	Startup	All users registered
+	26/10/2016 14:01:54	INFO	Startup	Chaincode already deployed
+	26/10/2016 14:01:54	INFO	Startup	Vehicle chaincode deployed on all peers
+26/10/2016 14:01:59	ENTER	POST admin/identity	INPUT: {"participantType":"manufacturers","account":"Alfa Romeo"}
+	26/10/2016 14:01:59	INFO	POST admin/identity	Calling /registrar endpoint
+26/10/2016 14:01:59	ENTER	GET blockchain/participants/manufacturers	INPUT: {}
+26/10/2016 14:01:59	EXIT	GET blockchain/participants/manufacturers	OUTPUT: {"result":[{"name":"Alfa Romeo","identity":"Alfa_Romeo","password":"fGMMQqWEPxVy","address_line_1":"25 St James's Street","address_line_2":"London","address_line_3":"United Kingdom","postcode":"SW1A 1HA"},{"name":"Toyota","identity":"Toyota","password":"hTpPFxiOwWgS","address_line_1":"Burnaston","address_line_2":"Derby","address_line_3":"United Kingdom","postcode":"DE1 9TA"},{"name":"Jaguar Land Rover","identity":"Jaguar_Land_Rover","password":"nNRyjPKrSpUb","address_line_1":"Abbey Road","address_line_2":"Coventry","address_line_3":"United Kingdom","postcode":"CV3 4LF"}]}
+26/10/2016 14:02:04	ENTER	POST admin/identity	INPUT: {"participantType":"manufacturers","account":"Alfa Romeo"}
+	26/10/2016 14:02:04	INFO	POST admin/identity	Calling /registrar endpoint
+26/10/2016 14:02:04	ENTER	GET blockchain/assets/vehicles	INPUT: {}
