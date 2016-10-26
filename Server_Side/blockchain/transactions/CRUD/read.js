@@ -3,8 +3,7 @@
 let request = require('request');
 let fs = require('fs');
 let x509 = require('x509');
-let reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../configurations/configuration.js');
+let configFile = require(__dirname+'/../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
 
@@ -17,7 +16,6 @@ let get_height = function(req, res) //Checks to see if chain height is greater t
     tracing.create('ENTER', 'GET blockchain/transactions', {});
     let validV5cs = '';
     result = {'transactions':[]};
-    configFile = reload(__dirname+'/../../../configurations/configuration.js');
     let options = {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
         method: 'GET'
@@ -52,7 +50,6 @@ exports.read = get_height;
 
 function get_block(req, res, number) //Retrieves block, and retrieves transactions within the block
 {
-    configFile = reload(__dirname+'/../../../configurations/configuration.js');
 
     let options = {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain/blocks/'+number,

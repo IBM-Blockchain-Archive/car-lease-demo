@@ -1,7 +1,6 @@
 'use strict';
 let request = require('request');
-let reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
+let configFile = require(__dirname+'/../../../../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../../../../tools/map_ID/map_ID.js');
 
@@ -11,7 +10,7 @@ let update = function(req, res)
 {
 
     if(typeof req.cookies.user != 'undefined')
-	{
+    {
         req.session.user = req.cookies.user;
         req.session.identity = map_ID.user_to_id(req.cookies.user);
     }
@@ -19,7 +18,6 @@ let update = function(req, res)
     user_id = req.session.identity;
 
     tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', req.body);
-    configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 
     let oldValue = req.body.oldValue;
     let newValue = req.body.value;
@@ -28,27 +26,27 @@ let update = function(req, res)
     tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Formatting request');
     res.write('{"message":"Formatting request"}&&');
 
-    let invokeSpec = 	{
-						  'jsonrpc': '2.0',
-						  'method': 'invoke',
-						  'params': {
-						    'type': 1,
-						    'chaincodeID': {
-						      'name': configFile.config.vehicle_name
-						    },
-						    'ctorMsg': {
-						      'function': 'update_make',
-						      'args': [
-						        newValue.toString(), v5cID
-						      ]
-						    },
-						    'secureContext': user_id
-						  },
-						  'id': 123
+    let invokeSpec =     {
+        'jsonrpc': '2.0',
+        'method': 'invoke',
+        'params': {
+            'type': 1,
+            'chaincodeID': {
+                'name': configFile.config.vehicle_name
+            },
+            'ctorMsg': {
+                'function': 'update_make',
+                'args': [
+                    newValue.toString(), v5cID
+                ]
+            },
+            'secureContext': user_id
+        },
+        'id': 123
     };
 
 
-    let options = 	{
+    let options =     {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
         method: 'POST',
         body: invokeSpec,
@@ -58,10 +56,10 @@ let update = function(req, res)
     tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', 'Updating make value');
     res.write('{"message":"Updating make value"}&&');
     request(options, function(error, response, body)
-	{
+    {
 
         if (!error && !body.hasOwnProperty('error') && response.statusCode == 200)
-		{
+        {
             let j = request.jar();
             let str = 'user='+req.session.user;
             let cookie = request.cookie(str);
@@ -81,7 +79,7 @@ let update = function(req, res)
 
                         if (!error && response.statusCode == 200) {
                             if(JSON.parse(body).message == newValue)
-							{
+                            {
                                 let result = {};
                                 result.message = 'Make updated';
                                 tracing.create('EXIT', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/make', result);
@@ -93,7 +91,7 @@ let update = function(req, res)
                     counter++;
                 }
                 else
-				{
+                {
                     res.status(400);
                     let error = {};
                     error.error = true;
@@ -106,7 +104,7 @@ let update = function(req, res)
             }, 4000);
         }
         else
-		{
+        {
             res.status(400);
             var error = {};
             error.error = true;

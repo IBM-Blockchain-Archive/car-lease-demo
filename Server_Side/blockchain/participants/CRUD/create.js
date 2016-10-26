@@ -1,12 +1,10 @@
-/*eslint-env node */
 'use strict';
 
 let request = require('request');
 let fs = require('fs');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
-let reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../configurations/configuration.js'),
-    participants = reload(__dirname+'/../participants_info.js');
+let configFile = require(__dirname+'/../../../configurations/configuration.js'),
+    participants = require(__dirname+'/../participants_info.js');
 
 let counter = 0;
 
@@ -18,7 +16,7 @@ let registerUser = function(req, res) {
     let numberAff = '0000';
 
     switch(req.body.affiliation)
-	{
+    {
     case 'Regulator':
         numberAff = '0001';
         break;
@@ -46,14 +44,12 @@ let registerUser = function(req, res) {
 
 function loginUser(req, res, secret)
 {
-
-    configFile = reload(__dirname+'/../../../configurations/configuration.js');
     let credentials = {
-						  'enrollId': req.body.company,
-						  'enrollSecret': secret
+        'enrollId': req.body.company,
+        'enrollSecret': secret
     };
 
-    let options = 	{
+    let options =     {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
         method: 'POST',
         body: credentials,
@@ -62,27 +58,27 @@ function loginUser(req, res, secret)
 
     request(options, function(error, response, body){
         if (!body.hasOwnProperty('Error') && response.statusCode == 200)
-		{
+        {
             counter = 0;
             tracing.create('INFO', 'POST blockchain/participants', 'Login successful');
             writeUserToFile(req, res, secret);
         }
         else
-		{
+        {
             if(counter >= 5){
-        		counter = 0;
-        		res.status(400);
+                counter = 0;
+                res.status(400);
                 var error = {};
                 error.message = 'Unable to register user with peer';
                 error.error = true;
                 tracing.create('ERROR', 'POST blockchain/participants', error);
                 res.send(error);
-        	}
+            }
             else{
-	            counter++;
-	            tracing.create('INFO', 'POST blockchain/participants', 'Trying to log in again');
-	            setTimeout(function(){loginUser(req, res, secret);},2000);
-        	}
+                counter++;
+                tracing.create('INFO', 'POST blockchain/participants', 'Trying to log in again');
+                setTimeout(function(){loginUser(req, res, secret);},2000);
+            }
 
         }
     });
@@ -90,35 +86,34 @@ function loginUser(req, res, secret)
 
 function writeUserToFile(req, res, secret)
 {
-    participants = reload(__dirname+'/../participants_info.js');
 
     let userType = '';
     let userNumber = '';
 
     for(let k in participants.participants_info)
-	{
+    {
         if (participants.participants_info.hasOwnProperty(k))
-		{
+        {
 
             let data = participants.participants_info[k];
             for(let i = 0; i < data.length; i++)
            {
 
-           		if(data[i].identity == req.body.company)
-           		{
-           			userType = k;
-           			userNumber = i;
-           			break;
-           		}
+                if(data[i].identity == req.body.company)
+                   {
+                    userType = k;
+                    userNumber = i;
+                    break;
+                }
             }
         }
     }
 
     let newData = participants.participants_info;
     if(userType == '')
-	{
+    {
         switch(req.body.affiliation)
-		{
+        {
         case 'Regulator':
             userType='regulators';
             break;

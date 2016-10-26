@@ -1,7 +1,6 @@
 'use strict';
 let request = require('request');
-let reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../../../configurations/configuration.js');
+let configFile = require(__dirname+'/../../../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../../../tools/map_ID/map_ID.js');
 
@@ -11,7 +10,7 @@ let update = function(req, res)
 {
 
     if(typeof req.cookies.user != 'undefined')
-	{
+    {
         req.session.user = req.cookies.user;
         req.session.identity = map_ID.user_to_id(req.cookies.user);
     }
@@ -21,30 +20,29 @@ let update = function(req, res)
     let v5cID = req.params.v5cID;
 
     tracing.create('ENTER', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', {});
-    configFile = reload(__dirname+'/../../../../../configurations/configuration.js');
 
     res.write('{"message":"Formatting request"}&&');
 
     let invokeSpec = {
-						  'jsonrpc': '2.0',
-						  'method': 'invoke',
-						  'params': {
-						    'type': 1,
-						    'chaincodeID': {
-						      'name': configFile.config.vehicle_name
-						    },
-						    'ctorMsg': {
-						      'function': 'scrap_vehicle',
-						      'args': [
-						        v5cID
-						      ]
-						    },
-						    'secureContext': user_id
-						  },
-						  'id': 123
+        'jsonrpc': '2.0',
+        'method': 'invoke',
+        'params': {
+            'type': 1,
+            'chaincodeID': {
+                'name': configFile.config.vehicle_name
+            },
+            'ctorMsg': {
+                'function': 'scrap_vehicle',
+                'args': [
+                    v5cID
+                ]
+            },
+            'secureContext': user_id
+        },
+        'id': 123
     };
 
-    let options = 	{
+    let options =     {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
         method: 'POST',
         body: invokeSpec,
@@ -54,9 +52,9 @@ let update = function(req, res)
     tracing.create('INFO', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Updating scrap value');
     res.write('{"message":"Updating scrap value"}&&');
     request(options, function(error, response, body)
-	{
+    {
         if (!error && !body.hasOwnProperty('error') && response.statusCode == 200)
-		{
+        {
             let j = request.jar();
             let str = 'user='+req.session.user;
             let cookie = request.cookie(str);
@@ -77,7 +75,7 @@ let update = function(req, res)
                     request(options, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
                             if(JSON.parse(body).message)
-							{
+                            {
                                 let result = {};
                                 result.message = 'Scrap updated';
                                 tracing.create('EXIT', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', result);
@@ -89,7 +87,7 @@ let update = function(req, res)
                     counter++;
                 }
                 else
-				{
+                {
                     res.status(400);
                     tracing.create('ERROR', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Unable to update scrap. v5cID: '+ v5cID);
                     let error = {};
@@ -103,7 +101,7 @@ let update = function(req, res)
             }, 1500);
         }
         else
-		{
+        {
             res.status(400);
             tracing.create('ERROR', 'DELETE blockchain/assets/vehicles/vehicle/'+v5cID+'/scrap', 'Unable to update scrap. v5cID: '+ v5cID);
             var error = {};

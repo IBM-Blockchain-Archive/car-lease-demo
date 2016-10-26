@@ -51,7 +51,7 @@ let create = function()
 
     chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port, {pem:pem});
     chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
+    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
 
     return enrollUsers()
     .then(function(users) {
@@ -74,6 +74,7 @@ let create = function()
         });
     })
     .then(function(chaincodeID) {
+        console.log(chaincodeID);
         return new Promise(function(resolve, reject) {
             if (chaincodeID) {
                 let liveTx = deployUser.query({
@@ -99,7 +100,8 @@ let create = function()
         });
     })
     .then(function(chaincodeID) {
-        if (chaincodeID === '') {
+        console.log('before if: ' + chaincodeID);
+        if (!chaincodeID) {
             return deployChaincode(deployUser, 'vehicle_code', 'Init', []);
         } else {
             return chaincodeID;
@@ -107,11 +109,16 @@ let create = function()
     })
     .then(function(deploy) {
         let chaincodeID;
-        if (typeof chaincodeID === 'string') {
+        if (typeof deploy === 'string') {
+            console.log('ID is string');
             chaincodeID = deploy;
         } else {
+            console.log('ID is not string');
+            console.log(deploy);
             chaincodeID = deploy.chaincodeID;
         }
+        console.log('before writing: ' + chaincodeID);
+
         fs.writeFile('/tmp/chaincode', chaincodeID, function(err) {
             if(err) {
                 console.log(err);

@@ -48,14 +48,14 @@ config.ca_port = '7054';         //Discovery port of the Certificate Authority. 
 
 //TODO: Merge these two
 //Settings for the nodeJS application server
-config.app_url = 'http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://localhost:8080';     //Url of the NodeJS Server
+config.app_url = 'http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://localhost:8080';     //Url of the NodeJS Server
 config.app_port = 8080;                         //Port that the NodeJS server is operating on
 
 config.eventHubUrl = '127.0.0.1';
 config.eventHubPort = '7053';
 
 //Information about all peers in the network, currently only used for checking that chaincode has been deployed to all peers on startup
-config.peers = ['127.0.0.1'];
+config.peers = ['127.0.0.1',];
 
 //--------------------------------------------------------------------------------------------------------------------
 //    User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.

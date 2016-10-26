@@ -1,8 +1,7 @@
 'use strict';
 
 let request = require('request');
-let reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
+let configFile = require(__dirname+'/../../../../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../../../../tools/map_ID/map_ID.js');
 
@@ -13,7 +12,7 @@ let update = function(req, res)
 {
 
     if(typeof req.cookies.user != 'undefined')
-	{
+    {
         req.session.user = req.cookies.user;
         req.session.identity = map_ID.user_to_id(req.cookies.user);
     }
@@ -22,8 +21,6 @@ let update = function(req, res)
 
     tracing.create('ENTER', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', req.body);
 
-    configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
-
     let newValue = req.body.value;
     let function_name = req.body.function_name;
     let v5cID = req.params.v5cID;
@@ -31,26 +28,26 @@ let update = function(req, res)
     tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Formatting request');
     res.write('{"message":"Formatting request"}&&');
 
-    let invokeSpec = 	{
-						  'jsonrpc': '2.0',
-						  'method': 'invoke',
-						  'params': {
-						    'type': 1,
-						    'chaincodeID': {
-						      'name': configFile.config.vehicle_name
-						    },
-						    'ctorMsg': {
-						      'function': function_name.toString(),
-						      'args': [
-						        newValue, v5cID
-						      ]
-						    },
-						    'secureContext': user_id
-						  },
-						  'id': 123
+    let invokeSpec =     {
+        'jsonrpc': '2.0',
+        'method': 'invoke',
+        'params': {
+            'type': 1,
+            'chaincodeID': {
+                'name': configFile.config.vehicle_name
+            },
+            'ctorMsg': {
+                'function': function_name.toString(),
+                'args': [
+                    newValue, v5cID
+                ]
+            },
+            'secureContext': user_id
+        },
+        'id': 123
     };
 
-    let options = 	{
+    let options =     {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
         method: 'POST',
         body: invokeSpec,
@@ -60,10 +57,10 @@ let update = function(req, res)
     tracing.create('INFO', 'PUT blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', 'Updating owner value');
     res.write('{"message":"Updating owner value"}&&');
     request(options, function(error, response, body)
-	{
+    {
 
         if (!error && !body.hasOwnProperty('error') && response.statusCode == 200) // if it appears to work run a query to check if the new owner can see the car
-		{
+        {
             let j = request.jar();
             let str = 'user='+map_ID.id_to_user(newValue);
             let cookie = request.cookie(str);
@@ -83,7 +80,7 @@ let update = function(req, res)
                     request(options, function (error, response, body) {
 
                         if (!error && response.statusCode == 200)
-						{
+                        {
 
                             let result = {};
                             result.message = 'Owner updated';
@@ -95,7 +92,7 @@ let update = function(req, res)
                     counter++;
                 }
                 else
-				{
+                {
                     res.status(400);
                     let error = {};
                     error.error  = true;
@@ -107,7 +104,7 @@ let update = function(req, res)
             }, 4000);
         }
         else
-		{
+        {
             res.status(400);
             var error = {};
             error.message = 'Unable to update owner';

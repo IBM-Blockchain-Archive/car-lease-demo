@@ -21,8 +21,6 @@ let app             = express();
 let url             = require('url');
 let cors             = require('cors');
 let fs                 = require('fs');
-let path             = require('path');
-let hfc                = require('hfc');
 
 
 let configFile = require(__dirname+'/Server_Side/configurations/configuration.js');
@@ -41,9 +39,6 @@ let startup            = require(__dirname+'/Server_Side/configurations/startup/
 
 // Object of users' names linked to their security context
 let usersToSecurityContext;
-
-// For logging
-let TAG = 'app.js:';
 
 let port;
 
@@ -119,9 +114,9 @@ app.post('/blockchain/assets/vehicles' , function(req,res,next)
     vehicles.create(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/assets/vehicles' , function(req,res)
+app.get('/blockchain/assets/vehicles' , function(req,res, next)
 {
-    vehicles.read(req,res);
+    vehicles.read(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -343,7 +338,7 @@ function check_if_config_requires_overwriting(assignPort)
     let api_port_external = configFile.config.api_port_external;
     let api_port_internal = configFile.config.api_port_internal;
     let api_port_discovery = configFile.config.api_port_discovery;
-    var peers = configFile.config.peers;
+    let peers = configFile.config.peers;
     let ca_ip = configFile.config.ca_ip;
     let ca_port = configFile.config.ca_port;
     let registrar_name = configFile.config.registrar_name;
@@ -355,13 +350,13 @@ function check_if_config_requires_overwriting(assignPort)
         try
         {
             let networkDetails = JSON.parse(fs.readFileSync(configFile.config.networkFile, 'utf8'));
-            var ca = networkDetails.credentials.ca;
-            var peers = networkDetails.credentials.peers;
-            var peer_ip;
-            var peers_array = [];
+            let ca = networkDetails.credentials.ca;
+            let peers = networkDetails.credentials.peers;
+            let peer_ip;
+            let peers_array = [];
 
                     //Get address of every peer on the network
-            for(var i in peers){
+            for(let i in peers){
                 peer_ip = configFile.config.networkProtocol+'://'+peers[i].api_host;
                 peers_array.push(peer_ip);
             }
@@ -370,7 +365,7 @@ function check_if_config_requires_overwriting(assignPort)
             peers = peers_array;
 
                     //Get details of the Certificate Authority
-            for(var i in ca){
+            for(let i in ca){
                 ca_ip        = ca[i].discovery_host;
                 ca_port        = ca[i].discovery_port;
             }
@@ -409,23 +404,23 @@ function check_if_config_requires_overwriting(assignPort)
                 registrar_name             = credentials.users[0].username;
                 registrar_password         = credentials.users[0].secret;
 
-                var ca = credentials.ca;
-                var peers = credentials.peers;
-                var peers_array = [];
+                let ca = credentials.ca;
+                peers = credentials.peers;
+                let peers_array = [];
 
-                            //Get address of every peer on the network
-                for(var i in peers){
-                    peer_ip = 'https://'+peers[i].api_host;
+                //Get address of every peer on the network
+                for(let i in peers){
+                    let peer_ip = 'https://'+peers[i].api_host;
                     peers_array.push(peer_ip);
                 }
 
                 api_ip = peers_array[0];
                 peers = peers_array;
 
-                            //Get details of the Certificate Authority
-                for(var i in ca){
+                //Get details of the Certificate Authority
+                for(let i in ca){
                     ca_ip        = ca[i].discovery_host;
-                    ca_port        = ca[i].discovery_port;
+                    ca_port      = ca[i].discovery_port;
                 }
             }
             catch(err)
@@ -449,10 +444,10 @@ function check_if_config_requires_overwriting(assignPort)
 
     let peersArrayAsString='';
 
-    for(var i in peers){
+    for(let i in peers){
         peersArrayAsString += '\''+peers[i]+'\'';
 
-        if(i != peers.length-1){
+        if(i !== peers.length-1){
             peersArrayAsString += ',';
         }
     }
