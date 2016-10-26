@@ -215,6 +215,7 @@ aca:
               attribute-entry-11: assigner;bank_a;role;assigner;2015-01-01T00:00:00-03:00;;
 
               # Car lease users
+              # Roles
               attribute-entry-12: DVLA;institution_a;role;regulator;2016-01-01T00:00:00-03:00;;
               attribute-entry-13: Toyota;institution_a;role;manufacturer;2016-01-01T00:00:00-03:00;;
               attribute-entry-14: Alfa_Romeo;institution_a;role;manufacturer;2016-01-01T00:00:00-03:00;;
@@ -235,6 +236,27 @@ aca:
               attribute-entry-25: Cray_Bros_London_Ltd;institution_a;role;scrap_merchant;2016-01-01T00:00:00-03:00;;
               attribute-entry-26: Aston_Scrap_Centre;institution_a;role;scrap_merchant;2016-01-01T00:00:00-03:00;;
               attribute-entry-27: ScrapIt_UK;institution_a;role;scrap_merchant;2016-01-01T00:00:00-03:00;;
+
+              attribute-entry-28: DVLA;institution_a;username;DVLA;2016-01-01T00:00:00-03:00;;
+              attribute-entry-29: Toyota;institution_a;username;Toyota;2016-01-01T00:00:00-03:00;;
+              attribute-entry-30: Alfa_Romeo;institution_a;username;Alfa_Romeo;2016-01-01T00:00:00-03:00;;
+              attribute-entry-31: Jaguar_Land_Rover;institution_a;username;Jaguar_Land_Rover;2016-01-01T00:00:00-03:00;;
+
+              attribute-entry-32: Beechvale_Group;institution_a;username;Beechvale_Group;2016-01-01T00:00:00-03:00;;
+              attribute-entry-33: Milescape;institution_a;username;Milescape;2016-01-01T00:00:00-03:00;;
+              attribute-entry-34: Viewers_Alfa_Romeo;institution_a;username;Viewers_Alfa_Romeo;2016-01-01T00:00:00-03:00;;
+
+              attribute-entry-35: Joe_Payne;institution_a;username;Joe_Payne;2016-01-01T00:00:00-03:00;;
+              attribute-entry-36: Andrew_Hurt;institution_a;username;Andrew_Hurt;2016-01-01T00:00:00-03:00;;
+              attribute-entry-37: Anthony_O_Dowd;institution_a;username;Anthony_O_Dowd;2016-01-01T00:00:00-03:00;;
+
+              attribute-entry-37: LeaseCan;institution_a;username;LeaseCan;2016-01-01T00:00:00-03:00;;
+              attribute-entry-38: Every_Car_Leasing;institution_a;username;Every_Car_Leasing;2016-01-01T00:00:00-03:00;;
+              attribute-entry-39: Regionwide_Vehicle_Contracts;institution_a;username;Regionwide_Vehicle_Contracts;2016-01-01T00:00:00-03:00;;
+
+              attribute-entry-40: Cray_Bros_London_Ltd;institution_a;username;Cray_Bros_London_Ltd;2016-01-01T00:00:00-03:00;;
+              attribute-entry-41: Aston_Scrap_Centre;institution_a;username;Aston_Scrap_Centre;2016-01-01T00:00:00-03:00;;
+              attribute-entry-42: ScrapIt_UK;institution_a;username;ScrapIt_UK;2016-01-01T00:00:00-03:00;;
 
           address: localhost:7054
           server-name: acap

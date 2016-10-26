@@ -7,8 +7,8 @@ let read = function(req, res)
 {
     tracing.create('ENTER', 'GET blockchain/participants/dealerships', {});
 
-    if(!participants.participants_info.hasOwnProperty('dealerships'))
-	{
+    if(!participants.hasOwnProperty('dealerships'))
+    {
         res.status(404);
         let error = {};
         error.message = 'Unable to retrieve dealerships';
@@ -17,9 +17,9 @@ let read = function(req, res)
         res.send(error);
     }
     else
-	{
-        tracing.create('EXIT', 'GET blockchain/participants/dealerships', {'result':participants.participants_info.dealerships});
-        res.send({'result':participants.participants_info.dealerships});
+    {
+        tracing.create('EXIT', 'GET blockchain/participants/dealerships', {'result':participants.dealerships});
+        res.send({'result':participants.dealerships});
     }
 };
 exports.read = read;

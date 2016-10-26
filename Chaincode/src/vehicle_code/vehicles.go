@@ -141,19 +141,12 @@ func (t *SimpleChaincode) add_ecert(stub shim.ChaincodeStubInterface, name strin
 //				  Returns the username as a string.
 //==============================================================================================================================
 
-// func (t *SimpleChaincode) get_username(stub shim.ChaincodeStubInterface) (string, error) {
-//
-// 	bytes, err := stub.GetCallerCertificate();
-//
-//     if err != nil { return "", errors.New("Couldn't retrieve caller certificate") }
-//
-//     x509Cert, err := x509.ParseCertificate(bytes);
-//
-//     // Extract Certificate from result of GetCallerCertificate
-// 	if err != nil { return "", errors.New("Couldn't parse certificate")	}
-//
-// 	return x509Cert.Subject.CommonName, nil
-// }
+func (t *SimpleChaincode) get_username(stub shim.ChaincodeStubInterface) (string, error) {
+
+    affiliation, err := stub.ReadCertAttribute("username");
+	if err != nil { return "", errors.New("Couldn't get attribute 'username'. Error: " + err.Error()) }
+	return string(affiliation), nil
+}
 
 //==============================================================================================================================
 //	 check_affiliation - Takes an ecert as a string, decodes it to remove html encoding then parses it and checks the
@@ -174,7 +167,9 @@ func (t *SimpleChaincode) check_affiliation(stub shim.ChaincodeStubInterface) (s
 
 func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (string, string, error){
 
-	//user, err := t.get_username(stub)
+	user, err := t.get_username(stub)
+
+    fmt.Println("============================"+user+"============================")
 
     // if err != nil { return "", "", err }
 
@@ -186,7 +181,7 @@ func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (str
 
     if err != nil { return "", "", err }
 
-	return "user", affiliation, nil
+	return user, affiliation, nil
 }
 
 //==============================================================================================================================
@@ -269,12 +264,12 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 		} else if function == "update_make"  	    { return t.update_make(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "update_model"        { return t.update_model(stub, v, caller, caller_affiliation, args[0])
-		} else if function == "update_registration" { return t.update_registration(stub, v, caller, caller_affiliation, args[0])
+		} else if function == "update_reg" { return t.update_registration(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "update_vin" 			{ return t.update_vin(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "update_colour" 		{ return t.update_colour(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "scrap_vehicle" 		{ return t.scrap_vehicle(stub, v, caller, caller_affiliation) }
 
-																						return nil, errors.New("Function of that name doesn't exist.")
+																						return nil, errors.New("Function of the name "+ function +" doesn't exist.")
 
 	}
 }

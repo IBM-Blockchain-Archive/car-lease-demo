@@ -9,7 +9,8 @@ let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
 function makeAccount(req, res, usersToSecurityContext) //Checks to see if user details passed are valid. If so, log them in and start a session.
 {
-    let securityContext = usersToSecurityContext[req.body.account];
+    let userID = map_ID.user_to_id(req.body.account);
+    let securityContext = usersToSecurityContext[userID];
 
     tracing.create('ENTER', 'POST admin/identity', req.body);
 

@@ -204,6 +204,7 @@ app.get('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res,next)
 
 app.put('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res,next)
 {
+
     vehicle.reg.update(req,res,next,usersToSecurityContext);
 });
 

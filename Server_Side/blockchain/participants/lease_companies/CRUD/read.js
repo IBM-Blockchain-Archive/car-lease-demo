@@ -7,7 +7,7 @@ let read = function(req, res)
 {
     tracing.create('ENTER', 'GET blockchain/participants/lease_companies', {});
 
-    if(!participants.participants_info.hasOwnProperty('lease_companies'))
+    if(!participants.hasOwnProperty('lease_companies'))
 	{
         res.status(404);
         let error = {};
@@ -18,8 +18,8 @@ let read = function(req, res)
     }
     else
 	{
-        tracing.create('EXIT', 'GET blockchain/participants/lease_companies', {'result':participants.participants_info.lease_companies});
-        res.send({'result':participants.participants_info.lease_companies});
+        tracing.create('EXIT', 'GET blockchain/participants/lease_companies', {'result':participants.lease_companies});
+        res.send({'result':participants.lease_companies});
     }
 };
 exports.read = read;

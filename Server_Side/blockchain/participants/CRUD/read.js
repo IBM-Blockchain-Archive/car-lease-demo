@@ -6,7 +6,7 @@ let participants = require(__dirname+'/../participants_info.js');
 let read = function(req, res)
 {
     tracing.create('ENTER', 'GET blockchain/participants/', {});
-    if(participants.participants_info == null)
+    if(participants == null)
 	{
         res.status(404);
         let error = {};
@@ -17,8 +17,8 @@ let read = function(req, res)
     }
     else
 	{
-        tracing.create('EXIT', 'GET blockchain/participants/', {'result':participants.participants_info});
-        res.send({'result':participants.participants_info});
+        tracing.create('EXIT', 'GET blockchain/participants/', {'result':participants});
+        res.send({'result':participants});
     }
 };
 exports.read = read;

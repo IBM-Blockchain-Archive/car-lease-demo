@@ -7,7 +7,7 @@ let read = function(req, res)
 {
     tracing.create('ENTER', 'GET blockchain/participants/scrap_merchants', {});
 
-    if(!participants.participants_info.hasOwnProperty('scrap_merchants'))
+    if(!participants.hasOwnProperty('scrap_merchants'))
 	{
         res.status(404);
         let error = {};
@@ -18,8 +18,8 @@ let read = function(req, res)
     }
     else
 	{
-        tracing.create('EXIT', 'GET blockchain/participants/scrap_merchants', {'result':participants.participants_info.scrap_merchants});
-        res.send({'result':participants.participants_info.scrap_merchants});
+        tracing.create('EXIT', 'GET blockchain/participants/scrap_merchants', {'result':participants.scrap_merchants});
+        res.send({'result':participants.scrap_merchants});
     }
 };
 exports.read = read;

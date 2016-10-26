@@ -90,12 +90,12 @@ function writeUserToFile(req, res, secret)
     let userType = '';
     let userNumber = '';
 
-    for(let k in participants.participants_info)
+    for(let k in participants)
     {
-        if (participants.participants_info.hasOwnProperty(k))
+        if (participants.hasOwnProperty(k))
         {
 
-            let data = participants.participants_info[k];
+            let data = participants[k];
             for(let i = 0; i < data.length; i++)
            {
 
@@ -109,7 +109,7 @@ function writeUserToFile(req, res, secret)
         }
     }
 
-    let newData = participants.participants_info;
+    let newData = participants;
     if(userType == '')
     {
         switch(req.body.affiliation)
@@ -150,7 +150,7 @@ function writeUserToFile(req, res, secret)
     }
     newData[userType][userNumber].password = secret;
 
-    let updatedFile = '/*eslint-env node*/\n\nvar user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
+    let updatedFile = '/*eslint-env node*/\n\nvar user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports = participants_info;';
 
     fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
     let result = {};

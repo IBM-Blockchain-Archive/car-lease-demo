@@ -367,7 +367,7 @@ function deploy_vehicle() //Deploy vehicle chaincode
                 'function': 'init',
                 'args': userEcertHolder
             },
-            'secureContext': participants.participants_info.regulators[0].identity
+            'secureContext': participants.regulators[0].identity
         },
         'id': 12
     };
@@ -586,11 +586,11 @@ function writeUserToFile(username, secret,cb)
     let userType = '';
     let userNumber = '';
 
-    for(let k in participants.participants_info)
+    for(let k in participants)
     {
-        if (participants.participants_info.hasOwnProperty(k))
+        if (participants.hasOwnProperty(k))
         {
-            let data = participants.participants_info[k];
+            let data = participants[k];
 
             for(let i = 0; i < data.length; i++)
             {
@@ -605,10 +605,10 @@ function writeUserToFile(username, secret,cb)
         }
     }
 
-    let newData = participants.participants_info;
+    let newData = participants;
     newData[userType][userNumber].password = secret;
 
-    let updatedFile = '\n\n\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
+    let updatedFile = '\n\n\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports = participants_info;';
 
     fs.writeFileSync(__dirname+'/../../../blockchain/participants/participants_info.js', updatedFile);
 

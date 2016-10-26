@@ -2,8 +2,8 @@
 
 // let request = require('request');
 // let configFile = require(__dirname+'/../../../../configurations/configuration.js');
-let tracing = require(__dirname+'/../../../../tools/traces/trace.js');
-// let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
+let tracing = require(__dirname+'/../../../../tools/traces/trace');
+let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID');
 
 
 let securityContext;
@@ -13,18 +13,16 @@ function get_all_cars(req, res, next, usersToSecurityContext)
 {
     tracing.create('ENTER', 'GET blockchain/assets/vehicles', {});
 
-    if(typeof req.cookies.user !== 'undefined')
-    {
-        req.session.user = req.cookies.user;
-        req.session.identity = req.cookies.user;
-    }
+    req.session.user = req.cookies.user;
+    req.session.identity = map_ID.user_to_id(req.cookies.user);
 
     securityContext = usersToSecurityContext[req.session.identity];
+
     user = securityContext.getEnrolledMember();
 
     let tx = user.query({
         'args': [],
-        'attrs': ['role'],
+        'attrs': [ 'role', 'username' ],
         'chaincodeID': securityContext.getChaincodeID(),
         'fcn': 'get_vehicles'
     });

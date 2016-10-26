@@ -18,7 +18,7 @@ let read = function (req,res,next,usersToSecurityContext)
 
     let tx = user.query({
         'args': [ v5cID ],
-        'attrs': ['role'],
+        'attrs': [ 'role', 'username' ],
         'chaincodeID': securityContext.getChaincodeID(),
         'fcn': 'get_vehicle_details'
     });

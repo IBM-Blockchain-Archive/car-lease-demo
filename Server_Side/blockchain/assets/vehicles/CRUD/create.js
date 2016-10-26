@@ -71,7 +71,7 @@ function checkIfAlreadyExists(v5cID)
     return new Promise(function(resolve, reject) {
         let tx = user.query({
             'args': [ v5cID ],
-            'attrs': ['role'],
+            'attrs': [ 'role', 'username' ],
             'chaincodeID': securityContext.getChaincodeID(),
             'fcn': 'get_vehicle_details'
         });
@@ -95,7 +95,7 @@ function createVehicle(req, res, v5cID)
     return new Promise(function(resolve, reject) {
         let tx = user.invoke({
             'args': [ v5cID ],
-            'attrs': ['role'],
+            'attrs': [ 'role', 'username' ],
             'chaincodeID': securityContext.getChaincodeID(),
             'fcn': 'create_vehicle'
         });
