@@ -25,7 +25,7 @@ function create (req, res, next, usersToSecurityContext)
     createV5cID(req, res)
     .then(function(v5cID){
         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Generated V5cID: '+v5cID);
-        res.write(JSON.stringify({'message':'Generating V5cID'})+'&&');
+        // res.write(JSON.stringify({'message':'Generating V5cID'})+'&&');
 
         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Checking V5cID is unique');
         return checkIfAlreadyExists(v5cID);
@@ -39,6 +39,8 @@ function create (req, res, next, usersToSecurityContext)
         result.message = 'Achieving consensus';
         result.v5cID = v5cID;
         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Achieving consensus');
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', '');
+        // res.write({'message':'Creation Confirmed'}+'&&');
         res.end(JSON.stringify(result));
     })
     .catch(function(err) {

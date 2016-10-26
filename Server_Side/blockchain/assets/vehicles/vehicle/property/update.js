@@ -27,7 +27,6 @@ let update = function(req, res, next, usersToSecurityContext, property)
 
     tracing.create('INFO', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, 'Formatting request');
     // res.write('{"message":"Formatting request"}&&');
-    console.log('New Owner============================='+newValue);
     let tx = user.invoke({
         'args': [ newValue, v5cID ],
         'attrs': [ 'role', 'username' ],
@@ -37,9 +36,9 @@ let update = function(req, res, next, usersToSecurityContext, property)
 
     tx.on('complete', function(data) {
         tracing.create('INFO', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, 'Updating owner value');
-        //res.write('{"message":"Updating owner value"}&&');
+        // res.write('{"message":"Updating owner value"}&&');
         tracing.create('INFO', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, 'Achieving Consensus');
-        //res.write('{"message":"Achieving Consensus"}&&');
+        // res.write('{"message":"Achieving Consensus"}&&');
         let result = {};
         result.message = property + ' updated';
         tracing.create('EXIT', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, data);
