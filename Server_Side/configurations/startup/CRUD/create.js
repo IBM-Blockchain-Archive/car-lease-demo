@@ -74,7 +74,6 @@ let create = function()
         });
     })
     .then(function(chaincodeID) {
-        console.log(chaincodeID);
         return new Promise(function(resolve, reject) {
             if (chaincodeID) {
                 let liveTx = deployUser.query({
@@ -100,7 +99,6 @@ let create = function()
         });
     })
     .then(function(chaincodeID) {
-        console.log('before if: ' + chaincodeID);
         if (!chaincodeID) {
             return deployChaincode(deployUser, 'vehicle_code', 'Init', []);
         } else {
@@ -110,14 +108,10 @@ let create = function()
     .then(function(deploy) {
         let chaincodeID;
         if (typeof deploy === 'string') {
-            console.log('ID is string');
             chaincodeID = deploy;
         } else {
-            console.log('ID is not string');
-            console.log(deploy);
             chaincodeID = deploy.chaincodeID;
         }
-        console.log('before writing: ' + chaincodeID);
 
         fs.writeFile('/tmp/chaincode', chaincodeID, function(err) {
             if(err) {
@@ -135,6 +129,7 @@ let create = function()
     })
     .catch(function(err) {
         console.log(err);
+        tracing.create('ERROR', 'Startup', err);
     });
 };
 
@@ -317,7 +312,7 @@ function addUser()
 }
 */
 
-
+/*
 function get_height(cb){
 
     tracing.create('INFO', 'Startup', 'Getting initial height of the blockchain');
@@ -347,7 +342,7 @@ function get_height(cb){
         });
     }, 5000);
 }
-
+*/
 /*
 function deploy_vehicle() //Deploy vehicle chaincode
 {

@@ -1,12 +1,8 @@
 'use strict';
 
-// let configFile = require(__dirname+'/../../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../../tools/traces/trace.js');
-// let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
 
 let user_id;
-// let counter = 0;
-
 let securityContext;
 let user;
 

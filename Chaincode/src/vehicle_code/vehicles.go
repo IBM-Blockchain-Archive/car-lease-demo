@@ -20,7 +20,7 @@ import (
 //CURRENT WORKAROUND USES ROLES CHANGE WHEN OWN USERS CAN BE CREATED SO THAT IT READ 1, 2, 3, 4, 5
 const   AUTHORITY      =  "regulator"
 const   MANUFACTURER   =  "manufacturer"
-const   PRIVATE_ENTITY =  "leasee"
+const   PRIVATE_ENTITY =  "private"
 const   LEASE_COMPANY  =  "lease_company"
 const   SCRAP_MERCHANT =  "scrap_merchant"
 
@@ -259,16 +259,12 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 																		// if err != nil { return nil, err }
 
-				rec_affiliation, err := t.check_affiliation(stub);
-
-																		if err != nil { return nil, err }
-
-				if 		   function == "authority_to_manufacturer" { return t.authority_to_manufacturer(stub, v, caller, caller_affiliation, args[0], rec_affiliation)
-				} else if  function == "manufacturer_to_private"   { return t.manufacturer_to_private(stub, v, caller, caller_affiliation, args[0], rec_affiliation)
-				} else if  function == "private_to_private" 	   { return t.private_to_private(stub, v, caller, caller_affiliation, args[0], rec_affiliation)
-				} else if  function == "private_to_lease_company"  { return t.private_to_lease_company(stub, v, caller, caller_affiliation, args[0], rec_affiliation)
-				} else if  function == "lease_company_to_private"  { return t.lease_company_to_private(stub, v, caller, caller_affiliation, args[0], rec_affiliation)
-				} else if  function == "private_to_scrap_merchant" { return t.private_to_scrap_merchant(stub, v, caller, caller_affiliation, args[0], rec_affiliation)
+				if 		   function == "authority_to_manufacturer" { return t.authority_to_manufacturer(stub, v, caller, caller_affiliation, args[0], "manufacturer")
+				} else if  function == "manufacturer_to_private"   { return t.manufacturer_to_private(stub, v, caller, caller_affiliation, args[0], "private")
+				} else if  function == "private_to_private" 	   { return t.private_to_private(stub, v, caller, caller_affiliation, args[0], "private")
+				} else if  function == "private_to_lease_company"  { return t.private_to_lease_company(stub, v, caller, caller_affiliation, args[0], "lease_company")
+				} else if  function == "lease_company_to_private"  { return t.lease_company_to_private(stub, v, caller, caller_affiliation, args[0], "private")
+				} else if  function == "private_to_scrap_merchant" { return t.private_to_scrap_merchant(stub, v, caller, caller_affiliation, args[0], "scrap_merchant")
 				}
 
 		} else if function == "update_make"  	    { return t.update_make(stub, v, caller, caller_affiliation, args[0])
@@ -405,9 +401,8 @@ func (t *SimpleChaincode) authority_to_manufacturer(stub shim.ChaincodeStubInter
 					v.Status = STATE_MANUFACTURE			// and mark it in the state of manufacture
 
 	} else {									// Otherwise if there is an error
-
 															fmt.Printf("AUTHORITY_TO_MANUFACTURER: Permission Denied");
-															return nil, errors.New("Permission Denied")
+															return nil, errors.New("Permission Denied " + recipient_affiliation + MANUFACTURER)
 
 	}
 

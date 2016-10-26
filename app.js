@@ -78,12 +78,12 @@ app.post('/admin/identity', function(req, res, next)     //Sets the session user
 //    Admin - Demo
 //-----------------------------------------------------------------------------------------------
 
-app.post('/admin/demo', function(req, res)
+app.post('/admin/demo', function(req, res, next)
 {
     demo.create(req, res);
 });
 
-app.get('/admin/demo', function(req, res)
+app.get('/admin/demo', function(req, res, next)
 {
     demo.read(req, res);
 });
@@ -91,19 +91,19 @@ app.get('/admin/demo', function(req, res)
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - chaincode
 //-----------------------------------------------------------------------------------------------
-app.post('/blockchain/chaincode/vehicles', function(req, res){
-    chaincode.vehicles.create(req, res);
+app.post('/blockchain/chaincode/vehicles', function(req, res,next){
+    chaincode.vehicles.create(req, res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Blocks
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/blocks', function(req, res){
-    blocks.read(req, res);
+app.get('/blockchain/blocks', function(req, res,next){
+    blocks.read(req, res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/blocks/:blockNum(\\d+)', function(req, res){
-    block.read(req, res);
+app.get('/blockchain/blocks/:blockNum(\\d+)', function(req, res, next){
+    block.read(req, res, next, usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -123,144 +123,144 @@ app.get('/blockchain/assets/vehicles' , function(req,res, next)
 //    Blockchain - Assets - Vehicles - Vehicle
 //-----------------------------------------------------------------------------------------------
 
-app.get('/blockchain/assets/vehicles/:v5cID' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID' , function(req,res,next)
 {
-    vehicle.read(req,res);
+    vehicle.read(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - Owner
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/owner' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/owner' , function(req,res,next)
 {
-    vehicle.owner.read(req,res);
+    vehicle.owner.read(req,res,next,usersToSecurityContext);
 });
 
-app.put('/blockchain/assets/vehicles/:v5cID/owner' , function(req,res)
+app.put('/blockchain/assets/vehicles/:v5cID/owner' , function(req,res,next)
 {
-    vehicle.owner.update(req,res);
+    vehicle.owner.update(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - VIN
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/VIN' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/VIN' , function(req,res,next)
 {
-    vehicle.VIN.read(req,res);
+    vehicle.VIN.read(req,res,next,usersToSecurityContext);
 });
 
-app.put('/blockchain/assets/vehicles/:v5cID/VIN' , function(req,res)
+app.put('/blockchain/assets/vehicles/:v5cID/VIN' , function(req,res,next)
 {
-    vehicle.VIN.update(req,res);
+    vehicle.VIN.update(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - Colour
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res,next)
 {
-    vehicle.colour.read(req,res);
+    vehicle.colour.read(req,res,next,usersToSecurityContext);
 });
 
-app.put('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res)
+app.put('/blockchain/assets/vehicles/:v5cID/colour' , function(req,res,next)
 {
-    vehicle.colour.update(req,res);
+    vehicle.colour.update(req,res,next,usersToSecurityContext);
 });
 
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - Make
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/make' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/make' , function(req,res,next)
 {
-    vehicle.make.read(req,res);
+    vehicle.make.read(req,res,next,usersToSecurityContext);
 });
 
-app.put('/blockchain/assets/vehicles/:v5cID/make' , function(req,res)
+app.put('/blockchain/assets/vehicles/:v5cID/make' , function(req,res,next)
 {
-    vehicle.make.update(req,res);
+    vehicle.make.update(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - Model
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/model' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/model' , function(req,res,next)
 {
-    vehicle.model.read(req,res);
+    vehicle.model.read(req,res,next,usersToSecurityContext);
 });
 
-app.put('/blockchain/assets/vehicles/:v5cID/model' , function(req,res)
+app.put('/blockchain/assets/vehicles/:v5cID/model' , function(req,res,next)
 {
-    vehicle.model.update(req,res);
+    vehicle.model.update(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - Reg
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res,next)
 {
-    vehicle.reg.read(req,res);
+    vehicle.reg.read(req,res,next,usersToSecurityContext);
 });
 
-app.put('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res)
+app.put('/blockchain/assets/vehicles/:v5cID/reg' , function(req,res,next)
 {
-    vehicle.reg.update(req,res);
+    vehicle.reg.update(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Assets - Vehicles - Vehicle - Scrapped
 //-----------------------------------------------------------------------------------------------
-app.delete('/blockchain/assets/vehicles/:v5cID' , function(req,res)
+app.delete('/blockchain/assets/vehicles/:v5cID' , function(req,res,next)
 {
-    vehicle.delete(req,res);
+    vehicle.delete(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/assets/vehicles/:v5cID/scrap' , function(req,res)
+app.get('/blockchain/assets/vehicles/:v5cID/scrap' , function(req,res,next)
 {
-    vehicle.scrapped.read(req,res);
+    vehicle.scrapped.read(req,res,next,usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Participants
 //-----------------------------------------------------------------------------------------------
-app.post('/blockchain/participants', function(req,res){
-    participants.create(req, res);
+app.post('/blockchain/participants', function(req,res,next){
+    participants.create(req, res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants', function(req,res){
-    participants.read(req,res);
+app.get('/blockchain/participants', function(req,res,next){
+    participants.read(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants/regulators', function(req, res){
-    participants.regulators.read(req,res);
+app.get('/blockchain/participants/regulators', function(req, res,next){
+    participants.regulators.read(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants/manufacturers', function(req, res){
-    participants.manufacturers.read(req,res);
+app.get('/blockchain/participants/manufacturers', function(req, res,next){
+    participants.manufacturers.read(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants/dealerships', function(req, res){
-    participants.dealerships.read(req,res);
+app.get('/blockchain/participants/dealerships', function(req, res,next){
+    participants.dealerships.read(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants/lease_companies', function(req, res){
-    participants.lease_companies.read(req,res);
+app.get('/blockchain/participants/lease_companies', function(req, res,next){
+    participants.lease_companies.read(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants/leasees', function(req, res){
-    participants.leasees.read(req,res);
+app.get('/blockchain/participants/leasees', function(req, res,next){
+    participants.leasees.read(req,res,next,usersToSecurityContext);
 });
 
-app.get('/blockchain/participants/scrap_merchants', function(req, res){
-    participants.scrap_merchants.read(req,res);
+app.get('/blockchain/participants/scrap_merchants', function(req, res,next){
+    participants.scrap_merchants.read(req,res,next,usersToSecurityContext);
 });
 
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Transactions
 //-----------------------------------------------------------------------------------------------
-app.get('/blockchain/transactions', function(req, res){
-    transactions.read(req, res);
+app.get('/blockchain/transactions', function(req, res,next){
+    transactions.read(req, res,next,usersToSecurityContext);
 });
 
 ///////////  Configure Webserver  ///////////

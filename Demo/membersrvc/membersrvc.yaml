@@ -220,13 +220,13 @@ aca:
               attribute-entry-14: Alfa_Romeo;institution_a;role;manufacturer;2016-01-01T00:00:00-03:00;;
               attribute-entry-15: Jaguar_Land_Rover;institution_a;role;manufacturer;2016-01-01T00:00:00-03:00;;
 
-              attribute-entry-16: Beechvale_Group;institution_a;role;dealership;2016-01-01T00:00:00-03:00;;
-              attribute-entry-17: Milescape;institution_a;role;dealership;2016-01-01T00:00:00-03:00;;
-              attribute-entry-18: Viewers_Alfa_Romeo;institution_a;role;dealership;2016-01-01T00:00:00-03:00;;
+              attribute-entry-16: Beechvale_Group;institution_a;role;private;2016-01-01T00:00:00-03:00;;
+              attribute-entry-17: Milescape;institution_a;role;private;2016-01-01T00:00:00-03:00;;
+              attribute-entry-18: Viewers_Alfa_Romeo;institution_a;role;private;2016-01-01T00:00:00-03:00;;
 
-              attribute-entry-19: Joe_Payne;institution_a;role;leasee;2016-01-01T00:00:00-03:00;;
-              attribute-entry-20: Andrew_Hurt;institution_a;role;leasee;2016-01-01T00:00:00-03:00;;
-              attribute-entry-21: Anthony_O_Dowd;institution_a;role;leasee;2016-01-01T00:00:00-03:00;;
+              attribute-entry-19: Joe_Payne;institution_a;role;private;2016-01-01T00:00:00-03:00;;
+              attribute-entry-20: Andrew_Hurt;institution_a;role;private;2016-01-01T00:00:00-03:00;;
+              attribute-entry-21: Anthony_O_Dowd;institution_a;role;private;2016-01-01T00:00:00-03:00;;
 
               attribute-entry-22: LeaseCan;institution_a;role;lease_company;2016-01-01T00:00:00-03:00;;
               attribute-entry-23: Every_Car_Leasing;institution_a;role;lease_company;2016-01-01T00:00:00-03:00;;
