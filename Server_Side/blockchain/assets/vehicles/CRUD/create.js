@@ -1,5 +1,6 @@
 'use strict';
 
+let Util = require(__dirname+'/../../../../tools/utils/util');
 let tracing = require(__dirname+'/../../../../tools/traces/trace.js');
 
 let user_id;
@@ -22,15 +23,15 @@ function create (req, res, next, usersToSecurityContext)
     securityContext = usersToSecurityContext[user_id];
     user = securityContext.getEnrolledMember();
 
-    createV5cID(req, res)
+    return createV5cID(req, res)
     .then(function(v5cID){
         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Generated V5cID: '+v5cID);
-        // res.write(JSON.stringify({'message':'Generating V5cID'})+'&&');
+        res.write(JSON.stringify({'message':'Generating V5cID'})+'&&');
 
-        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Checking V5cID is unique');
         return checkIfAlreadyExists(v5cID);
     })
     .then(function(v5cID) {
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Checking V5cID is unique');
         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+v5cID);
         return createVehicle(req, res, v5cID);
     })
@@ -40,11 +41,10 @@ function create (req, res, next, usersToSecurityContext)
         result.v5cID = v5cID;
         tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Achieving consensus');
         tracing.create('INFO', 'POST blockchain/assets/vehicles', '');
-        // res.write({'message':'Creation Confirmed'}+'&&');
+        res.write(JSON.stringify({'message':'Creation Confirmed'})+'&&');
         res.end(JSON.stringify(result));
     })
     .catch(function(err) {
-        console.log(err);
         tracing.create('ERROR', 'POST blockchain/assets/vehicles', err);
         res.end(err);
     });
@@ -68,6 +68,7 @@ function createV5cID(req, res)
     });
 }
 
+// TODO: Covert this to use the Util function
 function checkIfAlreadyExists(v5cID)
 {
     return new Promise(function(resolve, reject) {
@@ -94,20 +95,8 @@ function checkIfAlreadyExists(v5cID)
 
 function createVehicle(req, res, v5cID)
 {
-    return new Promise(function(resolve, reject) {
-        let tx = user.invoke({
-            'args': [ v5cID ],
-            'attrs': [ 'role', 'username' ],
-            'chaincodeID': securityContext.getChaincodeID(),
-            'fcn': 'create_vehicle'
-        });
-
-        tx.on('complete', function(result) {
-            resolve(v5cID);
-        });
-
-        tx.on('error', function(err) {
-            reject(err);
-        });
+    return Util.invokeChaincode(securityContext, 'create_vehicle', [ v5cID ])
+    .then(function(result) {
+        return v5cID;
     });
 }

@@ -4,10 +4,10 @@
 // let configFile = require(__dirname+'/../../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../../tools/traces/trace');
 let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID');
+let Util = require(__dirname+'/../../../../tools/utils/util');
 
 
 let securityContext;
-let user;
 
 function get_all_cars(req, res, next, usersToSecurityContext)
 {
@@ -18,33 +18,24 @@ function get_all_cars(req, res, next, usersToSecurityContext)
 
     securityContext = usersToSecurityContext[req.session.identity];
 
-    user = securityContext.getEnrolledMember();
-
-    let tx = user.query({
-        'args': [],
-        'attrs': [ 'role', 'username' ],
-        'chaincodeID': securityContext.getChaincodeID(),
-        'fcn': 'get_vehicles'
-    });
-
-    tx.on('complete', function(data) {
-        let cars = JSON.parse(data.result.toString());
+    return Util.queryChaincode(securityContext, 'get_vehicles', [])
+    .then(function(data) {
+        let cars = JSON.parse(data.toString());
         for(let i = 0; i < cars.length; i++)
             {
             tracing.create('INFO', 'GET blockchain/assets/vehicles', JSON.stringify(cars[i]));
             res.write(JSON.stringify(cars[i])+'&&');
         }
         tracing.create('EXIT', 'GET blockchain/assets/vehicles', {});
-        res.end();
-    });
-
-    tx.on('error', function(err) {
+        res.end('');
+    })
+    .catch(function(err) {
         res.status(400);
         let error = {};
         error.error = true;
         error.message = err;
         tracing.create('ERROR', 'GET blockchain/assets/vehicles', err);
-        res.end(error);
+        res.end(JSON.stringify(error));
     });
 
     // let ids = [];

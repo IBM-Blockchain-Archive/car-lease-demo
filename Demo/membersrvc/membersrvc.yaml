@@ -231,7 +231,7 @@ aca:
 
               attribute-entry-22: LeaseCan;institution_a;role;lease_company;2016-01-01T00:00:00-03:00;;
               attribute-entry-23: Every_Car_Leasing;institution_a;role;lease_company;2016-01-01T00:00:00-03:00;;
-              attribute-entry-24: Regionwide_Vehicle_Contracts;role;affiliation;lease_company;2016-01-01T00:00:00-03:00;;
+              attribute-entry-24: Regionwide_Vehicle_Contracts;institution_a;role;lease_company;2016-01-01T00:00:00-03:00;;
 
               attribute-entry-25: Cray_Bros_London_Ltd;institution_a;role;scrap_merchant;2016-01-01T00:00:00-03:00;;
               attribute-entry-26: Aston_Scrap_Centre;institution_a;role;scrap_merchant;2016-01-01T00:00:00-03:00;;
