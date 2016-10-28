@@ -80,7 +80,7 @@ app.post('/admin/identity', function(req, res, next)     //Sets the session user
 
 app.post('/admin/demo', function(req, res, next)
 {
-    demo.create(req, res);
+    demo.create(req, res, next, usersToSecurityContext);
 });
 
 app.get('/admin/demo', function(req, res, next)
@@ -437,68 +437,68 @@ function check_if_config_requires_overwriting(assignPort)
     }
 
     //Start rewriting the config file with new values
-    let data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8');
-
-    let str = 'config\.peers(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.peers[0]+'\'.*?\\](\\t*\\ *)*(;)?';
-
-    let regex = new RegExp(str, 'g');
-
-    let peersArrayAsString='';
-
-    for(let i in peers){
-        peersArrayAsString += '\''+peers[i]+'\'';
-
-        if(i !== peers.length-1){
-            peersArrayAsString += ',';
-        }
-    }
-
-    console.log('String', peersArrayAsString);
-
-    let result = data.replace(regex, 'config.peers = ['+peersArrayAsString+'];');
-
-    regex = new RegExp('config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_ip+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.api_ip = \''+api_ip+'\';');
-
-    regex = new RegExp('config\.api_port_external(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_external+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.api_port_external = \''+api_port_external+'\';');
-
-    regex = new RegExp('config\.api_port_internal(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_internal+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.api_port_internal = \''+api_port_internal+'\';');
-
-    regex = new RegExp('config\.api_port_discovery(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_discovery+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.api_port_discovery = \''+api_port_discovery+'\';');
-
-    regex = new RegExp('config.app_url(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+addSlashes(configFile.config.app_url)+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.app_url = \''+app_url+'\';');
-
-    regex = new RegExp('config\.app_port(\\t*\\ *)*=(\\t*\\ *)*'+configFile.config.app_port+'(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.app_port = '+app_port+';');
-
-    regex = new RegExp('config\.ca_ip(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_ip+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.ca_ip = \''+ca_ip+'\';');
-
-    regex = new RegExp('config\.ca_port(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_port+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.ca_port = \''+ca_port+'\';');
-
-    regex = new RegExp('config\.registrar_name(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_name+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.registrar_name = \''+registrar_name+'\';');
-
-    regex = new RegExp('config\.registrar_password(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_password+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    result = result.replace(regex, 'config.registrar_password = \''+registrar_password+'\';');
-
-    try
-    {
-        //console.log("Updated config file",result)
-
-        fs.writeFileSync(__dirname+'/Server_Side/configurations/configuration.js', result, 'utf8');
-        console.log('Updated config file.');
-    }
-    catch(err)
-    {
-        console.error('Unable to write new variables to config file.');
-
-    }
+    // let data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8');
+    //
+    // let str = 'config\.peers(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.peers[0]+'\'.*?\\](\\t*\\ *)*(;)?';
+    //
+    // let regex = new RegExp(str, 'g');
+    //
+    // let peersArrayAsString='';
+    //
+    // for(let i in peers){
+    //     peersArrayAsString += '\''+peers[i]+'\'';
+    //
+    //     if(i !== peers.length-1){
+    //         peersArrayAsString += ',';
+    //     }
+    // }
+    //
+    // console.log('String', peersArrayAsString);
+    //
+    // let result = data.replace(regex, 'config.peers = ['+peersArrayAsString+'];');
+    //
+    // regex = new RegExp('config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_ip+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.api_ip = \''+api_ip+'\';');
+    //
+    // regex = new RegExp('config\.api_port_external(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_external+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.api_port_external = \''+api_port_external+'\';');
+    //
+    // regex = new RegExp('config\.api_port_internal(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_internal+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.api_port_internal = \''+api_port_internal+'\';');
+    //
+    // regex = new RegExp('config\.api_port_discovery(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_discovery+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.api_port_discovery = \''+api_port_discovery+'\';');
+    //
+    // regex = new RegExp('config.app_url(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+addSlashes(configFile.config.app_url)+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.app_url = \''+app_url+'\';');
+    //
+    // regex = new RegExp('config\.app_port(\\t*\\ *)*=(\\t*\\ *)*'+configFile.config.app_port+'(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.app_port = '+app_port+';');
+    //
+    // regex = new RegExp('config\.ca_ip(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_ip+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.ca_ip = \''+ca_ip+'\';');
+    //
+    // regex = new RegExp('config\.ca_port(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_port+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.ca_port = \''+ca_port+'\';');
+    //
+    // regex = new RegExp('config\.registrar_name(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_name+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.registrar_name = \''+registrar_name+'\';');
+    //
+    // regex = new RegExp('config\.registrar_password(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_password+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
+    // result = result.replace(regex, 'config.registrar_password = \''+registrar_password+'\';');
+    //
+    // try
+    // {
+    //     //console.log("Updated config file",result)
+    //
+    //     fs.writeFileSync(__dirname+'/Server_Side/configurations/configuration.js', result, 'utf8');
+    //     console.log('Updated config file.');
+    // }
+    // catch(err)
+    // {
+    //     console.error('Unable to write new variables to config file.');
+    //
+    // }
 
     assignPort(configFile.config.app_port);
 }

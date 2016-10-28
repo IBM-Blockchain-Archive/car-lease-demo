@@ -169,8 +169,6 @@ func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (str
 
 	user, err := t.get_username(stub)
 
-    fmt.Println("============================"+user+"============================")
-
     // if err != nil { return "", "", err }
 
 	// ecert, err := t.get_ecert(stub, user);
@@ -280,23 +278,19 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 
 	caller, caller_affiliation, err := t.get_caller_data(stub)
-
-																							if err != nil { fmt.Printf("QUERY: Error retrieving caller details", err); return nil, errors.New("QUERY: Error retrieving caller details: "+err.Error()) }
+	if err != nil { fmt.Printf("QUERY: Error retrieving caller details", err); return nil, errors.New("QUERY: Error retrieving caller details: "+err.Error()) }
 
 	if function == "get_vehicle_details" {
-
-			if len(args) != 1 { fmt.Printf("Incorrect number of arguments passed"); return nil, errors.New("QUERY: Incorrect number of arguments passed") }
-
-
-			v, err := t.retrieve_v5c(stub, args[0])
-																							if err != nil { fmt.Printf("QUERY: Error retrieving v5c: %s", err); return nil, errors.New("QUERY: Error retrieving v5c "+err.Error()) }
-
-			return t.get_vehicle_details(stub, v, caller, caller_affiliation)
-
+		if len(args) != 1 { fmt.Printf("Incorrect number of arguments passed"); return nil, errors.New("QUERY: Incorrect number of arguments passed") }
+		v, err := t.retrieve_v5c(stub, args[0])
+		if err != nil { fmt.Printf("QUERY: Error retrieving v5c: %s", err); return nil, errors.New("QUERY: Error retrieving v5c "+err.Error()) }
+		return t.get_vehicle_details(stub, v, caller, caller_affiliation)
+	} else if function == "check_unique_v5c" {
+		return t.check_unique_v5c(stub, args[0], caller, caller_affiliation)
 	} else if function == "get_vehicles" {
-			return t.get_vehicles(stub, caller, caller_affiliation)
+		return t.get_vehicles(stub, caller, caller_affiliation)
 	} else if function == "get_ecert" {
-			return t.get_ecert(stub, args[0])
+		return t.get_ecert(stub, args[0])
 	} else if function == "ping" {
         return []byte("Hello, world!"), nil
     }
@@ -724,7 +718,7 @@ func (t *SimpleChaincode) get_vehicle_details(stub shim.ChaincodeStubInterface, 
 }
 
 //=================================================================================================================================
-//	 get_vehicle_details
+//	 get_vehicles
 //=================================================================================================================================
 
 func (t *SimpleChaincode) get_vehicles(stub shim.ChaincodeStubInterface, caller string, caller_affiliation string) ([]byte, error) {
@@ -764,6 +758,18 @@ func (t *SimpleChaincode) get_vehicles(stub shim.ChaincodeStubInterface, caller 
 	}
 
 	return []byte(result), nil
+}
+
+//=================================================================================================================================
+//	 check_unique_v5c
+//=================================================================================================================================
+func (t *SimpleChaincode) check_unique_v5c(stub shim.ChaincodeStubInterface, v5c string, caller string, caller_affiliation string) ([]byte, error) {
+	_, err := t.retrieve_v5c(stub, v5c)
+	if err == nil {
+		return []byte("false"), errors.New("V5C is not unique")
+	} else {
+		return []byte("true"), nil
+	}
 }
 
 //=================================================================================================================================

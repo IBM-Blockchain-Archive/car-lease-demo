@@ -78,7 +78,7 @@ let create = function()
             if (chaincodeID) {
                 let liveTx = deployUser.query({
                     args: [],
-                    attrs: ['role'],
+                    attrs: ['role', 'username'],
                     fcn: 'ping',
                     chaincodeID: chaincodeID
                 });

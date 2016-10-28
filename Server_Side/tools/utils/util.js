@@ -1,6 +1,6 @@
 'use strict';
 
-const ATTRS = [ 'username', 'role'];
+const ATTRS = ['username', 'role'];
 const hfc = require('hfc');
 
 class Util {
@@ -18,6 +18,7 @@ class Util {
                 throw new Error('invalid arg specified ' + arg);
             }
         });
+
         let user = securityContext.getEnrolledMember();
 
         return new Promise(function(resolve, reject) {
@@ -28,11 +29,17 @@ class Util {
                 attrs: ATTRS
             });
 
+            tx.on('submitted', function() {
+                console.log('QUERY SUBMITTED');
+            });
+
             tx.on('complete', function(data) {
+                console.log('QUERY COMPLETE');
                 resolve(data.result);
             });
 
             tx.on('error', function (err) {
+                console.log('QUERY ERROR');
                 if (err instanceof hfc.EventTransactionError) {
                     reject(new Error(err.msg));
                 } else {
@@ -66,15 +73,21 @@ class Util {
                 attrs: ATTRS
             });
 
+            tx.on('submitted', function(data) {
+                console.log('INVOKE ATTEMPTED');
+            });
+
             tx.on('complete', function(data) {
+                console.log('INVOKE COMPLETE');
                 resolve(data.result);
             });
 
-            tx.on('error', function (error) {
-                if (error instanceof hfc.EventTransactionError) {
-                    reject(new Error(error.msg));
+            tx.on('error', function (err) {
+                console.log('INVOKE ERROR');
+                if (err instanceof hfc.EventTransactionError) {
+                    reject(new Error(err.msg));
                 } else {
-                    reject(error);
+                    reject(err);
                 }
             });
         });
