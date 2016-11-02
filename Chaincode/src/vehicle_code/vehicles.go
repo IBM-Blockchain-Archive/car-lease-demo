@@ -13,6 +13,8 @@ import (
 	"regexp"
 )
 
+var logger = shim.NewLogger("CLDChaincode")
+
 //==============================================================================================================================
 //	 Participant types - Each participant type is mapped to an integer which we use to compare to the value stored in a
 //						 user's eCert
@@ -143,9 +145,9 @@ func (t *SimpleChaincode) add_ecert(stub shim.ChaincodeStubInterface, name strin
 
 func (t *SimpleChaincode) get_username(stub shim.ChaincodeStubInterface) (string, error) {
 
-    affiliation, err := stub.ReadCertAttribute("username");
+    username, err := stub.ReadCertAttribute("username");
 	if err != nil { return "", errors.New("Couldn't get attribute 'username'. Error: " + err.Error()) }
-	return string(affiliation), nil
+	return string(username), nil
 }
 
 //==============================================================================================================================
@@ -279,6 +281,10 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 	caller, caller_affiliation, err := t.get_caller_data(stub)
 	if err != nil { fmt.Printf("QUERY: Error retrieving caller details", err); return nil, errors.New("QUERY: Error retrieving caller details: "+err.Error()) }
 
+    logger.Debug("function: ", function)
+    logger.Debug("caller: ", caller)
+    logger.Debug("affiliation: ", caller_affiliation)
+
 	if function == "get_vehicle_details" {
 		if len(args) != 1 { fmt.Printf("Incorrect number of arguments passed"); return nil, errors.New("QUERY: Incorrect number of arguments passed") }
 		v, err := t.retrieve_v5c(stub, args[0])
@@ -304,7 +310,6 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 //	 Create Vehicle - Creates the initial JSON for the vehcile and then saves it to the ledger.
 //=================================================================================================================================
 func (t *SimpleChaincode) create_vehicle(stub shim.ChaincodeStubInterface, caller string, caller_affiliation string, v5cID string) ([]byte, error) {
-
 	var v Vehicle
 
 	v5c_ID         := "\"v5cID\":\""+v5cID+"\", "							// Variables to define the JSON
@@ -340,7 +345,8 @@ func (t *SimpleChaincode) create_vehicle(stub shim.ChaincodeStubInterface, calle
 
 	if 	caller_affiliation != AUTHORITY {							// Only the regulator can create a new v5c
 
-																		return nil, errors.New("Permission Denied. create_vehicle")
+		return nil, errors.New(fmt.Sprintf("Permission Denied. create_vehicle. %v === %v", caller_affiliation, AUTHORITY))
+
 	}
 
 	_, err  = t.save_changes(stub, v)
@@ -721,7 +727,6 @@ func (t *SimpleChaincode) get_vehicle_details(stub shim.ChaincodeStubInterface, 
 //=================================================================================================================================
 
 func (t *SimpleChaincode) get_vehicles(stub shim.ChaincodeStubInterface, caller string, caller_affiliation string) ([]byte, error) {
-
 	bytes, err := stub.GetState("v5cIDs")
 
 																			if err != nil { return nil, errors.New("Unable to get v5cIDs") }

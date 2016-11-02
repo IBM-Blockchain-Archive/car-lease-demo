@@ -13,8 +13,9 @@ let read = function(req,res)
         let data = fs.readFileSync(__dirname+'/../../../logs/demo_status.log').toString();
         try
         {
-            tracing.create('EXIT', 'GET admin/demo', JSON.parse(data).logs);
-            res.send(JSON.parse(data).logs);
+            data = JSON.parse(data);
+            tracing.create('EXIT', 'GET admin/demo', data.logs);
+            res.send(data.logs);
         } catch (e)
         {
             res.status(400);

@@ -2,13 +2,10 @@
 
 let request = require('request');
 let configFile = require(__dirname+'/../../../configurations/configuration.js');
-let participants = require(__dirname+'/../../../blockchain/participants/participants_info.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
-let Util = require(__dirname+'/../../../tools/utils/util');
-
 let initial_vehicles = require(__dirname+'/../../../blockchain/assets/vehicles/initial_vehicles.js');
-let v5cIDs = [];
+let fs = require('fs');
 
 let baseUrl = configFile.config.networkProtocol + '://localhost:' + configFile.config.app_port;
 
@@ -24,6 +21,8 @@ function create(req, res, next, usersToSecurityContext) {
     let cars;
 
     res.write(JSON.stringify({'message': 'performing scenario creation now'}));
+    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
+
     tracing.create('ENTER', 'POST admin/demo', req.body);
 
     let scenario = req.body.scenario;
@@ -59,7 +58,7 @@ function create(req, res, next, usersToSecurityContext) {
                 return Promise.all(promises);
             })
             .then(function(p) {
-                console.log(p);
+                updateDemoStatus({message: 'Transfered all vehicles'});
                 let carIndex = 0;
                 let promises = [];
                 v5cIDResults.forEach(function(body){
@@ -72,6 +71,7 @@ function create(req, res, next, usersToSecurityContext) {
                 return Promise.all(promises);
             })
             .then(function() {
+                updateDemoStatus({message: 'Updating vehicle details'});
                 let promises = [];
                 v5cIDResults.forEach(function(body, index) {
                     body = JSON.parse(body);
@@ -81,13 +81,19 @@ function create(req, res, next, usersToSecurityContext) {
                 });
                 return Promise.all(promises);
             })
+            .then(function() {
+                updateDemoStatus({message: 'Demo setup'});
+            })
             .catch(function(err) {
-                tracing.create('EXIT', 'POST admin/demo', err.stack);
+                updateDemoStatus({'message: ': JSON.parse(err), error: true});
+                tracing.create('ERROR', 'POST admin/demo', err.stack);
+                res.end(JSON.stringify(err));
             });
     } else {
         let error = {};
         error.message = 'Initial vehicles not found';
         error.error = true;
+        updateDemoStatus({'message: ': JSON.parse(error), error: true});
         res.end(JSON.stringify(error));
         return;
     }
@@ -172,6 +178,7 @@ function populateVehicle(v5cID, car) {
                 }
             };
             promises.push(RESTRequest(options, car.Owners[1]));
+            updateDemoStatus({message: 'Populating ' + v5cID});
         }
     }
     return Promise.all(promises);
@@ -188,6 +195,7 @@ function populateVehicle(v5cID, car) {
  * @return {Promise}        description
  */
 function transferVehicle(v5cID, seller, buyer, functionName) {
+    updateDemoStatus({'message':'Transfered vehicle ' + v5cID + '(' + seller + ' -> '+ buyer +')', 'counter': true});
     let url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/owner/';
     let options = {
         url: url,
@@ -222,6 +230,23 @@ function RESTRequest(options, user) {
             }
         });
     });
+}
+
+function updateDemoStatus(status) {
+    let statusFile = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
+    let demoStatus = JSON.parse(statusFile);
+    demoStatus.logs.push(status);
+    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demoStatus));
+
+    if(!status.hasOwnProperty('error')) {
+        if(status.message === 'Demo setup') {
+            tracing.create('EXIT', 'POST admin/demo', status);
+        } else {
+            tracing.create('INFO', 'POST admin/demo', status.message);
+        }
+    } else {
+        tracing.create('ERROR', 'POST admin/demo', status);
+    }
 }
 
 exports.create = create;
