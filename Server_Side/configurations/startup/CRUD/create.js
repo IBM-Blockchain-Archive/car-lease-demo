@@ -6,6 +6,7 @@ let request = require('request');
 let configFile = require(__dirname+'/../../configuration.js'),
     participants = require(__dirname+'/../../../blockchain/participants/participants_info.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
+let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID');
 
 const SecurityContext = require(__dirname+'/../../../tools/security/securitycontext');
 
@@ -36,11 +37,9 @@ let create = function()
     let deployUser;
     // let registrar_name = configFile.config.registrar_name;
     // let registrar_password = configFile.config.registrar_password;
-
     chain = hfc.newChain(chainName);
     //This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
-    chain.setKeyValStore( hfc.newFileKeyValStore(configFile.config.key_store_location) );
-    // chain.setDeployWaitTime(60);
+    chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location));
 
     //TODO: Change this to be a boolean stating if ssl is enabled or disabled
     //Retrieve the certificate if grpcs is being used

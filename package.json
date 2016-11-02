@@ -21,7 +21,7 @@
     "express": "4.0.0",
     "express-session": "1.2.1",
     "fs": "",
-    "hfc": "^0.6.5",
+    "hfc": "^0.6.4",
     "js-sha3": "^0.5.1",
     "jsrsasign": "^5.0.5",
     "key-encoder": "^1.1.6",

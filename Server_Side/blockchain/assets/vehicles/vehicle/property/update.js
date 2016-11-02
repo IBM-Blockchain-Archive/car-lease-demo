@@ -14,9 +14,11 @@ let update = function(req, res, next, usersToSecurityContext, property)
     functionName = (functionName) ? functionName : 'update_'+property.toLowerCase();
     let v5cID = req.params.v5cID;
 
-    req.session.user = req.cookies.user;
-    req.session.identity = map_ID.user_to_id(req.cookies.user);
-
+    if(typeof req.cookies.user !== 'undefined')
+    {
+        req.session.user = req.cookies.user;
+        req.session.identity = map_ID.user_to_id(req.cookies.user);
+    }
     user_id = req.session.identity;
 
     securityContext = usersToSecurityContext[user_id];
@@ -40,12 +42,11 @@ let update = function(req, res, next, usersToSecurityContext, property)
         res.end(JSON.stringify(result));
     })
     .catch(function(err) {
-        tracing.create('ENTER ERROR', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property);
         res.status(400);
         let error = {};
         error.error  = true;
         error.message = err;
-        tracing.create('ERROR', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, JSON.stringify(err));
+        tracing.create('ERROR', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, err);
         res.end(JSON.stringify(err));
     });
 };

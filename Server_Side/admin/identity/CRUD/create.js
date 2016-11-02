@@ -18,8 +18,8 @@ function makeAccount(req, res, usersToSecurityContext) //Checks to see if user d
 
     if (securityContext.getEnrolledMember) {
         let user = securityContext.getEnrolledMember();
-        req.session.user = user.getName();
-        req.session.identity = map_ID.user_to_id(user.getName());
+        req.session.user = map_ID.id_to_user(user.getName());
+        req.session.identity = user.getName();
         tracing.create('EXIT', 'POST admin/identity', {'message': 'Successfully logged user in'});
         res.send({'message': 'Successfully logged user in'});
     } else {

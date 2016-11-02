@@ -5,11 +5,20 @@ let configFile = require(__dirname+'/../../../configurations/configuration.js');
 let participants = require(__dirname+'/../../../blockchain/participants/participants_info.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
+let Util = require(__dirname+'/../../../tools/utils/util');
 
 let initial_vehicles = require(__dirname+'/../../../blockchain/assets/vehicles/initial_vehicles.js');
 let v5cIDs = [];
 
 let baseUrl = configFile.config.networkProtocol + '://localhost:' + configFile.config.app_port;
+
+const TYPES = [
+    'regulator_to_manufacturer',
+    'manufacturer_to_private',
+    'private_to_lease_company',
+    'lease_company_to_private',
+    'private_to_scrap_merchant'
+];
 
 function create(req, res, next, usersToSecurityContext) {
     let cars;
@@ -31,23 +40,46 @@ function create(req, res, next, usersToSecurityContext) {
 
     if(cars.hasOwnProperty('cars')) {
         cars = cars.cars;
+        let v5cIDResults;
         return createVehicles(cars)
-            .then(function(bodies) {
-                console.log(bodies);
-                // bodys.forEach(function(body){
-                //     let results = body.split('&&'); //Split responses
-                //     results.forEach(function(result) {
-                //         let data = JSON.parse(result).message;
-                //         if(data.indexOf('Creating vehicle with v5cID:') !== -1) {
-                //             let v5cID = data
-                //                     .substring(data.indexOf(':')+2, data.length)
-                //                     .trim();
-                //             v5cIDs.push(v5cID);
-                //         }
-                //     });
-                // });
+            .then(function(results) {
+                v5cIDResults = results;
+                let carIndex = 0;
+                let promises = [];
                 res.end('{message:"Created vehicles"}');
-                return;
+                results.forEach(function(body) {
+                    body = JSON.parse(body);
+                    let v5cID = body.v5cID;
+                    let car = cars[carIndex];
+                    let seller = 'DVLA';
+                    let buyer = map_ID.user_to_id(car.Owners[1]);
+                    promises.push(transferVehicle(v5cID, seller, buyer, 'authority_to_manufacturer')); //Move car to first owner after DVLA
+                    carIndex++;
+                });
+                return Promise.all(promises);
+            })
+            .then(function(p) {
+                console.log(p);
+                let carIndex = 0;
+                let promises = [];
+                v5cIDResults.forEach(function(body){
+                    body = JSON.parse(body);
+                    let v5cID = body.v5cID;
+                    let car = cars[carIndex];
+                    promises.push(populateVehicle(v5cID, car));
+                    carIndex++;
+                });
+                return Promise.all(promises);
+            })
+            .then(function() {
+                let promises = [];
+                v5cIDResults.forEach(function(body, index) {
+                    body = JSON.parse(body);
+                    let v5cID = body.v5cID;
+                    let car = cars[index];
+                    promises.push(transferBetweenOwners(v5cID, car));
+                });
+                return Promise.all(promises);
             })
             .catch(function(err) {
                 tracing.create('EXIT', 'POST admin/demo', err.stack);
@@ -61,12 +93,58 @@ function create(req, res, next, usersToSecurityContext) {
     }
 }
 
-function createVehicles(cars) {
-    let promises = [];
-    cars.forEach(function() {
-        promises.push(createVehicle());
-    });
-    return Promise.all(promises);
+// Promise based tansfer - Sometimes transactions happen in the wrong order
+// function transferBetweenOwners(v5cID, car) {
+//     let functionName;
+//     let promises = [];
+//     car.Owners.forEach(function(owner, i) {
+//         if (owner !== 'DVLA' && i !== 1) {
+//             let seller = car.Owners[i - 1];
+//             let buyer = map_ID.user_to_id(car.Owners[i]);
+//
+//             functionName = TYPES[i - 1];
+//
+//             promises.push(transferVehicle(v5cID, seller, buyer, functionName));
+//         }
+//     });
+//     return Promise.all(promises);
+// }
+
+function transferBetweenOwners(v5cID, car, results) {
+    let functionName;
+    let newCar = JSON.parse(JSON.stringify(car));
+    if (!results) {
+        results = [];
+    }
+    if (newCar.Owners.length > 2) {
+        let seller = newCar.Owners[1]; // First after DVLA
+        let buyer = map_ID.user_to_id(newCar.Owners[2]); // Second after DVLA
+        functionName = TYPES[results.length + 1];
+        return transferVehicle(v5cID, seller, buyer, functionName)
+        .then(function(result) {
+            results.push(result);
+            newCar.Owners.shift();
+            return transferBetweenOwners(v5cID, newCar, results);
+        });
+    } else {
+        return Promise.resolve(results);
+    }
+}
+
+// Uses recurision because Promise.all() breaks HFC
+function createVehicles(cars, results) {
+    let newCars = JSON.parse(JSON.stringify(cars));
+    if (!results) {results = [];}
+    if (newCars.length > 0) {
+        return createVehicle(newCars[newCars.length - 1])
+        .then(function(result) {
+            results.push(result);
+            newCars.pop();
+            return createVehicles(newCars, results);
+        });
+    } else {
+        return Promise.resolve(results);
+    }
 }
 
 function createVehicle() {
@@ -78,19 +156,58 @@ function createVehicle() {
     return RESTRequest(options, 'DVLA');
 }
 
-function transferVehicle(v5cID, seller, buyer) {
+function populateVehicle(v5cID, car) {
+    let promises = [];
+    let url;
+    let normalisedProperty;
+    for(let property in car) {
+        if (property !== 'Owners') {
+            normalisedProperty = (property === 'VIN') ? property : property.toLowerCase();
+            url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/'+normalisedProperty;
+            let options = {
+                url: url,
+                method: 'PUT',
+                json: {
+                    value: car[property],
+                }
+            };
+            promises.push(RESTRequest(options, car.Owners[1]));
+        }
+    }
+    return Promise.all(promises);
+}
+
+
+/**
+ * transferVehicle - description
+ *
+ * @param  {string} v5cID  description
+ * @param  {string} seller the sellers name
+ * @param  {string} buyer  the buyers user ID
+ * @param  {string} functionName  chaincode function name
+ * @return {Promise}        description
+ */
+function transferVehicle(v5cID, seller, buyer, functionName) {
     let url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/owner/';
     let options = {
         url: url,
-        body: {
-            value: buyer,
-            function_name: 'update_owner'
-        },
-        method: 'PUT'
+        method: 'PUT',
+        json: {
+            value: buyer, // the users ID
+            function_name: functionName
+        }
     };
     return RESTRequest(options, seller);
 }
 
+
+/**
+ * RESTRequest - description
+ *
+ * @param  {object} options description
+ * @param  {string} user    the users name
+ * @return {Promise}         description
+ */
 function RESTRequest(options, user) {
     let cookie = request.cookie('user='+user);
     let j = request.jar();

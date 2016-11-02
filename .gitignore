@@ -10,3 +10,5 @@ node_modules/
 Server_Side/logs/
 
 npm-debug.log
+Server_Side/logs/app_trace.log
+

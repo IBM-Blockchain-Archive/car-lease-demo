@@ -243,11 +243,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 		v, err := t.retrieve_v5c(stub, args[argPos])
 
-																							if err != nil { fmt.Printf("INVOKE: Error retrieving v5c: %s", err); return nil, errors.New("Error retrieving v5c") }
+        if err != nil { fmt.Printf("INVOKE: Error retrieving v5c: %s", err); return nil, errors.New("Error retrieving v5c") }
 
-		if strings.Contains(function, "update") == false           &&
-		   function 							!= "scrap_vehicle"    { 									// If the function is not an update or a scrappage it must be a transfer so we need to get the ecert of the recipient.
 
+        if strings.Contains(function, "update") == false && function != "scrap_vehicle"    { 									// If the function is not an update or a scrappage it must be a transfer so we need to get the ecert of the recipient.
 				// ecert, err := t.get_ecert(stub, args[0]);
 
 																		// if err != nil { return nil, err }
@@ -264,7 +263,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		} else if function == "update_model"        { return t.update_model(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "update_reg" { return t.update_registration(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "update_vin" 			{ return t.update_vin(stub, v, caller, caller_affiliation, args[0])
-		} else if function == "update_colour" 		{ return t.update_colour(stub, v, caller, caller_affiliation, args[0])
+        } else if function == "update_colour" 		{ return t.update_colour(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "scrap_vehicle" 		{ return t.scrap_vehicle(stub, v, caller, caller_affiliation) }
 
 																						return nil, errors.New("Function of the name "+ function +" doesn't exist.")
@@ -341,7 +340,7 @@ func (t *SimpleChaincode) create_vehicle(stub shim.ChaincodeStubInterface, calle
 
 	if 	caller_affiliation != AUTHORITY {							// Only the regulator can create a new v5c
 
-																		return nil, errors.New("Permission Denied")
+																		return nil, errors.New("Permission Denied. create_vehicle")
 	}
 
 	_, err  = t.save_changes(stub, v)
@@ -391,7 +390,8 @@ func (t *SimpleChaincode) authority_to_manufacturer(stub shim.ChaincodeStubInter
 
 	} else {									// Otherwise if there is an error
 															fmt.Printf("AUTHORITY_TO_MANUFACTURER: Permission Denied");
-															return nil, errors.New("Permission Denied " + recipient_affiliation + MANUFACTURER)
+                                                            return nil, errors.New(fmt.Sprintf("Permission Denied. authority_to_manufacturer. %v %v === %v, %v === %v, %v === %v, %v === %v, %v === %v", v, v.Status, STATE_PRIVATE_OWNERSHIP, v.Owner, caller, caller_affiliation, PRIVATE_ENTITY, recipient_affiliation, SCRAP_MERCHANT, v.Scrapped, false))
+
 
 	}
 
@@ -414,7 +414,7 @@ func (t *SimpleChaincode) manufacturer_to_private(stub shim.ChaincodeStubInterfa
 			v.Colour == "UNDEFINED" ||
 			v.VIN == 0				{					//If any part of the car is undefined it has not bene fully manufacturered so cannot be sent
 															fmt.Printf("MANUFACTURER_TO_PRIVATE: Car not fully defined")
-															return nil, errors.New("Car not fully defined")
+															return nil, errors.New(fmt.Sprintf("Car not fully defined. %v", v))
 	}
 
 	if 		v.Status				== STATE_MANUFACTURE	&&
@@ -427,12 +427,12 @@ func (t *SimpleChaincode) manufacturer_to_private(stub shim.ChaincodeStubInterfa
 					v.Status = STATE_PRIVATE_OWNERSHIP
 
 	} else {
-															return nil, errors.New("Permission denied")
-	}
+        return nil, errors.New(fmt.Sprintf("Permission Denied. manufacturer_to_private. %v %v === %v, %v === %v, %v === %v, %v === %v, %v === %v", v, v.Status, STATE_PRIVATE_OWNERSHIP, v.Owner, caller, caller_affiliation, PRIVATE_ENTITY, recipient_affiliation, SCRAP_MERCHANT, v.Scrapped, false))
+    }
 
 	_, err := t.save_changes(stub, v)
 
-															if err != nil { fmt.Printf("MANUFACTURER_TO_PRIVATE: Error saving changes: %s", err); return nil, errors.New("Error saving changes") }
+	if err != nil { fmt.Printf("MANUFACTURER_TO_PRIVATE: Error saving changes: %s", err); return nil, errors.New("Error saving changes") }
 
 	return nil, nil
 
@@ -452,9 +452,7 @@ func (t *SimpleChaincode) private_to_private(stub shim.ChaincodeStubInterface, v
 					v.Owner = recipient_name
 
 	} else {
-
-															return nil, errors.New("Permission denied")
-
+        return nil, errors.New(fmt.Sprintf("Permission Denied. private_to_private. %v %v === %v, %v === %v, %v === %v, %v === %v, %v === %v", v, v.Status, STATE_PRIVATE_OWNERSHIP, v.Owner, caller, caller_affiliation, PRIVATE_ENTITY, recipient_affiliation, SCRAP_MERCHANT, v.Scrapped, false))
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -474,12 +472,13 @@ func (t *SimpleChaincode) private_to_lease_company(stub shim.ChaincodeStubInterf
 			v.Owner					== caller					&&
 			caller_affiliation		== PRIVATE_ENTITY			&&
 			recipient_affiliation	== LEASE_COMPANY			&&
-			v.Scrapped     			== false					{
+            v.Scrapped     			== false					{
 
 					v.Owner = recipient_name
 
 	} else {
-															return nil, errors.New("Permission denied")
+        return nil, errors.New(fmt.Sprintf("Permission denied. private_to_lease_company. %v === %v, %v === %v, %v === %v, %v === %v, %v === %v", v.Status, STATE_PRIVATE_OWNERSHIP, v.Owner, caller, caller_affiliation, PRIVATE_ENTITY, recipient_affiliation, SCRAP_MERCHANT, v.Scrapped, false))
+
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -503,7 +502,7 @@ func (t *SimpleChaincode) lease_company_to_private(stub shim.ChaincodeStubInterf
 				v.Owner = recipient_name
 
 	} else {
-															return nil, errors.New("Permission denied")
+		return nil, errors.New(fmt.Sprintf("Permission Denied. lease_company_to_private. %v %v === %v, %v === %v, %v === %v, %v === %v, %v === %v", v, v.Status, STATE_PRIVATE_OWNERSHIP, v.Owner, caller, caller_affiliation, PRIVATE_ENTITY, recipient_affiliation, SCRAP_MERCHANT, v.Scrapped, false))
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -528,9 +527,7 @@ func (t *SimpleChaincode) private_to_scrap_merchant(stub shim.ChaincodeStubInter
 					v.Status = STATE_BEING_SCRAPPED
 
 	} else {
-
-															return nil, errors.New("Permission denied")
-
+        return nil, errors.New(fmt.Sprintf("Permission Denied. private_to_scrap_merchant. %v %v === %v, %v === %v, %v === %v, %v === %v, %v === %v", v, v.Status, STATE_PRIVATE_OWNERSHIP, v.Owner, caller, caller_affiliation, PRIVATE_ENTITY, recipient_affiliation, SCRAP_MERCHANT, v.Scrapped, false))
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -561,7 +558,7 @@ func (t *SimpleChaincode) update_vin(stub shim.ChaincodeStubInterface, v Vehicle
 					v.VIN = new_vin					// Update to the new value
 	} else {
 
-															return nil, errors.New("Permission denied")
+        return nil, errors.New(fmt.Sprintf("Permission denied. update_vin %v %v %v %v %v", v.Status, STATE_MANUFACTURE, v.Owner, caller, v.VIN, v.Scrapped))
 
 	}
 
@@ -587,7 +584,7 @@ func (t *SimpleChaincode) update_registration(stub shim.ChaincodeStubInterface, 
 					v.Reg = new_value
 
 	} else {
-															return nil, errors.New("Permission denied")
+        return nil, errors.New(fmt.Sprint("Permission denied. update_registration"))
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -612,7 +609,7 @@ func (t *SimpleChaincode) update_colour(stub shim.ChaincodeStubInterface, v Vehi
 					v.Colour = new_value
 	} else {
 
-		return nil, errors.New("Permission denied")
+		return nil, errors.New(fmt.Sprint("Permission denied. update_colour %t %t %t" + v.Owner == caller, caller_affiliation == MANUFACTURER, v.Scrapped))
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -636,7 +633,8 @@ func (t *SimpleChaincode) update_make(stub shim.ChaincodeStubInterface, v Vehicl
 					v.Make = new_value
 	} else {
 
-															return nil, errors.New("Permission denied")
+        return nil, errors.New(fmt.Sprint("Permission denied. update_make %t %t %t" + v.Owner == caller, caller_affiliation == MANUFACTURER, v.Scrapped))
+
 
 	}
 
@@ -661,7 +659,8 @@ func (t *SimpleChaincode) update_model(stub shim.ChaincodeStubInterface, v Vehic
 					v.Model = new_value
 
 	} else {
-															return nil, errors.New("Permission denied")
+        return nil, errors.New(fmt.Sprint("Permission denied. update_model %t %t %t" + v.Owner == caller, caller_affiliation == MANUFACTURER, v.Scrapped))
+
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -685,7 +684,7 @@ func (t *SimpleChaincode) scrap_vehicle(stub shim.ChaincodeStubInterface, v Vehi
 					v.Scrapped = true
 
 	} else {
-		return nil, errors.New("Permission denied")
+		return nil, errors.New("Permission denied. scrap_vehicle")
 	}
 
 	_, err := t.save_changes(stub, v)
@@ -712,7 +711,7 @@ func (t *SimpleChaincode) get_vehicle_details(stub shim.ChaincodeStubInterface, 
 
 					return bytes, nil
 	} else {
-																return nil, errors.New("Permission Denied")
+																return nil, errors.New("Permission Denied. get_vehicle_details")
 	}
 
 }

@@ -11,36 +11,35 @@ function create (req, res, next, usersToSecurityContext) {
     if(typeof req.cookies.user !== 'undefined')
     {
         req.session.user = req.cookies.user;
-        req.session.identity = req.cookies.user;
+        req.session.identity = map_ID.user_to_id(req.cookies.user);
     }
-    user_id = map_ID.user_to_id(req.session.identity);
+    user_id = req.session.identity;
 
     securityContext = usersToSecurityContext[user_id];
 
     let newV5cID = createV5cID();
 
     return checkIfAlreadyExists(securityContext, newV5cID)
-        .then(function() {
-            // res.write(JSON.stringify({message:'Creating vehicle with v5cID: '+newV5cID})+'&&');
-            // tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+newV5cID);
-            // return createVehicle(securityContext, newV5cID);
-        })
-        .then(function() {
-            // tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creted vehicle: '+newV5cID);
-            let result = {};
-            result.message = 'Creation Confirmed';
-            result.v5cID = newV5cID;
-            res.send(JSON.stringify(result));
-        })
-        .catch(function(err) {
-            // tracing.create('ERROR', 'POST blockchain/assets/vehicles', err.stack);
-            res.send(JSON.stringify({'message':err.stack}));
-        });
+    .then(function() {
+        // res.write(JSON.stringify({message:'Creating vehicle with v5cID: '+newV5cID})+'&&');
+        // tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+newV5cID);
+        return createVehicle(securityContext, newV5cID);
+    })
+    .then(function() {
+        // tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Created vehicle: '+newV5cID);
+        let result = {};
+        result.message = 'Creation Confirmed';
+        result.v5cID = newV5cID;
+        res.send(JSON.stringify(result));
+    })
+    .catch(function(err) {
+        // tracing.create('ERROR', 'POST blockchain/assets/vehicles', err.stack);
+        res.send(JSON.stringify({'message':err.stack}));
+    });
 }
 
 exports.create = create;
 
-// TODO: Covert this to use the Util function
 function checkIfAlreadyExists(securityContext, v5cID) {
     return Util.queryChaincode(securityContext, 'check_unique_v5c', [ v5cID ]);
 }

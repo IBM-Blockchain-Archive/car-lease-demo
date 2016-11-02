@@ -30,16 +30,13 @@ class Util {
             });
 
             tx.on('submitted', function() {
-                console.log('QUERY SUBMITTED');
             });
 
             tx.on('complete', function(data) {
-                console.log('QUERY COMPLETE');
                 resolve(data.result);
             });
 
             tx.on('error', function (err) {
-                console.log('QUERY ERROR');
                 if (err instanceof hfc.EventTransactionError) {
                     reject(new Error(err.msg));
                 } else {
@@ -74,16 +71,13 @@ class Util {
             });
 
             tx.on('submitted', function(data) {
-                console.log('INVOKE ATTEMPTED');
             });
 
             tx.on('complete', function(data) {
-                console.log('INVOKE COMPLETE');
                 resolve(data.result);
             });
 
             tx.on('error', function (err) {
-                console.log('INVOKE ERROR');
                 if (err instanceof hfc.EventTransactionError) {
                     reject(new Error(err.msg));
                 } else {
