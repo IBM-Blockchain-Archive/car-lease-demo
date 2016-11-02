@@ -32,3 +32,8 @@ services:
     command: sh -c 'sleep 10; peer node start'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  car-lease-demo:
+      build:
+          context: '../'
+      ports:
+          - '8080:8080'

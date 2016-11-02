@@ -17,7 +17,7 @@ RUN npm install --quiet
 # Bundle app source
 COPY . /usr/src/app
 
-CMD ["sh", "docker-startup.sh"]
+CMD ["sh", "./Scripts/docker-startup.sh"]
 
 # Expose the port.
 EXPOSE 8080

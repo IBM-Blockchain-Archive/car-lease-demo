@@ -35,7 +35,7 @@ config.networkProtocol     = 'http';             // The protocol to be used for 
 //    Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
 //--------------------------------------------------------------------------------------------------------------------
 //IP and port configuration
-config.api_ip = '127.0.0.1'; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
+config.api_ip = 'vp0'; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
 
 //When using blockchain on bluemix, api_port_external and api_port_internal will be the same
 config.api_port_external = '7050'; //port number used when calling api from outside of the vagrant environment
@@ -43,19 +43,19 @@ config.api_port_internal = '7050'; //port number used when calling api from insi
 config.api_port_discovery = '7051'; //port number used for HFC
 
 //IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
-config.ca_ip = '127.0.0.1';     //IP of the CA attempting to be connected to
+config.ca_ip = 'membersrvc';     //IP of the CA attempting to be connected to
 config.ca_port = '7054';         //Discovery port of the Certificate Authority. Used for HFC
 
 //TODO: Merge these two
 //Settings for the nodeJS application server
-config.app_url = 'http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://http://localhost:8080';     //Url of the NodeJS Server
+config.app_url = 'http://localhost:8080';     //Url of the NodeJS Server
 config.app_port = 8080;                         //Port that the NodeJS server is operating on
 
-config.eventHubUrl = '127.0.0.1';
+config.eventHubUrl = 'vp0';
 config.eventHubPort = '7053';
 
 //Information about all peers in the network, currently only used for checking that chaincode has been deployed to all peers on startup
-config.peers = ['127.0.0.1',];
+config.peers = ['vp0'];
 
 //--------------------------------------------------------------------------------------------------------------------
 //    User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.
