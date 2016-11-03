@@ -1,4 +1,4 @@
-[submodule "Chaincode/vehicle_code/vendor/github.com/hyperledger/fabric"]
-	path = Chaincode/vehicle_code/vendor/github.com/hyperledger/fabric
+[submodule "Chaincode/src/vehicle_code/vendor/github.com/hyperledger/fabric"]
+	path = Chaincode/src/vehicle_code/vendor/github.com/hyperledger/fabric
 	url = https://github.com/hyperledger/fabric.git
 	branch = v0.6
