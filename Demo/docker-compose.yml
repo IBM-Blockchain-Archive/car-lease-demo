@@ -32,3 +32,8 @@ services:
     command: sh -c 'while ! nc fabric-ca 7054; do sleep 1; done; peer node start'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  car-lease-demo:
+      build:
+          context: '../'
+      ports:
+          - 8080:8080

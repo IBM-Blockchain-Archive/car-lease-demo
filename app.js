@@ -20,7 +20,7 @@ let app             = express();
 let url             = require('url');
 let cors             = require('cors');
 let fs                 = require('fs');
-
+let tracing = require(__dirname+'/Server_Side/tools/traces/trace.js');
 
 let configFile = require(__dirname+'/Server_Side/configurations/configuration.js');
 
@@ -35,11 +35,11 @@ let demo              = require(__dirname+'/Server_Side/admin/demo/demo.js');
 let chaincode          = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js');
 let transactions     = require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
 let startup            = require(__dirname+'/Server_Side/configurations/startup/startup.js');
+let http = require('http');
 
 // Object of users' names linked to their security context
 let usersToSecurityContext;
 
-let port;
 
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
@@ -302,10 +302,11 @@ require('cf-deployment-tracker-client').track();
 // ============================================================================================================================
 //                                                         Launch Webserver
 // ============================================================================================================================
-app.listen(port, '0.0.0.0', function () {
+let server = app.listen(8080,'0.0.0.0', function () {
     console.log('------------------------------------------ Server Up - ' + configFile.config.networkProtocol + '://' + configFile.config.app_url + ' ------------------------------------------');
     startup.create()
     .then(function(usersToSC) {
+        tracing.create('INFO', 'Startup complete on port', server.address().port);
         usersToSecurityContext = usersToSC;
     });
 });

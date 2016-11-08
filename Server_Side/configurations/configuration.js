@@ -43,7 +43,7 @@ config.api_port_internal = '7050'; //port number used when calling api from insi
 config.api_port_discovery = '7051'; //port number used for HFC
 
 //IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
-config.ca_ip = 'membersrvc';     //IP of the CA attempting to be connected to
+config.ca_ip = 'fabric-ca';     //IP of the CA attempting to be connected to
 config.ca_port = '7054';         //Discovery port of the Certificate Authority. Used for HFC
 
 //TODO: Merge these two
@@ -86,8 +86,8 @@ config.users = [
     {
         enrollmentID: 'DVLA',
         attributes: [
-            'role', 'regulator',
-            'username', 'DVLA'
+            {name: 'role', value: 'regulator'},
+            {name: 'username', value: 'DVLA'}
         ],
         registrar: {},
         roles: [],
@@ -96,8 +96,8 @@ config.users = [
     {
         enrollmentID: 'Toyota',
         attributes: [
-            'role', 'manufacturer',
-            'username', 'Toyota'
+            {name: 'role', value: 'manufacturer'},
+            {name: 'username', value: 'Toyota'}
         ],
         registrar: {},
         roles: [],
@@ -106,8 +106,8 @@ config.users = [
     {
         enrollmentID: 'Alfa_Romeo',
         attributes: [
-            'role', 'manufacturer',
-            'username', 'Alfa_Romeo'
+            {name: 'role', value: 'manufacturer'},
+            {name: 'username', value: 'Alfa_Romeo'}
         ],
         registrar: {},
         roles: [],
@@ -116,8 +116,8 @@ config.users = [
     {
         enrollmentID: 'Jaguar_Land_Rover',
         attributes: [
-            'role', 'manufacturer',
-            'username', 'Jaguar_Land_Rover'
+            {name: 'role', value: 'manufacturer'},
+            {name: 'username', value: 'Jaguar_Land_Rover'}
         ],
         registrar: {},
         roles: [],
@@ -126,8 +126,8 @@ config.users = [
     {
         enrollmentID: 'Beechvale_Group',
         attributes: [
-            'role', 'private',
-            'username', 'Beechvale_Group'
+            {name: 'role', value: 'private'},
+            {name: 'username', value: 'Beechvale_Group'}
         ],
         registrar: {},
         roles: [],
@@ -136,8 +136,8 @@ config.users = [
     {
         enrollmentID: 'Milescape',
         attributes: [
-            'role', 'private',
-            'username', 'Milescape'
+            {name: 'role', value: 'private'},
+            {name: 'username', value: 'Milescape'}
         ],
         registrar: {},
         roles: [],
@@ -146,8 +146,8 @@ config.users = [
     {
         enrollmentID: 'Viewers_Alfa_Romeo',
         attributes: [
-            'role', 'private',
-            'username', 'Viewers_Alfa_Romeo'
+            {name: 'role', value: 'private'},
+            {name: 'username', value: 'Viewers_Alfa_Romeo'}
         ],
         registrar: {},
         roles: [],
@@ -156,8 +156,8 @@ config.users = [
     {
         enrollmentID: 'Joe_Payne',
         attributes: [
-            'role', 'private',
-            'username', 'Joe_Payne'
+            {name: 'role', value: 'private'},
+            {name: 'username', value: 'Joe_Payne'}
         ],
         registrar: {},
         roles: [],
@@ -166,8 +166,8 @@ config.users = [
     {
         enrollmentID: 'Andrew_Hurt',
         attributes: [
-            'role', 'private',
-            'username', 'Andrew_Hurt'
+            {name: 'role', value: 'private'},
+            {name: 'username', value: 'Andrew_Hurt'}
         ],
         registrar: {},
         roles: [],
@@ -176,8 +176,8 @@ config.users = [
     {
         enrollmentID: 'Anthony_O_Dowd',
         attributes: [
-            'role', 'private',
-            'username', 'Anthony_O_Dowd'
+            {name: 'role', value: 'private'},
+            {name: 'username', value: 'Anthony_O_Dowd'}
         ],
         registrar: {},
         roles: [],
@@ -186,8 +186,8 @@ config.users = [
     {
         enrollmentID: 'LeaseCan',
         attributes: [
-            'role', 'lease_company',
-            'username', 'LeaseCan'
+            {name: 'role', value: 'lease_company'},
+            {name: 'username', value: 'LeaseCan'}
         ],
         registrar: {},
         roles: [],
@@ -196,8 +196,8 @@ config.users = [
     {
         enrollmentID: 'Every_Car_Leasing',
         attributes: [
-            'role', 'lease_company',
-            'username', 'Every_Car_Leasing'
+            {name: 'role', value: 'lease_company'},
+            {name: 'username', value: 'Every_Car_Leasing'}
         ],
         registrar: {},
         roles: [],
@@ -206,8 +206,8 @@ config.users = [
     {
         enrollmentID: 'Regionwide_Vehicle_Contracts',
         attributes: [
-            'role', 'lease_company',
-            'username', 'Regionwide_Vehicle_Contracts'
+            {name: 'role', value: 'lease_company'},
+            {name: 'username', value: 'Regionwide_Vehicle_Contracts'}
         ],
         registrar: {},
         roles: [],
@@ -216,8 +216,8 @@ config.users = [
     {
         enrollmentID: 'Cray_Bros_London_Ltd',
         attributes: [
-            'role', 'scrap_merchant',
-            'username', 'Cray_Bros_London_Ltd'
+            {name: 'role', value: 'scrap_merchant'},
+            {name: 'username', value: 'Cray_Bros_London_Ltd'}
         ],
         registrar: {},
         roles: [],
@@ -226,8 +226,8 @@ config.users = [
     {
         enrollmentID: 'Aston_Scrap_Centre',
         attributes: [
-            'role', 'scrap_merchant',
-            'username', 'Aston_Scrap_Centre'
+            {name: 'role', value: 'scrap_merchant'},
+            {name: 'username', value: 'Aston_Scrap_Centre'}
         ],
         registrar: {},
         roles: [],
@@ -236,8 +236,8 @@ config.users = [
     {
         enrollmentID: 'ScrapIt_UK',
         attributes: [
-            'role', 'scrap_merchant',
-            'username', 'ScrapIt_UK'
+            {name: 'role', value: 'scrap_merchant'},
+            {name: 'username', value: 'ScrapIt_UK'}
         ],
         registrar: {},
         roles: [],

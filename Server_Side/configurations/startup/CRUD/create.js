@@ -51,6 +51,7 @@ let create = function()
     return enrollRegistrar()
     .then(function(registrar) {
         chain.setRegistrar(registrar);
+        tracing.create('INFO', 'Startup', 'Set registrar');
         return enrollUsers(registrar);
     })
     .then(function(users) {
@@ -126,10 +127,6 @@ let create = function()
 
         return usersToSecurityContext;
     })
-    .then(function() {
-        tracing.create('INFO', 'Startup', 'Complete.');
-
-    })
     .catch(function(err) {
         console.log(err);
         tracing.create('ERROR', 'Startup', err);
@@ -137,6 +134,7 @@ let create = function()
 };
 
 function enrollRegistrar() {
+    tracing.create('INFO', 'Startup', 'Attempting to enroll registrar');
     return new Promise(function(resolve, reject) {
         chain.enroll('WebAppAdmin', 'DJY27pEnl16d', function(err, registrar) {
             if (!err) {
