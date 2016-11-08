@@ -36,17 +36,31 @@ let create = function()
         pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_file_name);
     }
 
-    // if(process.env.VCAP_SERVICES){
-    //     console.log('\n[!] looks like you are in bluemix, I am going to clear out the deploy_name so that it deploys new cc.');
-    //     configFile.config.vehicle_name = '';
-    //
-    //     let servicesObject = JSON.parse(process.env.VCAP_SERVICES);
+    if(process.env.VCAP_SERVICES){
+        console.log('\n[!] looks like you are in bluemix, I am going to clear out the deploy_name so that it deploys new cc.');
+        configFile.config.vehicle_name = '';
 
-    // } else {
-    chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port, {pem:pem});
-    chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
-    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
-    // }
+        let servicesObject = JSON.parse(process.env.VCAP_SERVICES);
+
+        let peers = servicesObject.peers;
+        let membersrvc;
+
+        for (let key in servicesObject.ca) {
+            membersrvc = servicesObject.ca[key];
+        }
+
+        chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port, {pem:pem});
+
+        peers.forEach(function(peer) {
+            chain.addPeer(configFile.config.hfc_protocol+'://'+peer.discovery_host+':'+peer.discovery_port, {pem:pem});
+        });
+
+
+    } else {
+        chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port, {pem:pem});
+        chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
+        chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
+    }
 
     return enrollRegistrar()
     .then(function(registrar) {

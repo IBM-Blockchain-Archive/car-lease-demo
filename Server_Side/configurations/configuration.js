@@ -29,7 +29,7 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 //--------------------------------------------------------------------------------------------------------------------
 
 config.networkFile         = null;                 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
-config.networkProtocol     = 'http';             // The protocol to be used for connecting via rest to the network data peers
+config.networkProtocol     = 'https';             // The protocol to be used for connecting via rest to the network data peers
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
@@ -69,7 +69,7 @@ config.registrar_password = 'DJY27pEnl16d';
 //--------------------------------------------------------------------------------------------------------------------
 
 //Protocol used by HFC to communicate with blockchain peers and CA, need to change this manually.
-config.hfc_protocol             = 'grpc';
+config.hfc_protocol             = 'grpcs';
 config.certificate_file_name    = 'us.blockchain.ibm.com.cert';
 config.key_store_location       = '/tmp/keyValStore';
 
