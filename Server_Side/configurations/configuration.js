@@ -82,4 +82,167 @@ config.vehicle = 'github.com/hyperledger/fabric/vehicle_code';
 //Chaincode deployed names
 config.vehicle_name = '2e436d1363bb9f7c00342fa3fe30eff2c303f06ed4a396a06416a5e1e488ead7edd99f337e31fc6692d785bc0d9a30e942f111caccae15e7c34de6c716f0d92a';
 
+config.users = [
+    {
+        enrollmentID: 'DVLA',
+        attributes: [
+            'role', 'regulator',
+            'username', 'DVLA'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Toyota',
+        attributes: [
+            'role', 'manufacturer',
+            'username', 'Toyota'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Alfa_Romeo',
+        attributes: [
+            'role', 'manufacturer',
+            'username', 'Alfa_Romeo'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Jaguar_Land_Rover',
+        attributes: [
+            'role', 'manufacturer',
+            'username', 'Jaguar_Land_Rover'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Beechvale_Group',
+        attributes: [
+            'role', 'private',
+            'username', 'Beechvale_Group'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Milescape',
+        attributes: [
+            'role', 'private',
+            'username', 'Milescape'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Viewers_Alfa_Romeo',
+        attributes: [
+            'role', 'private',
+            'username', 'Viewers_Alfa_Romeo'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Joe_Payne',
+        attributes: [
+            'role', 'private',
+            'username', 'Joe_Payne'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Andrew_Hurt',
+        attributes: [
+            'role', 'private',
+            'username', 'Andrew_Hurt'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Anthony_O_Dowd',
+        attributes: [
+            'role', 'private',
+            'username', 'Anthony_O_Dowd'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'LeaseCan',
+        attributes: [
+            'role', 'lease_company',
+            'username', 'LeaseCan'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Every_Car_Leasing',
+        attributes: [
+            'role', 'lease_company',
+            'username', 'Every_Car_Leasing'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Regionwide_Vehicle_Contracts',
+        attributes: [
+            'role', 'lease_company',
+            'username', 'Regionwide_Vehicle_Contracts'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Cray_Bros_London_Ltd',
+        attributes: [
+            'role', 'scrap_merchant',
+            'username', 'Cray_Bros_London_Ltd'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'Aston_Scrap_Centre',
+        attributes: [
+            'role', 'scrap_merchant',
+            'username', 'Aston_Scrap_Centre'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    },
+    {
+        enrollmentID: 'ScrapIt_UK',
+        attributes: [
+            'role', 'scrap_merchant',
+            'username', 'ScrapIt_UK'
+        ],
+        registrar: {},
+        roles: [],
+        affiliation: 'institution_a'
+    }
+];
+
 exports.config = config; // Exports for use in other files that require this one

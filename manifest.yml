@@ -1,10 +1,16 @@
 ---
 applications:
 - disk_quota: 1024M
-  name: car-lease-demo-LOG-TEST
+  name: car-lease-demo
   command: node app.js
   path: .
   instances: 1
   memory: 512M
   services:
     - car_lease_blockchain
+
+  car-lease-demo:
+      build:
+          context: '../'
+      ports:
+          - '8080:8080'

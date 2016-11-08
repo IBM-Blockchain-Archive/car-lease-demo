@@ -16,7 +16,6 @@ let express         = require('express');
 let session         = require('express-session');
 let cookieParser     = require('cookie-parser');
 let bodyParser         = require('body-parser');
-let http             = require('http');
 let app             = express();
 let url             = require('url');
 let cors             = require('cors');
@@ -41,14 +40,6 @@ let startup            = require(__dirname+'/Server_Side/configurations/startup/
 let usersToSecurityContext;
 
 let port;
-
-//Check if running on Bluemix or if using a local Network JSON file
-check_if_config_requires_overwriting(function(updatedPort){
-
-    //Define port number for app server to use
-    port = updatedPort;
-
-});
 
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
@@ -290,6 +281,7 @@ app.use(function (req, res, next) {
     err.status = 404;
     next(err);
 });
+
 app.use(function (err, req, res, next) {        // = development error handler, print stack trace
     console.log('Error Handler -', req.url, err);
     let errorCode = err.status || 500;
@@ -310,201 +302,15 @@ require('cf-deployment-tracker-client').track();
 // ============================================================================================================================
 //                                                         Launch Webserver
 // ============================================================================================================================
-let server = http.createServer(app).listen(port, function () {
+app.listen(port, '0.0.0.0', function () {
+    console.log('------------------------------------------ Server Up - ' + configFile.config.networkProtocol + '://' + configFile.config.app_url + ' ------------------------------------------');
     startup.create()
     .then(function(usersToSC) {
         usersToSecurityContext = usersToSC;
     });
 });
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-process.env.NODE_ENV = 'production';
-process.env.GRPC_SSL_CIPHER_SUITES = 'ECDHE-ECDSA-AES128-GCM-SHA256';
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+// process.env.NODE_ENV = 'production';
+// process.env.GRPC_SSL_CIPHER_SUITES = 'ECDHE-ECDSA-AES128-GCM-SHA256';
 
-
-server.timeout = 2400000;
-console.log('------------------------------------------ Server Up - ' + configFile.config.networkProtocol + '://' + configFile.config.app_url + ' ------------------------------------------');
-
-console.log('ENV VARIABLES', configFile.config.networkProtocol+'://'+configFile.config.api_ip, configFile.config.api_port_external);
-
-//--------------------------------------------------------------------------------------------------------------------
-//    Functions that will overwrite default config values
-//--------------------------------------------------------------------------------------------------------------------
-
-function check_if_config_requires_overwriting(assignPort)
-{
-
-    let app_url = configFile.config.networkProtocol + '://' + configFile.config.app_url;
-    let app_port = configFile.config.app_port;
-    let api_ip = configFile.config.api_ip;
-    let api_port_external = configFile.config.api_port_external;
-    let api_port_internal = configFile.config.api_port_internal;
-    let api_port_discovery = configFile.config.api_port_discovery;
-    let peers = configFile.config.peers;
-    let ca_ip = configFile.config.ca_ip;
-    let ca_port = configFile.config.ca_port;
-    let registrar_name = configFile.config.registrar_name;
-    let registrar_password = configFile.config.registrar_password;
-
-    if (configFile.config.networkFile !== null) // If network file is defined then overwrite the api variables to use these
-    {
-        console.log('Attempting to use network JSON specified');
-        try
-        {
-            let networkDetails = JSON.parse(fs.readFileSync(configFile.config.networkFile, 'utf8'));
-            let ca = networkDetails.credentials.ca;
-            let peers = networkDetails.credentials.peers;
-            let peer_ip;
-            let peers_array = [];
-
-                    //Get address of every peer on the network
-            for(let i in peers){
-                peer_ip = configFile.config.networkProtocol+'://'+peers[i].api_host;
-                peers_array.push(peer_ip);
-            }
-
-            api_ip = peers_array[0];
-            peers = peers_array;
-
-                    //Get details of the Certificate Authority
-            for(let i in ca){
-                ca_ip        = ca[i].discovery_host;
-                ca_port        = ca[i].discovery_port;
-            }
-
-            api_port_external = networkDetails.credentials.peers[0].api_port;
-            api_port_internal = networkDetails.credentials.peers[0].api_port;
-            api_port_discovery = networkDetails.credentials.peers[0].discovery_port;
-
-                    //Username and password for the user we will assign as the registrar with the HFC module
-            registrar_name = networkDetails.credentials.users[1].username;
-            registrar_password = networkDetails.credentials.users[1].secret;
-
-            console.log('Network JSON load successful');
-        }
-        catch(err)
-        {
-            console.error('Unable to read network JSON. Error:',err); // File either does not exist or JSON was invalid
-            return;
-        }
-    }
-    else if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
-        console.log('Attempting to use Bluemix VCAP Services');
-
-        if(JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials.peers){
-
-            try
-            {
-                let credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
-
-                app_url                 = 'http://' + JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
-                app_port                 = process.env.VCAP_APP_PORT;
-                api_port_external         = credentials.peers[0].api_port;
-                api_port_internal        = credentials.peers[0].api_port;
-                api_port_discovery         = credentials.peers[0].discovery_port;
-
-                registrar_name             = credentials.users[0].username;
-                registrar_password         = credentials.users[0].secret;
-
-                let ca = credentials.ca;
-                peers = credentials.peers;
-                let peers_array = [];
-
-                //Get address of every peer on the network
-                for(let i in peers){
-                    let peer_ip = 'https://'+peers[i].api_host;
-                    peers_array.push(peer_ip);
-                }
-
-                api_ip = peers_array[0];
-                peers = peers_array;
-
-                //Get details of the Certificate Authority
-                for(let i in ca){
-                    ca_ip        = ca[i].discovery_host;
-                    ca_port      = ca[i].discovery_port;
-                }
-            }
-            catch(err)
-            {
-                console.error('Unable to use VCAP Services. Error:',err); //The VCAP Services JSON does not match the expected format
-                return;
-            }
-        }
-        else{
-            console.error('Unable to access blockchain service environment variables. The blockchain service may not exist or be working.');
-            return;
-        }
-    }
-
-    //Start rewriting the config file with new values
-    // let data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8');
-    //
-    // let str = 'config\.peers(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.peers[0]+'\'.*?\\](\\t*\\ *)*(;)?';
-    //
-    // let regex = new RegExp(str, 'g');
-    //
-    // let peersArrayAsString='';
-    //
-    // for(let i in peers){
-    //     peersArrayAsString += '\''+peers[i]+'\'';
-    //
-    //     if(i !== peers.length-1){
-    //         peersArrayAsString += ',';
-    //     }
-    // }
-    //
-    // console.log('String', peersArrayAsString);
-    //
-    // let result = data.replace(regex, 'config.peers = ['+peersArrayAsString+'];');
-    //
-    // regex = new RegExp('config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_ip+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.api_ip = \''+api_ip+'\';');
-    //
-    // regex = new RegExp('config\.api_port_external(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_external+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.api_port_external = \''+api_port_external+'\';');
-    //
-    // regex = new RegExp('config\.api_port_internal(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_internal+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.api_port_internal = \''+api_port_internal+'\';');
-    //
-    // regex = new RegExp('config\.api_port_discovery(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_discovery+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.api_port_discovery = \''+api_port_discovery+'\';');
-    //
-    // regex = new RegExp('config.app_url(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+addSlashes(configFile.config.app_url)+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.app_url = \''+app_url+'\';');
-    //
-    // regex = new RegExp('config\.app_port(\\t*\\ *)*=(\\t*\\ *)*'+configFile.config.app_port+'(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.app_port = '+app_port+';');
-    //
-    // regex = new RegExp('config\.ca_ip(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_ip+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.ca_ip = \''+ca_ip+'\';');
-    //
-    // regex = new RegExp('config\.ca_port(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_port+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.ca_port = \''+ca_port+'\';');
-    //
-    // regex = new RegExp('config\.registrar_name(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_name+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.registrar_name = \''+registrar_name+'\';');
-    //
-    // regex = new RegExp('config\.registrar_password(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_password+'(\"|\\\')(\\t*\\ *)*(;)?', 'g');
-    // result = result.replace(regex, 'config.registrar_password = \''+registrar_password+'\';');
-    //
-    // try
-    // {
-    //     //console.log("Updated config file",result)
-    //
-    //     fs.writeFileSync(__dirname+'/Server_Side/configurations/configuration.js', result, 'utf8');
-    //     console.log('Updated config file.');
-    // }
-    // catch(err)
-    // {
-    //     console.error('Unable to write new variables to config file.');
-    //
-    // }
-
-    assignPort(configFile.config.app_port);
-}
-
-function addSlashes(str)
-{
-   //no need to do (str+'') anymore because 'this' can only be a string
-    return str.split('/').join('\\/');
-}
+// console.log('ENV VARIABLES', configFile.config.networkProtocol+'://'+configFile.config.api_ip, configFile.config.api_port_external);
