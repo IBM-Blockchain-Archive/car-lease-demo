@@ -37,6 +37,7 @@ let create = function()
     }
 
     if(process.env.VCAP_SERVICES){
+        console.log(JSON.parse(process.env.VCAP_SERVICES));
         console.log('\n[!] looks like you are in bluemix, I am going to clear out the deploy_name so that it deploys new cc.');
         configFile.config.vehicle_name = '';
 
