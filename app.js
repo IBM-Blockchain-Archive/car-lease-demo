@@ -315,3 +315,6 @@ let server = app.listen(8080,'0.0.0.0', function () {
 // process.env.GRPC_SSL_CIPHER_SUITES = 'ECDHE-ECDSA-AES128-GCM-SHA256';
 
 // console.log('ENV VARIABLES', configFile.config.networkProtocol+'://'+configFile.config.api_ip, configFile.config.api_port_external);
+
+if (process.env.VCAP_SERVICES) {
+}

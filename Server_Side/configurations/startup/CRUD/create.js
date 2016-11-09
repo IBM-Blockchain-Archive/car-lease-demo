@@ -16,6 +16,12 @@ let chainName = 'theChain';
 let chain;
 let usersToSecurityContext = {};
 
+let vcapServices;
+if (process.env.VCAP_SERVICES) {
+    console.log('\n[!] VCAP_SERVICES detected');
+    vcapServices = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-staging'][0].credentials;
+}
+
 let create = function()
 {
     tracing.create('ENTER', 'Startup', {});
@@ -33,21 +39,30 @@ let create = function()
     //Retrieve the certificate if grpcs is being used
     if(configFile.config.hfc_protocol === 'grpcs'){
         chain.setECDSAModeForGRPC(true);
-        pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_file_name);
+        pem = fs.readFileSync(__dirname+'/../../../../Chaincode/src/vehicle_code/vendor/'+configFile.config.certificate_file_name, 'utf8');
     }
 
-    if(process.env.VCAP_SERVICES){
-        console.log(JSON.parse(process.env.VCAP_SERVICES));
-        console.log('\n[!] looks like you are in bluemix, I am going to clear out the deploy_name so that it deploys new cc.');
+    if(vcapServices || configFile.config.fabric){
+        if (!pem) {
+            console.log('\n[!] no certificate has been included');
+        }
+
+        console.log('\n[!] looks like you are in bluemix or connecting to bluemix');
         configFile.config.vehicle_name = '';
 
-        let servicesObject = JSON.parse(process.env.VCAP_SERVICES);
-
-        let peers = servicesObject.peers;
+        let peers;
         let membersrvc;
 
-        for (let key in servicesObject.ca) {
-            membersrvc = servicesObject.ca[key];
+        if (vcapServices) {
+            peers = vcapServices.peers;
+            for (let key in vcapServices.ca) {
+                membersrvc = vcapServices.ca[key];
+            }
+        } else {
+            peers = configFile.config.fabric.peers;
+            for (let key in configFile.config.fabric.ca) {
+                membersrvc = configFile.config.fabric.ca[key];
+            }
         }
 
         chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port, {pem:pem});
@@ -55,9 +70,9 @@ let create = function()
         peers.forEach(function(peer) {
             chain.addPeer(configFile.config.hfc_protocol+'://'+peer.discovery_host+':'+peer.discovery_port, {pem:pem});
         });
-
-
     } else {
+        console.log('\n[!] looks like you are not in bluemix');
+
         chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port, {pem:pem});
         chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
         chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
@@ -209,6 +224,11 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args) {
             args: args,
             chaincodePath: chaincodePath
         };
+
+        if (process.env.VCAP_SERVICES) {
+            deployRequest.certificatePath = process.env.VCAP_SERVICES.cert_path;
+        }
+
         let transactionContext = enrolledMember.deploy(deployRequest);
         transactionContext.on('complete', function (result) {
             resolve(result);

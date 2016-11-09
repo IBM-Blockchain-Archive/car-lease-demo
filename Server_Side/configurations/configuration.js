@@ -70,7 +70,7 @@ config.registrar_password = 'DJY27pEnl16d';
 
 //Protocol used by HFC to communicate with blockchain peers and CA, need to change this manually.
 config.hfc_protocol             = 'grpcs';
-config.certificate_file_name    = 'us.blockchain.ibm.com.cert';
+config.certificate_file_name    = 'stage.blockchain.ibm.com.cert';
 config.key_store_location       = '/tmp/keyValStore';
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -244,5 +244,71 @@ config.users = [
         affiliation: 'institution_a'
     }
 ];
+
+config.fabric = {
+    'peers': [
+        {
+            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp1.stage.blockchain.ibm.com',
+            'discovery_port': 30001,
+            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp1.stage.blockchain.ibm.com',
+            'api_port_tls': 5001,
+            'api_port': 5001,
+            'type': 'peer',
+            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
+            'container_id': 'adb61b865673441d01d79339bd2c5671c8e61a7f667141414d76d257eba44f6d',
+            'id': 'a5cacfd7717a4266a93abb3763647c30-vp1',
+            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp1.stage.blockchain.ibm.com:5001'
+        },
+        {
+            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp2.stage.blockchain.ibm.com',
+            'discovery_port': 30001,
+            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp2.stage.blockchain.ibm.com',
+            'api_port_tls': 5001,
+            'api_port': 5001,
+            'type': 'peer',
+            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
+            'container_id': '6ec552d2457e92280865559cde5f62632d8c43b0ba3e9d486b82a04a1ad1c001',
+            'id': 'a5cacfd7717a4266a93abb3763647c30-vp2',
+            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp2.stage.blockchain.ibm.com:5001'
+        },
+        {
+            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp0.stage.blockchain.ibm.com',
+            'discovery_port': 30001,
+            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp0.stage.blockchain.ibm.com',
+            'api_port_tls': 5001,
+            'api_port': 5001,
+            'type': 'peer',
+            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
+            'container_id': '719502abdcc202657ed02a7a71b2252db339fe575ffeb30255896d9e4827a354',
+            'id': 'a5cacfd7717a4266a93abb3763647c30-vp0',
+            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp0.stage.blockchain.ibm.com:5001'
+        },
+        {
+            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp3.stage.blockchain.ibm.com',
+            'discovery_port': 30001,
+            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp3.stage.blockchain.ibm.com',
+            'api_port_tls': 5001,
+            'api_port': 5001,
+            'type': 'peer',
+            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
+            'container_id': 'ab0faa84ca8c67420fae9cf15848827685a316ff58620067f66eecc5bf585854',
+            'id': 'a5cacfd7717a4266a93abb3763647c30-vp3',
+            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp3.stage.blockchain.ibm.com:5001'
+        }
+    ],
+    'ca': {
+        'a5cacfd7717a4266a93abb3763647c30-ca': {
+            'url': 'a5cacfd7717a4266a93abb3763647c30-ca.stage.blockchain.ibm.com:30001',
+            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-ca.stage.blockchain.ibm.com',
+            'discovery_port': 30001,
+            'api_host': 'a5cacfd7717a4266a93abb3763647c30-ca.stage.blockchain.ibm.com',
+            'api_port_tls': 30001,
+            'api_port': 30001,
+            'type': 'ca',
+            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
+            'container_id': 'eb9fb4440ab031708b43ff078bdc1b39ea89ca4043a177667234289374a3af0d'
+        }
+    }
+};
 
 exports.config = config; // Exports for use in other files that require this one
