@@ -8,7 +8,6 @@ let read = function(req, res)
 {
 
     tracing.create('ENTER', 'GET blockchain/blocks/'+req.params.blockNum, {});
-
     let options = {
         url: configFile.config.networkProtocol + '://' + configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain/blocks/'+req.params.blockNum,
         method: 'GET'
@@ -22,6 +21,7 @@ let read = function(req, res)
         }
         else
         {
+            console.log(err);
             res.status(400);
             let err = {};
             err.message = 'Unable to get block';

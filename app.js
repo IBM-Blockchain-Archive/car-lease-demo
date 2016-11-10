@@ -20,6 +20,8 @@ let app             = express();
 let url             = require('url');
 let cors             = require('cors');
 let fs                 = require('fs');
+let path = require('path');
+let hfc = require('hfc');
 let tracing = require(__dirname+'/Server_Side/tools/traces/trace.js');
 
 let configFile = require(__dirname+'/Server_Side/configurations/configuration.js');
@@ -37,21 +39,14 @@ let transactions     = require(__dirname+'/Server_Side/blockchain/transactions/t
 let startup            = require(__dirname+'/Server_Side/configurations/startup/startup.js');
 let http = require('http');
 
+const SecurityContext = require(__dirname+'/Server_Side/tools/security/securitycontext');
+
 // Object of users' names linked to their security context
-let usersToSecurityContext;
+let usersToSecurityContext = {};
 
 let host;
-let port;
+let port = process.env.VCAP_APP_PORT || configFile.config.app_port;
 
-console.log(process.env);
-
-if (process.env.VCAP_SERVICES) {
-    host = JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
-    port = process.env.VCAP_APP_PORT;
-} else {
-    port = configFile.config.app_port;
-    host = 'localhost';
-}
 
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
@@ -62,7 +57,6 @@ app.use(session({secret: 'Somethignsomething1234!test', resave: true, saveUninit
 // Enable CORS preflight across the board.
 app.options('*', cors());
 app.use(cors());
-
 app.use(express.static(__dirname + '/Client_Side'));
 
 //===============================================================================================
@@ -312,18 +306,105 @@ app.use(function (err, req, res, next) {        // = development error handler, 
 require('cf-deployment-tracker-client').track();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 process.env.NODE_ENV = 'production';
+process.env.GOPATH = path.resolve(__dirname, 'Chaincode');
 
-// ============================================================================================================================
-//                                                         Launch Webserver
-// ============================================================================================================================
-let server = app.listen(port, function () {
-    console.log('------------------------------------------ Server Up - ' + host + ':' + server.address().port + ' ------------------------------------------');
-    startup.create()
-    .then(function(usersToSC) {
-        tracing.create('INFO', 'Startup complete on port', server.address().port);
-        usersToSecurityContext = usersToSC;
+let vcapServices;
+let pem;
+let server;
+let registrar;
+let webAppAdminPassword = configFile.config.registrar_password;
+
+if (process.env.VCAP_SERVICES) {
+    console.log('\n[!] VCAP_SERVICES detected');
+    vcapServices = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-staging'][0].credentials;
+
+    host = JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
+    port = process.env.VCAP_APP_PORT;
+} else {
+    port = configFile.config.app_port;
+    host = 'localhost';
+}
+
+// Setup HFC
+let chain = hfc.newChain('myChain');
+//This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
+chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location));
+
+//TODO: Change this to be a boolean stating if ssl is enabled or disabled
+//Retrieve the certificate if grpcs is being used
+if(configFile.config.hfc_protocol === 'grpcs'){
+    // chain.setECDSAModeForGRPC(true);
+    pem = fs.readFileSync(__dirname+'/Chaincode/src/vehicle_code/'+configFile.config.certificate_file_name, 'utf8');
+}
+
+
+if (vcapServices) { // We are running in bluemix
+    if (!pem) {
+        console.log('\n[!] No certificate is available. Will fail to connect to fabric');
+    }
+    startup.connectToPeers(chain, vcapServices.peers, pem);
+    startup.connectToCA(chain, vcapServices.ca, pem);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+vcapServices.peers[0].discovery_host + ':' + vcapServices.eventHubPort);
+    chain.setDeployWaitTime(100);
+
+    // Get the WebAppAdmins password
+    vcapServices.users.forEach(function(user) {
+        if (user.username === 'WebAppAdmin') {
+            webAppAdminPassword = user.secret;
+        }
     });
+} else if (!vcapServices && pem) { // We are running outside bluemix, connecting to bluemix fabric
+    webAppAdminPassword = configFile.config.bluemix_registrar_password;
+    startup.connectToPeers(chain, configFile.config.peers, pem);
+    startup.connectToCA(chain, configFile.config.ca, pem);
+    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
+    chain.setDeployWaitTime(100);
+} else { // We are running locally
+    startup.connectToPeers(chain, configFile.config.peers);
+    startup.connectToCA(chain, configFile.config.ca);
+    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
+}
+
+
+server = http.createServer(app).listen(port, function () {
+    console.log('------------------------------------------ Server Up - ' + host + ':' + server.address().port + ' ------------------------------------------');
+    tracing.create('INFO', 'Startup complete on port', server.address().port);
 });
+
 server.timeout = 240000;
+
+startup.enrollRegistrar(chain, 'WebAppAdmin', webAppAdminPassword)
+.then(function(r) {
+    registrar = r;
+    chain.setRegistrar(registrar);
+    tracing.create('INFO', 'Startup', 'Set registrar');
+    let users = configFile.config.users;
+    if (vcapServices || pem) {
+        users.forEach(function(user){
+            user.affiliation = 'group1';
+        });
+    }
+    return startup.enrollUsers(chain, users, registrar);
+})
+.then(function(users) {
+    tracing.create('INFO', 'Startup', 'All users registered');
+    users.forEach(function(user) {
+        usersToSecurityContext[user.getName()] = new SecurityContext(user);
+    });
+})
+.then(function() {
+    let certPath = (vcapServices) ? vcapServices.cert_path : '/certs/peer/cert.pem';
+    return startup.deployChaincode(registrar, 'vehicle_code', 'Init', [], certPath);
+})
+.then(function(deploy) {
+    for (let name in usersToSecurityContext) {
+        usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
+    }
+    tracing.create('INFO', 'Chaincode deployed with chaincodeID ' + deploy.chaincodeID);
+})
+.catch(function(err) {
+    console.log(err);
+    tracing.create('ERROR', 'Startup', err);
+});
 
 // console.log('ENV VARIABLES', configFile.config.networkProtocol+'://'+configFile.config.api_ip, configFile.config.api_port_external);

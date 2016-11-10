@@ -4,8 +4,9 @@ let request = require('request');
 let configFile = require(__dirname+'/../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
-let read = function(req, res)
+let read = function(req, res, next, usersToSecurityContext)
 {
+    console.log(configFile.config.networkProtocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain');
     tracing.create('ENTER', 'GET blockchain/blocks', {});
     let options = {
         url: configFile.config.networkProtocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
@@ -15,6 +16,9 @@ let read = function(req, res)
         if (!error && response && response.statusCode === 200) {
             let result = {};
             result.height = JSON.parse(body).height;
+            if (!usersToSecurityContext.DVLA.getChaincodeID()) { // If the users dont have a changcode ID, deploy hasnt happened
+                result.height -= 1;
+            }
             result.currentBlockHash = JSON.parse(body).currentBlockHash;
             tracing.create('EXIT', 'GET blockchain/blocks', result);
             res.send(result);

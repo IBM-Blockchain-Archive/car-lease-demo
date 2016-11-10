@@ -3,13 +3,6 @@
 //TODO: Change this a be compatible with the Config npm module
 
 let config = {};
-
-/*
-//Application configuration
-
-config.timeout = 60000;
-config.number_of_timeout_checks     = 15;
-*/
 //--------------------------------------------------------------------------------------------------------------------
 //    Application information
 //--------------------------------------------------------------------------------------------------------------------
@@ -31,31 +24,12 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 config.networkFile         = null;                 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
 config.networkProtocol     = 'https';             // The protocol to be used for connecting via rest to the network data peers
 
-//--------------------------------------------------------------------------------------------------------------------
-//    Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
-//--------------------------------------------------------------------------------------------------------------------
-//IP and port configuration
-config.api_ip = 'vp0'; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
-
-//When using blockchain on bluemix, api_port_external and api_port_internal will be the same
-config.api_port_external = '7050'; //port number used when calling api from outside of the vagrant environment
-config.api_port_internal = '7050'; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
-config.api_port_discovery = '7051'; //port number used for HFC
-
-//IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
-config.ca_ip = 'fabric-ca';     //IP of the CA attempting to be connected to
-config.ca_port = '7054';         //Discovery port of the Certificate Authority. Used for HFC
 
 //TODO: Merge these two
 //Settings for the nodeJS application server
 config.app_url = 'http://localhost:8080';     //Url of the NodeJS Server
 config.app_port = 8080;                         //Port that the NodeJS server is operating on
 
-config.eventHubUrl = 'vp0';
-config.eventHubPort = '7053';
-
-//Information about all peers in the network, currently only used for checking that chaincode has been deployed to all peers on startup
-config.peers = ['vp0'];
 
 //--------------------------------------------------------------------------------------------------------------------
 //    User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.
@@ -63,7 +37,7 @@ config.peers = ['vp0'];
 
 config.registrar_name = 'WebAppAdmin';
 config.registrar_password = 'DJY27pEnl16d';
-config.bluemix_registrar_password = 'bdd2877e09';
+config.bluemix_registrar_password = '7aed4f1f15';
 
 //--------------------------------------------------------------------------------------------------------------------
 //    HFC configuration - Defines what protocol to use for communication, bluemix certificate location and key store location
@@ -78,7 +52,6 @@ config.key_store_location       = './keyValStore';
 //    Chaincode
 //--------------------------------------------------------------------------------------------------------------------
 //Chaincode file location
-//config.vehicle = 'https://github.com/IBM-Blockchain/car-lease-demo/Chaincode/vehicle_code/';
 config.vehicle = 'github.com/hyperledger/fabric/vehicle_code';
 //Chaincode deployed names
 config.vehicle_name = '2e436d1363bb9f7c00342fa3fe30eff2c303f06ed4a396a06416a5e1e488ead7edd99f337e31fc6692d785bc0d9a30e942f111caccae15e7c34de6c716f0d92a';
@@ -92,7 +65,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Toyota',
@@ -102,7 +75,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Alfa_Romeo',
@@ -112,7 +85,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Jaguar_Land_Rover',
@@ -122,7 +95,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Beechvale_Group',
@@ -132,7 +105,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Milescape',
@@ -142,7 +115,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Viewers_Alfa_Romeo',
@@ -152,7 +125,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Joe_Payne',
@@ -162,7 +135,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Andrew_Hurt',
@@ -172,7 +145,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Anthony_O_Dowd',
@@ -182,7 +155,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'LeaseCan',
@@ -192,7 +165,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Every_Car_Leasing',
@@ -202,7 +175,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Regionwide_Vehicle_Contracts',
@@ -212,7 +185,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Cray_Bros_London_Ltd',
@@ -222,7 +195,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'Aston_Scrap_Centre',
@@ -232,7 +205,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     },
     {
         enrollmentID: 'ScrapIt_UK',
@@ -242,74 +215,96 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'group1'
+        affiliation: 'institution_a'
     }
 ];
 
-config.fabric = {
-    'peers': [
-        {
-            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp2.stage.blockchain.ibm.com',
-            'discovery_port': 30001,
-            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp2.stage.blockchain.ibm.com',
-            'api_port_tls': 5001,
-            'api_port': 5001,
-            'type': 'peer',
-            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
-            'container_id': 'ab45e4b7317a4b1f0bbdd829b0f02d2fe201ebe103439a71bba9b3c133872159',
-            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp2',
-            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp2.stage.blockchain.ibm.com:5001'
-        },
-        {
-            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp0.stage.blockchain.ibm.com',
-            'discovery_port': 30001,
-            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp0.stage.blockchain.ibm.com',
-            'api_port_tls': 5001,
-            'api_port': 5001,
-            'type': 'peer',
-            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
-            'container_id': 'db664bcc70f94a383aff1a2a8aa2b8456f3f607ebf9e5a496c3895346489cb21',
-            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp0',
-            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp0.stage.blockchain.ibm.com:5001'
-        },
-        {
-            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp1.stage.blockchain.ibm.com',
-            'discovery_port': 30001,
-            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp1.stage.blockchain.ibm.com',
-            'api_port_tls': 5001,
-            'api_port': 5001,
-            'type': 'peer',
-            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
-            'container_id': 'fe1bc0300908bb30f3f7664f98844d591552c27e2993d2575f2012b652590e49',
-            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp1',
-            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp1.stage.blockchain.ibm.com:5001'
-        },
-        {
-            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp3.stage.blockchain.ibm.com',
-            'discovery_port': 30001,
-            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp3.stage.blockchain.ibm.com',
-            'api_port_tls': 5001,
-            'api_port': 5001,
-            'type': 'peer',
-            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
-            'container_id': 'f2c34b1aa63446077701249a24d83a6ea5519790abb3e61cae4cfae398c11c4d',
-            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp3',
-            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp3.stage.blockchain.ibm.com:5001'
-        }
-    ],
-    'ca': {
-        'd2766c4876fd40cbac98ac1b46d3ca23-ca': {
-            'url': 'd2766c4876fd40cbac98ac1b46d3ca23-ca.stage.blockchain.ibm.com:30001',
-            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-ca.stage.blockchain.ibm.com',
-            'discovery_port': 30001,
-            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-ca.stage.blockchain.ibm.com',
-            'api_port_tls': 30001,
-            'api_port': 30001,
-            'type': 'ca',
-            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
-            'container_id': '9f48d4fa3a0b4c2969ee6e12322e192ac399488f7a499134a323cd443316ff2e'
-        }
+config.peers = [
+    {
+        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp0.stage.blockchain.ibm.com',
+        'discovery_port': 30001,
+        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp0.stage.blockchain.ibm.com',
+        'api_port_tls': 5001,
+        'api_port': 5001,
+        'type': 'peer',
+        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
+        'container_id': '9ed96333a4183f0c033527e0829f3a2053110fea2f47df068a808f0d1f2c0b6b',
+        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp0',
+        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp0.stage.blockchain.ibm.com:5001'
     },
+    {
+        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp2.stage.blockchain.ibm.com',
+        'discovery_port': 30001,
+        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp2.stage.blockchain.ibm.com',
+        'api_port_tls': 5001,
+        'api_port': 5001,
+        'type': 'peer',
+        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
+        'container_id': 'aa34cc61873fba27a8f60839e69cf23ce49017f7477aae607847d110dbad010f',
+        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp2',
+        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp2.stage.blockchain.ibm.com:5001'
+    },
+    {
+        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp1.stage.blockchain.ibm.com',
+        'discovery_port': 30001,
+        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp1.stage.blockchain.ibm.com',
+        'api_port_tls': 5001,
+        'api_port': 5001,
+        'type': 'peer',
+        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
+        'container_id': '15a939e5495fda0641314f2b08d9923b8b5382851c27723710ba6766cbbb117b',
+        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp1',
+        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp1.stage.blockchain.ibm.com:5001'
+    },
+    {
+        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp3.stage.blockchain.ibm.com',
+        'discovery_port': 30001,
+        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp3.stage.blockchain.ibm.com',
+        'api_port_tls': 5001,
+        'api_port': 5001,
+        'type': 'peer',
+        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
+        'container_id': 'bc85e4109ecbca2ac2812bfae53c9c573d85d4047341a133c292719908595346',
+        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp3',
+        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp3.stage.blockchain.ibm.com:5001'
+    }
+];
+
+//--------------------------------------------------------------------------------------------------------------------
+//    Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
+//--------------------------------------------------------------------------------------------------------------------
+//IP and port configuration
+config.api_ip = config.peers[0].discovery_host; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
+
+//When using blockchain on bluemix, api_port_external and api_port_internal will be the same
+config.api_port_external  = config.peers[0].api_port; //port number used when calling api from outside of the vagrant environment
+config.api_port_internal  = config.peers[0].discovery_port; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
+config.api_port_discovery = config.peers[0].discovery_port; //port number used for HFC
+
+config.eventHubUrl = config.peers[0].discovery_host;
+config.eventHubPort = 31001;
+
+config.ca = {
+    'ac9ada399d424394a5f9b44d405a45c4-ca': {
+        'url': 'ac9ada399d424394a5f9b44d405a45c4-ca.stage.blockchain.ibm.com:30001',
+        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-ca.stage.blockchain.ibm.com',
+        'discovery_port': 30001,
+        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-ca.stage.blockchain.ibm.com',
+        'api_port_tls': 30001,
+        'api_port': 30001,
+        'type': 'ca',
+        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
+        'container_id': 'fd608934b6d0ac30fc1fc66b73039c5207223ec8feb0e00255e17eec814d0d07'
+    }
 };
+
+let ca;
+for (let i in config.ca) {
+    ca = config.ca[i];
+}
+
+//IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
+config.ca_ip = ca.discovery_host;     //IP of the CA attempting to be connected to
+config.ca_port = ca.discovery_port;         //Discovery port of the Certificate Authority. Used for HFC
 
 exports.config = config; // Exports for use in other files that require this one
