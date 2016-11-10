@@ -16,12 +16,24 @@ let chainName = 'theChain';
 let chain;
 let usersToSecurityContext = {};
 
+let registrarName = configFile.config.registrar_name;
+let registrarPassword = configFile.config.registrar_password;
+
 let vcapServices;
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
     vcapServices = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-staging'][0].credentials;
+
+    let users = vcapServices.users;
+    users.forEach(function(user) {
+        if (user.enrollId === 'WebAppAdmin') {
+            registrarPassword = user.enrollSecret;
+        }
+    });
 }
 
+//TODO: Add bluemix error handling
+//TODO: Seperate this into other smaller promises to handle errors more neatly
 let create = function()
 {
     tracing.create('ENTER', 'Startup', {});
@@ -29,36 +41,40 @@ let create = function()
     let pem = null;
 
     let deployUser;
-    // let registrar_name = configFile.config.registrar_name;
-    // let registrar_password = configFile.config.registrar_password;
+
     chain = hfc.newChain(chainName);
     //This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
     chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location));
+    chain.setDeployWaitTime(100);
 
     //TODO: Change this to be a boolean stating if ssl is enabled or disabled
     //Retrieve the certificate if grpcs is being used
     if(configFile.config.hfc_protocol === 'grpcs'){
-        chain.setECDSAModeForGRPC(true);
-        pem = fs.readFileSync(__dirname+'/../../../../Chaincode/src/vehicle_code/vendor/'+configFile.config.certificate_file_name, 'utf8');
+        // chain.setECDSAModeForGRPC(true);
+        pem = fs.readFileSync(__dirname+'/../../../../Chaincode/src/vehicle_code/'+configFile.config.certificate_file_name, 'utf8');
     }
 
     if(vcapServices || configFile.config.fabric){
+        // Will be using bluemix in some respect..
+        registrarPassword = configFile.config.bluemix_registrar_password;
         if (!pem) {
             console.log('\n[!] no certificate has been included');
         }
 
-        console.log('\n[!] looks like you are in bluemix or connecting to bluemix');
         configFile.config.vehicle_name = '';
 
         let peers;
         let membersrvc;
 
-        if (vcapServices) {
+        if (vcapServices) { // Are we in bluemix?
+
+            console.log('\n[!] looks like you are in bluemix');
             peers = vcapServices.peers;
             for (let key in vcapServices.ca) {
                 membersrvc = vcapServices.ca[key];
             }
         } else {
+            console.log('\n[!] looks like you are connecting to bluemix');
             peers = configFile.config.fabric.peers;
             for (let key in configFile.config.fabric.ca) {
                 membersrvc = configFile.config.fabric.ca[key];
@@ -66,15 +82,20 @@ let create = function()
         }
 
         chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port, {pem:pem});
+        console.log('membersrvc: '+configFile.config.hfc_protocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port);
 
-        peers.forEach(function(peer) {
+        peers.forEach(function(peer, index) {
             chain.addPeer(configFile.config.hfc_protocol+'://'+peer.discovery_host+':'+peer.discovery_port, {pem:pem});
+            console.log('peer'+index+': '+configFile.config.hfc_protocol+'://'+peer.discovery_host+':'+peer.discovery_port);
         });
-    } else {
-        console.log('\n[!] looks like you are not in bluemix');
 
-        chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port, {pem:pem});
-        chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery, {pem:pem});
+        configFile.config.api_ip = peers[0].discovery_host;
+        configFile.config.api_port_external = peers[0].discovery_port;
+    } else {
+        console.log('\n[!] looks like you are not using bluemix');
+
+        chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+configFile.config.ca_ip+':'+configFile.config.ca_port);
+        chain.addPeer(configFile.config.hfc_protocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_discovery);
         chain.eventHubConnect(configFile.config.hfc_protocol+'://'+configFile.config.eventHubUrl+':'+configFile.config.eventHubPort);
     }
 
@@ -103,6 +124,7 @@ let create = function()
     })
     .then(function(chaincodeID) {
         deployUser = chain.getRegistrar();
+        // Checks if the chaincode has already been deployed
         return new Promise(function(resolve, reject) {
             if (chaincodeID) {
                 let liveTx = deployUser.query({
@@ -166,12 +188,13 @@ let create = function()
 function enrollRegistrar() {
     tracing.create('INFO', 'Startup', 'Attempting to enroll registrar');
     return new Promise(function(resolve, reject) {
-        chain.enroll('WebAppAdmin', 'DJY27pEnl16d', function(err, registrar) {
+        chain.enroll(registrarName, registrarPassword, function(err, registrar) {
             if (!err) {
                 tracing.create('INFO', 'Startup', 'Enrolled registrar');
                 resolve(registrar);
             } else {
-                tracing.create('ERROR', 'Startup', 'Failed to enroll registrar');
+
+                tracing.create('ERROR', 'Startup', 'Failed to enroll registrar with '+registrarName + ' ' + registrarPassword);
                 reject(err);
             }
         });
@@ -225,11 +248,20 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args) {
             chaincodePath: chaincodePath
         };
 
-        if (process.env.VCAP_SERVICES) {
-            deployRequest.certificatePath = process.env.VCAP_SERVICES.cert_path;
+        if (vcapServices) {
+            deployRequest.certificatePath = vcapServices.cert_path;
+        } else if (configFile.config.fabric) {
+            deployRequest.certificatePath = '/certs/peer/cert.pem';
         }
 
+        console.log('deploy request: ', deployRequest);
+
         let transactionContext = enrolledMember.deploy(deployRequest);
+
+        transactionContext.on('submitted', function() {
+            console.log('attempted to deploy chaincode');
+        });
+
         transactionContext.on('complete', function (result) {
             resolve(result);
         });

@@ -63,6 +63,7 @@ config.peers = ['vp0'];
 
 config.registrar_name = 'WebAppAdmin';
 config.registrar_password = 'DJY27pEnl16d';
+config.bluemix_registrar_password = 'bdd2877e09';
 
 //--------------------------------------------------------------------------------------------------------------------
 //    HFC configuration - Defines what protocol to use for communication, bluemix certificate location and key store location
@@ -70,8 +71,8 @@ config.registrar_password = 'DJY27pEnl16d';
 
 //Protocol used by HFC to communicate with blockchain peers and CA, need to change this manually.
 config.hfc_protocol             = 'grpcs';
-config.certificate_file_name    = 'stage.blockchain.ibm.com.cert';
-config.key_store_location       = '/tmp/keyValStore';
+config.certificate_file_name    = 'certificate.pem';
+config.key_store_location       = './keyValStore';
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Chaincode
@@ -91,7 +92,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Toyota',
@@ -101,7 +102,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Alfa_Romeo',
@@ -111,7 +112,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Jaguar_Land_Rover',
@@ -121,7 +122,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Beechvale_Group',
@@ -131,7 +132,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Milescape',
@@ -141,7 +142,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Viewers_Alfa_Romeo',
@@ -151,7 +152,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Joe_Payne',
@@ -161,7 +162,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Andrew_Hurt',
@@ -171,7 +172,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Anthony_O_Dowd',
@@ -181,7 +182,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'LeaseCan',
@@ -191,7 +192,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Every_Car_Leasing',
@@ -201,7 +202,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Regionwide_Vehicle_Contracts',
@@ -211,7 +212,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Cray_Bros_London_Ltd',
@@ -221,7 +222,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'Aston_Scrap_Centre',
@@ -231,7 +232,7 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     },
     {
         enrollmentID: 'ScrapIt_UK',
@@ -241,74 +242,74 @@ config.users = [
         ],
         registrar: {},
         roles: [],
-        affiliation: 'institution_a'
+        affiliation: 'group1'
     }
 ];
 
 config.fabric = {
     'peers': [
         {
-            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp1.stage.blockchain.ibm.com',
+            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp2.stage.blockchain.ibm.com',
             'discovery_port': 30001,
-            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp1.stage.blockchain.ibm.com',
+            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp2.stage.blockchain.ibm.com',
             'api_port_tls': 5001,
             'api_port': 5001,
             'type': 'peer',
-            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
-            'container_id': 'adb61b865673441d01d79339bd2c5671c8e61a7f667141414d76d257eba44f6d',
-            'id': 'a5cacfd7717a4266a93abb3763647c30-vp1',
-            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp1.stage.blockchain.ibm.com:5001'
+            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
+            'container_id': 'ab45e4b7317a4b1f0bbdd829b0f02d2fe201ebe103439a71bba9b3c133872159',
+            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp2',
+            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp2.stage.blockchain.ibm.com:5001'
         },
         {
-            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp2.stage.blockchain.ibm.com',
+            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp0.stage.blockchain.ibm.com',
             'discovery_port': 30001,
-            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp2.stage.blockchain.ibm.com',
+            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp0.stage.blockchain.ibm.com',
             'api_port_tls': 5001,
             'api_port': 5001,
             'type': 'peer',
-            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
-            'container_id': '6ec552d2457e92280865559cde5f62632d8c43b0ba3e9d486b82a04a1ad1c001',
-            'id': 'a5cacfd7717a4266a93abb3763647c30-vp2',
-            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp2.stage.blockchain.ibm.com:5001'
+            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
+            'container_id': 'db664bcc70f94a383aff1a2a8aa2b8456f3f607ebf9e5a496c3895346489cb21',
+            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp0',
+            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp0.stage.blockchain.ibm.com:5001'
         },
         {
-            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp0.stage.blockchain.ibm.com',
+            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp1.stage.blockchain.ibm.com',
             'discovery_port': 30001,
-            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp0.stage.blockchain.ibm.com',
+            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp1.stage.blockchain.ibm.com',
             'api_port_tls': 5001,
             'api_port': 5001,
             'type': 'peer',
-            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
-            'container_id': '719502abdcc202657ed02a7a71b2252db339fe575ffeb30255896d9e4827a354',
-            'id': 'a5cacfd7717a4266a93abb3763647c30-vp0',
-            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp0.stage.blockchain.ibm.com:5001'
+            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
+            'container_id': 'fe1bc0300908bb30f3f7664f98844d591552c27e2993d2575f2012b652590e49',
+            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp1',
+            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp1.stage.blockchain.ibm.com:5001'
         },
         {
-            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-vp3.stage.blockchain.ibm.com',
+            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp3.stage.blockchain.ibm.com',
             'discovery_port': 30001,
-            'api_host': 'a5cacfd7717a4266a93abb3763647c30-vp3.stage.blockchain.ibm.com',
+            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-vp3.stage.blockchain.ibm.com',
             'api_port_tls': 5001,
             'api_port': 5001,
             'type': 'peer',
-            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
-            'container_id': 'ab0faa84ca8c67420fae9cf15848827685a316ff58620067f66eecc5bf585854',
-            'id': 'a5cacfd7717a4266a93abb3763647c30-vp3',
-            'api_url': 'http://a5cacfd7717a4266a93abb3763647c30-vp3.stage.blockchain.ibm.com:5001'
+            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
+            'container_id': 'f2c34b1aa63446077701249a24d83a6ea5519790abb3e61cae4cfae398c11c4d',
+            'id': 'd2766c4876fd40cbac98ac1b46d3ca23-vp3',
+            'api_url': 'http://d2766c4876fd40cbac98ac1b46d3ca23-vp3.stage.blockchain.ibm.com:5001'
         }
     ],
     'ca': {
-        'a5cacfd7717a4266a93abb3763647c30-ca': {
-            'url': 'a5cacfd7717a4266a93abb3763647c30-ca.stage.blockchain.ibm.com:30001',
-            'discovery_host': 'a5cacfd7717a4266a93abb3763647c30-ca.stage.blockchain.ibm.com',
+        'd2766c4876fd40cbac98ac1b46d3ca23-ca': {
+            'url': 'd2766c4876fd40cbac98ac1b46d3ca23-ca.stage.blockchain.ibm.com:30001',
+            'discovery_host': 'd2766c4876fd40cbac98ac1b46d3ca23-ca.stage.blockchain.ibm.com',
             'discovery_port': 30001,
-            'api_host': 'a5cacfd7717a4266a93abb3763647c30-ca.stage.blockchain.ibm.com',
+            'api_host': 'd2766c4876fd40cbac98ac1b46d3ca23-ca.stage.blockchain.ibm.com',
             'api_port_tls': 30001,
             'api_port': 30001,
             'type': 'ca',
-            'network_id': 'a5cacfd7717a4266a93abb3763647c30',
-            'container_id': 'eb9fb4440ab031708b43ff078bdc1b39ea89ca4043a177667234289374a3af0d'
+            'network_id': 'd2766c4876fd40cbac98ac1b46d3ca23',
+            'container_id': '9f48d4fa3a0b4c2969ee6e12322e192ac399488f7a499134a323cd443316ff2e'
         }
-    }
+    },
 };
 
 exports.config = config; // Exports for use in other files that require this one

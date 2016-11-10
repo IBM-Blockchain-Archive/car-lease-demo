@@ -40,6 +40,18 @@ let http = require('http');
 // Object of users' names linked to their security context
 let usersToSecurityContext;
 
+let host;
+let port;
+
+console.log(process.env);
+
+if (process.env.VCAP_SERVICES) {
+    host = JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
+    port = process.env.VCAP_APP_PORT;
+} else {
+    port = configFile.config.app_port;
+    host = 'localhost';
+}
 
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
@@ -87,7 +99,7 @@ app.post('/blockchain/chaincode/vehicles', function(req, res,next){
 });
 
 //-----------------------------------------------------------------------------------------------
-//    Blockchain - Blocks
+//    Blockchain - Blocks8d55b8daf0
 //-----------------------------------------------------------------------------------------------
 app.get('/blockchain/blocks', function(req, res,next){
     blocks.read(req, res,next,usersToSecurityContext);
@@ -250,7 +262,7 @@ app.get('/blockchain/participants/scrap_merchants', function(req, res,next){
 
 //-----------------------------------------------------------------------------------------------
 //    Blockchain - Transactions
-//-----------------------------------------------------------------------------------------------
+//------------------------chain.setDeployWaitTime(100);-----------------------------------------------------------------------
 app.get('/blockchain/transactions', function(req, res,next){
     transactions.read(req, res,next,usersToSecurityContext);
 });
@@ -298,23 +310,20 @@ app.use(function (err, req, res, next) {        // = development error handler, 
 
 // Track the application deployments
 require('cf-deployment-tracker-client').track();
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+process.env.NODE_ENV = 'production';
 
 // ============================================================================================================================
 //                                                         Launch Webserver
 // ============================================================================================================================
-let server = app.listen(8080,'0.0.0.0', function () {
-    console.log('------------------------------------------ Server Up - ' + configFile.config.networkProtocol + '://' + configFile.config.app_url + ' ------------------------------------------');
+let server = app.listen(port, function () {
+    console.log('------------------------------------------ Server Up - ' + host + ':' + server.address().port + ' ------------------------------------------');
     startup.create()
     .then(function(usersToSC) {
         tracing.create('INFO', 'Startup complete on port', server.address().port);
         usersToSecurityContext = usersToSC;
     });
 });
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-// process.env.NODE_ENV = 'production';
-// process.env.GRPC_SSL_CIPHER_SUITES = 'ECDHE-ECDSA-AES128-GCM-SHA256';
+server.timeout = 240000;
 
 // console.log('ENV VARIABLES', configFile.config.networkProtocol+'://'+configFile.config.api_ip, configFile.config.api_port_external);
-
-if (process.env.VCAP_SERVICES) {
-}
