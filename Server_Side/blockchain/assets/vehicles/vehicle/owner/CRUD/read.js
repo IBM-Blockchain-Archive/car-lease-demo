@@ -22,49 +22,49 @@ var read = function (req,res)
 
 	user_id = req.session.identity
 
-  var chain = hfc.getChain(configFile.config.chain_name);
+        var chain = hfc.getChain(configFile.config.chain_name);
 
-  chain.getUser(user_id, function(err, user) {
-    if (err) {
-      res.status(400);
+        chain.getUser(user_id, function(err, user) {
+                if (err) {
+                        res.status(400);
 			var error = {};
 			error.message = 'Unable get user';
 			error.v5cID = v5cID;
-      error.user_id = user_id;
+                        error.user_id = user_id;
 			error.error = true;
 			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', error);
 			res.send(error);
-    }
-    else {
-      var queryRequest = {
-        chaincodeID: configFile.config.vehicle_name,
-        fcn: "get_vehicle_details",
-        args: [v5cID],
-        attrs: attrList
-      }
+                }
+                else {
+                        var queryRequest = {
+                                chaincodeID: configFile.config.vehicle_name,
+                                fcn: "get_vehicle_details",
+                                args: [v5cID],
+                                attrs: attrList
+                        }
 
-      var queryTx = user.query(queryRequest);
+                        var queryTx = user.query(queryRequest);
 
-      queryTx.on('complete', function(results) {
-        var result = {}
-  			var vehicle = JSON.parse(results.result.toString('utf8'));
-  			result.message = vehicle.owner;
-  			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', result);
-  			res.send(result);
-      });
+                        queryTx.on('complete', function(results) {
+                                var result = {}
+                                var vehicle = JSON.parse(results.result.toString('utf8'));
+                                result.message = vehicle.owner;
+                                tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', result);
+                                res.send(result);
+                        });
 
-      queryTx.on('error', function(err) {
-        res.status(400)
-  			var error = {}
-  			error.message = 'Unable to read owner. ' + JSON.stringify(error);
-  			error.v5cID = v5cID;
-        error.user_id = user_id;
-  			error.error = true;
-  			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', error)
-  			res.send(error)
-      });
-    }
-  });
+                        queryTx.on('error', function(err) {
+                                res.status(400);
+                                var error = {}
+                                error.message = 'Unable to read owner. ' + JSON.stringify(error);
+                                error.v5cID = v5cID;
+                                error.user_id = user_id;
+                                error.error = true;
+                                tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/owner', error);
+                                res.send(error);
+                        });
+                }
+        });
 }
 
 exports.read = read;

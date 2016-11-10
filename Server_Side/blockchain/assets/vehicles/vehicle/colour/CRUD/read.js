@@ -10,7 +10,7 @@ var attrList = ["name", "affiliation"];
 
 var read = function (req,res)
 {
-	var v5cID = req.params.v5cID;
+        var v5cID = req.params.v5cID;
 	tracing.create('ENTER', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', {});
 	configFile = reload(__dirname+'/../../../../../../configurations/configuration.js');
 
@@ -22,47 +22,47 @@ var read = function (req,res)
 
 	user_id = req.session.identity
 
-  var chain = hfc.getChain(configFile.config.chain_name);
+        var chain = hfc.getChain(configFile.config.chain_name);
 
-  chain.getUser(user_id, function(err, user) {
-    if (err) {
-      res.status(400);
-			var error = {};
+        chain.getUser(user_id, function(err, user) {
+                if (err) {
+                        res.status(400);
+                        var error = {};
 			error.message = 'Unable to read colour.';
 			error.v5cID = v5cID;
 			error.error = true;
 			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', error);
 			res.send(error);
-    }
-    else {
-      var queryRequest = {
-        chaincodeID: configFile.config.vehicle_name,
-        fcn: "get_vehicle_details",
-        args: [v5cID],
-        attrs: attrList
-      }
+                }
+                else {
+                        var queryRequest = {
+                                chaincodeID: configFile.config.vehicle_name,
+                                fcn: "get_vehicle_details",
+                                args: [v5cID],
+                                attrs: attrList
+                        }
 
-      var queryTx = user.query(queryRequest);
+                        var queryTx = user.query(queryRequest);
 
-      queryTx.on('complete', function(results) {
-        var result = {}
-  			var vehicle = JSON.parse(results.result.toString('utf8'));
-  			result.message = vehicle.colour;
-  			tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', result);
-  			res.send(result);
-      });
+                        queryTx.on('complete', function(results) {
+                                var result = {}
+                                var vehicle = JSON.parse(results.result.toString('utf8'));
+                                result.message = vehicle.colour;
+                                tracing.create('EXIT', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', result);
+                                res.send(result);
+                        });
 
-      queryTx.on('error', function(error) {
-        res.status(400)
-  			var error = {}
-  			error.message = 'Unable to read colour.'
-  			error.v5cID = v5cID;
-  			error.error = true;
-  			tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', error)
-  			res.send(error)
-      });
-    }
-  });
+                        queryTx.on('error', function(error) {
+                                res.status(400)
+                                var error = {}
+                                error.message = 'Unable to read colour.'
+                                error.v5cID = v5cID;
+                                error.error = true;
+                                tracing.create('ERROR', 'GET blockchain/assets/vehicles/vehicle/'+v5cID+'/colour', error)
+                                res.send(error)
+                        });
+                }
+        });
 }
 
 exports.read = read;
