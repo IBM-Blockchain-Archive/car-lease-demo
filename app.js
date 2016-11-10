@@ -27,7 +27,7 @@ var hfc				= require('hfc');
 
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/Server_Side/configurations/configuration.js');
-	
+
 //Our own modules
 var blocks 			= require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
 var block 			= require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
@@ -47,10 +47,10 @@ var port;
 
 //Check if running on Bluemix or if using a local Network JSON file
 check_if_config_requires_overwriting(function(updatedPort){
-	
+
 	//Define port number for app server to use
 	port = updatedPort;
-	
+
 })
 
 ////////  Pathing and Module Setup  ////////
@@ -310,9 +310,9 @@ require("cf-deployment-tracker-client").track();
 // 														Launch Webserver
 // ============================================================================================================================
 var server = http.createServer(app).listen(port, function () {
-	
+
 	var result = startup.create()
-	
+
 });
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 process.env.NODE_ENV = 'production';
@@ -342,7 +342,7 @@ function check_if_config_requires_overwriting(assignPort)
 	var ca_port = configFile.config.ca_port
 	var registrar_name = configFile.config.registrar_name
 	var registrar_password = configFile.config.registrar_password
-	
+
 	if (configFile.config.networkFile != null) // If network file is defined then overwrite the api variables to use these
 	{
 		console.log("Attempting to use network JSON specified")
@@ -353,16 +353,16 @@ function check_if_config_requires_overwriting(assignPort)
 			var peers = networkDetails.credentials.peers;
 			var peer_ip;
 			var peers_array = [];
-			
+
 			//Get address of every peer on the network
 			for(var i in peers){
-				peer_ip = configFile.config.networkProtocol+'://'+peers[i].api_host  
+				peer_ip = configFile.config.networkProtocol+'://'+peers[i].api_host
 				peers_array.push(peer_ip)
 			}
 
 			api_ip = peers_array[0];
 			peers = peers_array;
-			
+
 			//Get details of the Certificate Authority
 			for(var i in ca){
 				ca_ip		= ca[i].discovery_host;
@@ -372,7 +372,7 @@ function check_if_config_requires_overwriting(assignPort)
 			api_port_external = networkDetails.credentials.peers[0].api_port;
 			api_port_internal = networkDetails.credentials.peers[0].api_port;
 			api_port_discovery = networkDetails.credentials.peers[0].discovery_port;
-			
+
 			//Username and password for the user we will assign as the registrar with the HFC module
 			registrar_name = networkDetails.credentials.users[1].username;
 			registrar_password = networkDetails.credentials.users[1].secret;
@@ -384,35 +384,35 @@ function check_if_config_requires_overwriting(assignPort)
 			console.error("Unable to read network JSON. Error:",err) // File either does not exist or JSON was invalid
 			return
 		}
-	} 
+	}
 	else if(process.env.VCAP_SERVICES){ //Check if the app is runnning on bluemix
 		console.log("Attempting to use Bluemix VCAP Services")
-		
-		if(JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"]){		
+
+		if(JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["peers"]){
 
 			try
 			{
 				var credentials = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"];
-			
+
 				app_url 				= "http://" + JSON.parse(process.env.VCAP_APPLICATION)["application_uris"][0];
 				app_port 				= process.env.VCAP_APP_PORT;
 				api_port_external 		= credentials["peers"][0]["api_port"];
 				api_port_internal		= credentials["peers"][0]["api_port"];
 				api_port_discovery 		= credentials["peers"][0]["discovery_port"];
-				
+
 				registrar_name 			= credentials["users"][0]["username"];
 				registrar_password 		= credentials["users"][0]["secret"];
 
 				var ca = credentials["ca"];
 				var peers = credentials["peers"];
 				var peers_array = [];
-				
+
 				//Get address of every peer on the network
 				for(var i in peers){
 					peer_ip = "https://"+peers[i]["api_host"]
 					peers_array.push(peer_ip)
 				}
-				
+
 				api_ip = peers_array[0]
 				peers = peers_array
 
@@ -433,10 +433,10 @@ function check_if_config_requires_overwriting(assignPort)
 			return
 		}
 	}
-	
+
 	//Start rewriting the config file with new values
 	var data = fs.readFileSync(__dirname+'/Server_Side/configurations/configuration.js', 'utf8')
-	
+
 	var str = 'config\.peers(\\t*\\ *)*=(\\t*\\ *)*\\[\''+configFile.config.peers[0]+'\'.*?\\](\\t*\\ *)*(;)?'
 
 	var regex = new RegExp(str, "g")
@@ -445,16 +445,16 @@ function check_if_config_requires_overwriting(assignPort)
 
 	for(var i in peers){
 		peersArrayAsString += '\''+peers[i]+'\''
-		
+
 		if(i != peers.length-1){
 			peersArrayAsString += ','
 		}
 	}
 
 	console.log("String", peersArrayAsString)
-	
+
 	var result = data.replace(regex, "config.peers = ["+peersArrayAsString+"];");
-	
+
 	regex = new RegExp('config\.api_ip(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_ip+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.api_ip = '"+api_ip+"';");
 
@@ -463,7 +463,7 @@ function check_if_config_requires_overwriting(assignPort)
 
 	regex = new RegExp('config\.api_port_internal(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_internal+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.api_port_internal = '"+api_port_internal+"';");
-	
+
 	regex = new RegExp('config\.api_port_discovery(\\t*\\ *)*=(\\t*\\ *)*(\"|\\\')'+configFile.config.api_port_discovery+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.api_port_discovery = '"+api_port_discovery+"';");
 
@@ -472,39 +472,39 @@ function check_if_config_requires_overwriting(assignPort)
 
 	regex = new RegExp('config\.app_port(\\t*\\ *)*=(\\t*\\ *)*'+configFile.config.app_port+'(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.app_port = "+app_port+";");
-	
+
 	regex = new RegExp('config\.ca_ip(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_ip+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.ca_ip = '"+ca_ip+"';");
-	
+
 	regex = new RegExp('config\.ca_port(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.ca_port+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.ca_port = '"+ca_port+"';");
-	
+
 	regex = new RegExp('config\.registrar_name(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_name+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.registrar_name = '"+registrar_name+"';");
-	
+
 	regex = new RegExp('config\.registrar_password(\t*\ *)*=(\t*\ *)*(\"|\\\')'+configFile.config.registrar_password+'(\"|\\\')(\\t*\\ *)*(;)?', "g")
 	result = result.replace(regex, "config.registrar_password = '"+registrar_password+"';");
 
 	try
 	{
 		//console.log("Updated config file",result)
-		
+
 		fs.writeFileSync(__dirname+'/Server_Side/configurations/configuration.js', result, 'utf8');
 		console.log("Updated config file.")
 	}
 	catch(err)
 	{
 		console.error("Unable to write new variables to config file.")
-			
+
 	}
-	
+
 	configFile = reload(__dirname+'/Server_Side/configurations/configuration.js');
-	
-	assignPort(configFile.config.app_port)	
+
+	assignPort(configFile.config.app_port)
 }
 
 function addSlashes(str)
-{ 
+{
    //no need to do (str+'') anymore because 'this' can only be a string
    return str.split('/').join('\\/')
-} 
+}

@@ -7,7 +7,7 @@ var request = require('request');
 var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../configuration.js'),
 	participants = reload(__dirname+'/../../../blockchain/participants/participants_info.js');
-var tracing = require(__dirname+'/../../../tools/traces/trace.js');	
+var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var crypto = require('crypto');
@@ -22,6 +22,9 @@ var users = [];
 var userEcert;
 var userEcertHolder = [];
 var chain;
+
+var deployer;
+var attrList = ["name", "affiliation"];
 
 var create = function()
 {
@@ -54,14 +57,14 @@ var create = function()
 		error.error = true;
 		error.message = 'Participants information not found';
 		tracing.create('ERROR', 'Startup', error);
-		
+
 		return JSON.stringify(error)
 	}
 	//Load the array of peers in the blockchain network, by default we use the first peer in the array
 	var api_ip = configFile.config.api_ip
 	api_ip = api_ip[0].substring(api_ip.indexOf("://")+3);
 
-	var pem = null	
+	var pem = null
 	var registrar_name = configFile.config.registrar_name
 	var registrar_password = configFile.config.registrar_password
 
@@ -73,22 +76,22 @@ var create = function()
 	//Retrieve the certificate if grpcs is being used
 	if(configFile.config.hfc_protocol == 'grpcs'){
 		chain.setECDSAModeForGRPC(true);
-		pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_file_name);		
+		pem = fs.readFileSync(__dirname +'/../../../../'+configFile.config.certificate_file_name);
 	}
 
 	chain.setMemberServicesUrl(configFile.config.hfc_protocol+"://"+configFile.config.ca_ip+":"+configFile.config.ca_port, {pem:pem});
 	chain.addPeer(configFile.config.hfc_protocol+"://"+api_ip+":"+configFile.config.api_port_discovery, {pem:pem});
 	chain.enroll(registrar_name, registrar_password, function(err, registrar) {
-		
+
 		if (!err){
 			// Successfully enrolled registrar and set this user as the chain's registrar which is authorized to register other users.
 			tracing.create('INFO', 'Startup', 'Registrar enroll worked with user ' + registrar_name);
 			chain.setRegistrar(registrar);
-		} 
+		}
 		else{
 			tracing.create('INFO', 'Startup', 'Failed to register using HFC, user may have already been enrolled. '+err);
 		}
-		
+
 		//Start the process of registering and enrolling the demo participants with the CA
 		addUser()
 	});
@@ -97,10 +100,10 @@ var create = function()
 function addUser()
 {
 	var userAff = "00000";
-	
+
 	//mapping participant type to an integer which will be stored in the user's eCert as their affiliation. Dealerships and Leasees both map to the same affiliation as they are both seen as 'Private entities'
 	switch (users[counter].type) {
-			case "regulators": 
+			case "regulators":
 				userAff = "00001";
 				break;
 			case "manufacturers":
@@ -120,121 +123,79 @@ function addUser()
 				break;
 	}
 
-	var userSpec = {
-		"enrollId": users[counter].identity,
-		"enrollSecret": users[counter].password
-	}
+  var attrs = [{name:'affiliation',value:userAff},{name:"name",value:users[counter].identity}];
 
-	//Initial check to see if the user is already registered with the CA
-	var options = 	{
-						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
-						method: "POST",
-						body: userSpec,
-						json: true
-					}
+  chain.getUser(users[counter].identity, function(err, user) {
+    if (err) {
+      tracing.create('ERROR', 'Startup', {"message":"Failed getting user: " + err, "error":true})
+    }
+    else {
+      var userId = user.getName();
 
-	request(options, function(error, response, body)
-	{	
-	
-		console.log("INITIAL LOGIN ATTEMPT", body)
-	
-		if(body && body.hasOwnProperty("OK"))	// Runs if user was already created will return ok if they exist with CA whether they are logged in or not
-		{
-			get_user_ecert(users[counter].identity, users[counter].password, function(err){
+      if (users[counter].type == "regulators") {
+        deployer = user;
+      }
 
-				if(!err){
-					if(counter < users.length - 1)
-					{
-						counter++;
-						tracing.create('INFO', 'Startup', "User already registered and enrolled:" + users[counter].identity);
+      var registrationRequest = {
+        enrollmentID: users[counter].identity,
+        affiliation: 'bank_a',
+        attributes: attrs
+      }
 
-						//want to get user ecert and add to userEcertHolder here
-						setTimeout(function(){addUser()}, 2000);
-					}
-					else
-					{
-						counter = 0;
-						tracing.create('INFO', 'Startup', "User already registered and enrolled:" + users[counter].identity);
-						get_height(function(){deploy_vehicle()});
-					}
-				}
-				else
-				{
-					var error = {}
-					error.message = 'Unable to get user ecert: '+users[counter].identity;
-					error.error = false;
-					
-					tracing.create('ERROR', 'Startup', error+" "+err);
+      user.register(registrationRequest, function(err) {
+        if (err) {
+          tracing.create('ERROR', 'Startup', {"message": "Failed to register user: " + err, "error":true});
+        }
+        else {
+          var userSecret = JSON.parse(user.toString()).enrollmentSecret;
 
-					if(counter < users.length - 1)
-					{
-						counter++;
-						setTimeout(function(){addUser()}, 500);
-					}
-					else
-					{
-						get_height(function(){deploy_vehicle()});
-					}
-				}
-			})
-		}
-		else	// Runs if user hasn't been created yet
-		{
-			var result = createUser(users[counter].identity, 1, userAff, function(err){
-				if (!err) {
-					if(counter < users.length - 1)
-					{
-						counter++;
-						tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-						setTimeout(function(){addUser();},1000);
-					}
-					else
-					{
-						counter = 0;
-						tracing.create('INFO', 'Startup', "Created and registered user:" + users[counter].identity);
-						get_height(function(){deploy_vehicle()});
-					}
-				}
-				else
-				{
-					var error = {}
-					error.message = 'Unable to register user: '+users[counter].identity;
-					error.error = false;
-					
-					tracing.create('ERROR', 'Startup', error+" "+err);
-
-					if(counter < users.length - 1)
-					{
-						counter++;
-						setTimeout(function(){addUser()}, 500);
-					}
-					else
-					{
-						get_height(function(){deploy_vehicle()});
-					}
-				}
-			})
-		}
-	})
+          user.enroll(userSecret, function(err) {
+            if (err) {
+              tracing.create('ERROR', 'Startup', {"message": "Failed to enroll user: " + err, "error":true});
+            }
+            else {
+              user.getUserCert(attrList, function(err, userCert) {
+                if (err) {
+                  tracing.create('ERROR', 'Startup', {"message": "Failed getting user certificate: " + err, "error":true});
+                }
+                else {
+                  userEcertHolder.push(userId, userCert.encode().toString('base64'));
+                  if (counter < users.length - 1) {
+                    counter++;
+                    writeUserToFile(userId, userSecret, function() { addUser(); });
+                  }
+                  else {
+                    get_height(function() {
+                      deploy_vehicle();
+                    });
+                  }
+                }
+              }); // user.getUserCert(...)
+            }
+          }); // user.enroll(...)
+        }
+      }); // user.register(...)
+    }
+  }); // chain.getUser(...)
 }
 
 function get_height(cb){
-	
+
 	tracing.create('INFO', 'Startup', 'Getting initial height of the blockchain');
-	
+
 	var interval = setInterval(function(){
 		var options = 	{
 			url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
 			method: "GET",
 			json: true
 		}
-			
+
 		request(options, function(error, response, body){
 			if(!error && body && body.height >= 1){
 					error_number = 0;
 					update_config("start_height",body.height)
 					cb();
-					clearInterval(interval)		
+					clearInterval(interval)
 			}
 			else{
 				if(error_number > 5){
@@ -245,8 +206,8 @@ function get_height(cb){
 				error_number++
 				tracing.create('INFO', 'Startup', 'Error, trying to get the blockchain height again');
 			}
-		});	
-	}, 5000)
+		});
+	}, 1000)
 }
 
 function deploy_vehicle() //Deploy vehicle chaincode
@@ -256,154 +217,26 @@ function deploy_vehicle() //Deploy vehicle chaincode
 
 	var api_url = configFile.config.api_ip+":"+configFile.config.api_port_internal
 
-	//add check userEcertHolder has data in it
+  var deployRequest = {
+    chaincodePath: configFile.config.vehicle,
+    fcn: "init",
+    args: userEcertHolder
+  }
 
-	console.log("UserEcertHolder",userEcertHolder.length)
-	
-	var deploySpec = {
-						  "jsonrpc": "2.0",
-						  "method": "deploy",
-						  "params": {
-						    "type": 1,
-						    "chaincodeID": {
-						      "path": configFile.config.vehicle
-						    },
-						    "ctorMsg": {
-						      "function": "init",
-						      "args": userEcertHolder
-						    },
-						    "secureContext": participants.participants_info.regulators[0].identity
-						  },
-						  "id": 12
-						}
+  var deployTx = deployer.deploy(deployRequest);
 
-	var options = 	{
-						url: configFile.config.api_ip+":"+configFile.config.api_port_external+'/chaincode',
-						method: "POST", 
-						body: deploySpec,
-						json: true
-					}
+  deployTx.on('submitted', function(results) {
+    tracing.create('INFO', 'Startup', "Deploy request submitted successfully");
+  });
 
-	request(options, function(error, response, body)
-	{
+  deployTx.on('complete', function(results) {
+    tracing.create('INFO', 'Startup', 'Chaincode deployed successfully');
+    update_config("vehicle_name", results.chaincodeID);
+  });
 
-		if (body && !body.hasOwnProperty('error') && response.statusCode == 200)
-		{
-			update_config("vehicle_name",body.result.message)
-			
-			var peers = configFile.config.peers
-			var peerCounter = 0;
-			
-			console.log("Start height", configFile.config.start_height)
-			
-			var interval = setInterval(function(){
-				var options = 	{
-						url: peers[peerCounter]+':'+configFile.config.api_port_external+'/chain',
-						method: "GET",
-						json: true
-					}
-					
-				request(options, function(error, response, body){
-					if(body && body.height > parseInt(configFile.config.start_height)){
-						if(peerCounter < peers.length-1){							
-							tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on peer '+peers[peerCounter]);							
-							peerCounter++										
-						}
-						else{
-							tracing.create('INFO', 'Startup', 'Vehicle chaincode deployed on all peers');
-							clearInterval(interval)
-						}
-					}
-				});	
-			}, 5000)
-		}
-		else
-		{
-			tracing.create('ERROR', 'Startup', {"message":"Error deploying vehicle chaincode","body":body,"error":true});
-			return JSON.stringify({"message":"Error deploying vehicle chaincode","body":body,"error":true})
-		}
-	})
-}
-
-var createCounter = 0;
-
-function createUser(username, role, aff, cb)
-{
-	var registrationRequest = {
-		enrollmentID: username,
-		// Customize account & affiliation
-		role: role,
-		account: "group1",
-		affiliation: aff
-	};
-
-	chain.register( registrationRequest, function(err, secret) {
-		if (err) {
-			if(createCounter < 5){
-				createCounter++
-				setTimeout(function(){createUser(username, role, aff, cb)}, 500);
-			}
-			else{
-				createCounter = 0;
-				return cb(err);
-			}
-		} else{
-
-			chain.getMember(username, function(err, member){
-
-				member.setAccount("group1")
-				member.setAffiliation(aff)
-				member.setRoles([role])
-				member.saveState()
-
-				loginUser(username,aff,secret,cb)
-			})
-		}
-	});	
-}
-
-function loginUser(username, aff, secret, cb)
-{
-	configFile = reload(__dirname+'/../../configuration.js');
-	tracing.create('INFO', 'Startup', 'Attempting to enroll user "'+username+'" with CA');
-
-	var credentials = {
-						  "enrollId": username,
-						  "enrollSecret": secret
-						}
-
-	var options = 	{
-				url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
-				method: "POST", 
-				body: credentials,
-				json: true
-			}
-
-	request(options, function(error, response, body){		
-
-		if (body && !body.hasOwnProperty("Error") && response.statusCode == 200)
-		{
-			innerCounter = 0;
-			tracing.create('INFO', 'Startup', 'Enrolling user "'+username+'" with CA successful');
-
-			get_user_ecert(username, secret, cb)
-		}
-		else
-		{
-			if(innerCounter > 5){
-				innerCounter = 0;
-				tracing.create('ERROR', 'Startup', {"message": "Enrolling user \""+username+"\" with CA failed", "error": false});
-
-				return cb("Enroll user \""+username+"\" with CA failed")
-			}
-			else
-			{
-				innerCounter++
-				tracing.create('INFO', 'Startup', 'Attempting to enroll user "'+username+'" with CA again');
-				setTimeout(function(){loginUser(username, aff, secret,cb);},2000)	            
-			}
-		}
-	});
+  deployTx.on('error', function(error) {
+    tracing.create('ERROR', 'Startup', {"message":"Failed to deploy chaincode", "error":true});
+  });
 }
 
 function update_config(attr, name)
@@ -419,7 +252,7 @@ function update_config(attr, name)
 
 			return false
 		}
-		
+
 		var toMatch = "config."+attr+" = '"+ configFile.config[attr]+"';"
 		var re = new RegExp(toMatch, "g")
 
@@ -428,48 +261,18 @@ function update_config(attr, name)
 		fs.writeFileSync(__dirname+'/../../configuration.js', result, 'utf8', function (err)
 		{
 			if (err)
-			{	
+			{
 				tracing.create('ERROR', 'Startup', {"message": "Unable to update config file", "error": false});
 				return false
 			}
 			else
 			{
-				
+
 				tracing.create('INFO', 'Startup', {"message": "Config file updated", "error": false});
 				configFile = reload(__dirname+'/../../configuration.js');
 				return true
-			}			
+			}
 		});
-	});
-}
-
-function get_user_ecert(user, secret, cb){
-
-	var options = 	{
-						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar/'+user+'/ecert',
-						method: "GET",
-					}
-
-	request(options, function(error, response, body){
-		if(body && JSON.parse(body).hasOwnProperty("OK")){
-			tracing.create('INFO', 'Startup', 'eCert for user '+user+': '+JSON.parse(body).OK);
-			userEcertHolder.push(user,JSON.parse(body).OK)
-			ecertCounter = 0;
-			writeUserToFile(user,secret,cb)
-		}
-		else{
-			if(ecertCounter > 5){
-				tracing.create('INFO', 'Startup', 'Couldn\'t get eCert for user '+user);
-				console.log("BAD ECERT REQUEST", body)
-				ecertCounter = 0;
-			}
-			else{
-				console.log("TRYING TO GET ECERT AGAIN")
-				
-				ecertCounter++
-				setTimeout(function(){get_user_ecert(user,secret,cb);},2000)
-			}
-		}
 	});
 }
 
@@ -483,7 +286,7 @@ function writeUserToFile(username, secret,cb)
 
 	for(var k in participants.participants_info)
 	{
-		if (participants.participants_info.hasOwnProperty(k)) 
+		if (participants.participants_info.hasOwnProperty(k))
 		{
 			var data = participants.participants_info[k];
 
