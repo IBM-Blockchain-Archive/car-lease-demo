@@ -1,0 +1,45 @@
+11/11/2016 00:25:00	ENTER	Startup	INPUT: {}
+	11/11/2016 00:25:00	INFO	Startup	Locating initial participants
+	11/11/2016 00:25:00	INFO	Startup	Registrar enroll worked with user WebAppAdmin
+	11/11/2016 00:25:02	INFO	Startup	Writing user "DVLA" to file
+	11/11/2016 00:25:03	INFO	Startup	Writing user "Alfa_Romeo" to file
+	11/11/2016 00:25:04	INFO	Startup	Writing user "Toyota" to file
+	11/11/2016 00:25:06	INFO	Startup	Writing user "Jaguar_Land_Rover" to file
+	11/11/2016 00:25:08	INFO	Startup	Writing user "Beechvale_Group" to file
+	11/11/2016 00:25:10	INFO	Startup	Writing user "Milescape" to file
+	11/11/2016 00:25:12	INFO	Startup	Writing user "Viewers_Alfa_Romeo" to file
+	11/11/2016 00:25:14	INFO	Startup	Writing user "LeaseCan" to file
+	11/11/2016 00:25:15	INFO	Startup	Writing user "Every_Car_Leasing" to file
+	11/11/2016 00:25:17	INFO	Startup	Writing user "Regionwide_Vehicle_Contracts" to file
+	11/11/2016 00:25:19	INFO	Startup	Writing user "Joe_Payne" to file
+	11/11/2016 00:25:21	INFO	Startup	Writing user "Andrew_Hurt" to file
+	11/11/2016 00:25:23	INFO	Startup	Writing user "Anthony_O_Dowd" to file
+	11/11/2016 00:25:25	INFO	Startup	Writing user "Cray_Bros_London_Ltd" to file
+	11/11/2016 00:25:27	INFO	Startup	Writing user "Aston_Scrap_Centre" to file
+	11/11/2016 00:25:29	INFO	Startup	Getting initial height of the blockchain
+	11/11/2016 00:25:30	INFO	Startup	Updating config file
+	11/11/2016 00:25:30	INFO	Startup	Deploying vehicle chaincode
+11/11/2016 00:26:17	ENTER	Startup	INPUT: {}
+	11/11/2016 00:26:17	INFO	Startup	Locating initial participants
+	11/11/2016 00:26:17	INFO	Startup	Registrar enroll worked with user WebAppAdmin
+	11/11/2016 00:26:19	INFO	Startup	Writing user "DVLA" to file
+	11/11/2016 00:26:20	INFO	Startup	Writing user "Alfa_Romeo" to file
+	11/11/2016 00:26:22	INFO	Startup	Writing user "Toyota" to file
+	11/11/2016 00:26:23	INFO	Startup	Writing user "Jaguar_Land_Rover" to file
+	11/11/2016 00:26:24	INFO	Startup	Writing user "Beechvale_Group" to file
+	11/11/2016 00:26:26	INFO	Startup	Writing user "Milescape" to file
+	11/11/2016 00:26:27	INFO	Startup	Writing user "Viewers_Alfa_Romeo" to file
+	11/11/2016 00:26:28	INFO	Startup	Writing user "LeaseCan" to file
+	11/11/2016 00:26:30	INFO	Startup	Writing user "Every_Car_Leasing" to file
+	11/11/2016 00:26:31	INFO	Startup	Writing user "Regionwide_Vehicle_Contracts" to file
+	11/11/2016 00:26:32	INFO	Startup	Writing user "Joe_Payne" to file
+	11/11/2016 00:26:34	INFO	Startup	Writing user "Andrew_Hurt" to file
+	11/11/2016 00:26:35	INFO	Startup	Writing user "Anthony_O_Dowd" to file
+	11/11/2016 00:26:36	INFO	Startup	Writing user "Cray_Bros_London_Ltd" to file
+	11/11/2016 00:26:38	INFO	Startup	Writing user "Aston_Scrap_Centre" to file
+	11/11/2016 00:26:39	INFO	Startup	Getting initial height of the blockchain
+	11/11/2016 00:26:40	INFO	Startup	Updating config file
+	11/11/2016 00:26:40	INFO	Startup	Deploying vehicle chaincode
+	11/11/2016 00:26:45	INFO	Startup	Deploy request submitted successfully
+	11/11/2016 00:27:44	INFO	Startup	Chaincode deployed successfully
+	11/11/2016 00:27:44	INFO	Startup	Updating config file
