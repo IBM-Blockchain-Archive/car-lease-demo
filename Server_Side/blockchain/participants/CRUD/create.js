@@ -13,10 +13,10 @@ var counter = 0;
 var registerUser = function(req, res) {
 
 	tracing.create('ENTER', 'POST blockchain/participants', req.body)
-	
-    
+
+
     var numberAff = "0000"
-    
+
     switch(req.body.affiliation)
 	{
 		case "Regulator":
@@ -46,20 +46,20 @@ var registerUser = function(req, res) {
 
 function loginUser(req, res, secret)
 {
-	
+
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
 	var credentials = {
 						  "enrollId": req.body.company,
 						  "enrollSecret": secret
 						}
-	
+
 	var options = 	{
 						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/registrar',
-						method: "POST", 
+						method: "POST",
 						body: credentials,
 						json: true
 					}
-					
+
 	request(options, function(error, response, body){
 		if (!body.hasOwnProperty("Error") && response.statusCode == 200)
 		{
@@ -81,9 +81,9 @@ function loginUser(req, res, secret)
 			else{
 	            counter++
 	            tracing.create('INFO', 'POST blockchain/participants', 'Trying to log in again')
-	            setTimeout(function(){loginUser(req, res, secret);},2000)	            
+	            setTimeout(function(){loginUser(req, res, secret);},2000)
         	}
-			
+
 		}
 	});
 }
@@ -91,19 +91,19 @@ function loginUser(req, res, secret)
 function writeUserToFile(req, res, secret)
 {
 	participants = reload(__dirname+'/../participants_info.js');
-	
+
 	var userType = "";
 	var userNumber = "";
-	
+
 	for(var k in participants.participants_info)
 	{
-		if (participants.participants_info.hasOwnProperty(k)) 
+		if (participants.participants_info.hasOwnProperty(k))
 		{
-			
+
            var data = participants.participants_info[k];
            for(var i = 0; i < data.length; i++)
            {
-           		
+
            		if(data[i].identity == req.body.company)
            		{
            			userType = k;
@@ -113,7 +113,7 @@ function writeUserToFile(req, res, secret)
            }
         }
 	}
-	
+
 	var newData = participants.participants_info;
 	if(userType == "")
 	{
@@ -145,18 +145,18 @@ function writeUserToFile(req, res, secret)
 		newData[userType][userNumber].address_line_1 = add_slashes(req.body.street_name);
 		newData[userType][userNumber].address_line_2 = add_slashes(req.body.city);
 		newData[userType][userNumber].postcode = req.body.postcode;
-		
+
 		var configData = "config.participants.users."+userType+"["+userNumber+"] = {}\n";
 		configData += "config.participants.users."+userType+"["+userNumber+"].company = '"+escape_quote(add_slashes(req.body.company))+"'\n";
 		configData += "config.participants.users."+userType+"["+userNumber+"].type = '"+req.body.affiliation+"'\n";
 		configData += "config.participants.users."+userType+"["+userNumber+"].user = '"+escape_quote(add_slashes(req.body.username))+"'\n";
 		fs.appendFileSync(__dirname+'/../../../../Client_Side/JavaScript/config/config.js', configData);
-			
+
 	}
 	newData[userType][userNumber].password = secret;
-	
+
 	var updatedFile = '/*eslint-env node*/\n\nvar user_info = JSON.parse(process.env.VCAP_SERVICES)["ibm-blockchain-5-prod"][0]["credentials"]["users"];\n\nvar participants_info = '+JSON.stringify(newData)+'\n\nexports.participants_info = participants_info;';
-	
+
 	fs.writeFileSync(__dirname+'/../participants_info.js', updatedFile);
 	var result = {}
 	result.message = 'User creation successful'

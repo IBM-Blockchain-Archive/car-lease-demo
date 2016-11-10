@@ -7,7 +7,8 @@ var reload = require('require-reload')(require),
     configFile = reload(__dirname+'/../../../configurations/configuration.js');
 var tracing = require(__dirname+'/../../../tools/traces/trace.js');
 var map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
-    
+var cert_attr = require(__dirname + '/../../../tools/cert/cert_attr.js');
+
 var result = {"transactions":[]};
 var height = 1;
 var stateHash = "";
@@ -46,14 +47,14 @@ var get_height = function(req, res) //Checks to see if chain height is greater t
 			res.send(error);
 		}
 	});
-	
+
 }
 exports.read = get_height;
 
 function get_block(req, res, number) //Retrieves block, and retrieves transactions within the block
 {
 	configFile = reload(__dirname+'/../../../configurations/configuration.js');
-	
+
 	var options = {
 		url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain/blocks/'+number,
 		method: "GET"
@@ -61,22 +62,23 @@ function get_block(req, res, number) //Retrieves block, and retrieves transactio
 	request(options, function (error, response, body){
 		if (!error && response.statusCode == 200) {
 			var block = JSON.parse(body);
-			for(var i = 0; i < block.transactions.length; i++)
-			{
-				block.transactions[i].payload = new Buffer(block.transactions[i].payload, 'base64').toString('ascii');
-				var cert = block.transactions[i].cert;
-				cert = cert.replace(/(.{1,64})/g, '$1\n');
-				cert = '-----BEGIN CERTIFICATE-----\n' + cert + '-----END CERTIFICATE-----\n'
-				block.transactions[i].cert = x509.parseCert(cert);
-				block.transactions[i].caller = block.transactions[i].cert.subject.commonName;
-				block.transactions[i].failed = false;
-				if(stateHash == block.stateHash)
-				{
-					block.transactions[i].failed = true;
-				}
-				
-				result.transactions.push(block.transactions[i]);
-			}
+  			for(var i = 0; i < block.transactions.length; i++)
+  			{
+  				block.transactions[i].payload = new Buffer(block.transactions[i].payload, 'base64').toString('ascii');
+  				var cert = block.transactions[i].cert;
+  				cert = cert.replace(/(.{1,64})/g, '$1\n');
+  				cert = '-----BEGIN CERTIFICATE-----\n' + cert + '-----END CERTIFICATE-----\n'
+  				block.transactions[i].cert = x509.parseCert(cert);
+  				//block.transactions[i].caller = block.transactions[i].cert.subject.commonName;
+          block.transactions[i].caller = cert_attr.readCertAttribute(block.transactions[i].cert, "name");
+  				block.transactions[i].failed = false;
+  				if(stateHash == block.stateHash)
+  				{
+  					block.transactions[i].failed = true;
+  				}
+
+  				result.transactions.push(block.transactions[i]);
+  			}
 			stateHash = block.stateHash;
 
 			if(number + 1 < height)
@@ -111,7 +113,7 @@ function evaluate_transactions(req, res)
 {
 	var validV5cs = "";
 	var user_id = map_ID.user_to_id(req.session.user)
-	
+
 	for(var i = 0; i < result.transactions.length; i++)
 	{
 		var transaction = result.transactions[i];
@@ -131,4 +133,3 @@ function evaluate_transactions(req, res)
 	result.transactions.reverse()
 	res.send(result);
 }
-
