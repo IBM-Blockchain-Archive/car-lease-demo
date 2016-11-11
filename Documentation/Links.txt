@@ -1,0 +1,5 @@
+Link to Deploy to Bluemix button (to deploy demo to bluemix):
+https://console.ng.bluemix.net/docs/services/blockchain/ibmblockchain_tutorials.html
+
+Link to VM image (Internal to IBM due to licensing reasons of base OS):
+http://hurgsa.ibm.com/projects/b/blockchain 
