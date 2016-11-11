@@ -4,7 +4,7 @@ Car Lease Demo
 ##Deploying the demo##
 To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://hub.jazz.net/deploy/index.html?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://hub.jazz.net/deploy/index.html?repository=https://github.com/jakeeyturner/car-lease-demo.git&branch=0.6)
 
 To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md#deploying-locally)
 
@@ -40,7 +40,7 @@ The demonstration allows a view of the ledger that stores all the interactions t
 > Note: The demo currently does not include the ability to lease cars however shows the process of what would happen once the lease has ended and the final payment has been made showing the lease company transferring full ownership of the asset to the leasee.
 
 ##Application scenario##
-The scenario goes through the lifecycle of a car which has the following stages: 
+The scenario goes through the lifecycle of a car which has the following stages:
 
 ![Application scenario overview](/Images/Scenario_Overview.png)
 

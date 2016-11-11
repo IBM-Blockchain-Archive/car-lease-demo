@@ -1,375 +1,252 @@
-/*eslint-env node */
+'use strict';
 
-var request = require('request');
-var reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../configurations/configuration.js'),
-	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
-var tracing = require(__dirname+'/../../../tools/traces/trace.js');	
-var spawn = require('child_process').spawn;
-var fs = require('fs')
-var map_ID = require(__dirname+"/../../../tools/map_ID/map_ID.js");
+let request = require('request');
+let configFile = require(__dirname+'/../../../configurations/configuration.js');
+let tracing = require(__dirname+'/../../../tools/traces/trace.js');
+let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
+let initial_vehicles = require(__dirname+'/../../../blockchain/assets/vehicles/initial_vehicles.js');
+let fs = require('fs');
+
+let baseUrl = configFile.config.networkProtocol + '://localhost:' + configFile.config.app_port;
+
+const TYPES = [
+    'regulator_to_manufacturer',
+    'manufacturer_to_private',
+    'private_to_lease_company',
+    'lease_company_to_private',
+    'private_to_scrap_merchant'
+];
+
+function create(req, res, next, usersToSecurityContext) {
+    let cars;
+
+    res.write(JSON.stringify({'message': 'performing scenario creation now'}));
+    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
+
+    tracing.create('ENTER', 'POST admin/demo', req.body);
+
+    let scenario = req.body.scenario;
+
+    if(scenario === 'simple' || scenario === 'full') {
+        cars = initial_vehicles[scenario];
+    } else {
+        let error = {};
+        error.message = 'Scenario type not recognised';
+        error.error = true;
+        res.end(JSON.stringify(error));
+        return;
+    }
+
+    if(cars.hasOwnProperty('cars')) {
+        cars = cars.cars;
+        let v5cIDResults;
+        return createVehicles(cars)
+            .then(function(results) {
+                v5cIDResults = results;
+                let carIndex = 0;
+                let promises = [];
+                res.end('{message:"Created vehicles"}');
+                results.forEach(function(body) {
+                    body = JSON.parse(body);
+                    let v5cID = body.v5cID;
+                    let car = cars[carIndex];
+                    let seller = 'DVLA';
+                    let buyer = map_ID.user_to_id(car.Owners[1]);
+                    promises.push(transferVehicle(v5cID, seller, buyer, 'authority_to_manufacturer')); //Move car to first owner after DVLA
+                    carIndex++;
+                });
+                return Promise.all(promises);
+            })
+            .then(function(p) {
+                updateDemoStatus({message: 'Transfered all vehicles'});
+                let carIndex = 0;
+                let promises = [];
+                v5cIDResults.forEach(function(body){
+                    body = JSON.parse(body);
+                    let v5cID = body.v5cID;
+                    let car = cars[carIndex];
+                    promises.push(populateVehicle(v5cID, car));
+                    carIndex++;
+                });
+                return Promise.all(promises);
+            })
+            .then(function() {
+                updateDemoStatus({message: 'Updating vehicle details'});
+                let promises = [];
+                v5cIDResults.forEach(function(body, index) {
+                    body = JSON.parse(body);
+                    let v5cID = body.v5cID;
+                    let car = cars[index];
+                    promises.push(transferBetweenOwners(v5cID, car));
+                });
+                return Promise.all(promises);
+            })
+            .then(function() {
+                updateDemoStatus({message: 'Demo setup'});
+            })
+            .catch(function(err) {
+                updateDemoStatus({'message: ': JSON.parse(err), error: true});
+                tracing.create('ERROR', 'POST admin/demo', err.stack);
+                res.end(JSON.stringify(err));
+            });
+    } else {
+        let error = {};
+        error.message = 'Initial vehicles not found';
+        error.error = true;
+        updateDemoStatus({'message: ': JSON.parse(error), error: true});
+        res.end(JSON.stringify(error));
+        return;
+    }
+}
+
+// Promise based tansfer - Sometimes transactions happen in the wrong order
+// function transferBetweenOwners(v5cID, car) {
+//     let functionName;
+//     let promises = [];
+//     car.Owners.forEach(function(owner, i) {
+//         if (owner !== 'DVLA' && i !== 1) {
+//             let seller = car.Owners[i - 1];
+//             let buyer = map_ID.user_to_id(car.Owners[i]);
+//
+//             functionName = TYPES[i - 1];
+//
+//             promises.push(transferVehicle(v5cID, seller, buyer, functionName));
+//         }
+//     });
+//     return Promise.all(promises);
+// }
+
+function transferBetweenOwners(v5cID, car, results) {
+    let functionName;
+    let newCar = JSON.parse(JSON.stringify(car));
+    if (!results) {
+        results = [];
+    }
+    if (newCar.Owners.length > 2) {
+        let seller = newCar.Owners[1]; // First after DVLA
+        let buyer = map_ID.user_to_id(newCar.Owners[2]); // Second after DVLA
+        functionName = TYPES[results.length + 1];
+        return transferVehicle(v5cID, seller, buyer, functionName)
+        .then(function(result) {
+            results.push(result);
+            newCar.Owners.shift();
+            return transferBetweenOwners(v5cID, newCar, results);
+        });
+    } else {
+        return Promise.resolve(results);
+    }
+}
+
+// Uses recurision because Promise.all() breaks HFC
+function createVehicles(cars, results) {
+    let newCars = JSON.parse(JSON.stringify(cars));
+    if (!results) {results = [];}
+    if (newCars.length > 0) {
+        return createVehicle(newCars[newCars.length - 1])
+        .then(function(result) {
+            results.push(result);
+            newCars.pop();
+            return createVehicles(newCars, results);
+        });
+    } else {
+        return Promise.resolve(results);
+    }
+}
+
+function createVehicle() {
+    let url = baseUrl + '/blockchain/assets/vehicles';
+    let options = {
+        url: url,
+        method: 'POST',
+    };
+    return RESTRequest(options, 'DVLA');
+}
+
+function populateVehicle(v5cID, car) {
+    let promises = [];
+    let url;
+    let normalisedProperty;
+    for(let property in car) {
+        if (property !== 'Owners') {
+            normalisedProperty = (property === 'VIN') ? property : property.toLowerCase();
+            url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/'+normalisedProperty;
+            let options = {
+                url: url,
+                method: 'PUT',
+                json: {
+                    value: car[property],
+                }
+            };
+            promises.push(RESTRequest(options, car.Owners[1]));
+            updateDemoStatus({message: 'Populating ' + v5cID});
+        }
+    }
+    return Promise.all(promises);
+}
 
 
-var initial_vehicles = require(__dirname+"/../../../blockchain/assets/vehicles/initial_vehicles.js");
-var send_error = false;
-var counter = 0;
-var users = [];
-var cars = [];
-var cars_info;
+/**
+ * transferVehicle - description
+ *
+ * @param  {string} v5cID  description
+ * @param  {string} seller the sellers name
+ * @param  {string} buyer  the buyers user ID
+ * @param  {string} functionName  chaincode function name
+ * @return {Promise}        description
+ */
+function transferVehicle(v5cID, seller, buyer, functionName) {
+    updateDemoStatus({'message':'Transfered vehicle ' + v5cID + '(' + seller + ' -> '+ buyer +')', 'counter': true});
+    let url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/owner/';
+    let options = {
+        url: url,
+        method: 'PUT',
+        json: {
+            value: buyer, // the users ID
+            function_name: functionName
+        }
+    };
+    return RESTRequest(options, seller);
+}
 
-var create = function(req,res)
-{
-	//req.body.scenario valid values = simple, full
-	res.end(JSON.stringify({"message": "performing scenario creation now"}));
-	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
-	
-	tracing.create('ENTER', 'POST admin/demo', req.body);
-	configFile = reload(__dirname+'/../../../configurations/configuration.js');
-	
-	var scenario = req.body.scenario;
-	
-	if(scenario == "simple")
-	{
-		cars_info = initial_vehicles.simple_scenario;
-	}
-	else if(scenario == "full")
-	{
-		cars_info = initial_vehicles.full_scenario;	
-	}
-	else
-	{
-		var error = {}
-		error.message = 'Scenario type not recognised';
-		error.error = true;
-		update_demo_status(error);
-	}
-	
-	if(cars_info.hasOwnProperty('cars'))
-	{
-		cars = cars_info.cars;
-		counter = 0
-		create_cars(req, res);
-	}
-	else
-	{
-		var error = {}
-		error.message = 'Initial vehicles not found';
-		error.error = true;
-		update_demo_status(error);
-	}
+
+/**
+ * RESTRequest - description
+ *
+ * @param  {object} options description
+ * @param  {string} user    the users name
+ * @return {Promise}         description
+ */
+function RESTRequest(options, user) {
+    let cookie = request.cookie('user='+user);
+    let j = request.jar();
+    j.setCookie(cookie, options.url);
+    options.jar = j;
+    return new Promise(function(resolve, reject) {
+        request(options, function(err, resp, body) {
+            if (!err) {
+                resolve(body);
+            } else {
+                reject(err);
+            }
+        });
+    });
+}
+
+function updateDemoStatus(status) {
+    let statusFile = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
+    let demoStatus = JSON.parse(statusFile);
+    demoStatus.logs.push(status);
+    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demoStatus));
+
+    if(!status.hasOwnProperty('error')) {
+        if(status.message === 'Demo setup') {
+            tracing.create('EXIT', 'POST admin/demo', status);
+        } else {
+            tracing.create('INFO', 'POST admin/demo', status.message);
+        }
+    } else {
+        tracing.create('ERROR', 'POST admin/demo', status);
+    }
 }
 
 exports.create = create;
-
-var v5cIDs = []
-
-function create_cars(req, res)
-{
-	update_demo_status({"message":"Creating vehicles"})
-	
-	configFile = reload(__dirname+'/../../../configurations/configuration.js');
-	
-	v5cIDs = []
-	send_error = false;
-	var prevCount = -1;
-	var check_create = setInterval(function(){
-		if(v5cIDs.length == cars.length && !send_error)
-		{
-			update_demo_status({"message":"Transferring vehicles to manufacturers"})
-			clearInterval(check_create)
-			counter = 0;
-			transfer_created_cars(req, res)
-		}
-		else if(send_error)
-		{
-			clearInterval(check_create)
-			counter = 0;
-			update_demo_status({"message":"Unable to write vehicle", "error": true})
-		}
-		else if(v5cIDs.length > prevCount)
-		{
-			if(prevCount != -1)
-			{
-				update_demo_status({"message":"Created vehicle "+v5cIDs[v5cIDs.length -1], "counter": true})
-			}
-			prevCount = v5cIDs.length;
-			create_car()
-		}
-	}, 500)
-}
-function create_car()
-{
-	
-	var j = request.jar();
-	var str = "user=DVLA"
-	var cookie = request.cookie(str);
-	var url = configFile.config.app_url + '/blockchain/assets/vehicles';
-	j.setCookie(cookie, url);
-	var options = {
-		url: url,
-		body: "",
-		method: 'POST',
-		jar: j
-	}
-
-	request(options, function(error, response, body)
-	{
-		
-		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
-		{
-			var array = body.split("&&");
-			for(var i = 0; i < array.length; i++)
-			{
-				var data = JSON.parse(array[i]).message
-				if(data.indexOf('Creating vehicle with v5cID:') != -1)
-				{
-					v5cIDs.push(data.substring(data.indexOf(':')+2, data.length).trim())
-				}
-			}
-		}
-		else
-		{
-			send_error = true;
-		}
-	});	
-
-}
-function transfer_created_cars(req, res)
-{
-	
-	send_error = false;
-	var prevCount = -1;
-	var check_int = setInterval(function(){
-		if(counter == cars.length && !send_error)
-		{
-			update_demo_status({"message":"Updating vehicles' details"})
-			clearInterval(check_int)
-			counter = 0;
-			ind_update_counter = 0;
-			update_cars(req, res);
-		}
-		else if(send_error)
-		{
-			clearInterval(check_int)
-			counter = 0;
-			update_demo_status({"message":"Unable to transfer vehicles", "error": true})
-		}
-		else if(counter > prevCount)
-		{
-			if(prevCount != -1)
-			{
-				update_demo_status({"message":"Transfered vehicle "+v5cIDs[counter]+"(DVLA -> "+cars[counter].Owners[1]+")", "counter": true})
-			}
-			prevCount = counter;
-			transfer_car("DVLA", map_ID.user_to_id(cars[counter].Owners[1]), v5cIDs[counter], 'authority_to_manufacturer', "counter")
-		}
-	}, 500)
-}
-function transfer_car(sender, receiver, id, function_name, toUpdate)
-{
-	var data = {};
-	data.function_name= function_name;
-	data.value= receiver;
-
-	var j = request.jar();
-	var str = "user="+sender
-	var cookie = request.cookie(str);
-	var url = configFile.config.app_url + '/blockchain/assets/vehicles/'+id+'/owner';
-	j.setCookie(cookie, url);
-	var options = {
-		url: url,
-		json: data,
-		method: 'PUT',
-		jar: j
-	}
-
-	request(options, function(error, response, body)
-	{
-		if(toUpdate == "counter")
-		{
-			counter++
-		}
-		else
-		{
-			ind_transfer_counter++;
-		}
-		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
-		{
-
-		}
-		else
-		{
-			send_error = true;
-		}
-	})
-}
-function update_cars(req, res)
-{
-	send_error = false;
-	var prevCount = -1;
-	var check_update = setInterval(function(){
-		if(counter == cars.length && !send_error)
-		{
-			update_demo_status({"message":"Transferring vehicles to private owners"})
-			clearInterval(check_update)
-			counter = 0;
-			ind_transfer_counter = 2;
-			
-			transfer_updated_cars(req, res)
-		}
-		else if(send_error)
-		{
-			clearInterval(check_update)
-			counter = 0;
-			update_demo_status({"message":"Unable to update vehicles", "error": true})
-		}
-		else if(counter > prevCount)
-		{
-			if(prevCount != -1)
-			{
-				update_demo_status({"message":"Updated all fields for vehicle "+v5cIDs[counter], "counter": true})
-			}
-			prevCount = counter;
-			update_all_car_parts(v5cIDs[counter])
-		}
-	}, 500)
-}
-
-var ind_update_counter = 0;
-
-function update_all_car_parts(id)
-{
-	var car_owner = cars[counter].Owners[1]
-	var update_fields = [{"value":cars[counter].VIN,"field":"VIN", "title": "VIN"},{"value":cars[counter].Make,"field":"make", "title": "Make"},{"value":cars[counter].Model,"field":"model", "title": "Model"},{"value":cars[counter].Colour,"field":"colour", "title": "Colour"},{"value":cars[counter].Reg,"field":"reg", "title": "Registration"}]
-	var prevCount = -1;
-	var check_ind_update = setInterval(function(){
-		if(ind_update_counter == 5)
-		{
-			ind_update_counter = 0;
-			clearInterval(check_ind_update)
-			counter++;
-		}
-		else if(send_error)
-		{
-			clearInterval(check_ind_update)
-		}
-		else if(ind_update_counter>prevCount)
-		{
-			prevCount = ind_update_counter;
-			update_car(car_owner, update_fields[ind_update_counter].value, id, update_fields[ind_update_counter].field)
-		}
-	},500)
-}
-
-function update_car(manufacturer, value, id, field)
-{
-	
-	var data = {};
-	data.value= value
-	data.oldValue = "undefined";
-
-	var j = request.jar();
-	var str = "user="+manufacturer;
-	var cookie = request.cookie(str);
-	var url = configFile.config.app_url + '/blockchain/assets/vehicles/'+id+'/'+field;
-	j.setCookie(cookie, url);
-	var options = {
-		url: url,
-		json: data,
-		method: 'PUT',
-		jar: j
-	}
-
-	request(options, function(error, response, body)
-	{
-		ind_update_counter++
-		
-		if (!error && response.statusCode == 200 && body.indexOf('error') == -1) 
-		{
-
-		}
-		else
-		{
-			send_error = true;
-		}
-	})
-}
-
-function transfer_updated_cars(req, res)
-{	
-	send_error = false;
-	var prevCount = -1;
-	var check_trans = setInterval(function(){
-		if(counter == cars.length && !send_error)
-		{
-			clearInterval(check_trans)
-			counter = 0;
-			update_demo_status({"message":"Demo setup"})
-		}
-		else if(send_error)
-		{
-			clearInterval(check_trans)
-			counter = 0;
-			update_demo_status({"message":"Unable to transfer vehicles", "error": true})
-		}
-		else if(counter > prevCount)
-		{
-			if(prevCount != -1)
-			{
-				update_demo_status({"message":"Transfered all owners for vehicle "+v5cIDs[counter], "counter": true})
-			}
-			prevCount = counter;
-			transfer_all_owners(v5cIDs[counter])
-		}
-	}, 500)
-}
-
-var ind_transfer_counter = 2;
-
-function transfer_all_owners(id)
-{
-	var prevCount = -1;
-	var check_ind_transfer = setInterval(function(){
-		if(ind_transfer_counter == cars[counter].Owners.length)
-		{
-			ind_transfer_counter = 2;
-			clearInterval(check_ind_transfer)
-			counter++;
-		}
-		else if(send_error)
-		{
-			clearInterval(check_ind_transfer)
-		}
-		else if(ind_transfer_counter>prevCount)
-		{
-			var types = ["manufacturer_to_private", "private_to_lease_company", "lease_company_to_private", "private_to_scrap_merchant"]
-			prevCount = ind_transfer_counter;
-			transfer_car(cars[counter].Owners[ind_transfer_counter-1], map_ID.user_to_id(cars[counter].Owners[ind_transfer_counter]), id, types[ind_transfer_counter-2], "ind_transfer_counter")
-		}
-	},500)
-}
-
-
-function update_demo_status(content)
-{
-	var demo_status_file = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
-	var demo_status = JSON.parse(demo_status_file)
-	demo_status.logs.push(content)
-	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demo_status))
-	if(!content.hasOwnProperty('error'))
-	{
-		if(content.message == "Demo setup")
-		{
-			tracing.create('EXIT', 'POST admin/demo', content);
-		}
-		else
-		{
-			tracing.create('INFO', 'POST admin/demo', content.message);
-		}
-	}
-	else
-	{
-		tracing.create('ERROR', 'POST admin/demo', content);
-	}
-}
-

@@ -1,6 +1,3 @@
-<<<<<<< Upstream, based on 294b03f1af1cba7956ca1a77272a3bf67dfa315e
 node_modules
-=======
-launchConfigurations/
 .git/
->>>>>>> d875bf2 Initial
+keyValStore

@@ -91,7 +91,7 @@ $(document).ready(function(){
 
 		for(var i = 0; i < block.transactions.length; i++)
 		{
-			transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].uuid+'</span>'
+			transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].txid+'</span>'
 		}
 
 		$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>')
@@ -136,7 +136,7 @@ $(document).ready(function(){
 
 				for(var j = 0; j < blk.transactions.length; j++)
 				{
-					transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk.transactions[j].uuid+'\') ">'+blk.transactions[j].uuid+'</span>'
+					transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk.transactions[j].txid+'\') ">'+blk.transactions[j].txid+'</span>'
 				}
 
 				$('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+blk.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blk.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.transactions.length))+'"></input></div>')
