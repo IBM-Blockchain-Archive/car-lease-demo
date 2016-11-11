@@ -8,3 +8,9 @@ node_modules/
 
 #application log files
 Server_Side/logs/
+
+npm-debug.log
+Server_Side/logs/app_trace.log
+
+chaincode.txt
+keyValStore
