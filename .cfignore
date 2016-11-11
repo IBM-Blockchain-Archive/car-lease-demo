@@ -1,5 +1,3 @@
 **/node_modules
 .git/
-keyValStore
 credentials.json
-chaincode.txt

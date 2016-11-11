@@ -17,7 +17,7 @@ if (process.env.VCAP_APPLICATION) {
         }
     }
 } else {
-    ext_uri = 'http://localhost';
+    ext_uri = 'http://' + configFile.config.offlineUrl + ':' + configFile.config.app_port;
 }
 
 // let baseUrl = configFile.config.appProtocol + '://' + configFile.config.app_ip + ':' + configFile.config.app_port;
@@ -182,7 +182,7 @@ function populateVehicle(v5cID, car) {
                 }
             };
             promises.push(RESTRequest(options, car.Owners[1]));
-            updateDemoStatus({message: 'Populating ' + v5cID});
+            updateDemoStatus({'message':'Created vehicle '+v5cID, 'counter': true});
         }
     }
     return Promise.all(promises);

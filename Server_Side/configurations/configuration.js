@@ -30,6 +30,7 @@ config.networkProtocol     = 'https';             // The protocol to be used for
 
 //Settings for the nodeJS application server
 config.appProtocol = 'https';
+config.offlineUrl = 'localhost';
 config.app_port = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
 
 
@@ -224,14 +225,17 @@ config.users = [
 //--------------------------------------------------------------------------------------------------------------------
 //IP and port configuration
 // config.api_ip = config.peers[0].discovery_host; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
+let credentials;
 
-let credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
-//TODO: FIX THIS
-// let credentials = fs.readFileSync(__dirname + '/../../credentials.json', 'utf8');
-// credentials = JSON.parse(credentials);
+if (process.env.VCAP_SERVICES) {
+    credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
+} else {
+    credentials = fs.readFileSync(__dirname + '/../../credentials.json', 'utf8');
+    credentials = JSON.parse(credentials);
+}
 
 //When using blockchain on bluemix, api_port_external and api_port_internal will be the same
-config.api_port_external  = credentials.peers[0].api_port; //port number used when calling api from outside of the vagrant environment
+{config.api_port_external  = credentials.peers[0].api_port;} //port number used when calling api from outside of the vagrant environment
 config.api_port_internal  = credentials.peers[0].discovery_port; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
 config.api_port_discovery = credentials.peers[0].discovery_port; //port number used for HFC
 
