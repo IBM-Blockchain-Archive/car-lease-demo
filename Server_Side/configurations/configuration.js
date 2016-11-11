@@ -1,5 +1,7 @@
 'use strict';
 
+let fs = require('fs');
+
 //TODO: Change this a be compatible with the Config npm module
 
 let config = {};
@@ -34,10 +36,8 @@ config.app_port = 8080;                         //Port that the NodeJS server is
 //--------------------------------------------------------------------------------------------------------------------
 //    User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.
 //--------------------------------------------------------------------------------------------------------------------
-
-config.registrar_name = 'WebAppAdmin';
+config.registrar_name = 'admin';
 config.registrar_password = 'DJY27pEnl16d';
-config.bluemix_registrar_password = '7aed4f1f15';
 
 //--------------------------------------------------------------------------------------------------------------------
 //    HFC configuration - Defines what protocol to use for communication, bluemix certificate location and key store location
@@ -219,92 +219,38 @@ config.users = [
     }
 ];
 
-config.peers = [
-    {
-        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp0.stage.blockchain.ibm.com',
-        'discovery_port': 30001,
-        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp0.stage.blockchain.ibm.com',
-        'api_port_tls': 5001,
-        'api_port': 5001,
-        'type': 'peer',
-        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
-        'container_id': '9ed96333a4183f0c033527e0829f3a2053110fea2f47df068a808f0d1f2c0b6b',
-        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp0',
-        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp0.stage.blockchain.ibm.com:5001'
-    },
-    {
-        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp2.stage.blockchain.ibm.com',
-        'discovery_port': 30001,
-        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp2.stage.blockchain.ibm.com',
-        'api_port_tls': 5001,
-        'api_port': 5001,
-        'type': 'peer',
-        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
-        'container_id': 'aa34cc61873fba27a8f60839e69cf23ce49017f7477aae607847d110dbad010f',
-        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp2',
-        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp2.stage.blockchain.ibm.com:5001'
-    },
-    {
-        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp1.stage.blockchain.ibm.com',
-        'discovery_port': 30001,
-        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp1.stage.blockchain.ibm.com',
-        'api_port_tls': 5001,
-        'api_port': 5001,
-        'type': 'peer',
-        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
-        'container_id': '15a939e5495fda0641314f2b08d9923b8b5382851c27723710ba6766cbbb117b',
-        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp1',
-        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp1.stage.blockchain.ibm.com:5001'
-    },
-    {
-        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-vp3.stage.blockchain.ibm.com',
-        'discovery_port': 30001,
-        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-vp3.stage.blockchain.ibm.com',
-        'api_port_tls': 5001,
-        'api_port': 5001,
-        'type': 'peer',
-        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
-        'container_id': 'bc85e4109ecbca2ac2812bfae53c9c573d85d4047341a133c292719908595346',
-        'id': 'ac9ada399d424394a5f9b44d405a45c4-vp3',
-        'api_url': 'http://ac9ada399d424394a5f9b44d405a45c4-vp3.stage.blockchain.ibm.com:5001'
-    }
-];
-
 //--------------------------------------------------------------------------------------------------------------------
 //    Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
 //--------------------------------------------------------------------------------------------------------------------
 //IP and port configuration
-config.api_ip = config.peers[0].discovery_host; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
+// config.api_ip = config.peers[0].discovery_host; //IP of the peer attempting to be connected to. By default this is the first peer in the peers array.
+
+let credentials = fs.readFileSync(__dirname + '/../../credentials.json');
+credentials = JSON.parse(credentials);
 
 //When using blockchain on bluemix, api_port_external and api_port_internal will be the same
-config.api_port_external  = config.peers[0].api_port; //port number used when calling api from outside of the vagrant environment
-config.api_port_internal  = config.peers[0].discovery_port; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
-config.api_port_discovery = config.peers[0].discovery_port; //port number used for HFC
-
-config.eventHubUrl = config.peers[0].discovery_host;
+config.api_port_external  = credentials.peers[0].api_port; //port number used when calling api from outside of the vagrant environment
+config.api_port_internal  = credentials.peers[0].discovery_port; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
+config.api_port_discovery = credentials.peers[0].discovery_port; //port number used for HFC
+//
+config.eventHubUrl = credentials.peers[0].discovery_host;
 config.eventHubPort = 31001;
 
-config.ca = {
-    'ac9ada399d424394a5f9b44d405a45c4-ca': {
-        'url': 'ac9ada399d424394a5f9b44d405a45c4-ca.stage.blockchain.ibm.com:30001',
-        'discovery_host': 'ac9ada399d424394a5f9b44d405a45c4-ca.stage.blockchain.ibm.com',
-        'discovery_port': 30001,
-        'api_host': 'ac9ada399d424394a5f9b44d405a45c4-ca.stage.blockchain.ibm.com',
-        'api_port_tls': 30001,
-        'api_port': 30001,
-        'type': 'ca',
-        'network_id': 'ac9ada399d424394a5f9b44d405a45c4',
-        'container_id': 'fd608934b6d0ac30fc1fc66b73039c5207223ec8feb0e00255e17eec814d0d07'
-    }
-};
-
 let ca;
-for (let i in config.ca) {
-    ca = config.ca[i];
+for(let key in credentials.ca) {
+    ca = credentials.ca[key];
 }
 
 //IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
 config.ca_ip = ca.discovery_host;     //IP of the CA attempting to be connected to
 config.ca_port = ca.discovery_port;         //Discovery port of the Certificate Authority. Used for HFC
+
+config.bluemix_registrar_password = '27fc57a0ac';
+
+credentials.users.forEach(function(user) {
+    if (user.username === config.registrar_name) {
+        config.bluemix_registrar_password = user.secret;
+    }
+});
 
 exports.config = config; // Exports for use in other files that require this one
