@@ -21,7 +21,6 @@ let read = function(req, res)
         }
         else
         {
-            console.log(err);
             res.status(400);
             let err = {};
             err.message = 'Unable to get block';

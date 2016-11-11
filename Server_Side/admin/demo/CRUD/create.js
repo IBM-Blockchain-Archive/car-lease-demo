@@ -7,7 +7,23 @@ let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
 let initial_vehicles = require(__dirname+'/../../../blockchain/assets/vehicles/initial_vehicles.js');
 let fs = require('fs');
 
-let baseUrl = configFile.config.networkProtocol + '://localhost:' + configFile.config.app_port;
+let vcap_app;
+let ext_uri;
+if (process.env.VCAP_APPLICATION) {
+    vcap_app = JSON.parse(process.env.VCAP_APPLICATION);
+    for (let i in vcap_app.application_uris) {
+        if (vcap_app.application_uris[i].indexOf(vcap_app.name) >= 0) {
+            ext_uri = 'https://' + vcap_app.application_uris[i];
+        }
+    }
+} else {
+    ext_uri = 'http://localhost';
+}
+
+// let baseUrl = configFile.config.appProtocol + '://' + configFile.config.app_ip + ':' + configFile.config.app_port;
+let baseUrl = ext_uri;
+
+console.log(baseUrl);
 
 const TYPES = [
     'regulator_to_manufacturer',
@@ -19,8 +35,7 @@ const TYPES = [
 
 function create(req, res, next, usersToSecurityContext) {
     let cars;
-
-    res.write(JSON.stringify({'message': 'performing scenario creation now'}));
+    res.write(JSON.stringify({message:'Creating vehicle with v5cID: '})+'&&');
     fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
 
     tracing.create('ENTER', 'POST admin/demo', req.body);
@@ -38,6 +53,7 @@ function create(req, res, next, usersToSecurityContext) {
     }
 
     if(cars.hasOwnProperty('cars')) {
+        tracing.create('INFO', 'Demo', 'Found cars');
         cars = cars.cars;
         let v5cIDResults;
         return createVehicles(cars)
@@ -45,8 +61,10 @@ function create(req, res, next, usersToSecurityContext) {
                 v5cIDResults = results;
                 let carIndex = 0;
                 let promises = [];
-                res.end('{message:"Created vehicles"}');
+                updateDemoStatus({message: 'Created vehicles'});
+                res.write('{message:"Created vehicles"}&&');
                 results.forEach(function(body) {
+                    console.log(results);
                     body = JSON.parse(body);
                     let v5cID = body.v5cID;
                     let car = cars[carIndex];
@@ -83,8 +101,10 @@ function create(req, res, next, usersToSecurityContext) {
             })
             .then(function() {
                 updateDemoStatus({message: 'Demo setup'});
+                res.end(JSON.stringify({message: 'Demo setup'}));
             })
             .catch(function(err) {
+                tracing.create('ERROR   DEMO', err, '');
                 updateDemoStatus({'message: ': JSON.parse(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
                 res.end(JSON.stringify(err));
@@ -98,23 +118,6 @@ function create(req, res, next, usersToSecurityContext) {
         return;
     }
 }
-
-// Promise based tansfer - Sometimes transactions happen in the wrong order
-// function transferBetweenOwners(v5cID, car) {
-//     let functionName;
-//     let promises = [];
-//     car.Owners.forEach(function(owner, i) {
-//         if (owner !== 'DVLA' && i !== 1) {
-//             let seller = car.Owners[i - 1];
-//             let buyer = map_ID.user_to_id(car.Owners[i]);
-//
-//             functionName = TYPES[i - 1];
-//
-//             promises.push(transferVehicle(v5cID, seller, buyer, functionName));
-//         }
-//     });
-//     return Promise.all(promises);
-// }
 
 function transferBetweenOwners(v5cID, car, results) {
     let functionName;
@@ -139,6 +142,7 @@ function transferBetweenOwners(v5cID, car, results) {
 
 // Uses recurision because Promise.all() breaks HFC
 function createVehicles(cars, results) {
+    console.log('running');
     let newCars = JSON.parse(JSON.stringify(cars));
     if (!results) {results = [];}
     if (newCars.length > 0) {
@@ -217,6 +221,7 @@ function transferVehicle(v5cID, seller, buyer, functionName) {
  * @return {Promise}         description
  */
 function RESTRequest(options, user) {
+    console.log(options);
     let cookie = request.cookie('user='+user);
     let j = request.jar();
     j.setCookie(cookie, options.url);
@@ -226,6 +231,7 @@ function RESTRequest(options, user) {
             if (!err) {
                 resolve(body);
             } else {
+                console.log(err);
                 reject(err);
             }
         });

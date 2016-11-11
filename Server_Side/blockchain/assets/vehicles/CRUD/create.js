@@ -6,7 +6,6 @@ let Util = require(__dirname+'/../../../../tools/utils/util');
 function create (req, res, next, usersToSecurityContext) {
     let user_id;
     let securityContext;
-    // tracing.create('ENTER', 'POST blockchain/assets/vehicles', req.body);
 
     if(typeof req.cookies.user !== 'undefined')
     {
@@ -22,15 +21,15 @@ function create (req, res, next, usersToSecurityContext) {
     return checkIfAlreadyExists(securityContext, newV5cID)
     .then(function() {
         // res.write(JSON.stringify({message:'Creating vehicle with v5cID: '+newV5cID})+'&&');
-        // tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+newV5cID);
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Creating vehicle with v5cID: '+newV5cID);
         return createVehicle(securityContext, newV5cID);
     })
     .then(function() {
-        // tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Created vehicle: '+newV5cID);
+        tracing.create('INFO', 'POST blockchain/assets/vehicles', 'Created vehicle: '+newV5cID);
         let result = {};
         result.message = 'Creation Confirmed';
         result.v5cID = newV5cID;
-        res.send(JSON.stringify(result));
+        res.end(JSON.stringify(result));
     })
     .catch(function(err) {
         // tracing.create('ERROR', 'POST blockchain/assets/vehicles', err.stack);

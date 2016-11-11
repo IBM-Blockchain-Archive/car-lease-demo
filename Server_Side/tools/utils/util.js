@@ -7,7 +7,7 @@ class Util {
     static queryChaincode(securityContext, functionName, args) {
         if (!securityContext) {
             throw new Error('securityContext not provided');
-        } else if (!functionName) {
+        }  else if (!functionName) {
             throw new Error('functionName not provided');
         } else if (!args) {
             throw new Error('args not provided');

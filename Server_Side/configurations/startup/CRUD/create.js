@@ -2,6 +2,8 @@
 
 let configFile = require(__dirname+'/../../configuration.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
+let Util = require(__dirname+'/../../../tools/utils/util.js');
+let fs = require('fs');
 
 
 const path = require('path');
@@ -84,13 +86,16 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args, cert
 
         let transactionContext = enrolledMember.deploy(deployRequest);
 
-        transactionContext.on('submitted', function() {
+        transactionContext.on('submitted', function(result) {
             console.log('Attempted to deploy chaincode');
+            resolve(result);
         });
 
         transactionContext.on('complete', function (result) {
-            resolve(result);
+            tracing.create('INFO', 'Chaincode deployed with chaincodeID ' + result.chaincodeID, '');
+            fs.writeFileSync(__dirname + '/../../../../chaincode.txt', result.chaincodeID, 'utf8');
         });
+
         transactionContext.on('error', function (error) {
             if (error instanceof hfc.EventTransactionError) {
                 reject(new Error(error.msg));
@@ -102,3 +107,16 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args, cert
 }
 
 exports.deployChaincode = deployChaincode;
+
+function pingChaincode(chain, securityContext) {
+    return Util.queryChaincode(securityContext, 'ping', [])
+    .then(function() {
+        return true;
+    })
+    .catch(function(err) {
+        console.log(err);
+        return false;
+    });
+}
+
+exports.pingChaincode = pingChaincode;

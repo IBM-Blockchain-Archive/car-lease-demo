@@ -1,10 +1,12 @@
 Car Lease Demo
 =======
 
+## Note that these docs will be updated for fabric 0.6 in due course. Bluemix only (for now)
+
 ##Deploying the demo##
 To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://hub.jazz.net/deploy/index.html?repository=https://github.com/jakeeyturner/car-lease-demo.git&branch=0.6)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://hub.jazz.net/deploy/index.html?repository=https://github.com/14gracel/car-lease-demo.git&branch=0.6)
 
 To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md#deploying-locally)
 

@@ -46,6 +46,7 @@ let usersToSecurityContext = {};
 
 let host;
 let port = process.env.VCAP_APP_PORT || configFile.config.app_port;
+let appIp;
 
 
 ////////  Pathing and Module Setup  ////////
@@ -82,7 +83,7 @@ app.post('/admin/demo', function(req, res, next)
 
 app.get('/admin/demo', function(req, res, next)
 {
-    demo.read(req, res);
+    demo.read(req, res, next);
 });
 
 //-----------------------------------------------------------------------------------------------
@@ -316,7 +317,7 @@ let webAppAdminPassword = configFile.config.registrar_password;
 
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
-    vcapServices = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-staging'][0].credentials;
+    vcapServices = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
 
     host = JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
     port = process.env.VCAP_APP_PORT;
@@ -345,7 +346,7 @@ if (vcapServices) { // We are running in bluemix
     }
     startup.connectToPeers(chain, vcapServices.peers, pem);
     startup.connectToCA(chain, vcapServices.ca, pem);
-    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + credentials.eventHubPort);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+vcapServices.peers[0].discovery_host + ':' + vcapServices.eventHubPort);
 
     chain.setDeployWaitTime(100);
 
@@ -357,17 +358,18 @@ if (vcapServices) { // We are running in bluemix
     });
 } else if (!vcapServices && pem) { // We are running outside bluemix, connecting to bluemix fabric
     console.log('\n[!] Running locally with bluemix fabric');
-    let credentials = fs.readFileSync('credentials.json');
+    let credentials = fs.readFileSync(__dirname + '/credentials.json');
     credentials = JSON.parse(credentials);
 
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + credentials.eventHubPort);
-    // chain.setDeployWaitTime(100);
+
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + credentials.eventHubPort);
+    // chain.setDeployWaitTime(200);
 } else { // We are running locally
-    let credentials = fs.readFileSync('credentials.json');
+    let credentials = fs.readFileSync(__dirname + '/credentials.json');
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
@@ -381,7 +383,7 @@ server = http.createServer(app).listen(port, function () {
 });
 
 server.timeout = 240000;
-
+let chaincodeID;
 startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
 .then(function(r) {
     registrar = r;
@@ -401,19 +403,44 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         usersToSecurityContext[user.getName()] = new SecurityContext(user);
     });
 })
-.then(function() {
-    let certPath = (vcapServices) ? vcapServices.cert_path : '/certs/peer/cert.pem';
-    return startup.deployChaincode(registrar, 'vehicle_code', 'Init', [], certPath);
+.then(function(){
+    tracing.create('INFO', 'Startup', 'Checking if chaincode is deployed');
+    return new Promise(function(resolve, reject) {
+        fs.readFile('chaincode.txt', 'utf8', function(err, contents) {
+            if (err) {
+                resolve(false);
+            } else {
+                resolve(contents);
+            }
+        });
+    });
+})
+.then(function(cc) { //ChaincodeID exists or doesnt
+    if (cc) {
+        chaincodeID = cc;
+        let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
+        sc.setChaincodeID(chaincodeID);
+        chain;
+        return startup.pingChaincode(chain, sc);
+    } else {
+        return false;
+    }
+})
+.then(function(exists) {
+    if (!exists) {
+        let certPath = (vcapServices) ? vcapServices.cert_path : '/certs/peer/cert.pem';
+        return startup.deployChaincode(registrar, 'vehicle_code', 'Init', [], certPath);
+    } else {
+        tracing.create('INFO', 'Startup', 'Chaincode already deployed');
+        return {'chaincodeID': chaincodeID};
+    }
 })
 .then(function(deploy) {
     for (let name in usersToSecurityContext) {
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
-    tracing.create('INFO', 'Chaincode deployed with chaincodeID ' + deploy.chaincodeID);
 })
 .catch(function(err) {
     console.log(err);
     tracing.create('ERROR', 'Startup', err);
 });
-
-// console.log('ENV VARIABLES', configFile.config.networkProtocol+'://'+configFile.config.api_ip, configFile.config.api_port_external);
