@@ -94,10 +94,10 @@ $(document).ready(function(){
             for(let i = 0; i < block.transactions.length; i++) {
                 transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].txid+'</span>';
             }
+
+            $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>');
+
         }
-
-        $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>');
-
         $('.singleBlockContainer:last-child').find('.blockHash').html('<b>Block Hash: </b><br />'+lastBlockHash);
 
         lastBlockHash = block.previousBlockHash;
@@ -106,8 +106,8 @@ $(document).ready(function(){
 
         prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
 
-        transData.push(block.transactions.length);
-        $('#transLast').html(block.transactions.length);
+        transData.push(block.transactions.length ? block.transactions.length : 0);
+        $('#transLast').html(block.transactions.length ? block.transactions.length : 0);
 
         for(let i = 1; i < 126; i++)
         {
@@ -132,16 +132,18 @@ $(document).ready(function(){
 
                 prevFiftyBlocks.push(blk.nonHashData.localLedgerCommitTimestamp.seconds);
 
-                transData.push(blk.transactions.length);
+                transData.push(blk.transactions.length ? block.transactions.length : 0);
 
                 transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
 
-                for(let j = 0; j < blk.transactions.length; j++)
-                {
-                    transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk.transactions[j].txid+'\') ">'+blk.transactions[j].txid+'</span>';
-                }
+                if (block.transactions) {
+                    for(let j = 0; j < blk.transactions.length; j++)
+                    {
+                        transSpans+='<br /><span class="blocksTransactions" onclick="showTransaction(\''+blk.transactions[j].txid+'\') ">'+blk.transactions[j].txid+'</span>';
+                    }
 
-                $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+blk.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blk.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.transactions.length))+'"></input></div>');
+                    $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum-i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+blk.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(blk.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*blk.transactions.length))+'"></input></div>');
+                }
 
                 lastBlockHash = blk.previousBlockHash;
             }
