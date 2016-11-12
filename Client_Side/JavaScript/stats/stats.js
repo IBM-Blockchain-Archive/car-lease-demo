@@ -90,10 +90,10 @@ $(document).ready(function(){
 
     if(blockNum > 0) //If not the genesis block..
     {
-
-        for(var i = 0; i < block.transactions.length; i++)
-        {
-            transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].txid+'</span>';
+        if (block.transactions) {
+            for(let i = 0; i < block.transactions.length; i++) {
+                transSpans+='<br /><span class="blocksTransactions">'+block.transactions[i].txid+'</span>';
+            }
         }
 
         $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+blockNum+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"></span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>');
@@ -109,11 +109,11 @@ $(document).ready(function(){
         transData.push(block.transactions.length);
         $('#transLast').html(block.transactions.length);
 
-        for(var i = 1; i < 126; i++)
+        for(let i = 1; i < 126; i++)
         {
             if(blockNum - i > 0)
             {
-                var blk;
+                let blk;
 
                 $.ajax({
                     type: 'GET',
@@ -148,7 +148,7 @@ $(document).ready(function(){
             else if(blockNum - i == 0) //If genesis block..
             {
 
-                var blk;
+                let blk;
 
                 $.ajax({
                     type: 'GET',
@@ -184,12 +184,12 @@ $(document).ready(function(){
     }
 
     //If there are more than 125 blocks, HTML is created but data isn't filled. Used to reduce page load.
-    for(var i = blockNum - 126; i > -1; i--)
+    for(let i = blockNum - 126; i > -1; i--)
     {
         $('#blockScroll').prepend('<div class="singleBlockContainer"><div class="exBlock notClicked noData" onclick="changeShape(this)"><span>'+(i)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData" style="text-align:center" ><span><img src="Images/loading.gif" style="margin-top:10px; padding:10px" height="50" width="50" /><br />Loading Block Data...</span></div><input type="hidden" class="height" value="110"></input></div>');
     }
 
-    for(var i = 0; i < prevFiftyBlocks.length-1; i++)
+    for(let i = 0; i < prevFiftyBlocks.length-1; i++)
     {
         timeDiff = prevFiftyBlocks[i] - prevFiftyBlocks[i+1];
 
@@ -205,7 +205,7 @@ $(document).ready(function(){
 
     minMax = calcStdDeviation(prevFiftyBlocks, avg);
 
-    if(blockNum == 0)
+    if(blockNum === 0)
     {
         $('#avgTime').html('NA');
     }
@@ -271,7 +271,7 @@ function updatePage()
         async: false
     });
 
-    chainHeight == blockNum; //Don't do this.
+    chainHeight === blockNum; //Don't do this.
 
     if(storeBlock < blockNum) //If latest block number is less than chain height
     {
@@ -354,7 +354,7 @@ function numberWithCommas(x) {
 
 function calcStdDeviation(data, avg)
 {
-    let variance = 0;
+    let letiance = 0;
     let diff;
     let res = [];
 
@@ -364,11 +364,11 @@ function calcStdDeviation(data, avg)
 
         if(diff>5000){diff=5000;}
 
-        variance += Math.pow((diff - avg),2);
+        letiance += Math.pow((diff - avg),2);
     }
 
-    variance /= (prevFiftyBlocks.length+(blockNum - startBlock));
-    stdDev = Math.sqrt(variance);
+    letiance /= (prevFiftyBlocks.length+(blockNum - startBlock));
+    stdDev = Math.sqrt(letiance);
     max = avg + (0.5 * stdDev);
     min = avg - (0.17 * stdDev);
 
@@ -429,7 +429,7 @@ function getBlockData(number, el)
         async: false
     });
 
-    if(number == 0)
+    if(number === 0)
     {
 
         $(el).html('<span class="blockHash" style="display:inline-block"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="blockTimeAdded"  style="display:inline-block"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br /><br /><span style="display:inline-block" class="blocksTransactionsHdr" >Transactions:</span><br /><span class="blocksTransactions" style="display:inline-block">No transactions in the Genesis block.</span>');

@@ -365,8 +365,8 @@ if (vcapServices) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + credentials.eventHubPort);
+    console.log(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
     // chain.setDeployWaitTime(200);
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
