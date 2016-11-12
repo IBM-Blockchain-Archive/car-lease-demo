@@ -346,9 +346,10 @@ if (vcapServices) { // We are running in bluemix
     }
     startup.connectToPeers(chain, vcapServices.peers, pem);
     startup.connectToCA(chain, vcapServices.ca, pem);
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+vcapServices.peers[0].discovery_host + ':' + vcapServices.eventHubPort);
+    console.log('Event Hub: ' + configFile.config.hfc_protocol+'://'+vcapServices.peers[0].event_host + ':' + vcapServices.peers[0].event_port);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+vcapServices.peers[0].event_host + ':' + vcapServices.peers[0].event_port);
 
-    chain.setDeployWaitTime(100);
+    // chain.setDeployWaitTime(100);
 
     // Get the WebAppAdmins password
     vcapServices.users.forEach(function(user) {
@@ -365,8 +366,8 @@ if (vcapServices) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    console.log(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
+    console.log('Event Hub: ' + configFile.config.hfc_protocol+'://'+credentials.peers[0].event_host + ':' + credentials.peers[0].event_port);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].event_host + ':' + credentials.peers[0].event_port);
     // chain.setDeployWaitTime(200);
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
@@ -420,7 +421,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         chaincodeID = cc;
         let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
         sc.setChaincodeID(chaincodeID);
-        chain;
+        console.log('Erorr possible here');
         return startup.pingChaincode(chain, sc);
     } else {
         return false;

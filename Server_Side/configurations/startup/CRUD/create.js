@@ -88,12 +88,12 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args, cert
 
         transactionContext.on('submitted', function(result) {
             console.log('Attempted to deploy chaincode');
-            resolve(result);
         });
 
         transactionContext.on('complete', function (result) {
             tracing.create('INFO', 'Chaincode deployed with chaincodeID ' + result.chaincodeID, '');
             fs.writeFileSync(__dirname + '/../../../../chaincode.txt', result.chaincodeID, 'utf8');
+            resolve(result);
         });
 
         transactionContext.on('error', function (error) {
