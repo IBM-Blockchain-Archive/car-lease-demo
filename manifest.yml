@@ -1,4 +1,8 @@
 ---
+declared-services:
+  cpblockchain:
+    label: ibm-blockchain-5-prod
+    plan: ibm-blockchain-plan-5-prod
 applications:
 - disk_quota: 1024M
   name: car-lease-demo-1
