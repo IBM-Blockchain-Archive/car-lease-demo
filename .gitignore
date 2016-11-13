@@ -14,3 +14,5 @@ Server_Side/logs/app_trace.log
 
 chaincode.txt
 keyValStore
+
+**/.DS_Store
