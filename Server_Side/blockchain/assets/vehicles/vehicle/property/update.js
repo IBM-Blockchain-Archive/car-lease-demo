@@ -46,7 +46,7 @@ let update = function(req, res, next, usersToSecurityContext, property)
         let error = {};
         error.error  = true;
         error.message = err;
-        tracing.create('ERROR', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, err);
+        tracing.create('ERROR', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, JSON.parse(err));
         res.end(JSON.stringify(err));
     });
 };

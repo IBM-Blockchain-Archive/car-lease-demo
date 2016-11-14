@@ -5,7 +5,7 @@ let configFile = require(__dirname+'/../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
 let read = function(req, res, next, usersToSecurityContext) {
-    tracing.create('ENTER', 'GET blockchain/blocks', {});
+    tracing.create('ENTER', 'GET blockchain/blocks', '');
     let options = {
         url: configFile.config.networkProtocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
         method: 'GET'
@@ -18,7 +18,7 @@ let read = function(req, res, next, usersToSecurityContext) {
                 result.height -= 1;
             }
             result.currentBlockHash = JSON.parse(body).currentBlockHash;
-            tracing.create('EXIT', 'GET blockchain/blocks', result);
+            tracing.create('EXIT', 'GET blockchain/blocks', 'too large');
             res.send(result);
         }
         else
@@ -27,7 +27,6 @@ let read = function(req, res, next, usersToSecurityContext) {
             err.message = 'Unable to get chain length';
             err.error = true;
             res.status(400);
-            console.log(error);
             tracing.create('ERROR', 'GET blockchain/blocks', error);
             res.send(err);
         }
