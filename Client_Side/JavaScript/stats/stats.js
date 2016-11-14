@@ -298,22 +298,24 @@ function updatePage()
 
         let transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
 
-        for(let i = 0; i < block.transactions.length; i++)
-        {
-            transSpans+='<br /><span class="blocksTransactions" >'+block.transactions[i].uuid+'</span>';
+        if (block.transactions) {
+            for(let i = 0; i < block.transactions.length; i++)
+            {
+                transSpans+='<br /><span class="blocksTransactions" >'+block.transactions[i].uuid+'</span>';
+            }
+
+            $('#blockScroll').append('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>');
+            $('#blockScroll').css('width', parseInt($('#blockScroll').css('width').replace('px',''))+85);
+
+            $('.singleBlockContainer:last-child').find('.blockHash').html('<b>Block Hash: </b><br />'+lastBlockHash);
+
+            $('.arrow_right_box').show();
+
+            prevFiftyBlocks.unshift(blockTime);
+
+            timeData.unshift(prevFiftyBlocks[0] - prevFiftyBlocks[1]);
+            transData.unshift(block.transactions.length);
         }
-
-        $('#blockScroll').append('<div class="singleBlockContainer"><div class="exBlock notClicked" onclick="changeShape(this)"><span>'+(blockNum)+'</span></div><br /><div class="triangle_down_big"></div><div class="triangle_down"></div><div class="blockData"><span class="blockHash"><b>Block Hash: </b><br />'+lastBlockHash+'</span><br /><br /><span class="prevHash"><b>Previous Block Hash: </b><br />'+block.previousBlockHash+'</span><br /><br /><span class="blockTimeAdded"><b>Added to Chain: </b><br />'+timeConverter(block.nonHashData.localLedgerCommitTimestamp.seconds)+'</span><br />'+transSpans+'</div><input type="hidden" class="height" value="'+(351+(39*block.transactions.length))+'"></input></div>');
-        $('#blockScroll').css('width', parseInt($('#blockScroll').css('width').replace('px',''))+85);
-
-        $('.singleBlockContainer:last-child').find('.blockHash').html('<b>Block Hash: </b><br />'+lastBlockHash);
-
-        $('.arrow_right_box').show();
-
-        prevFiftyBlocks.unshift(blockTime);
-
-        timeData.unshift(prevFiftyBlocks[0] - prevFiftyBlocks[1]);
-        transData.unshift(block.transactions.length);
 
         $('.cont').html('');
 
@@ -334,8 +336,9 @@ function updatePage()
         $('#avgTime').html((Math.round((avg) * 10) / 10)+'s');
 
         $('#currBlock').html('#'+numberWithCommas(blockNum));
-
-        $('#transLast').html(block.transactions.length);
+        if (block.transactions) {
+            $('#transLast').html(block.transactions.length);
+        }
 
         makeCharts();
     }

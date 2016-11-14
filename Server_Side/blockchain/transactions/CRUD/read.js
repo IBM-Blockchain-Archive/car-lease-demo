@@ -56,19 +56,21 @@ function get_block(req, res, number) //Retrieves block, and retrieves transactio
     request(options, function (error, response, body){
         if (!error && response.statusCode === 200) {
             let block = JSON.parse(body);
-            for(let i = 0; i < block.transactions.length; i++) {
-                block.transactions[i].payload = new Buffer(block.transactions[i].payload, 'base64').toString('ascii');
-                let cert = block.transactions[i].cert;
-                cert = cert.replace(/(.{1,64})/g, '$1\n');
-                cert = '-----BEGIN CERTIFICATE-----\n' + cert + '-----END CERTIFICATE-----\n';
-                block.transactions[i].cert = x509.parseCert(cert);
-                block.transactions[i].caller = block.transactions[i].cert.subject.commonName;
-                block.transactions[i].failed = false;
-                if(stateHash === block.stateHash) {
-                    block.transactions[i].failed = true;
-                }
+            if (block.transactions) {
+                for(let i = 0; i < block.transactions.length; i++) {
+                    block.transactions[i].payload = new Buffer(block.transactions[i].payload, 'base64').toString('ascii');
+                    let cert = block.transactions[i].cert;
+                    cert = cert.replace(/(.{1,64})/g, '$1\n');
+                    cert = '-----BEGIN CERTIFICATE-----\n' + cert + '-----END CERTIFICATE-----\n';
+                    block.transactions[i].cert = x509.parseCert(cert);
+                    block.transactions[i].caller = block.transactions[i].cert.subject.commonName;
+                    block.transactions[i].failed = false;
+                    if(stateHash === block.stateHash) {
+                        block.transactions[i].failed = true;
+                    }
 
-                result.transactions.push(block.transactions[i]);
+                    result.transactions.push(block.transactions[i]);
+                }
             }
             stateHash = block.stateHash;
 
@@ -99,18 +101,20 @@ function evaluate_transactions(req, res)
     let validV5cs = '';
     let user_id = map_ID.user_to_id(req.session.user);
 
-    for(let i = 0; i < result.transactions.length; i++)
+    if (result.transactions) {
+        for(let i = 0; i < result.transactions.length; i++)
     {
-        let transaction = result.transactions[i];
-        let v5cID = transaction.payload.match(/[A-Z]{2}[0-9]{7}/g);
-        if(JSON.stringify(transaction).indexOf(user_id) === -1 && validV5cs.indexOf(v5cID) === -1)
+            let transaction = result.transactions[i];
+            let v5cID = transaction.payload.match(/[A-Z]{2}[0-9]{7}/g);
+            if(JSON.stringify(transaction).indexOf(user_id) === -1 && validV5cs.indexOf(v5cID) === -1)
         {
-            result.transactions.splice(i, 1);
-            i--;
-        }
-        else if (validV5cs.indexOf(v5cID) === -1)
+                result.transactions.splice(i, 1);
+                i--;
+            }
+            else if (validV5cs.indexOf(v5cID) === -1)
         {
-            validV5cs += '['+v5cID+']';
+                validV5cs += '['+v5cID+']';
+            }
         }
     }
 

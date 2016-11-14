@@ -37,7 +37,7 @@ config.app_port = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080
 //--------------------------------------------------------------------------------------------------------------------
 //    User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.
 //--------------------------------------------------------------------------------------------------------------------
-config.registrar_name = 'admin';
+config.registrar_name = 'WebAppAdmin';
 config.registrar_password = 'DJY27pEnl16d';
 
 //--------------------------------------------------------------------------------------------------------------------

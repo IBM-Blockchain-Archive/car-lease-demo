@@ -366,7 +366,6 @@ if (vcapServices) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    console.log('Event Hub: ' + configFile.config.hfc_protocol+'://'+credentials.peers[0].event_host + ':' + credentials.peers[0].event_port);
     // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].event_host + ':' + credentials.peers[0].event_port);
     // chain.setDeployWaitTime(200);
 } else { // We are running locally
@@ -374,7 +373,7 @@ if (vcapServices) { // We are running in bluemix
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
-    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
+    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
 }
 
 
