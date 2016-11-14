@@ -1,5 +1,5 @@
 function makeCharts(){
-		
+
 	var scaleTime = d3.scale.linear()
 		.domain([0, minMax[1]])
 		.range([1, 75]);
@@ -90,3 +90,4 @@ $(document).ready(function(){
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+

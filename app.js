@@ -369,7 +369,7 @@ if (vcapServices) { // We are running in bluemix
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
-    startup.connectToEventHub(chain, credentials.peers[0], pem);
+    startup.connectToEventHub(chain, credentials.peers[0]);
 }
 
 
