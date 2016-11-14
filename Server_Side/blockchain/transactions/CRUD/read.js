@@ -63,7 +63,7 @@ function get_block(req, res, number) //Retrieves block, and retrieves transactio
                     cert = cert.replace(/(.{1,64})/g, '$1\n');
                     cert = '-----BEGIN CERTIFICATE-----\n' + cert + '-----END CERTIFICATE-----\n';
                     block.transactions[i].cert = x509.parseCert(cert);
-                    block.transactions[i].caller = block.transactions[i].cert.subject.commonName;
+                    block.transactions[i].caller = block.transactions[i].cert.extensions['1.2.3.4.5.6.10'];
                     block.transactions[i].failed = false;
                     if(stateHash === block.stateHash) {
                         block.transactions[i].failed = true;

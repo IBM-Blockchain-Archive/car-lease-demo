@@ -416,6 +416,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         chaincodeID = cc;
         let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
         sc.setChaincodeID(chaincodeID);
+        tracing.create('INFO', 'Chaincode error may appear here - Ignore, chaincode has been pinged', '');
         return startup.pingChaincode(chain, sc);
     } else {
         return false;
