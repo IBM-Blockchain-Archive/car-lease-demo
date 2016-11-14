@@ -1,6 +1,6 @@
 ---
 declared-services:
-  cpblockchain:
+  car_lease_blockchain:
     label: ibm-blockchain-5-prod
     plan: ibm-blockchain-plan-5-prod
 applications:
