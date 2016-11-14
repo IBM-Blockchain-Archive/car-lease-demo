@@ -106,8 +106,8 @@ $(document).ready(function(){
 
         prevFiftyBlocks.push(block.nonHashData.localLedgerCommitTimestamp.seconds);
 
-        transData.push(block.transactions.length ? block.transactions.length : 0);
-        $('#transLast').html(block.transactions.length ? block.transactions.length : 0);
+        transData.push(block.transactions ? block.transactions.length : 0);
+        $('#transLast').html(block.transactions ? block.transactions.length : 0);
 
         for(let i = 1; i < 126; i++)
         {
@@ -132,7 +132,7 @@ $(document).ready(function(){
 
                 prevFiftyBlocks.push(blk.nonHashData.localLedgerCommitTimestamp.seconds);
 
-                transData.push(blk.transactions.length ? block.transactions.length : 0);
+                transData.push(blk.transactions ? block.transactions.length : 0);
 
                 transSpans = '<br /><span class="blocksTransactionsHdr" >Transactions:</span>';
 
@@ -160,6 +160,9 @@ $(document).ready(function(){
                     url: '/blockchain/blocks/'+(blockNum-i),
                     success: function(d) {
                         blk = d.block;
+                        if (!blk.transactions) {
+                            blk.transactions = [];
+                        }
                     },
                     error: function(e){
                         console.log(e);
@@ -285,6 +288,9 @@ function updatePage()
             url: '/blockchain/blocks/' + blockNum,
             success: function(d) {
                 block = d.block;
+                if (!block.transaction) {
+                    block.transaction = [];
+                }
             },
             error: function(e){
                 console.log(e);

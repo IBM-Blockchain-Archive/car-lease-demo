@@ -5,8 +5,6 @@ let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 let Util = require(__dirname+'/../../../tools/utils/util.js');
 let fs = require('fs');
 
-
-const path = require('path');
 let hfc = require('hfc');
 
 function connectToPeers(chain, peers, pem) {
@@ -28,6 +26,13 @@ function connectToCA(chain, ca, pem) {
 }
 
 exports.connectToCA = connectToCA;
+
+function connectToEventHub(chain, peer, pem) {
+    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+peer.event_host + ':' + peer.event_port, pem);
+    console.log('eventhub: ' + configFile.config.hfc_protocol+'://'+peer.event_host + ':' + peer.event_port);
+}
+
+exports.connectToEventHub = connectToEventHub;
 
 function enrollRegistrar(chain, username, secret) {
     return new Promise(function(resolve, reject) {
@@ -81,8 +86,6 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args, cert
             chaincodePath: chaincodePath
         };
         deployRequest.certificatePath = certPath;
-
-        console.log(deployRequest);
 
         let transactionContext = enrolledMember.deploy(deployRequest);
 

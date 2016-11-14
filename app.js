@@ -46,7 +46,6 @@ let usersToSecurityContext = {};
 
 let host;
 let port = process.env.VCAP_APP_PORT || configFile.config.app_port;
-let appIp;
 
 
 ////////  Pathing and Module Setup  ////////
@@ -323,7 +322,7 @@ if (process.env.VCAP_SERVICES) {
     port = process.env.VCAP_APP_PORT;
 } else {
     port = configFile.config.app_port;
-    host = 'localhost';
+    host = configFile.config.offlineUrl;
 }
 
 // Setup HFC
@@ -346,10 +345,7 @@ if (vcapServices) { // We are running in bluemix
     }
     startup.connectToPeers(chain, vcapServices.peers, pem);
     startup.connectToCA(chain, vcapServices.ca, pem);
-    console.log('Event Hub: ' + configFile.config.hfc_protocol+'://'+vcapServices.peers[0].event_host + ':' + vcapServices.peers[0].event_port);
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+vcapServices.peers[0].event_host + ':' + vcapServices.peers[0].event_port);
-
-    // chain.setDeployWaitTime(100);
+    startup.connectToEventHub(chain, vcapServices.peers[0], pem);
 
     // Get the WebAppAdmins password
     vcapServices.users.forEach(function(user) {
@@ -366,14 +362,14 @@ if (vcapServices) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].event_host + ':' + credentials.peers[0].event_port);
-    // chain.setDeployWaitTime(200);
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
+
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
-    // chain.eventHubConnect(configFile.config.hfc_protocol+'://'+credentials.peers[0].discovery_host + ':' + configFile.config.eventHubPort);
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
 }
 
 
@@ -420,7 +416,6 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         chaincodeID = cc;
         let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
         sc.setChaincodeID(chaincodeID);
-        console.log('Erorr possible here');
         return startup.pingChaincode(chain, sc);
     } else {
         return false;

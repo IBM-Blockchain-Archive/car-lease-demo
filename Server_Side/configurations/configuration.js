@@ -235,14 +235,11 @@ if (process.env.VCAP_SERVICES) {
 }
 
 //When using blockchain on bluemix, api_port_external and api_port_internal will be the same
-{config.api_port_external  = credentials.peers[0].api_port;} //port number used when calling api from outside of the vagrant environment
+config.api_port_external  = credentials.peers[0].api_port; //port number used when calling api from outside of the vagrant environment
 config.api_port_internal  = credentials.peers[0].discovery_port; //port number used when calling api from inside vagrant environment - generally used for chaincode calling out to api
 config.api_port_discovery = credentials.peers[0].discovery_port; //port number used for HFC
 
 config.api_ip = credentials.peers[0].discovery_host;
-//
-config.eventHubUrl = credentials.peers[0].discovery_host;
-config.eventHubPort = 31001;
 
 let ca;
 for(let key in credentials.ca) {
@@ -252,8 +249,6 @@ for(let key in credentials.ca) {
 //IP and port configuration for the Certificate Authority. This is used for enrolling WebAppAdmin and creating all the user via HFC. Default values are for running Hyperledger locally.
 config.ca_ip = ca.discovery_host;     //IP of the CA attempting to be connected to
 config.ca_port = ca.discovery_port;         //Discovery port of the Certificate Authority. Used for HFC
-
-config.bluemix_registrar_password = '27fc57a0ac';
 
 credentials.users.forEach(function(user) {
     if (user.username === config.registrar_name) {

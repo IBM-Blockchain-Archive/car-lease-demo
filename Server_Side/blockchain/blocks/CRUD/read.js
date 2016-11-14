@@ -4,8 +4,7 @@ let request = require('request');
 let configFile = require(__dirname+'/../../../configurations/configuration.js');
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
-let read = function(req, res, next, usersToSecurityContext)
-{
+let read = function(req, res, next, usersToSecurityContext) {
     tracing.create('ENTER', 'GET blockchain/blocks', {});
     let options = {
         url: configFile.config.networkProtocol+'://'+configFile.config.api_ip+':'+configFile.config.api_port_external+'/chain',
