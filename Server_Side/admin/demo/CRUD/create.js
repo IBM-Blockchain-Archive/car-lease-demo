@@ -1,29 +1,11 @@
 'use strict';
 
-let request = require('request');
-let configFile = require(__dirname+'/../../../configurations/configuration.js');
+const Vehicle = require(__dirname+'/../../../tools/utils/vehicle');
+
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../tools/map_ID/map_ID.js');
 let initial_vehicles = require(__dirname+'/../../../blockchain/assets/vehicles/initial_vehicles.js');
 let fs = require('fs');
-
-let vcap_app;
-let ext_uri;
-if (process.env.VCAP_APPLICATION) {
-    vcap_app = JSON.parse(process.env.VCAP_APPLICATION);
-    for (let i in vcap_app.application_uris) {
-        if (vcap_app.application_uris[i].indexOf(vcap_app.name) >= 0) {
-            ext_uri = 'https://' + vcap_app.application_uris[i];
-        }
-    }
-} else {
-    ext_uri = 'http://' + configFile.config.offlineUrl + ':' + configFile.config.app_port;
-}
-
-// let baseUrl = configFile.config.appProtocol + '://' + configFile.config.app_ip + ':' + configFile.config.app_port;
-let baseUrl = ext_uri;
-
-console.log(baseUrl);
 
 const TYPES = [
     'regulator_to_manufacturer',
@@ -33,7 +15,11 @@ const TYPES = [
     'private_to_scrap_merchant'
 ];
 
+let vehicleData;
+
 function create(req, res, next, usersToSecurityContext) {
+    vehicleData = new Vehicle(usersToSecurityContext);
+
     let cars;
     res.write(JSON.stringify({message:'Creating vehicle with v5cID: '})+'&&');
     fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
@@ -59,41 +45,30 @@ function create(req, res, next, usersToSecurityContext) {
         return createVehicles(cars)
             .then(function(results) {
                 v5cIDResults = results;
-                let carIndex = 0;
                 let promises = [];
                 updateDemoStatus({message: 'Created vehicles'});
-                res.write('{message:"Created vehicles"}&&');
-                results.forEach(function(body) {
-                    console.log(results);
-                    body = JSON.parse(body);
-                    let v5cID = body.v5cID;
-                    let car = cars[carIndex];
+                v5cIDResults.forEach(function(v5cID, index) {
+                    let car = cars[index];
                     let seller = 'DVLA';
                     let buyer = map_ID.user_to_id(car.Owners[1]);
                     promises.push(transferVehicle(v5cID, seller, buyer, 'authority_to_manufacturer')); //Move car to first owner after DVLA
-                    carIndex++;
-                });
-                return Promise.all(promises);
-            })
-            .then(function(p) {
-                updateDemoStatus({message: 'Transfered all vehicles'});
-                let carIndex = 0;
-                let promises = [];
-                v5cIDResults.forEach(function(body){
-                    body = JSON.parse(body);
-                    let v5cID = body.v5cID;
-                    let car = cars[carIndex];
-                    promises.push(populateVehicle(v5cID, car));
-                    carIndex++;
                 });
                 return Promise.all(promises);
             })
             .then(function() {
+                updateDemoStatus({message: 'Transfered all vehicles to DVLA'});
                 updateDemoStatus({message: 'Updating vehicle details'});
                 let promises = [];
-                v5cIDResults.forEach(function(body, index) {
-                    body = JSON.parse(body);
-                    let v5cID = body.v5cID;
+                v5cIDResults.forEach(function(v5cID, index){
+                    let car = cars[index];
+                    promises.push(populateVehicle(v5cID, car));
+                });
+                return Promise.all(promises);
+            })
+            .then(function() {
+                updateDemoStatus({message: 'Transfering between owners'});
+                let promises = [];
+                v5cIDResults.forEach(function(v5cID, index) {
                     let car = cars[index];
                     promises.push(transferBetweenOwners(v5cID, car));
                 });
@@ -126,7 +101,7 @@ function transferBetweenOwners(v5cID, car, results) {
         results = [];
     }
     if (newCar.Owners.length > 2) {
-        let seller = newCar.Owners[1]; // First after DVLA
+        let seller = map_ID.user_to_id(newCar.Owners[1]); // First after DVLA
         let buyer = map_ID.user_to_id(newCar.Owners[2]); // Second after DVLA
         functionName = TYPES[results.length + 1];
         return transferVehicle(v5cID, seller, buyer, functionName)
@@ -145,95 +120,44 @@ function createVehicles(cars, results) {
     let newCars = JSON.parse(JSON.stringify(cars));
     if (!results) {results = [];}
     if (newCars.length > 0) {
-        return createVehicle(newCars[newCars.length - 1])
-        .then(function(result) {
-            results.push(result);
-            newCars.pop();
-            return createVehicles(newCars, results);
-        });
+        return createVehicle()
+            .then(function(result) {
+                results.push(result);
+                newCars.pop();
+                return createVehicles(newCars, results);
+            });
     } else {
         return Promise.resolve(results);
     }
 }
 
 function createVehicle() {
-    let url = baseUrl + '/blockchain/assets/vehicles';
-    let options = {
-        url: url,
-        method: 'POST',
-    };
-    return RESTRequest(options, 'DVLA');
+    return vehicleData.create('DVLA');
 }
 
-function populateVehicle(v5cID, car) {
-    let promises = [];
-    let url;
-    let normalisedProperty;
-    for(let property in car) {
-        if (property !== 'Owners') {
-            normalisedProperty = (property === 'VIN') ? property : property.toLowerCase();
-            url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/'+normalisedProperty;
-            let options = {
-                url: url,
-                method: 'PUT',
-                json: {
-                    value: car[property],
-                }
-            };
-            promises.push(RESTRequest(options, car.Owners[1]));
-            updateDemoStatus({'message':'Created vehicle '+v5cID, 'counter': true});
+function populateVehicle(v5cID, car, results) {
+    let newCar = JSON.parse(JSON.stringify(car));
+    if (!results) {results = [];}
+    let propertyName = Object.keys(newCar)[0];
+    let value = newCar[propertyName];
+    let normalisedProperty = propertyName.toLowerCase();
+
+    if (Object.keys(newCar).length > 0) {
+        if (propertyName !== 'Owners') {
+            return vehicleData.updateAttribute(map_ID.user_to_id(car.Owners[1]), 'update_'+normalisedProperty, value, v5cID)
+            .then(function(result) {
+                delete newCar[propertyName];
+                results.push(result);
+                return populateVehicle(v5cID, newCar, results);
+            });
         }
+    } else {
+        return Promise.resolve(results);
     }
-    return Promise.all(promises);
 }
 
-
-/**
- * transferVehicle - description
- *
- * @param  {string} v5cID  description
- * @param  {string} seller the sellers name
- * @param  {string} buyer  the buyers user ID
- * @param  {string} functionName  chaincode function name
- * @return {Promise}        description
- */
 function transferVehicle(v5cID, seller, buyer, functionName) {
-    updateDemoStatus({'message':'Transfered vehicle ' + v5cID + '(' + seller + ' -> '+ buyer +')', 'counter': true});
-    let url = baseUrl + '/blockchain/assets/vehicles/'+v5cID+'/owner/';
-    let options = {
-        url: url,
-        method: 'PUT',
-        json: {
-            value: buyer, // the users ID
-            function_name: functionName
-        }
-    };
-    return RESTRequest(options, seller);
-}
-
-
-/**
- * RESTRequest - description
- *
- * @param  {object} options description
- * @param  {string} user    the users name
- * @return {Promise}         description
- */
-function RESTRequest(options, user) {
-    let cookie = request.cookie('user='+user);
-    let j = request.jar();
-    j.setCookie(cookie, options.url);
-    options.jar = j;
-    return new Promise(function(resolve, reject) {
-        request(options, function(err, resp, body) {
-            if (!err) {
-                resolve(body);
-            } else {
-                console.log(err);
-                reject(err);
-            }
-        });
-    });
+    return vehicleData.transfer(seller, buyer, functionName, v5cID);
 }
 
 function updateDemoStatus(status) {

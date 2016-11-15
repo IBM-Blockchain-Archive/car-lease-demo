@@ -14,7 +14,7 @@ let read = function(req,res)
         try
         {
             data = JSON.parse(data);
-            tracing.create('EXIT', 'GET admin/demo', data.logs);
+            tracing.create('EXIT', 'GET admin/demo', '');
             res.send(data.logs);
         } catch (e)
         {

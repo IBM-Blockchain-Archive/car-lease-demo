@@ -16,7 +16,7 @@ let read = function(req, res)
         if (!error && response.statusCode === 200) {
             let result = {};
             result.block = JSON.parse(body);
-            tracing.create('EXIT', 'GET blockchain/blocks/'+req.params.blockNum, 'too large');
+            tracing.create('EXIT', 'GET blockchain/blocks/'+req.params.blockNum, '');
             res.send(result);
         }
         else

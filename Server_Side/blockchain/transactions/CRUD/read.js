@@ -78,7 +78,7 @@ function get_block(req, res, number) //Retrieves block, and retrieves transactio
                 get_block(req, res, number + 1);
             }
             else if (req.session.user === 'DVLA') {
-                tracing.create('EXIT', 'GET blockchain/transactions', result);
+                tracing.create('EXIT', 'GET blockchain/transactions', 'result');
                 res.send(result);
             } else {
                 tracing.create('INFO', 'GET blockchain/transactions', 'Evaluating transactions');

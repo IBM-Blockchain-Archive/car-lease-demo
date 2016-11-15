@@ -14,11 +14,9 @@ let read = function(req, res, next, usersToSecurityContext) {
         if (!error && response && response.statusCode === 200) {
             let result = {};
             result.height = JSON.parse(body).height;
-            if (!usersToSecurityContext.DVLA.getChaincodeID()) { // If the users dont have a changcode ID, deploy hasnt happened
-                result.height -= 1;
-            }
+
             result.currentBlockHash = JSON.parse(body).currentBlockHash;
-            tracing.create('EXIT', 'GET blockchain/blocks', 'too large');
+            tracing.create('EXIT', 'GET blockchain/blocks', result);
             res.send(result);
         }
         else
