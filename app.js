@@ -345,7 +345,7 @@ if (process.env.VCAP_SERVICE) { // We are running in bluemix
     }
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    // startup.connectToEventHub(chain, credentials.peers[0], pem);
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
 
     // Get the WebAppAdmins password
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
