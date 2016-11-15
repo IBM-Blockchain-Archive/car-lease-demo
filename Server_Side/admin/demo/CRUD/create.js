@@ -142,7 +142,6 @@ function transferBetweenOwners(v5cID, car, results) {
 
 // Uses recurision because Promise.all() breaks HFC
 function createVehicles(cars, results) {
-    console.log('running');
     let newCars = JSON.parse(JSON.stringify(cars));
     if (!results) {results = [];}
     if (newCars.length > 0) {
@@ -221,7 +220,6 @@ function transferVehicle(v5cID, seller, buyer, functionName) {
  * @return {Promise}         description
  */
 function RESTRequest(options, user) {
-    console.log(options);
     let cookie = request.cookie('user='+user);
     let j = request.jar();
     j.setCookie(cookie, options.url);

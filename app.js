@@ -369,7 +369,7 @@ if (vcapServices) { // We are running in bluemix
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
-    startup.connectToEventHub(chain, credentials.peers[0], pem);
+    startup.connectToEventHub(chain, credentials.peers[0]);
 }
 
 
@@ -416,6 +416,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         chaincodeID = cc;
         let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
         sc.setChaincodeID(chaincodeID);
+        tracing.create('INFO', 'Chaincode error may appear here - Ignore, chaincode has been pinged', '');
         return startup.pingChaincode(chain, sc);
     } else {
         return false;
