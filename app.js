@@ -312,11 +312,10 @@ let vcapServices;
 let pem;
 let server;
 let registrar;
+let credentials;
 let webAppAdminPassword = configFile.config.registrar_password;
-
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
-    vcapServices = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
 
     host = JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
     port = process.env.VCAP_APP_PORT;
@@ -338,21 +337,19 @@ if(configFile.config.hfc_protocol === 'grpcs'){
 }
 
 
-if (vcapServices) { // We are running in bluemix
+if (process.env.VCAP_SERVICE) { // We are running in bluemix
+    credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
     console.log('\n[!] Running in bluemix');
     if (!pem) {
         console.log('\n[!] No certificate is available. Will fail to connect to fabric');
     }
-    startup.connectToPeers(chain, vcapServices.peers, pem);
-    startup.connectToCA(chain, vcapServices.ca, pem);
-    startup.connectToEventHub(chain, vcapServices.peers[0], pem);
+    startup.connectToPeers(chain, credentials.peers, pem);
+    startup.connectToCA(chain, credentials.ca, pem);
+    // startup.connectToEventHub(chain, credentials.peers[0], pem);
 
     // Get the WebAppAdmins password
-    vcapServices.users.forEach(function(user) {
-        if (user.username === configFile.config.registrar_name) {
-            webAppAdminPassword = user.secret;
-        }
-    });
+    webAppAdminPassword = configFile.config.bluemix_registrar_password;
+
 } else if (!vcapServices && pem) { // We are running outside bluemix, connecting to bluemix fabric
     console.log('\n[!] Running locally with bluemix fabric');
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
