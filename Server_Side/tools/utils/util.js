@@ -48,7 +48,6 @@ class Util {
             });
 
         } catch(e) {
-            console.log(e);
             throw e;
         }
     }
@@ -80,16 +79,13 @@ class Util {
                 });
 
                 tx.on('submitted', function(data) {
-                    console.log('invode submitted:', data);
                 });
 
                 tx.on('complete', function(data) {
-                    console.log('invode complete:', data);
                     resolve(data.result);
                 });
 
                 tx.on('error', function (err) {
-                    console.log('invode error:', err);
                     if (err instanceof hfc.EventTransactionError) {
                         reject(new Error(err.msg));
                     } else {
@@ -99,7 +95,6 @@ class Util {
             });
         } catch (e) {
             console.log(e);
-            throw e;
         }
     }
 }

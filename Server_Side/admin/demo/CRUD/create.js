@@ -45,34 +45,34 @@ function create(req, res, next, usersToSecurityContext) {
         return createVehicles(cars)
             .then(function(results) {
                 v5cIDResults = results;
-                let promises = [];
                 updateDemoStatus({message: 'Created vehicles'});
-                v5cIDResults.forEach(function(v5cID, index) {
+                return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
-                    let seller = 'DVLA';
+                    let seller = map_ID.user_to_id('DVLA');
                     let buyer = map_ID.user_to_id(car.Owners[1]);
-                    promises.push(transferVehicle(v5cID, seller, buyer, 'authority_to_manufacturer')); //Move car to first owner after DVLA
-                });
-                return Promise.all(promises);
+                    return prev.then(function() {
+                        return transferVehicle(v5cID, seller, buyer, 'authority_to_manufacturer');
+                    });
+                }, Promise.resolve());
             })
             .then(function() {
                 updateDemoStatus({message: 'Transfered all vehicles to DVLA'});
                 updateDemoStatus({message: 'Updating vehicle details'});
-                let promises = [];
-                v5cIDResults.forEach(function(v5cID, index){
+                return v5cIDResults.reduce(function(prev, v5cID, index){
                     let car = cars[index];
-                    promises.push(populateVehicle(v5cID, car));
-                });
-                return Promise.all(promises);
+                    return prev.then(function() {
+                        return populateVehicle(v5cID, car);
+                    });
+                }, Promise.resolve());
             })
             .then(function() {
                 updateDemoStatus({message: 'Transfering between owners'});
-                let promises = [];
-                v5cIDResults.forEach(function(v5cID, index) {
+                return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
-                    promises.push(transferBetweenOwners(v5cID, car));
-                });
-                return Promise.all(promises);
+                    return prev.then(function() {
+                        return transferBetweenOwners(v5cID, car);
+                    });
+                }, Promise.resolve());
             })
             .then(function() {
                 updateDemoStatus({message: 'Demo setup'});
@@ -100,6 +100,8 @@ function transferBetweenOwners(v5cID, car, results) {
     if (!results) {
         results = [];
     }
+    console.log('v5cID: ', v5cID);
+    console.log('car: ', car);
     if (newCar.Owners.length > 2) {
         let seller = map_ID.user_to_id(newCar.Owners[1]); // First after DVLA
         let buyer = map_ID.user_to_id(newCar.Owners[2]); // Second after DVLA
@@ -135,25 +137,24 @@ function createVehicle() {
     return vehicleData.create('DVLA');
 }
 
-function populateVehicle(v5cID, car, results) {
-    let newCar = JSON.parse(JSON.stringify(car));
-    if (!results) {results = [];}
-    let propertyName = Object.keys(newCar)[0];
-    let value = newCar[propertyName];
-    let normalisedProperty = propertyName.toLowerCase();
+function populateVehicleProperty(v5cID, ownerId, propertyName, propertyValue) {
+    console.log(v5cID, ownerId, propertyName, propertyValue);
+    let normalisedPropertyName = propertyName.toLowerCase();
+    return vehicleData.updateAttribute(ownerId, 'update_'+normalisedPropertyName, propertyValue, v5cID);
+}
 
-    if (Object.keys(newCar).length > 0) {
+function populateVehicle(v5cID, car) {
+    let result = Promise.resolve();
+    for(let propertyName in car) {
+        let normalisedPropertyName = propertyName.toLowerCase();
+        let propertyValue = car[propertyName];
         if (propertyName !== 'Owners') {
-            return vehicleData.updateAttribute(map_ID.user_to_id(car.Owners[1]), 'update_'+normalisedProperty, value, v5cID)
-            .then(function(result) {
-                delete newCar[propertyName];
-                results.push(result);
-                return populateVehicle(v5cID, newCar, results);
+            result = result.then(function() {
+                return populateVehicleProperty(v5cID, map_ID.user_to_id(car.Owners[1]), normalisedPropertyName, propertyValue);
             });
         }
-    } else {
-        return Promise.resolve(results);
     }
+    return result;
 }
 
 function transferVehicle(v5cID, seller, buyer, functionName) {

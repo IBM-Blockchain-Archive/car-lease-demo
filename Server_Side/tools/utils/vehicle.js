@@ -28,7 +28,6 @@ class Vehicle {
     }
 
     updateAttribute(userId, functionName, value, v5cID) {
-        console.log('user id ', userId);
         let securityContext = this.usersToSecurityContext[userId];
         return Util.invokeChaincode(securityContext, functionName, [ value, v5cID ]);
     }
