@@ -100,6 +100,8 @@ function transferBetweenOwners(v5cID, car, results) {
     if (!results) {
         results = [];
     }
+    console.log('v5cID: ', v5cID);
+    console.log('car: ', car);
     if (newCar.Owners.length > 2) {
         let seller = map_ID.user_to_id(newCar.Owners[1]); // First after DVLA
         let buyer = map_ID.user_to_id(newCar.Owners[2]); // Second after DVLA
@@ -136,6 +138,7 @@ function createVehicle() {
 }
 
 function populateVehicleProperty(v5cID, ownerId, propertyName, propertyValue) {
+    console.log(v5cID, ownerId, propertyName, propertyValue);
     let normalisedPropertyName = propertyName.toLowerCase();
     return vehicleData.updateAttribute(ownerId, 'update_'+normalisedPropertyName, propertyValue, v5cID);
 }
