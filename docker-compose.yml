@@ -1,7 +1,8 @@
 version: "2"
 services:
   membersrvc:
-    image: hyperledger/fabric-membersrvc:latest
+    build:
+      context: membersrvc
     command: membersrvc
     ports:
       - "7054:7054"
