@@ -433,8 +433,6 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
 })
-.then(function() {
-})
 .catch(function(err) {
     console.log(err);
     tracing.create('ERROR', 'Startup', err);
