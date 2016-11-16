@@ -24,12 +24,12 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 //--------------------------------------------------------------------------------------------------------------------
 
 config.networkFile         = null;                 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
-config.networkProtocol     = 'https';             // The protocol to be used for connecting via rest to the network data peers
+config.networkProtocol     = 'http';             // The protocol to be used for connecting via rest to the network data peers
 
 
 
 //Settings for the nodeJS application server
-config.appProtocol = 'https';
+config.appProtocol = 'http';
 config.offlineUrl = 'localhost';
 config.app_port = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
 
@@ -45,7 +45,7 @@ config.registrar_password = 'DJY27pEnl16d';
 //--------------------------------------------------------------------------------------------------------------------
 
 //Protocol used by HFC to communicate with blockchain peers and CA, need to change this manually.
-config.hfc_protocol             = 'grpcs';
+config.hfc_protocol             = 'grpc';
 config.certificate_file_name    = 'certificate.pem';
 config.key_store_location       = './keyValStore';
 
@@ -250,10 +250,12 @@ for(let key in credentials.ca) {
 config.ca_ip = ca.discovery_host;     //IP of the CA attempting to be connected to
 config.ca_port = ca.discovery_port;         //Discovery port of the Certificate Authority. Used for HFC
 
-credentials.users.forEach(function(user) {
-    if (user.username === config.registrar_name) {
-        config.bluemix_registrar_password = user.secret;
-    }
-});
+if (credentials.users) {
+    credentials.users.forEach(function(user) {
+        if (user.username === config.registrar_name) {
+            config.bluemix_registrar_password = user.secret;
+        }
+    });
+}
 
 exports.config = config; // Exports for use in other files that require this one

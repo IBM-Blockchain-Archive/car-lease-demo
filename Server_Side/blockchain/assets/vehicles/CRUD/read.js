@@ -25,8 +25,9 @@ function get_all_cars(req, res, next, usersToSecurityContext)
     return Util.queryChaincode(securityContext, 'get_vehicles', [])
     .then(function(data) {
         let cars = JSON.parse(data.toString());
+        console.log(cars);
         cars.forEach(function(car) {
-            tracing.create('INFO', 'GET blockchain/assets/vehicles', car);
+            tracing.create('INFO', 'GET blockchain/assets/vehicles', JSON.stringify(car));
             res.write(JSON.stringify(car)+'&&');
         });
         tracing.create('EXIT', 'GET blockchain/assets/vehicles', {});
