@@ -29,7 +29,7 @@ let update = function(req, res, next, usersToSecurityContext, property)
     tracing.create('INFO', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property, 'Formatting request');
     res.write('{"message":"Formatting request"}&&');
 
-    return vehicleData.updateAttribute(user_id, functionName, property, newValue, v5cID)
+    return vehicleData.updateAttribute(user_id, functionName, newValue, v5cID)
     .then(function(data) {
         tracing.create('ENTER SUCCESS', 'PUT blockchain/assets/vehicles/'+v5cID+'/' + property);
 
