@@ -337,7 +337,7 @@ if(configFile.config.hfc_protocol === 'grpcs'){
 }
 
 
-if (process.env.VCAP_SERVICE) { // We are running in bluemix
+if (process.env.VCAP_SERVICES) { // We are running in bluemix
     credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
     console.log('\n[!] Running in bluemix');
     if (!pem) {
@@ -350,16 +350,16 @@ if (process.env.VCAP_SERVICE) { // We are running in bluemix
     // Get the WebAppAdmins password
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
 
-} else if (!vcapServices && pem) { // We are running outside bluemix, connecting to bluemix fabric
+} else if (pem) { // We are running outside bluemix, connecting to bluemix fabric
     console.log('\n[!] Running locally with bluemix fabric');
-    let credentials = fs.readFileSync(__dirname + '/credentials.json');
+    credentials = fs.readFileSync(__dirname + '/credentials.json');
     credentials = JSON.parse(credentials);
 
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    startup.connectToEventHub(chain, credentials.peers[0], pem);
+    // startup.connectToEventHub(chain, credentials.peers[0], pem);
 
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
@@ -432,6 +432,8 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     for (let name in usersToSecurityContext) {
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
+})
+.then(function() {
 })
 .catch(function(err) {
     console.log(err);

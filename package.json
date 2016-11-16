@@ -15,7 +15,7 @@
     "express": "4.0.0",
     "express-session": "1.2.1",
     "fs": "",
-    "hfc": "^0.6.4",
+    "hfc": "^0.6.5",
     "request": "",
     "x509": ""
   },

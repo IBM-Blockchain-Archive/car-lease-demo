@@ -45,7 +45,7 @@ function create(req, res, next, usersToSecurityContext) {
         return createVehicles(cars)
             .then(function(results) {
                 v5cIDResults = results;
-                updateDemoStatus({message: 'Created vehicles'});
+                updateDemoStatus({message: 'Creating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
                     let seller = map_ID.user_to_id('DVLA');
@@ -56,17 +56,16 @@ function create(req, res, next, usersToSecurityContext) {
                 }, Promise.resolve());
             })
             .then(function() {
-                updateDemoStatus({message: 'Transfered all vehicles to DVLA'});
-                updateDemoStatus({message: 'Updating vehicle details'});
                 return v5cIDResults.reduce(function(prev, v5cID, index){
                     let car = cars[index];
+                    updateDemoStatus({message: 'Updating vehicles'});
                     return prev.then(function() {
                         return populateVehicle(v5cID, car);
                     });
                 }, Promise.resolve());
             })
             .then(function() {
-                updateDemoStatus({message: 'Transfering between owners'});
+                updateDemoStatus({message: 'Transfering vehicles between owners'});
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
                     return prev.then(function() {
@@ -100,8 +99,6 @@ function transferBetweenOwners(v5cID, car, results) {
     if (!results) {
         results = [];
     }
-    console.log('v5cID: ', v5cID);
-    console.log('car: ', car);
     if (newCar.Owners.length > 2) {
         let seller = map_ID.user_to_id(newCar.Owners[1]); // First after DVLA
         let buyer = map_ID.user_to_id(newCar.Owners[2]); // Second after DVLA
