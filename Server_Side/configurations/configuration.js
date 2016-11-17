@@ -13,14 +13,6 @@ config.networkProtocol = 'https';                 // If deploying locally, this 
 config.appProtocol = 'https';                     // If deploying locally, this value needs to be changed to 'http'
 config.hfc_protocol = 'grpcs';                    // If deploying locally, this value needs to be changed to 'grpc'
 
-
-//--------------------------------------------------------------------------------------------------------------------
-//    Application information
-//--------------------------------------------------------------------------------------------------------------------
-
-//Height of the blockchain at the time of deploying the application, used to verify chaincode deploy has completed
-config.start_height = '0';
-
 //--------------------------------------------------------------------------------------------------------------------
 //    Tracing
 //--------------------------------------------------------------------------------------------------------------------

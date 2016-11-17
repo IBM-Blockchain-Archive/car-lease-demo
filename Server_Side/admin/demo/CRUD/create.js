@@ -42,10 +42,10 @@ function create(req, res, next, usersToSecurityContext) {
         tracing.create('INFO', 'Demo', 'Found cars');
         cars = cars.cars;
         let v5cIDResults;
+        updateDemoStatus({message: 'Creating vehicles'});
         return createVehicles(cars)
             .then(function(results) {
                 v5cIDResults = results;
-                updateDemoStatus({message: 'Creating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
                     let seller = map_ID.user_to_id('DVLA');
@@ -56,9 +56,9 @@ function create(req, res, next, usersToSecurityContext) {
                 }, Promise.resolve());
             })
             .then(function() {
+                updateDemoStatus({message: 'Updating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index){
                     let car = cars[index];
-                    updateDemoStatus({message: 'Updating vehicles'});
                     return prev.then(function() {
                         return populateVehicle(v5cID, car);
                     });
@@ -131,16 +131,17 @@ function createVehicles(cars, results) {
 }
 
 function createVehicle() {
+    console.log('[!] Creating Vehicle');
     return vehicleData.create('DVLA');
 }
 
 function populateVehicleProperty(v5cID, ownerId, propertyName, propertyValue) {
-    console.log(v5cID, ownerId, propertyName, propertyValue);
     let normalisedPropertyName = propertyName.toLowerCase();
     return vehicleData.updateAttribute(ownerId, 'update_'+normalisedPropertyName, propertyValue, v5cID);
 }
 
 function populateVehicle(v5cID, car) {
+    console.log('[!] Populating Vehicle');
     let result = Promise.resolve();
     for(let propertyName in car) {
         let normalisedPropertyName = propertyName.toLowerCase();
@@ -155,23 +156,28 @@ function populateVehicle(v5cID, car) {
 }
 
 function transferVehicle(v5cID, seller, buyer, functionName) {
+    console.log('[!] Transfering Vehicle to ' + buyer);
     return vehicleData.transfer(seller, buyer, functionName, v5cID);
 }
 
 function updateDemoStatus(status) {
-    let statusFile = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
-    let demoStatus = JSON.parse(statusFile);
-    demoStatus.logs.push(status);
-    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demoStatus));
+    try {
+        let statusFile = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
+        let demoStatus = JSON.parse(statusFile);
+        demoStatus.logs.push(status);
+        fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demoStatus));
 
-    if(!status.hasOwnProperty('error')) {
-        if(status.message === 'Demo setup') {
-            tracing.create('EXIT', 'POST admin/demo', status);
+        if(!status.hasOwnProperty('error')) {
+            if(status.message === 'Demo setup') {
+                tracing.create('EXIT', 'POST admin/demo', status);
+            } else {
+                tracing.create('INFO', 'POST admin/demo', status.message);
+            }
         } else {
-            tracing.create('INFO', 'POST admin/demo', status.message);
+            tracing.create('ERROR', 'POST admin/demo', status);
         }
-    } else {
-        tracing.create('ERROR', 'POST admin/demo', status);
+    } catch (e) {
+        console.log(e);
     }
 }
 
