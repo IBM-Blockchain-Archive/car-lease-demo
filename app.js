@@ -44,6 +44,7 @@ const SecurityContext = require(__dirname+'/Server_Side/tools/security/securityc
 // Object of users' names linked to their security context
 let usersToSecurityContext = {};
 
+let host;
 let port = process.env.VCAP_APP_PORT || configFile.config.app_port;
 
 
@@ -315,9 +316,12 @@ let credentials;
 let webAppAdminPassword = configFile.config.registrar_password;
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
+
+    host = JSON.parse(process.env.VCAP_APPLICATION).application_uris[0];
     port = process.env.VCAP_APP_PORT;
 } else {
     port = configFile.config.app_port;
+    host = configFile.config.offlineUrl;
 }
 
 // Setup HFC
@@ -371,7 +375,6 @@ server = http.createServer(app).listen(port, function () {
     tracing.create('INFO', 'Startup complete on port', server.address().port);
 });
 
-server.timeout = 240000;
 let chaincodeID;
 startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
 .then(function(r) {
@@ -410,12 +413,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
         sc.setChaincodeID(chaincodeID);
         tracing.create('INFO', 'Chaincode error may appear here - Ignore, chaincode has been pinged', '');
-        try {
-            return startup.pingChaincode(chain, sc);
-        } catch(e) {
-            //ping didnt work
-            return false;
-        }
+        return startup.pingChaincode(chain, sc);
     } else {
         return false;
     }

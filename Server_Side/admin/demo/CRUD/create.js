@@ -47,6 +47,7 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function(results) {
                 v5cIDResults = results;
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
+                    console.log('[!] Transfered vehicle to DVLA');
                     let car = cars[index];
                     let seller = map_ID.user_to_id('DVLA');
                     let buyer = map_ID.user_to_id(car.Owners[1]);
@@ -58,6 +59,7 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function() {
                 updateDemoStatus({message: 'Updating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index){
+                    console.log('[!] Updated vehicle');
                     let car = cars[index];
                     return prev.then(function() {
                         return populateVehicle(v5cID, car);
@@ -67,6 +69,7 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function() {
                 updateDemoStatus({message: 'Transfering vehicles between owners'});
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
+                    console.log('[!] Transfered vehicle');
                     let car = cars[index];
                     return prev.then(function() {
                         return transferBetweenOwners(v5cID, car);
@@ -131,7 +134,6 @@ function createVehicles(cars, results) {
 }
 
 function createVehicle() {
-    console.log('[!] Creating Vehicle');
     return vehicleData.create('DVLA');
 }
 
@@ -141,7 +143,6 @@ function populateVehicleProperty(v5cID, ownerId, propertyName, propertyValue) {
 }
 
 function populateVehicle(v5cID, car) {
-    console.log('[!] Populating Vehicle');
     let result = Promise.resolve();
     for(let propertyName in car) {
         let normalisedPropertyName = propertyName.toLowerCase();
@@ -156,7 +157,6 @@ function populateVehicle(v5cID, car) {
 }
 
 function transferVehicle(v5cID, seller, buyer, functionName) {
-    console.log('[!] Transfering Vehicle to ' + buyer);
     return vehicleData.transfer(seller, buyer, functionName, v5cID);
 }
 
