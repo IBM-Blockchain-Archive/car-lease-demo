@@ -371,7 +371,7 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
 
 
 server = http.createServer(app).listen(port, function () {
-    console.log('------------------------------------------ Server Up - ' + host + ':' + server.address().port + ' ------------------------------------------');
+    console.log('Server Up');
     tracing.create('INFO', 'Startup complete on port', server.address().port);
 });
 
