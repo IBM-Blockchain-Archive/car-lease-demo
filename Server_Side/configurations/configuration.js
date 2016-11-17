@@ -5,6 +5,15 @@ let fs = require('fs');
 //TODO: Change this a be compatible with the Config npm module
 
 let config = {};
+
+//--------------------------------------------------------------------------------------------------------------------
+//    Local Config
+//--------------------------------------------------------------------------------------------------------------------
+config.networkProtocol = 'https';                 // If deploying locally, this value needs to be changed to 'http'
+config.appProtocol = 'https';                     // If deploying locally, this value needs to be changed to 'http'
+config.hfc_protocol = 'grpcs';                    // If deploying locally, this value needs to be changed to 'grpc'
+
+
 //--------------------------------------------------------------------------------------------------------------------
 //    Application information
 //--------------------------------------------------------------------------------------------------------------------
@@ -24,12 +33,9 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 //--------------------------------------------------------------------------------------------------------------------
 
 config.networkFile         = null;                 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
-config.networkProtocol     = 'https';             // The protocol to be used for connecting via rest to the network data peers
-
 
 
 //Settings for the nodeJS application server
-config.appProtocol = 'https';
 config.offlineUrl = 'localhost';
 config.app_port = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
 
@@ -45,7 +51,6 @@ config.registrar_password = 'DJY27pEnl16d';
 //--------------------------------------------------------------------------------------------------------------------
 
 //Protocol used by HFC to communicate with blockchain peers and CA, need to change this manually.
-config.hfc_protocol             = 'grpcs';
 config.certificate_file_name    = 'certificate.pem';
 config.key_store_location       = './keyValStore';
 
