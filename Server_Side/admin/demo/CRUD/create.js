@@ -159,19 +159,23 @@ function transferVehicle(v5cID, seller, buyer, functionName) {
 }
 
 function updateDemoStatus(status) {
-    let statusFile = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
-    let demoStatus = JSON.parse(statusFile);
-    demoStatus.logs.push(status);
-    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demoStatus));
+    try {
+        let statusFile = fs.readFileSync(__dirname+'/../../../logs/demo_status.log');
+        let demoStatus = JSON.parse(statusFile);
+        demoStatus.logs.push(status);
+        fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', JSON.stringify(demoStatus));
 
-    if(!status.hasOwnProperty('error')) {
-        if(status.message === 'Demo setup') {
-            tracing.create('EXIT', 'POST admin/demo', status);
+        if(!status.hasOwnProperty('error')) {
+            if(status.message === 'Demo setup') {
+                tracing.create('EXIT', 'POST admin/demo', status);
+            } else {
+                tracing.create('INFO', 'POST admin/demo', status.message);
+            }
         } else {
-            tracing.create('INFO', 'POST admin/demo', status.message);
+            tracing.create('ERROR', 'POST admin/demo', status);
         }
-    } else {
-        tracing.create('ERROR', 'POST admin/demo', status);
+    } catch (e) {
+        console.log(e);
     }
 }
 
