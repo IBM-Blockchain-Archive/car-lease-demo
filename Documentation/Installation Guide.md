@@ -60,7 +60,7 @@ If your local member service uses different settings then the following will als
 To connect to an external Bluemix peer, copy the services VCAP variables into credentials.json
 These VCAP variables can be found in a Bluemix service under 'Service Credentials' as shown below.
 
-[![Copy VCAP](/Images/VCAP Creds.png)]
+![Copy VCAP](/Images/VCAP Creds.png)
 
 ###Running the application###
 To start the application, change your current working directory to 'Scripts'. Then run the 'start.sh' script in a terminal or command prompt window using:
@@ -81,9 +81,9 @@ docker ps (This will show all running docker containers)
        - Peer container
        - Membersrvc container
 
-[![Docker ps](/Images/DockerPs.png)]
+![Docker ps](/Images/DockerPs.png)
 
 docker logs -f DOCKER_ID (This will show all logging where DOCKER_ID is replaced with a Docker container ID)
 *Note: To find the full Docker container ID, start to type the container ID then press 'TAB' to autocomplete in the terminal
 
-[![Docker logs](/Images/DockerLogs.png)]
+![Docker logs](/Images/DockerLogs.png)
