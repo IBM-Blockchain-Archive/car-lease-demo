@@ -68,10 +68,10 @@ These VCAP variables can be found in a Bluemix service under 'Service Credential
 ![Copy VCAP](/Images/VCAP Creds.png)
 
 ###Running the application###
-To start the application, change your current working directory to `'Scripts'`. Then run the `'start.sh'` script in a terminal or command prompt window using:
+To start the application, change your current working directory to `Scripts`. Then run the `start.sh` script in a terminal or command prompt window using:
 
-    `./start.sh`
-  *Note: You may have to give the script permissions first by running chmod u+x ./start.sh*
+    ./start.sh
+  *Note: You may have to give the script permissions first by running chmod u+x ./start.sh
 
 You can then view it by opening your browser to where you have NodeJS running. By default it will load on http://localhost:8080.
 
