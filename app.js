@@ -371,7 +371,6 @@ server = http.createServer(app).listen(port, function () {
     tracing.create('INFO', 'Startup complete on port', server.address().port);
 });
 
-server.timeout = 240000;
 let chaincodeID;
 startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
 .then(function(r) {
