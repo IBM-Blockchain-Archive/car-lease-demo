@@ -47,6 +47,7 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function(results) {
                 v5cIDResults = results;
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
+                    console.log('[!] Transfered vehicle to DVLA');
                     let car = cars[index];
                     let seller = map_ID.user_to_id('DVLA');
                     let buyer = map_ID.user_to_id(car.Owners[1]);
@@ -58,6 +59,7 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function() {
                 updateDemoStatus({message: 'Updating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index){
+                    console.log('[!] Updated vehicle');
                     let car = cars[index];
                     return prev.then(function() {
                         return populateVehicle(v5cID, car);
@@ -67,6 +69,7 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function() {
                 updateDemoStatus({message: 'Transfering vehicles between owners'});
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
+                    console.log('[!] Transfered vehicle');
                     let car = cars[index];
                     return prev.then(function() {
                         return transferBetweenOwners(v5cID, car);
@@ -135,7 +138,6 @@ function createVehicle() {
 }
 
 function populateVehicleProperty(v5cID, ownerId, propertyName, propertyValue) {
-    console.log(v5cID, ownerId, propertyName, propertyValue);
     let normalisedPropertyName = propertyName.toLowerCase();
     return vehicleData.updateAttribute(ownerId, 'update_'+normalisedPropertyName, propertyValue, v5cID);
 }
