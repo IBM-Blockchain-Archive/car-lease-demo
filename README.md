@@ -1,8 +1,6 @@
 Car Lease Demo
 =======
 
-## Note that these docs will be updated for fabric 0.6 in due course. Bluemix only (for now)
-
 ##Deploying the demo##
 To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
 
