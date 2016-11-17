@@ -5,14 +5,14 @@ let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
 let read = function(req,res)
 {
-    // tracing.create('ENTER', 'GET admin/demo', {});
+    tracing.create('ENTER', 'GET admin/demo', {});
 
     try{
         let data = fs.readFileSync(__dirname+'/../../../logs/demo_status.log').toString();
         try
         {
             data = JSON.parse(data);
-            // tracing.create('EXIT', 'GET admin/demo', data.logs);
+            tracing.create('EXIT', 'GET admin/demo', data.logs);
             res.send(data.logs);
         } catch (e)
         {
