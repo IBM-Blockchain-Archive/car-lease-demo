@@ -370,6 +370,7 @@ server = http.createServer(app).listen(port, function () {
     console.log('Server Up');
     tracing.create('INFO', 'Startup complete on port', server.address().port);
 });
+server.timeout = 0;
 
 let chaincodeID;
 startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
