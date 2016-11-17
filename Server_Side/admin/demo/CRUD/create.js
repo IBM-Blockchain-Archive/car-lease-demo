@@ -42,10 +42,10 @@ function create(req, res, next, usersToSecurityContext) {
         tracing.create('INFO', 'Demo', 'Found cars');
         cars = cars.cars;
         let v5cIDResults;
+        updateDemoStatus({message: 'Creating vehicles'});
         return createVehicles(cars)
             .then(function(results) {
                 v5cIDResults = results;
-                updateDemoStatus({message: 'Creating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
                     let seller = map_ID.user_to_id('DVLA');
@@ -56,9 +56,9 @@ function create(req, res, next, usersToSecurityContext) {
                 }, Promise.resolve());
             })
             .then(function() {
+                updateDemoStatus({message: 'Updating vehicles'});
                 return v5cIDResults.reduce(function(prev, v5cID, index){
                     let car = cars[index];
-                    updateDemoStatus({message: 'Updating vehicles'});
                     return prev.then(function() {
                         return populateVehicle(v5cID, car);
                     });
