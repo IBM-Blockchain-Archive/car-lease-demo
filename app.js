@@ -434,6 +434,12 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
 })
+.then(function() {
+    // Query the chaincode every 30 seconds
+    setInterval(function(){
+        startup.pingChaincode(chain, usersToSecurityContext.DVLA);
+    }, 30000);
+})
 .catch(function(err) {
     console.log(err);
     tracing.create('ERROR', 'Startup', err);

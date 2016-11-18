@@ -82,9 +82,9 @@ class Util {
                     attrs: ATTRS
                 };
 
-                let tx = user.invoke(invoke);
-
                 console.log('[#] Invoke: ', invoke);
+
+                let tx = user.invoke(invoke);
 
                 tx.on('submitted', function(data) {
                 });
