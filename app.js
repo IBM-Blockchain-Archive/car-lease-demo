@@ -81,7 +81,7 @@ app.post('/admin/demo', function(req, res, next)
 
 app.get('/admin/demo', function(req, res, next)
 {
-    demo.read(req, res, next);
+    demo.read(req, res, next, usersToSecurityContext);
 });
 
 //-----------------------------------------------------------------------------------------------

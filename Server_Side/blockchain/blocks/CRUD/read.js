@@ -15,6 +15,11 @@ let read = function(req, res, next, usersToSecurityContext) {
             let result = {};
             result.height = JSON.parse(body).height;
 
+            // If the dvla hasnt been given a chaincode ID yet, do not adjust the block height
+            if (!usersToSecurityContext.DVLA.getChaincodeID()) {
+                result.height = 1;
+            }
+
             result.currentBlockHash = JSON.parse(body).currentBlockHash;
             tracing.create('EXIT', 'GET blockchain/blocks', result);
             res.send(result);
