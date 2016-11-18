@@ -31,7 +31,7 @@ class Util {
                     attrs: ATTRS
                 };
 
-                console.log('Query: ', query);
+                console.log('[#] Query: ', query);
 
                 let tx = user.query(query);
 
@@ -84,7 +84,7 @@ class Util {
 
                 let tx = user.invoke(invoke);
 
-                console.log('Invoke: ', invoke);
+                console.log('[#] Invoke: ', invoke);
 
                 tx.on('submitted', function(data) {
                 });

@@ -105,6 +105,7 @@ function transferBetweenOwners(v5cID, car, results) {
         functionName = TYPES[results.length + 1];
         return transferVehicle(v5cID, seller, buyer, functionName)
         .then(function(result) {
+            console.log('[#] Transfer vehicle ' + v5cID + ' between ' + seller + ' -> ' + buyer);
             results.push(result);
             newCar.Owners.shift();
             return transferBetweenOwners(v5cID, newCar, results);
@@ -121,6 +122,7 @@ function createVehicles(cars, results) {
     if (newCars.length > 0) {
         return createVehicle()
             .then(function(result) {
+                console.log('[#] Created vehicle ' + result);
                 results.push(result);
                 newCars.pop();
                 return createVehicles(newCars, results);
@@ -131,7 +133,7 @@ function createVehicles(cars, results) {
 }
 
 function createVehicle() {
-    console.log('[!] Creating Vehicle');
+    console.log('[#] Creating Vehicle');
     return vehicleData.create('DVLA');
 }
 
@@ -141,7 +143,7 @@ function populateVehicleProperty(v5cID, ownerId, propertyName, propertyValue) {
 }
 
 function populateVehicle(v5cID, car) {
-    console.log('[!] Populating Vehicle');
+    console.log('[#] Populating Vehicle');
     let result = Promise.resolve();
     for(let propertyName in car) {
         let normalisedPropertyName = propertyName.toLowerCase();
@@ -156,7 +158,7 @@ function populateVehicle(v5cID, car) {
 }
 
 function transferVehicle(v5cID, seller, buyer, functionName) {
-    console.log('[!] Transfering Vehicle to ' + buyer);
+    console.log('[#] Transfering Vehicle to ' + buyer);
     return vehicleData.transfer(seller, buyer, functionName, v5cID);
 }
 
