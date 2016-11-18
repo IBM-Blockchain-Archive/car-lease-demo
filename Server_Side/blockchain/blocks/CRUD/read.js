@@ -16,7 +16,9 @@ let read = function(req, res, next, usersToSecurityContext) {
             result.height = JSON.parse(body).height;
 
             // If the dvla hasnt been given a chaincode ID yet, do not adjust the block height
-            if (!usersToSecurityContext.DVLA.getChaincodeID()) {
+            if (!usersToSecurityContext.DVLA) {
+                result.height = 1;
+            } else if (usersToSecurityContext.DVLA && usersToSecurityContext.DVLA.getChaincodeID()) {
                 result.height = 1;
             }
 
