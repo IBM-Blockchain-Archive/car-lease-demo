@@ -15,15 +15,15 @@ class Util {
                 throw new Error('args not provided');
             }
 
-            args.forEach(function(arg) {
-                if (typeof arg !== 'string') {
-                    throw new Error('invalid arg specified ' + arg + ' in ', JSON.stringify(args));
-                }
-            });
-
-            let user = securityContext.getEnrolledMember();
-
             return new Promise(function(resolve, reject) {
+                args.forEach(function(arg) {
+                    if (typeof arg !== 'string') {
+                        throw new Error('invalid arg specified ' + arg + ' in ', JSON.stringify(args));
+                    }
+                });
+
+                let user = securityContext.getEnrolledMember();
+
                 let tx = user.query({
                     chaincodeID: securityContext.getChaincodeID(),
                     fcn: functionName,
@@ -62,15 +62,15 @@ class Util {
                 throw new Error('args not provided');
             }
 
-            args.forEach(function(arg) {
-                if (typeof arg !== 'string') {
-                    throw new Error('invalid arg specified ' + arg + ' in ', args);
-                }
-            });
-
-            let user = securityContext.getEnrolledMember();
-
             return new Promise(function(resolve, reject) {
+                args.forEach(function(arg) {
+                    if (typeof arg !== 'string') {
+                        throw new Error('invalid arg specified ' + arg + ' in ', args);
+                    }
+                });
+
+                let user = securityContext.getEnrolledMember();
+
                 let tx = user.invoke({
                     chaincodeID: securityContext.getChaincodeID(),
                     fcn: functionName,
