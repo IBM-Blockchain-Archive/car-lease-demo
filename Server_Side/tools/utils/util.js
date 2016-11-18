@@ -24,12 +24,16 @@ class Util {
 
                 let user = securityContext.getEnrolledMember();
 
-                let tx = user.query({
+                let query = {
                     chaincodeID: securityContext.getChaincodeID(),
                     fcn: functionName,
                     args: args,
                     attrs: ATTRS
-                });
+                };
+
+                console.log('Query: ', query);
+
+                let tx = user.query(query);
 
                 tx.on('submitted', function() {
                 });
@@ -48,7 +52,7 @@ class Util {
             });
 
         } catch(e) {
-            throw e;
+            console.log(e);
         }
     }
 
@@ -71,12 +75,16 @@ class Util {
 
                 let user = securityContext.getEnrolledMember();
 
-                let tx = user.invoke({
+                let invoke = {
                     chaincodeID: securityContext.getChaincodeID(),
                     fcn: functionName,
                     args: args,
                     attrs: ATTRS
-                });
+                };
+
+                let tx = user.invoke(invoke);
+
+                console.log('Invoke: ', invoke);
 
                 tx.on('submitted', function(data) {
                 });
