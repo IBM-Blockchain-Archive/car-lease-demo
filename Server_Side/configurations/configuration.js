@@ -11,7 +11,7 @@ let config = {};
 //--------------------------------------------------------------------------------------------------------------------
 config.networkProtocol = 'https';                 // If deploying locally, this value needs to be changed to 'http'
 config.appProtocol = 'https';                     // If deploying locally, this value needs to be changed to 'http'
-config.hfc_protocol = 'grpcs';                    // If deploying locally, this value needs to be changed to 'grpc'
+config.hfcProtocol = 'grpcs';                    // If deploying locally, this value needs to be changed to 'grpc'
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Tracing
@@ -20,16 +20,10 @@ config.hfc_protocol = 'grpcs';                    // If deploying locally, this 
 config.trace        = true;
 config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where traces should be written to
 
-//--------------------------------------------------------------------------------------------------------------------
-//    Network file - A JSON file that holds the details of the peers, CA etc example at my_creds.json
-//--------------------------------------------------------------------------------------------------------------------
-
-config.networkFile         = null;                 //Put filepath to network data here from bluemix if not using VCAP.  e.g. __dirname+"/../../mycreds.json";
-
 
 //Settings for the nodeJS application server
 config.offlineUrl = 'localhost';
-config.app_port = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
+config.appPort = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -51,8 +45,6 @@ config.key_store_location       = './keyValStore';
 //--------------------------------------------------------------------------------------------------------------------
 //Chaincode file location
 config.vehicle = 'github.com/hyperledger/fabric/vehicle_code';
-//Chaincode deployed names
-config.vehicle_name = '2e436d1363bb9f7c00342fa3fe30eff2c303f06ed4a396a06416a5e1e488ead7edd99f337e31fc6692d785bc0d9a30e942f111caccae15e7c34de6c716f0d92a';
 
 config.users = [
     {

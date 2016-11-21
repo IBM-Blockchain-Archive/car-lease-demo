@@ -44,7 +44,7 @@ const SecurityContext = require(__dirname+'/Server_Side/tools/security/securityc
 // Object of users' names linked to their security context
 let usersToSecurityContext = {};
 
-let port = process.env.VCAP_APP_PORT || configFile.config.app_port;
+let port = process.env.VCAP_APP_PORT || configFile.config.appPort;
 
 
 ////////  Pathing and Module Setup  ////////
@@ -317,7 +317,7 @@ if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
     port = process.env.VCAP_APP_PORT;
 } else {
-    port = configFile.config.app_port;
+    port = configFile.config.appPort;
 }
 
 // Setup HFC
@@ -327,7 +327,7 @@ chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location
 
 //TODO: Change this to be a boolean stating if ssl is enabled or disabled
 //Retrieve the certificate if grpcs is being used
-if(configFile.config.hfc_protocol === 'grpcs'){
+if(configFile.config.hfcProtocol === 'grpcs'){
     // chain.setECDSAModeForGRPC(true);
     pem = fs.readFileSync(__dirname+'/Chaincode/src/vehicle_code/'+configFile.config.certificate_file_name, 'utf8');
 }
@@ -341,7 +341,7 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     }
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    // startup.connectToEventHub(chain, credentials.peers[0], pem);
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
 
     // Get the WebAppAdmins password
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
@@ -355,7 +355,7 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    // startup.connectToEventHub(chain, credentials.peers[0], pem);
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
 
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
@@ -433,12 +433,15 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     for (let name in usersToSecurityContext) {
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
+    chain.getEventHub().registerChaincodeEvent(deploy.chaincodeID, 'evtping', function() {
+        console.log('[#] Keep alive event fired.');
+    });
 })
 .then(function() {
-    // Query the chaincode every 30 seconds
+    // Query the chaincode every 3 minutes
     setInterval(function(){
         startup.pingChaincode(chain, usersToSecurityContext.DVLA);
-    }, 30000);
+    }, 0.5 * 60000);
 })
 .catch(function(err) {
     console.log(err);

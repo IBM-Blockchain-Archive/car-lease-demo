@@ -7,9 +7,6 @@ import (
 	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"encoding/json"
-	// "crypto/x509"
-	// "encoding/pem"
-	// "net/url"
 	"regexp"
 )
 
@@ -234,9 +231,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	if err != nil { return nil, errors.New("Error retrieving caller information")}
 
 
-	if function == "create_vehicle" { return t.create_vehicle(stub, caller, caller_affiliation, args[0])
-	} else { 																				// If the function is not a create then there must be a car so we need to retrieve the car.
-
+	if function == "create_vehicle" {
+        return t.create_vehicle(stub, caller, caller_affiliation, args[0])
+	} else if function == "ping" {
+        return t.ping(stub)
+    } else { 																				// If the function is not a create then there must be a car so we need to retrieve the car.
 		argPos := 1
 
 		if function == "scrap_vehicle" {																// If its a scrap vehicle then only two arguments are passed (no update value) all others have three arguments and the v5cID is expected in the last argument
@@ -249,9 +248,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 
         if strings.Contains(function, "update") == false && function != "scrap_vehicle"    { 									// If the function is not an update or a scrappage it must be a transfer so we need to get the ecert of the recipient.
-				// ecert, err := t.get_ecert(stub, args[0]);
 
-																		// if err != nil { return nil, err }
 
 				if 		   function == "authority_to_manufacturer" { return t.authority_to_manufacturer(stub, v, caller, caller_affiliation, args[0], "manufacturer")
 				} else if  function == "manufacturer_to_private"   { return t.manufacturer_to_private(stub, v, caller, caller_affiliation, args[0], "private")
@@ -268,7 +265,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
         } else if function == "update_colour" 		{ return t.update_colour(stub, v, caller, caller_affiliation, args[0])
 		} else if function == "scrap_vehicle" 		{ return t.scrap_vehicle(stub, v, caller, caller_affiliation) }
 
-																						return nil, errors.New("Function of the name "+ function +" doesn't exist.")
+		return nil, errors.New("Function of the name "+ function +" doesn't exist.")
 
 	}
 }
@@ -296,12 +293,26 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		return t.get_vehicles(stub, caller, caller_affiliation)
 	} else if function == "get_ecert" {
 		return t.get_ecert(stub, args[0])
-	} else if function == "ping" {
-        return []byte("Hello, world!"), nil
-    }
+	}
 
 	return nil, errors.New("Received unknown function invocation")
 
+}
+
+//=================================================================================================================================
+//	 Ping Function
+//=================================================================================================================================
+//	 Pings the peer to keep the connection alive
+//=================================================================================================================================
+func (t *SimpleChaincode) ping(stub shim.ChaincodeStubInterface) ([]byte, error) {
+    // Trigger event to keep the event hub alive
+    var err error
+	err = stub.SetEvent("evtping", []byte(""))
+	if err != nil {
+		return nil, err
+	}
+
+	return []byte("Hello, world!"), nil
 }
 
 //=================================================================================================================================

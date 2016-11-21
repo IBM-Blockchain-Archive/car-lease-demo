@@ -9,8 +9,8 @@ let hfc = require('hfc');
 
 function connectToPeers(chain, peers, pem) {
     peers.forEach(function(peer, index) {
-        chain.addPeer(configFile.config.hfc_protocol+'://'+peer.discovery_host+':'+peer.discovery_port, {pem:pem});
-        console.log('peer'+index+': '+configFile.config.hfc_protocol+'://'+peer.discovery_host+':'+peer.discovery_port);
+        chain.addPeer(configFile.config.hfcProtocol+'://'+peer.discovery_host+':'+peer.discovery_port, {pem:pem});
+        console.log('peer'+index+': '+configFile.config.hfcProtocol+'://'+peer.discovery_host+':'+peer.discovery_port);
     });
 }
 
@@ -21,15 +21,15 @@ function connectToCA(chain, ca, pem) {
     for (let key in ca) {
         membersrvc = ca[key];
     }
-    chain.setMemberServicesUrl(configFile.config.hfc_protocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port, {pem:pem});
-    console.log('membersrvc: '+configFile.config.hfc_protocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port);
+    chain.setMemberServicesUrl(configFile.config.hfcProtocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port, {pem:pem});
+    console.log('membersrvc: '+configFile.config.hfcProtocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port);
 }
 
 exports.connectToCA = connectToCA;
 
 function connectToEventHub(chain, peer, pem) {
-    chain.eventHubConnect(configFile.config.hfc_protocol+'://'+peer.event_host + ':' + peer.event_port, pem);
-    console.log('eventhub: ' + configFile.config.hfc_protocol+'://'+peer.event_host + ':' + peer.event_port);
+    chain.eventHubConnect(configFile.config.hfcProtocol+'://'+peer.event_host + ':' + peer.event_port, {pem: pem});
+    console.log('eventhub: ' + configFile.config.hfcProtocol+'://'+peer.event_host + ':' + peer.event_port);
 }
 
 exports.connectToEventHub = connectToEventHub;
@@ -111,8 +111,9 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args, cert
 
 exports.deployChaincode = deployChaincode;
 
+// This invokes so that an event is triggered. Uses query until bluemix is fixed
 function pingChaincode(chain, securityContext) {
-    return Util.queryChaincode(securityContext, 'ping', [])
+    return Util.invokeChaincode(securityContext, 'ping', [])
     .then(function() {
         return true;
     })

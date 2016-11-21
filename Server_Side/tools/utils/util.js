@@ -31,7 +31,7 @@ class Util {
                     attrs: ATTRS
                 };
 
-                console.log('[#] Query: ', query);
+                console.log('[#] Query: ', JSON.stringify(query));
 
                 let tx = user.query(query);
 
@@ -82,7 +82,7 @@ class Util {
                     attrs: ATTRS
                 };
 
-                console.log('[#] Invoke: ', invoke);
+                console.log('[#] Invoke: ', JSON.stringify(invoke));
 
                 let tx = user.invoke(invoke);
 
