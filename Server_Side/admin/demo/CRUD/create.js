@@ -1,5 +1,6 @@
 'use strict';
 
+const hfc = require('hfc');
 const Vehicle = require(__dirname+'/../../../tools/utils/vehicle');
 
 let tracing = require(__dirname+'/../../../tools/traces/trace.js');
@@ -18,32 +19,35 @@ const TYPES = [
 let vehicleData;
 
 function create(req, res, next, usersToSecurityContext) {
-    vehicleData = new Vehicle(usersToSecurityContext);
+    try {
+        let chain = hfc.getChain('myChain');
+        vehicleData = new Vehicle(usersToSecurityContext);
 
-    let cars;
-    res.write(JSON.stringify({message:'Creating vehicle with v5cID: '})+'&&');
-    fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
+        let cars;
+        res.write(JSON.stringify({message:'Creating vehicles'})+'&&');
+        fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
 
-    tracing.create('ENTER', 'POST admin/demo', req.body);
+        tracing.create('ENTER', 'POST admin/demo', req.body);
 
-    let scenario = req.body.scenario;
+        let scenario = req.body.scenario;
 
-    if(scenario === 'simple' || scenario === 'full') {
-        cars = initial_vehicles[scenario];
-    } else {
-        let error = {};
-        error.message = 'Scenario type not recognised';
-        error.error = true;
-        res.end(JSON.stringify(error));
-        return;
-    }
+        if(scenario === 'simple' || scenario === 'full') {
+            cars = initial_vehicles[scenario];
+        } else {
+            let error = {};
+            error.message = 'Scenario type not recognised';
+            error.error = true;
+            res.end(JSON.stringify(error));
+            return;
+        }
 
-    if(cars.hasOwnProperty('cars')) {
-        tracing.create('INFO', 'Demo', 'Found cars');
-        cars = cars.cars;
-        let v5cIDResults;
-        updateDemoStatus({message: 'Creating vehicles'});
-        return createVehicles(cars)
+        if(cars.hasOwnProperty('cars')) {
+            tracing.create('INFO', 'Demo', 'Found cars');
+            cars = cars.cars;
+            let v5cIDResults;
+            updateDemoStatus({message: 'Creating vehicles'});
+            chain.getEventHub().connect();
+            return createVehicles(cars)
             .then(function(results) {
                 v5cIDResults = results;
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
@@ -75,21 +79,26 @@ function create(req, res, next, usersToSecurityContext) {
             })
             .then(function() {
                 updateDemoStatus({message: 'Demo setup'});
+                chain.getEventHub().disconnect();
                 res.end(JSON.stringify({message: 'Demo setup'}));
             })
             .catch(function(err) {
                 tracing.create('ERROR   DEMO', err, '');
                 updateDemoStatus({'message: ': JSON.parse(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
+                chain.getEventHub().disconnect();
                 res.end(JSON.stringify(err));
             });
-    } else {
-        let error = {};
-        error.message = 'Initial vehicles not found';
-        error.error = true;
-        updateDemoStatus({'message: ': JSON.parse(error), error: true});
-        res.end(JSON.stringify(error));
-        return;
+        } else {
+            let error = {};
+            error.message = 'Initial vehicles not found';
+            error.error = true;
+            updateDemoStatus({'message: ': JSON.parse(error), error: true});
+            res.end(JSON.stringify(error));
+            return;
+        }
+    } catch (e) {
+        console.log(e);
     }
 }
 

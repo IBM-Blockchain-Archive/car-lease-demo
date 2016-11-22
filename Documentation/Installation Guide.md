@@ -32,14 +32,14 @@ When deploying locally the following settings need to be changed in the configur
 
 `config.appProtocol = 'http';`
 
-`config.hfc_protocol = 'grpc';`
+`config.hfcProtocol = 'grpc';`
 
 More information on the configuration file can be found in [Server Side.md](/Documentation/Server Side.md)
 
 ####Connecting to a non-default NodeJS server####
 
 The NodeJS server by default runs on localhost:8080. If you are running in a different location then in `Server_Side/configurations/configuration.js`
-change the `app_url` variable to be the url of where the app server should run including the port. You will also need to change `app_port` to be the port
+change the `app_url` variable to be the url of where the app server should run including the port. You will also need to change `appPort` to be the port
 for the NodeJS server.
 
 ####Connecting to a non-default setup local peer####
