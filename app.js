@@ -364,13 +364,14 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     startup.connectToCA(chain, credentials.ca);
     startup.connectToEventHub(chain, credentials.peers[0]);
 }
+chain.getEventHub().disconnect();
 
 
 server = http.createServer(app).listen(port, function () {
     console.log('Server Up');
     tracing.create('INFO', 'Startup complete on port', server.address().port);
 });
-server.timeout = 0;
+server.timeout = 2400000;
 
 let chaincodeID;
 startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
@@ -423,6 +424,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
 .then(function(exists) {
     if (!exists) {
         let certPath = (vcapServices) ? vcapServices.cert_path : '/certs/peer/cert.pem';
+        chain.getEventHub().connect();
         return startup.deployChaincode(registrar, 'vehicle_code', 'Init', [], certPath);
     } else {
         tracing.create('INFO', 'Startup', 'Chaincode already deployed');
@@ -430,12 +432,10 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     }
 })
 .then(function(deploy) {
+    chain.getEventHub().disconnect();
     for (let name in usersToSecurityContext) {
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
-    chain.getEventHub().registerChaincodeEvent(deploy.chaincodeID, 'evtping', function() {
-        console.log('[#] Keep alive event fired.');
-    });
 })
 .then(function() {
     // Query the chaincode every 3 minutes

@@ -111,9 +111,8 @@ function deployChaincode(enrolledMember, chaincodePath, functionName, args, cert
 
 exports.deployChaincode = deployChaincode;
 
-// This invokes so that an event is triggered. Uses query until bluemix is fixed
 function pingChaincode(chain, securityContext) {
-    return Util.invokeChaincode(securityContext, 'ping', [])
+    return Util.queryChaincode(securityContext, 'ping', [])
     .then(function() {
         return true;
     })

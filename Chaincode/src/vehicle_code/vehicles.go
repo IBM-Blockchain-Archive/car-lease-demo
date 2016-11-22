@@ -293,9 +293,11 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		return t.get_vehicles(stub, caller, caller_affiliation)
 	} else if function == "get_ecert" {
 		return t.get_ecert(stub, args[0])
+	} else if function == "ping" {
+		return t.ping(stub)
 	}
 
-	return nil, errors.New("Received unknown function invocation")
+	return nil, errors.New("Received unknown function invocation " + function)
 
 }
 
@@ -305,13 +307,6 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 //	 Pings the peer to keep the connection alive
 //=================================================================================================================================
 func (t *SimpleChaincode) ping(stub shim.ChaincodeStubInterface) ([]byte, error) {
-    // Trigger event to keep the event hub alive
-    var err error
-	err = stub.SetEvent("evtping", []byte(""))
-	if err != nil {
-		return nil, err
-	}
-
 	return []byte("Hello, world!"), nil
 }
 
