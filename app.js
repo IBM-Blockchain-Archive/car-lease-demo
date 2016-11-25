@@ -379,7 +379,8 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     registrar = r;
     chain.setRegistrar(registrar);
     tracing.create('INFO', 'Startup', 'Set registrar');
-    let users = configFile.config.users;
+    let users = fs.readFileSync('users.json', 'utf8');
+    users = JSON.parse(users);
     if (vcapServices || pem) {
         users.forEach(function(user){
             user.affiliation = 'group1';

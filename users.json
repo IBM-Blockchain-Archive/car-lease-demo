@@ -1,0 +1,302 @@
+[
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"regulator"
+         },
+         {
+            "name":"username",
+            "value":"DVLA"
+         }
+      ],
+      "enrollmentID":"DVLA",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"manufacturer"
+         },
+         {
+            "name":"username",
+            "value":"Toyota"
+         }
+      ],
+      "enrollmentID":"Toyota",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"manufacturer"
+         },
+         {
+            "name":"username",
+            "value":"Alfa_Romeo"
+         }
+      ],
+      "enrollmentID":"Alfa_Romeo",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"manufacturer"
+         },
+         {
+            "name":"username",
+            "value":"Jaguar_Land_Rover"
+         }
+      ],
+      "enrollmentID":"Jaguar_Land_Rover",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"private"
+         },
+         {
+            "name":"username",
+            "value":"Beechvale_Group"
+         }
+      ],
+      "enrollmentID":"Beechvale_Group",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"private"
+         },
+         {
+            "name":"username",
+            "value":"Milescape"
+         }
+      ],
+      "enrollmentID":"Milescape",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"private"
+         },
+         {
+            "name":"username",
+            "value":"Viewers_Alfa_Romeo"
+         }
+      ],
+      "enrollmentID":"Viewers_Alfa_Romeo",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"private"
+         },
+         {
+            "name":"username",
+            "value":"Joe_Payne"
+         }
+      ],
+      "enrollmentID":"Joe_Payne",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"private"
+         },
+         {
+            "name":"username",
+            "value":"Andrew_Hurt"
+         }
+      ],
+      "enrollmentID":"Andrew_Hurt",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"private"
+         },
+         {
+            "name":"username",
+            "value":"Anthony_O_Dowd"
+         }
+      ],
+      "enrollmentID":"Anthony_O_Dowd",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"lease_company"
+         },
+         {
+            "name":"username",
+            "value":"LeaseCan"
+         }
+      ],
+      "enrollmentID":"LeaseCan",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"lease_company"
+         },
+         {
+            "name":"username",
+            "value":"Every_Car_Leasing"
+         }
+      ],
+      "enrollmentID":"Every_Car_Leasing",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"lease_company"
+         },
+         {
+            "name":"username",
+            "value":"Regionwide_Vehicle_Contracts"
+         }
+      ],
+      "enrollmentID":"Regionwide_Vehicle_Contracts",
+      "registrar":{
+
+      },
+      "roles":[
+
+      ]
+   },
+   {
+      "affiliation":"institution_a",
+      "attributes":[
+         {
+            "name":"role",
+            "value":"scrap_merchant"
+         },
+         {
+            "name":"username",
+            "value":"Cray_Bros_London_Ltd"
+         }
+      ],
+    "enrollmentID" : "Cray_Bros_London_Ltd",
+    "registrar" : {  },
+    "roles" : [  ]
+  },
+  { "affiliation" : "institution_a",
+    "attributes" : [ { "name" : "role",
+          "value" : "scrap_merchant"
+        },
+        { "name" : "username",
+          "value" : "Aston_Scrap_Centre"
+        }
+      ],
+    "enrollmentID" : "Aston_Scrap_Centre",
+    "registrar" : {  },
+    "roles" : [  ]
+  },
+  { "affiliation" : "institution_a",
+    "attributes" : [ { "name" : "role",
+          "value" : "scrap_merchant"
+        },
+        { "name" : "username",
+          "value" : "ScrapIt_UK"
+        }
+      ],
+    "enrollmentID" : "ScrapIt_UK",
+    "registrar" : {  },
+    "roles" : [  ]
+  }
+]
