@@ -1,10 +1,10 @@
 {
     "network": {
         "rest": {
-            "protocol": "http"
+            "protocol": "https"
         },
         "hfc": {
-            "protocol": "grpc"
+            "protocol": "grpcs"
         },
         "chaincodePath": "github.com/hyperledger/fabric/vehicle_code",
         "keyStorePath": "./keyValStore",
@@ -15,7 +15,7 @@
         }
     },
     "application": {
-        "protocol": "http",
+        "protocol": "https",
         "host": "localhost",
         "port": 8080,
         "trace": true
