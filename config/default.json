@@ -4,7 +4,7 @@
             "protocol": "http"
         },
         "hfc": {
-            "protocol": "grpc",
+            "protocol": "grpc"
         },
         "chaincodePath": "github.com/hyperledger/fabric/vehicle_code",
         "keyStorePath": "./keyValStore",
