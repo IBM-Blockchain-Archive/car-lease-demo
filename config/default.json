@@ -1,0 +1,23 @@
+{
+    "network": {
+        "rest": {
+            "protocol": "http"
+        },
+        "hfc": {
+            "protocol": "grpc",
+        },
+        "chaincodePath": "github.com/hyperledger/fabric/vehicle_code",
+        "keyStorePath": "./keyValStore",
+        "certificateFile": "certificate.pem",
+        "registrar": {
+            "enrollmentID": "WebAppAdmin",
+            "secret": "DJY27pEnl16d"
+        }
+    },
+    "application": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 8080,
+        "trace": true
+    }
+}

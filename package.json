@@ -10,17 +10,14 @@
   "dependencies": {
     "body-parser": "1.0.2",
     "cf-deployment-tracker-client": "*",
-    "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
+    "config": "^1.24.0",
     "cookie-parser": "1.0.1",
     "cors": "2.5.3",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "fs": "",
     "hfc": "^0.6.5",
-    "mocha": "^3.2.0",
     "request": "^2.79.0",
-    "sinon": "^1.17.6",
     "x509": ""
   },
   "repository": {
@@ -32,6 +29,8 @@
     "npm": "^3.10.8"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "gulp-concat": "*",
     "gulp-minify-css": "1.2.1",
     "gulp-rename": "*",
@@ -39,6 +38,8 @@
     "gulp-sourcemaps": "*",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
-    "gulp-watch": "^4.3.4"
+    "gulp-watch": "^4.3.4",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.6"
   }
 }

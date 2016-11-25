@@ -1,6 +1,7 @@
 'use strict';
 
 let fs = require('fs');
+let c = require('config');
 
 //TODO: Change this a be compatible with the Config npm module
 
@@ -9,42 +10,41 @@ let config = {};
 //--------------------------------------------------------------------------------------------------------------------
 //    Local Config
 //--------------------------------------------------------------------------------------------------------------------
-config.networkProtocol = 'https';                 // If deploying locally, this value needs to be changed to 'http'
-config.appProtocol = 'https';                     // If deploying locally, this value needs to be changed to 'http'
-config.hfcProtocol = 'grpcs';                    // If deploying locally, this value needs to be changed to 'grpc'
+config.networkProtocol = c.get('network.rest.protocol');                 // If deploying locally, this value needs to be changed to 'http'
+config.appProtocol = c.get('application.protocol');                     // If deploying locally, this value needs to be changed to 'http'
+config.hfcProtocol = c.get('network.hfc.protocol');                    // If deploying locally, this value needs to be changed to 'grpc'
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Tracing
 //--------------------------------------------------------------------------------------------------------------------
 
-config.trace        = true;
-config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where traces should be written to
+config.trace        = c.get('application.trace');
+config.traceFile    = __dirname + '/../logs/app_trace.log';    // File where traces should be written to
 
 
 //Settings for the nodeJS application server
-config.offlineUrl = 'localhost';
-config.appPort = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
+config.appPort = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : c.get('application.port');                         //Port that the NodeJS server is operating on
 
 
 //--------------------------------------------------------------------------------------------------------------------
 //    User information - These credentials are used for HFC to enroll this user and then set them as the registrar to create new users.
 //--------------------------------------------------------------------------------------------------------------------
-config.registrar_name = 'WebAppAdmin';
-config.registrar_password = 'DJY27pEnl16d';
+config.registrar_name = c.get('network.registrar.enrollmentID');
+config.registrar_password = c.get('network.registrar.secret');
 
 //--------------------------------------------------------------------------------------------------------------------
 //    HFC configuration - Defines what protocol to use for communication, bluemix certificate location and key store location
 //--------------------------------------------------------------------------------------------------------------------
 
 //Protocol used by HFC to communicate with blockchain peers and CA, need to change this manually.
-config.certificate_file_name    = 'certificate.pem';
-config.key_store_location       = './keyValStore';
+config.certificate_file_name    = c.get('network.certificateFile');
+config.key_store_location       = c.get('network.keyStorePath');
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Chaincode
 //--------------------------------------------------------------------------------------------------------------------
 //Chaincode file location
-config.vehicle = 'github.com/hyperledger/fabric/vehicle_code';
+config.vehicle = c.get('network.chaincodePath');
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Defines the exported values to be used by other fields for connecting to peers or the app. These will be overwritten on app.js being run if Bluemix is being used or Network JSON is defined
@@ -56,7 +56,7 @@ let credentials;
 if (process.env.VCAP_SERVICES) {
     credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
 } else {
-    credentials = fs.readFileSync(__dirname + '/../../credentials.json', 'utf8');
+    credentials = fs.readFileSync(__dirname + '/../../config/credentials.json', 'utf8');
     credentials = JSON.parse(credentials);
 }
 
