@@ -5,7 +5,8 @@
   "main": "app.js",
   "licence": "Apache-2.0",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha --recursive && istanbul cover --include-all-sources --report cobertura --report html ./node_modules/mocha/bin/_mocha -- --recursive"
   },
   "dependencies": {
     "body-parser": "1.0.2",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "chai-things": "^0.2.0",
     "gulp-concat": "*",
     "gulp-minify-css": "1.2.1",
     "gulp-rename": "*",
@@ -39,6 +41,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.4",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "sinon": "^1.17.6"
   }

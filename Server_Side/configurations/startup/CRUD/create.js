@@ -10,7 +10,7 @@ let hfc = require('hfc');
 function connectToPeers(chain, peers, pem) {
     peers.forEach(function(peer, index) {
         chain.addPeer(configFile.config.hfcProtocol+'://'+peer.discovery_host+':'+peer.discovery_port, {pem:pem});
-        console.log('peer'+index+': '+configFile.config.hfcProtocol+'://'+peer.discovery_host+':'+peer.discovery_port);
+        // console.log('peer'+index+': '+configFile.config.hfcProtocol+'://'+peer.discovery_host+':'+peer.discovery_port);
     });
 }
 
@@ -22,14 +22,14 @@ function connectToCA(chain, ca, pem) {
         membersrvc = ca[key];
     }
     chain.setMemberServicesUrl(configFile.config.hfcProtocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port, {pem:pem});
-    console.log('membersrvc: '+configFile.config.hfcProtocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port);
+    // console.log('membersrvc: '+configFile.config.hfcProtocol+'://'+membersrvc.discovery_host+':'+membersrvc.discovery_port);
 }
 
 exports.connectToCA = connectToCA;
 
 function connectToEventHub(chain, peer, pem) {
     chain.eventHubConnect(configFile.config.hfcProtocol+'://'+peer.event_host + ':' + peer.event_port, {pem: pem});
-    console.log('eventhub: ' + configFile.config.hfcProtocol+'://'+peer.event_host + ':' + peer.event_port);
+    // console.log('eventhub: ' + configFile.config.hfcProtocol+'://'+peer.event_host + ':' + peer.event_port);
 }
 
 exports.connectToEventHub = connectToEventHub;
@@ -65,6 +65,8 @@ function enrollUser(chain, user) {
         });
     });
 }
+
+exports.enrollUser = enrollUser;
 
 function enrollUsers(chain, users, registrar) {
 
