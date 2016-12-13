@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 				$('#chooseConfHd').html('<span>Transaction Complete</span>');
 				$('#confTxt').html('Transaction committed to the blockchain. <br /><br />Manufacturer: '+getCookie('user')+'<br /><br />'+recDets+': '+$('.delName').html()+' (Account '+$('.accAddr').html()+')<br /><br />Vehicles: '+$('#selVhclsTbl tr').length)
-				
+
 				var data = {}; //Data to be sent
 				data.function_name= transferName; //E.g. manufacturer_to_private
 				data.value= $('.accAddr').html(); //Recipent e.g. dealership name
@@ -130,7 +130,7 @@ $(document).ready(function(){
 				{
 					last = true;
 				}
-				$('#confTxt').html('Transaction committed to the blockchain. <br /><br />'+sendDets+'<br /><br />Vehicles: '+$('#selVhclsTbl tr').length)
+				$('#confTxt').html('Transaction committed to the blockchain. <br /><br />Scrap Merchant: '+getCookie('user')+'<br /><br />Vehicles: '+$('#selVhclsTbl tr').length)
 
 				var data = {}
 				data.v5cID = v5cAddr;
