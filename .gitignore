@@ -16,3 +16,5 @@ chaincode.txt
 keyValStore
 
 **/.DS_Store
+
+coverage/

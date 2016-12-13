@@ -118,6 +118,9 @@ function transferBetweenOwners(v5cID, car, results) {
             results.push(result);
             newCar.Owners.shift();
             return transferBetweenOwners(v5cID, newCar, results);
+        })
+        .then((err) => {
+            console.log('[X]', err);
         });
     } else {
         return Promise.resolve(results);
@@ -135,6 +138,9 @@ function createVehicles(cars, results) {
                 results.push(result);
                 newCars.pop();
                 return createVehicles(newCars, results);
+            })
+            .then((err) => {
+                console.log('[X]', err);
             });
     } else {
         return Promise.resolve(results);
