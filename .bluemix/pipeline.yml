@@ -3,7 +3,7 @@ stages:
 - name: Empty Build Stage
   inputs:
   - type: git
-    branch: 0.6
+    branch: master
   jobs:
   - name: Empty Build Job
     type: builder
