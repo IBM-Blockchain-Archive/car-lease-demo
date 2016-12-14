@@ -17,9 +17,11 @@ const TYPES = [
 ];
 
 let vehicleData;
+let v5cIDResults;
 
 function create(req, res, next, usersToSecurityContext) {
     try {
+        v5cIDResults = [];
         let chain = hfc.getChain('myChain');
         vehicleData = new Vehicle(usersToSecurityContext);
 
@@ -44,12 +46,10 @@ function create(req, res, next, usersToSecurityContext) {
         if(cars.hasOwnProperty('cars')) {
             tracing.create('INFO', 'Demo', 'Found cars');
             cars = cars.cars;
-            let v5cIDResults;
             updateDemoStatus({message: 'Creating vehicles'});
             chain.getEventHub().connect();
             return createVehicles(cars)
-            .then(function(results) {
-                v5cIDResults = results;
+            .then(function() {
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
                     let car = cars[index];
                     let seller = map_ID.user_to_id('DVLA');
@@ -83,8 +83,8 @@ function create(req, res, next, usersToSecurityContext) {
                 res.end(JSON.stringify({message: 'Demo setup'}));
             })
             .catch(function(err) {
-                tracing.create('ERROR   DEMO', err, '');
-                updateDemoStatus({'message: ': JSON.parse(err), error: true});
+                tracing.create('ERROR   DEMO', JSON.stringify(err), '');
+                updateDemoStatus({'message: ': JSON.stringify(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
                 chain.getEventHub().disconnect();
                 res.end(JSON.stringify(err));
@@ -93,7 +93,7 @@ function create(req, res, next, usersToSecurityContext) {
             let error = {};
             error.message = 'Initial vehicles not found';
             error.error = true;
-            updateDemoStatus({'message: ': JSON.parse(error), error: true});
+            updateDemoStatus({'message: ': JSON.stringify(error), error: true});
             res.end(JSON.stringify(error));
             return;
         }
@@ -129,12 +129,14 @@ function transferBetweenOwners(v5cID, car, results) {
 }
 
 function createVehicles(cars) {
-    let promises = [];
-    cars.forEach(function(car) {
-        let promise = createVehicle();
-        promises.push(promise);
-    });
-    return Promise.all(promises);
+    return cars.reduce(function(prev, car, index) {
+        return prev.then(function() {
+            return createVehicle()
+            .then(function(result) {
+                v5cIDResults.push(result);
+            });
+        });
+    }, Promise.resolve());
 }
 
 function createVehicle() {
