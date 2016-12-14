@@ -99,6 +99,7 @@ function create(req, res, next, usersToSecurityContext) {
         }
     } catch (e) {
         console.log(e);
+        res.end(JSON.stringify(e));
     }
 }
 
@@ -119,32 +120,21 @@ function transferBetweenOwners(v5cID, car, results) {
             newCar.Owners.shift();
             return transferBetweenOwners(v5cID, newCar, results);
         })
-        .then((err) => {
-            console.log('[X]', err);
+        .catch((err) => {
+            console.log('[X] Unable to transfer vehicle', err);
         });
     } else {
         return Promise.resolve(results);
     }
 }
 
-// Uses recurision because Promise.all() breaks HFC
-function createVehicles(cars, results) {
-    let newCars = JSON.parse(JSON.stringify(cars));
-    if (!results) {results = [];}
-    if (newCars.length > 0) {
-        return createVehicle()
-            .then(function(result) {
-                console.log('[#] Created vehicle ' + result);
-                results.push(result);
-                newCars.pop();
-                return createVehicles(newCars, results);
-            })
-            .then((err) => {
-                console.log('[X]', err);
-            });
-    } else {
-        return Promise.resolve(results);
-    }
+function createVehicles(cars) {
+    let promises = [];
+    cars.forEach(function(car) {
+        let promise = createVehicle();
+        promises.push(promise);
+    });
+    return Promise.all(promises);
 }
 
 function createVehicle() {
