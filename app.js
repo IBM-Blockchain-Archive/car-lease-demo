@@ -436,6 +436,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     for (let name in usersToSecurityContext) {
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
+    tracing.create('INFO', 'Startup', 'Chaincode successfully deployed');
 })
 .then(function() {
     // Query the chaincode every 3 minutes
