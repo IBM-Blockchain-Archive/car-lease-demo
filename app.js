@@ -341,7 +341,7 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     }
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    startup.connectToEventHub(chain, credentials.peers[0], pem);
+    //startup.connectToEventHub(chain, credentials.peers[0], pem);
 
     // Get the WebAppAdmins password
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
@@ -355,16 +355,16 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
-    startup.connectToEventHub(chain, credentials.peers[0], pem);
+    //startup.connectToEventHub(chain, credentials.peers[0], pem);
 
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
-    startup.connectToEventHub(chain, credentials.peers[0]);
+    //startup.connectToEventHub(chain, credentials.peers[0]);
 }
-chain.getEventHub().disconnect();
+//chain.getEventHub().disconnect(); //suspicious, no try catch
 
 
 server = http.createServer(app).listen(port, function () {
@@ -424,7 +424,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
 .then(function(exists) {
     if (!exists) {
         let certPath = (vcapServices) ? vcapServices.cert_path : '/certs/peer/cert.pem';
-        chain.getEventHub().connect();
+        //chain.getEventHub().connect();
         return startup.deployChaincode(registrar, 'vehicle_code', 'Init', [], certPath);
     } else {
         tracing.create('INFO', 'Startup', 'Chaincode already deployed');
@@ -432,7 +432,7 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     }
 })
 .then(function(deploy) {
-    chain.getEventHub().disconnect();
+    //chain.getEventHub().disconnect();
     for (let name in usersToSecurityContext) {
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
