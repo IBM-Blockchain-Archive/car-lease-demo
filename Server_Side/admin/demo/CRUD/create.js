@@ -47,7 +47,7 @@ function create(req, res, next, usersToSecurityContext) {
             tracing.create('INFO', 'Demo', 'Found cars');
             cars = cars.cars;
             updateDemoStatus({message: 'Creating vehicles'});
-            chain.getEventHub().connect();
+            // chain.getEventHub().connect();
             return createVehicles(cars)
             .then(function() {
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
@@ -79,14 +79,14 @@ function create(req, res, next, usersToSecurityContext) {
             })
             .then(function() {
                 updateDemoStatus({message: 'Demo setup'});
-                chain.getEventHub().disconnect();
+                // chain.getEventHub().disconnect();
                 res.end(JSON.stringify({message: 'Demo setup'}));
             })
             .catch(function(err) {
                 tracing.create('ERROR   DEMO', JSON.stringify(err), '');
                 updateDemoStatus({'message: ': JSON.stringify(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
-                chain.getEventHub().disconnect();
+                // chain.getEventHub().disconnect();
                 res.end(JSON.stringify(err));
             });
         } else {
