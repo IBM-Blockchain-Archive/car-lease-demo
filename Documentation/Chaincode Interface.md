@@ -453,7 +453,7 @@ If the conditions are met then the vehicle is transferred from the Private Entit
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": update_colour",
+	            "function": "update_colour",
 	            "args": [
 	                <string>, <v5c_ID>
 	            ]
