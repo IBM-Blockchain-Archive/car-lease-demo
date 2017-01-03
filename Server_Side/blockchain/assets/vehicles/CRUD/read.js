@@ -1,77 +1,46 @@
-/*eslint-env node*/
+'use strict';
 
-var request = require("request")
-var reload = require('require-reload')(require),
-    configFile = reload(__dirname+'/../../../../configurations/configuration.js');
-var tracing = require(__dirname+'/../../../../tools/traces/trace.js');
-var map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js')
+// let request = require('request');
+// let configFile = require(__dirname+'/../../../../configurations/configuration.js');
+let tracing = require(__dirname+'/../../../../tools/traces/trace');
+let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID');
+let Util = require(__dirname+'/../../../../tools/utils/util');
 
+let user_id;
+let securityContext;
 
-var user_id;
-
-function get_all_cars(req, res)
+function get_all_cars(req, res, next, usersToSecurityContext)
 {
-	
-	if(typeof req.cookies.user != "undefined")
-	{
-		req.session.user = req.cookies.user;
-		req.session.identity = map_ID.user_to_id(req.cookies.user);
-	}
-	
-	user_id = req.session.identity;
-	
-	tracing.create('ENTER', 'GET blockchain/assets/vehicles', {});
-	configFile = reload(__dirname+'/../../../../configurations/configuration.js');
-	var ids = [];
-									
-									
-	var querySpec = {
-					  "jsonrpc": "2.0",
-					  "method": "query",
-					  "params": {
-					    "type": 1,
-					    "chaincodeID": {
-					      "name": configFile.config.vehicle_name
-					    },
-					    "ctorMsg": {
-					      "function": "get_vehicles",
-					      "args": []
-					    },
-					    "secureContext": user_id
-					  },
-					  "id": 111
-					}
-	
-	var options = 	{
-						url: configFile.config.api_ip+':'+configFile.config.api_port_external+'/chaincode',
-						method: "POST", 
-						body: querySpec,
-						json: true
-					}
-					
-	request(options, function(error, response, body)
-	{
-		if (!body.hasOwnProperty("error") && response.statusCode == 200)
-		{
-			var data = JSON.parse(body.result.message);
-			for(var i = 0; i < data.length; i++)
-			{
-				tracing.create('INFO', 'GET blockchain/assets/vehicles', JSON.stringify(data[i]));
-				res.write(JSON.stringify(data[i])+'&&')
-			}
-			tracing.create('EXIT', 'GET blockchain/assets/vehicles', {});
-			res.end()
-		}
-		else
-		{
-			res.status(400)
-			var error = {}
-			error.error = true;
-			error.message = 'Unable to get blockchain assets';
-			res.end(JSON.stringify(error))
-			tracing.create('ERROR', 'GET blockchain/assets/vehicles', error);
-		}
-	})
+
+    tracing.create('ENTER', 'GET blockchain/assets/vehicles', {});
+
+    if(typeof req.cookies.user !== 'undefined')
+    {
+        req.session.user = req.cookies.user;
+        req.session.identity = map_ID.user_to_id(req.cookies.user);
+    }
+    user_id = req.session.identity;
+    securityContext = usersToSecurityContext[user_id];
+
+    return Util.queryChaincode(securityContext, 'get_vehicles', [])
+    .then(function(data) {
+        let cars = JSON.parse(data.toString());
+        console.log(cars);
+        cars.forEach(function(car) {
+            tracing.create('INFO', 'GET blockchain/assets/vehicles', JSON.stringify(car));
+            res.write(JSON.stringify(car)+'&&');
+        });
+        tracing.create('EXIT', 'GET blockchain/assets/vehicles', {});
+        res.end('');
+    })
+    .catch(function(err) {
+        res.status(400);
+        let error = {};
+        error.error = true;
+        error.message = err;
+        tracing.create('ERROR', 'GET blockchain/assets/vehicles', err);
+        res.end(JSON.stringify(error));
+    });
 }
 
 exports.read = get_all_cars;
