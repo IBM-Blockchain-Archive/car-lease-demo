@@ -110,10 +110,7 @@ config.users = [
     {
         enrollmentID: 'Viewers_Alfa_Romeo',
         attributes: [
-            {name: 'role', v8-ca.us.blockchain.ibm.com:30002
-Jan 4, 2017 4:42:08 AM
-APP/0
-internal/net.js:17alue: 'private'},
+            {name: 'role', value: 'private'},
             {name: 'username', value: 'Viewers_Alfa_Romeo'}
         ],
         registrar: {},
