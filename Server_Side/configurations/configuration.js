@@ -23,7 +23,8 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 
 //Settings for the nodeJS application server
 config.offlineUrl = 'localhost';
-config.appPort = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
+console.log(process.env);
+config.appPort = (process.env.VCAP_PORT) ? process.env.VCAP_PORT : 8080;                         //Port that the NodeJS server is operating on
 
 
 //--------------------------------------------------------------------------------------------------------------------
