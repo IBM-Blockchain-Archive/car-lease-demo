@@ -9,9 +9,9 @@ let config = {};
 //--------------------------------------------------------------------------------------------------------------------
 //    Local Config
 //--------------------------------------------------------------------------------------------------------------------
-config.networkProtocol = 'https';                 // If deploying locally, this value needs to be changed to 'http'
-config.appProtocol = 'https';                     // If deploying locally, this value needs to be changed to 'http'
-config.hfcProtocol = 'grpcs';                    // If deploying locally, this value needs to be changed to 'grpc'
+config.networkProtocol = 'http';                 // If deploying locally, this value needs to be changed to 'http'
+config.appProtocol = 'http';                     // If deploying locally, this value needs to be changed to 'http'
+config.hfcProtocol = 'grpc';                    // If deploying locally, this value needs to be changed to 'grpc'
 
 //--------------------------------------------------------------------------------------------------------------------
 //    Tracing

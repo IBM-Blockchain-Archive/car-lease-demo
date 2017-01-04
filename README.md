@@ -1,4 +1,4 @@
-Car Lease Demo
+Car Lease Demo for Windows 10
 =======
 
 ##Deploying the demo##
