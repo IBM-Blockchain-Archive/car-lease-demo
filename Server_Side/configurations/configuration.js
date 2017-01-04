@@ -23,7 +23,6 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 
 //Settings for the nodeJS application server
 config.offlineUrl = 'localhost';
-console.log(process.env);
 config.appPort = (parseInt(process.env.PORT)) ? parseInt(process.env.PORT) : 8080;                         //Port that the NodeJS server is operating on
 
 
@@ -111,7 +110,10 @@ config.users = [
     {
         enrollmentID: 'Viewers_Alfa_Romeo',
         attributes: [
-            {name: 'role', value: 'private'},
+            {name: 'role', v8-ca.us.blockchain.ibm.com:30002
+Jan 4, 2017 4:42:08 AM
+APP/0
+internal/net.js:17alue: 'private'},
             {name: 'username', value: 'Viewers_Alfa_Romeo'}
         ],
         registrar: {},

@@ -315,7 +315,7 @@ let credentials;
 let webAppAdminPassword = configFile.config.registrar_password;
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
-    port = process.env.VCAP_APP_PORT;
+    port = process.env.PORT;
 } else {
     port = configFile.config.appPort;
 }
