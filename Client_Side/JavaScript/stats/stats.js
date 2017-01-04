@@ -131,6 +131,7 @@ $(document).ready(function(){
                 });
 
                 prevFiftyBlocks.push(blk.nonHashData.localLedgerCommitTimestamp.seconds);
+		blk.transactions = blk.transactions || [];
 
                 transData.push(blk.transactions.length);
 
