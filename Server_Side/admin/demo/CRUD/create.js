@@ -84,7 +84,7 @@ function create(req, res, next, usersToSecurityContext) {
             })
             .catch(function(err) {
                 tracing.create('ERROR   DEMO', JSON.stringify(err), '');
-                updateDemoStatus({'message: ': JSON.stringify(err), error: true});
+                updateDemoStatus({message: JSON.stringify(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
                 // chain.getEventHub().disconnect();
                 res.end(JSON.stringify(err));
@@ -93,7 +93,7 @@ function create(req, res, next, usersToSecurityContext) {
             let error = {};
             error.message = 'Initial vehicles not found';
             error.error = true;
-            updateDemoStatus({'message: ': JSON.stringify(error), error: true});
+            updateDemoStatus({message: JSON.stringify(error), error: true});
             res.end(JSON.stringify(error));
             return;
         }
