@@ -1,8 +1,10 @@
-Car Lease Demo for Windows 10
+Car Lease Demo
 =======
 
 ##Deploying the demo##
-This repo is for deploying the IBM car lease Demo localy on Windows 10 !!
+To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://hub.jazz.net/deploy/index.html?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
 
 To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md#deploying-locally)
 
