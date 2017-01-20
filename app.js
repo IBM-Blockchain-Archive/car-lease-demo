@@ -307,6 +307,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 process.env.NODE_ENV = 'production';
 process.env.GOPATH = path.resolve(__dirname, 'Chaincode');
 
+let setup;
 let vcapServices;
 let pem;
 let server;
@@ -364,8 +365,7 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     startup.connectToCA(chain, credentials.ca);
     //startup.connectToEventHub(chain, credentials.peers[0]);
 }
-//chain.getEventHub().disconnect(); //suspicious, no try catch
-
+//chain.getEventHub().disconnect();
 
 server = http.createServer(app).listen(port, function () {
     console.log('Server Up');
@@ -373,8 +373,49 @@ server = http.createServer(app).listen(port, function () {
 });
 server.timeout = 2400000;
 
+let setupStatus = {
+    success: false,
+    error: null
+};
+
+let io = require('socket.io')(server);
+
+let eventEmitter
+function getEventEmitter() {
+    if (!eventEmitter) {
+        return new Promise((resolve, reject) => {
+            io.sockets.on('connection', (socket) => {
+                eventEmitter = socket;
+                eventEmitter.emit('setup', setupStatus);
+                resolve(socket);
+            });
+        });
+    } else {
+        eventEmitter.emit('setup', setupStatus);
+        return Promise.resolve(eventEmitter);
+    }
+}
+
+function setSetupError(err) {
+    setupStatus.success = false;
+    if (!vcapServices) {
+        setupStatus.error = "There was an error starting the demo. Please try again.";
+        setupStatus.detailedError = err.message || "Server error";
+    } else {
+        setupStatus.error = "There was an error starting the demo. Please try again. Ensure you delete both the demo and the blockchain service";
+        setupStatus.detailedError = err.message || "Server error";        
+    }
+    eventEmitter.emit('setup', setupStatus);
+}
+
+
 let chaincodeID;
-startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
+
+getEventEmitter()
+.then((ee) => {
+    eventEmitter = ee;
+    return startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword);
+})
 .then(function(r) {
     registrar = r;
     chain.setRegistrar(registrar);
@@ -437,14 +478,21 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
         usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
     }
     tracing.create('INFO', 'Startup', 'Chaincode successfully deployed');
+
+    setupStatus.success = true;
+    eventEmitter.emit('setup', setupStatus);
 })
 .then(function() {
     // Query the chaincode every 3 minutes
     setInterval(function(){
-        startup.pingChaincode(chain, usersToSecurityContext.DVLA);
+        startup.pingChaincode(chain, usersToSecurityContext.DVLA)
+        .catch((err) => {
+            setSetupError(err);
+        });
     }, 0.5 * 60000);
 })
 .catch(function(err) {
+    setSetupError();
     console.log(err);
     tracing.create('ERROR', 'Startup', err);
 });
