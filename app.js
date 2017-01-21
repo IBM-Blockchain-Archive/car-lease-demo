@@ -307,7 +307,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 process.env.NODE_ENV = 'production';
 process.env.GOPATH = path.resolve(__dirname, 'Chaincode');
 
-let setup;
 let vcapServices;
 let pem;
 let server;
@@ -373,49 +372,40 @@ server = http.createServer(app).listen(port, function () {
 });
 server.timeout = 2400000;
 
-let setupStatus = {
+let demoStatus = {
+    status: 'IN_PROGRESS',
     success: false,
     error: null
 };
 
+let eventEmitter;
 let io = require('socket.io')(server);
 
-let eventEmitter
-function getEventEmitter() {
-    if (!eventEmitter) {
-        return new Promise((resolve, reject) => {
-            io.sockets.on('connection', (socket) => {
-                eventEmitter = socket;
-                eventEmitter.emit('setup', setupStatus);
-                resolve(socket);
-            });
-        });
-    } else {
-        eventEmitter.emit('setup', setupStatus);
-        return Promise.resolve(eventEmitter);
-    }
-}
+io.sockets.on('connection', (socket) => {
+    eventEmitter = socket;
+    console.log('connected');
+    eventEmitter.emit('setup', demoStatus);
+});
 
 function setSetupError(err) {
-    setupStatus.success = false;
-    if (!vcapServices) {
-        setupStatus.error = "There was an error starting the demo. Please try again.";
-        setupStatus.detailedError = err.message || "Server error";
+    demoStatus.status = 'ERROR';
+    demoStatus.success = false;
+    if (!process.env.VCAP_SERVICES) {
+        demoStatus.error = 'There was an error starting the demo. Please try again.';
+        demoStatus.detailedError = err.message || 'Server error';
     } else {
-        setupStatus.error = "There was an error starting the demo. Please try again. Ensure you delete both the demo and the blockchain service";
-        setupStatus.detailedError = err.message || "Server error";        
+        demoStatus.error = 'There was an error starting the demo. Please try again. Ensure you delete both the demo and the blockchain service';
+        demoStatus.detailedError = err.message || 'Server error';
     }
-    eventEmitter.emit('setup', setupStatus);
+    if (eventEmitter) {
+        eventEmitter.emit('setup', demoStatus);
+    }
 }
 
 
 let chaincodeID;
 
-getEventEmitter()
-.then((ee) => {
-    eventEmitter = ee;
-    return startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword);
-})
+return startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
 .then(function(r) {
     registrar = r;
     chain.setRegistrar(registrar);
@@ -479,20 +469,25 @@ getEventEmitter()
     }
     tracing.create('INFO', 'Startup', 'Chaincode successfully deployed');
 
-    setupStatus.success = true;
-    eventEmitter.emit('setup', setupStatus);
+    demoStatus.success = true;
+    demoStatus.status = 'success';
+    if (eventEmitter) {
+        eventEmitter.emit('setup', demoStatus);
+    }
 })
 .then(function() {
     // Query the chaincode every 3 minutes
     setInterval(function(){
         startup.pingChaincode(chain, usersToSecurityContext.DVLA)
-        .catch((err) => {
-            setSetupError(err);
+        .then((success) => {
+            if (!success){
+                setSetupError();
+            }
         });
     }, 0.5 * 60000);
 })
 .catch(function(err) {
-    setSetupError();
+    setSetupError(err);
     console.log(err);
     tracing.create('ERROR', 'Startup', err);
 });

@@ -2,7 +2,7 @@ $(document).ready(function(){
     checkChainHeight();
 });
 
-let errorNumber = 0;
+// let errorNumber = 0;
 
 //Check chain height to see if chaincode has been deployed
 function checkChainHeight()
@@ -52,25 +52,28 @@ function checkChainHeight()
     $('a').addClass('greyOutLink');
 
     window.onload = () => {
-		let socket;
-		$(window).on('beforeunload', () => {
-			socket.close();
-		});
-		socket = io.connect(window.location.href);
+        let socket;
+        $(window).on('beforeunload', () => {
+            socket.close();
+        });
+        let url = window.location.href;
+        let uriParts = url.split('/');
+        let host = uriParts[0] + '//' + uriParts[2];
+        socket = io.connect(host);
 
-		socket.on('setup', (data) => {
-        console.log(data.detailedError);
-			if (data.success) {
+        socket.on('setup', (data) => {
+            console.log(data);
+            if (data.success) {
                 $('a').removeClass('greyOutLink');
                 $('.prematureMsg').hide();
                 $('.welcomeMsg').show();
             } else if (data.error) {
                 $('.prematureMsg').hide();
-                $('.welcomeHeader').css({'background-color': 'gray', 'border-color': 'gray'}).html('');
+                $('.welcomeHeader').css({'background-color': '#A91024', 'border-color': '#A91024'}).html('');
                 $('.welcomeMsg').show();
                 $('#lftBxHd').html(data.error);
                 $('.welcomeMsgTxt').html(data.detailedError);
             }
-		});
-	};
+        });
+    };
 }
