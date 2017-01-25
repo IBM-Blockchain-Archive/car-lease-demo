@@ -406,8 +406,7 @@ function setSetupError(err) {
 let chaincodeID;
 
 return startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
-.then(function(r) {
-    registrar = r;
+.then(function(registrar) {
     chain.setRegistrar(registrar);
     tracing.create('INFO', 'Startup', 'Set registrar');
     let users = configFile.config.users;
@@ -482,6 +481,11 @@ return startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAd
         .then((success) => {
             if (!success){
                 setSetupError();
+            } else {
+                demoStatus.status = 'SUCCESS';
+                demoStatus.success = true;
+                demoStatus.error = null;
+                demoStatus.detailedError = null;
             }
         });
     }, 0.5 * 60000);
