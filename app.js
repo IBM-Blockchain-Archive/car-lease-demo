@@ -406,7 +406,8 @@ function setSetupError(err) {
 let chaincodeID;
 
 return startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
-.then(function(registrar) {
+.then(function(r) {
+    registrar = r;
     chain.setRegistrar(registrar);
     tracing.create('INFO', 'Startup', 'Set registrar');
     let users = configFile.config.users;
