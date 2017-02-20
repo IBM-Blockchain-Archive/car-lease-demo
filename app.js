@@ -57,6 +57,7 @@ app.use(session({secret: 'Somethignsomething1234!test', resave: true, saveUninit
 app.options('*', cors());
 app.use(cors());
 app.use(express.static(__dirname + '/Client_Side'));
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 //===============================================================================================
 //    Routing
