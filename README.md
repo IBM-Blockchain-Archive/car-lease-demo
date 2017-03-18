@@ -35,7 +35,7 @@ The application is designed to allow participants to interact with the vehicle a
 | Leasee         | Read (Own vehicles), Update (Colour, Reg), Transfer                  |
 | Scrap Merchant | Read (Own vehicles), Scrap                                           |
 
-The demonstration allows a view of the ledger that stores all the interactions that the above participants have has with their assets. The ledger view shows the regulator every transaction that has occurred showing who tried to to what at what time and to which vehicle. The ledger view also allows the user to see transactions that they were involved with as well as showing the interactions with the assets they own before they owned them e.g. they can see when it was created.
+The demonstration allows a view of the ledger that stores all the interactions that the above participants have had with their assets. The ledger view shows the regulator every transaction that has occurred showing who tried what at what time and to which vehicle. The ledger view also allows the user to see transactions that they were involved with as well as showing the interactions with the assets they own before they owned them e.g. they can see when it was created.
 
 > Note: The demo currently does not include the ability to lease cars however shows the process of what would happen once the lease has ended and the final payment has been made showing the lease company transferring full ownership of the asset to the leasee.
 
@@ -48,7 +48,7 @@ The scenario goes through the lifecycle of a car which has the following stages:
 
  1. Vehicle is created as a template by the regulator.
  2. Vehicle template is transferred to the manufacturer.
- 3.  Manufacturer updates the vehicle template to define it as a vehicle giving it a make, model, reg etc.
+ 3. Manufacturer updates the vehicle template to define it as a vehicle giving it a make, model, reg etc.
  4. Manufacturer transfers the vehicle to dealership to be sold.
  5. Dealership transfers the vehicle to a lease company.
  6. Lease company transfers the vehicle to a leasee. The vehicle is not leased instead the application is showing what would happen if the lease were to have come to an end and the leasee activated the purchase option.
