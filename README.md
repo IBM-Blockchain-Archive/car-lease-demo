@@ -1,11 +1,9 @@
-Car Lease Demo
+Car Lease Demo (Deprecated)
 =======
 
+This demonstration is now deprecated and cannot be deployed automatically.  The demonstration was created for the Blockchain Starter Plan service which uses Hyperledger Fabric version 0.6.1.  The Starter Plan service is in the process of being retired.  [An announcement](https://www.ibm.com/blogs/bluemix/2017/07/ibm-blockchain-starter-plan-retirement/) is available about the Starter Plan retirement. 
+
 ##Deploying the demo##
-To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
-
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
-
 To deploy the demo locally follow the instructions [here](Documentation/Installation%20Guide.md#deploying-locally)
 
 ##Application overview##
