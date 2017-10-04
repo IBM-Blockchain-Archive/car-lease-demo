@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use strict';
 
 const hfc = require('hfc');
@@ -101,6 +102,106 @@ function create(req, res, next, usersToSecurityContext) {
         console.log(e);
         res.end(JSON.stringify(e));
     }
+=======
+/*eslint-env node */
+
+var request = require('request');
+var reload = require('require-reload')(require),
+    configFile = reload(__dirname+'/../../../configurations/configuration.js'),
+	participants = reload(__dirname+"/../../../blockchain/participants/participants_info.js");
+var tracing = require(__dirname+'/../../../tools/traces/trace.js');	
+var spawn = require('child_process').spawn;
+var fs = require('fs')
+var map_ID = require(__dirname+"/../../../tools/map_ID/map_ID.js");
+
+
+var initial_vehicles = require(__dirname+"/../../../blockchain/assets/vehicles/initial_vehicles.js");
+var send_error = false;
+var counter = 0;
+var users = [];
+var cars = [];
+var cars_info;
+
+var create = function(req,res)
+{
+	//req.body.scenario valid values = simple, full
+	res.end(JSON.stringify({"message": "performing scenario creation now"}));
+	fs.writeFileSync(__dirname+'/../../../logs/demo_status.log', '{"logs": []}');
+	
+	tracing.create('ENTER', 'POST admin/demo', req.body);
+	configFile = reload(__dirname+'/../../../configurations/configuration.js');
+	
+	var scenario = req.body.scenario;
+	
+	if(scenario == "simple")
+	{
+		cars_info = initial_vehicles.simple_scenario;
+	}
+	else if(scenario == "full")
+	{
+		cars_info = initial_vehicles.full_scenario;	
+	}
+	else
+	{
+		var error = {}
+		error.message = 'Scenario type not recognised';
+		error.error = true;
+		update_demo_status(error);
+	}
+	
+	if(cars_info.hasOwnProperty('cars'))
+	{
+		cars = cars_info.cars;
+		counter = 0
+		create_cars(req, res);
+	}
+	else
+	{
+		var error = {}
+		error.message = 'Initial vehicles not found';
+		error.error = true;
+		update_demo_status(error);
+	}
+}
+
+exports.create = create;
+
+var v5cIDs = []
+
+function create_cars(req, res)
+{
+	update_demo_status({"message":"Creating vehicles"})
+	
+	configFile = reload(__dirname+'/../../../configurations/configuration.js');
+	
+	v5cIDs = []
+	send_error = false;
+	var prevCount = -1;
+	var check_create = setInterval(function(){
+		if(v5cIDs.length == cars.length && !send_error)
+		{
+			update_demo_status({"message":"Transferring vehicles to manufacturers"})
+			clearInterval(check_create)
+			counter = 0;
+			transfer_created_cars(req, res)
+		}
+		else if(send_error)
+		{
+			clearInterval(check_create)
+			counter = 0;
+			update_demo_status({"message":"Unable to write vehicle", "error": true})
+		}
+		else if(v5cIDs.length > prevCount)
+		{
+			if(prevCount != -1)
+			{
+				update_demo_status({"message":"Created vehicle "+v5cIDs[v5cIDs.length -1], "counter": true})
+			}
+			prevCount = v5cIDs.length;
+			create_car()
+		}
+	}, 500)
+>>>>>>> IBM-Blockchain-Archive/0.5-final
 }
 
 function transferBetweenOwners(v5cID, car, results) {
