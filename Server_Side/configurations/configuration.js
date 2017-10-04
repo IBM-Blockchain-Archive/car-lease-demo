@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
 
 let fs = require('fs');
@@ -24,7 +27,11 @@ config.traceFile    = __dirname+'/../logs/app_trace.log';     // File where trac
 
 //Settings for the nodeJS application server
 config.offlineUrl = 'localhost';
+<<<<<<< HEAD
 config.appPort = (parseInt(process.env.PORT)) ? parseInt(process.env.PORT) : 8080;                         //Port that the NodeJS server is operating on
+=======
+config.appPort = (process.env.VCAP_APP_PORT) ? process.env.VCAP_APP_PORT : 8080;                         //Port that the NodeJS server is operating on
+>>>>>>> IBM-Blockchain-Archive/0.6
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -249,6 +256,7 @@ if (credentials.users) {
 }
 
 exports.config = config; // Exports for use in other files that require this one
+<<<<<<< HEAD
 =======
 /*eslint-env node*/
 
@@ -332,3 +340,5 @@ config.vehicle_name = '2e436d1363bb9f7c00342fa3fe30eff2c303f06ed4a396a06416a5e1e
 
 exports.config = config; // Exports for use in other files that require this one
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6

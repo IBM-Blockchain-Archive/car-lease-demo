@@ -16,6 +16,7 @@
     "express-session": "^1.14.2",
     "fs": "",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "hfc": "^0.6.5",
     "request": "^2.79.0",
     "socket.io": "^1.7.2",
@@ -32,6 +33,11 @@
     "ws": "1.0.1",
 	"x509": ""
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+    "hfc": "^0.6.5",
+    "request": "^2.79.0",
+    "x509": ""
+>>>>>>> IBM-Blockchain-Archive/0.6
   },
   "repository": {
     "type": "git",

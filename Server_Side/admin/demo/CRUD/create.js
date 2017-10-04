@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
 
 const hfc = require('hfc');
@@ -48,7 +51,11 @@ function create(req, res, next, usersToSecurityContext) {
             tracing.create('INFO', 'Demo', 'Found cars');
             cars = cars.cars;
             updateDemoStatus({message: 'Creating vehicles'});
+<<<<<<< HEAD
             // chain.getEventHub().connect();
+=======
+            chain.getEventHub().connect();
+>>>>>>> IBM-Blockchain-Archive/0.6
             return createVehicles(cars)
             .then(function() {
                 return v5cIDResults.reduce(function(prev, v5cID, index) {
@@ -80,21 +87,35 @@ function create(req, res, next, usersToSecurityContext) {
             })
             .then(function() {
                 updateDemoStatus({message: 'Demo setup'});
+<<<<<<< HEAD
                 // chain.getEventHub().disconnect();
+=======
+                chain.getEventHub().disconnect();
+>>>>>>> IBM-Blockchain-Archive/0.6
                 res.end(JSON.stringify({message: 'Demo setup'}));
             })
             .catch(function(err) {
                 tracing.create('ERROR   DEMO', JSON.stringify(err), '');
+<<<<<<< HEAD
                 updateDemoStatus({message: JSON.stringify(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
                 // chain.getEventHub().disconnect();
+=======
+                updateDemoStatus({'message: ': JSON.stringify(err), error: true});
+                tracing.create('ERROR', 'POST admin/demo', err.stack);
+                chain.getEventHub().disconnect();
+>>>>>>> IBM-Blockchain-Archive/0.6
                 res.end(JSON.stringify(err));
             });
         } else {
             let error = {};
             error.message = 'Initial vehicles not found';
             error.error = true;
+<<<<<<< HEAD
             updateDemoStatus({message: JSON.stringify(error), error: true});
+=======
+            updateDemoStatus({'message: ': JSON.stringify(error), error: true});
+>>>>>>> IBM-Blockchain-Archive/0.6
             res.end(JSON.stringify(error));
             return;
         }
@@ -102,6 +123,7 @@ function create(req, res, next, usersToSecurityContext) {
         console.log(e);
         res.end(JSON.stringify(e));
     }
+<<<<<<< HEAD
 =======
 /*eslint-env node */
 
@@ -202,6 +224,8 @@ function create_cars(req, res)
 		}
 	}, 500)
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 }
 
 function transferBetweenOwners(v5cID, car, results) {

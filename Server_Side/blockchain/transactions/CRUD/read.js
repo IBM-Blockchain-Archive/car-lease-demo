@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
 
 let request = require('request');
@@ -123,6 +126,7 @@ function evaluate_transactions(req, res)
     result.transactions.reverse();
     res.send(result);
 }
+<<<<<<< HEAD
 =======
 /*eslint-env node */
 
@@ -259,3 +263,5 @@ function evaluate_transactions(req, res)
 }
 
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Chaincode/src/vehicle_code/vehicles.go
 <<<<<<< HEAD:Chaincode/vehicle_code/vehicles.go
 package main
 
@@ -917,6 +918,8 @@ func main() {
 															if err != nil { fmt.Printf("Error starting Chaincode: %s", err) }
 }
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6:Chaincode/src/vehicle_code/vehicles.go
 package main
 
 import (
@@ -1710,4 +1713,7 @@ func main() {
 
 															if err != nil { fmt.Printf("Error starting Chaincode: %s", err) }
 }
+<<<<<<< HEAD:Chaincode/src/vehicle_code/vehicles.go
 >>>>>>> IBM-Blockchain-Archive/master:Chaincode/src/vehicle_code/vehicles.go
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6:Chaincode/src/vehicle_code/vehicles.go

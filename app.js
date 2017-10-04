@@ -13,6 +13,9 @@
 ///////////// Setup Node.js /////////////
 /////////////////////////////////////////
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 let express         = require('express');
 let session         = require('express-session');
 let cookieParser     = require('cookie-parser');
@@ -27,6 +30,7 @@ let tracing = require(__dirname+'/Server_Side/tools/traces/trace.js');
 
 let configFile = require(__dirname+'/Server_Side/configurations/configuration.js');
 
+<<<<<<< HEAD
 //Our own modules
 let blocks             = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
 let block             = require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
@@ -91,6 +95,29 @@ check_if_config_requires_overwriting(function(updatedPort){
 })
 
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+//Our own modules
+let blocks             = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
+let block             = require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
+let participants     = require(__dirname+'/Server_Side/blockchain/participants/participants.js');
+let identity          = require(__dirname+'/Server_Side/admin/identity/identity.js');
+let vehicles         = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js');
+let vehicle          = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js');
+let demo              = require(__dirname+'/Server_Side/admin/demo/demo.js');
+let chaincode          = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js');
+let transactions     = require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
+let startup            = require(__dirname+'/Server_Side/configurations/startup/startup.js');
+let http = require('http');
+
+const SecurityContext = require(__dirname+'/Server_Side/tools/security/securitycontext');
+
+// Object of users' names linked to their security context
+let usersToSecurityContext = {};
+
+let port = process.env.VCAP_APP_PORT || configFile.config.appPort;
+
+
+>>>>>>> IBM-Blockchain-Archive/0.6
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -360,7 +387,18 @@ let credentials;
 let webAppAdminPassword = configFile.config.registrar_password;
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
+<<<<<<< HEAD
     port = process.env.PORT;
+} else {
+    port = configFile.config.appPort;
+}
+
+// Setup HFC
+let chain = hfc.newChain('myChain');
+//This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
+chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location));
+=======
+    port = process.env.VCAP_APP_PORT;
 } else {
     port = configFile.config.appPort;
 }
@@ -376,9 +414,20 @@ if(configFile.config.hfcProtocol === 'grpcs'){
     // chain.setECDSAModeForGRPC(true);
     pem = fs.readFileSync(__dirname+'/Chaincode/src/vehicle_code/'+configFile.config.certificate_file_name, 'utf8');
 }
+>>>>>>> IBM-Blockchain-Archive/0.6
+
+//TODO: Change this to be a boolean stating if ssl is enabled or disabled
+//Retrieve the certificate if grpcs is being used
+if(configFile.config.hfcProtocol === 'grpcs'){
+    // chain.setECDSAModeForGRPC(true);
+    pem = fs.readFileSync(__dirname+'/Chaincode/src/vehicle_code/'+configFile.config.certificate_file_name, 'utf8');
+}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 if (process.env.VCAP_SERVICES) { // We are running in bluemix
     credentials = JSON.parse(process.env.VCAP_SERVICES)['ibm-blockchain-5-prod'][0].credentials;
     console.log('\n[!] Running in bluemix');
@@ -387,7 +436,11 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     }
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
+<<<<<<< HEAD
     //startup.connectToEventHub(chain, credentials.peers[0], pem);
+=======
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
+>>>>>>> IBM-Blockchain-Archive/0.6
 
     // Get the WebAppAdmins password
     webAppAdminPassword = configFile.config.bluemix_registrar_password;
@@ -401,13 +454,18 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
 
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
+<<<<<<< HEAD
     //startup.connectToEventHub(chain, credentials.peers[0], pem);
+=======
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
+>>>>>>> IBM-Blockchain-Archive/0.6
 
 } else { // We are running locally
     let credentials = fs.readFileSync(__dirname + '/credentials.json');
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
+<<<<<<< HEAD
     //startup.connectToEventHub(chain, credentials.peers[0]);
 }
 //chain.getEventHub().disconnect();
@@ -728,3 +786,91 @@ function addSlashes(str)
    return str.split('/').join('\\/')
 } 
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+    startup.connectToEventHub(chain, credentials.peers[0]);
+}
+chain.getEventHub().disconnect();
+
+
+server = http.createServer(app).listen(port, function () {
+    console.log('Server Up');
+    tracing.create('INFO', 'Startup complete on port', server.address().port);
+});
+server.timeout = 2400000;
+
+let chaincodeID;
+startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
+.then(function(r) {
+    registrar = r;
+    chain.setRegistrar(registrar);
+    tracing.create('INFO', 'Startup', 'Set registrar');
+    let users = configFile.config.users;
+    if (vcapServices || pem) {
+        users.forEach(function(user){
+            user.affiliation = 'group1';
+        });
+    }
+    return startup.enrollUsers(chain, users, registrar);
+})
+.then(function(users) {
+    tracing.create('INFO', 'Startup', 'All users registered');
+    users.forEach(function(user) {
+        usersToSecurityContext[user.getName()] = new SecurityContext(user);
+    });
+})
+.then(function(){
+    tracing.create('INFO', 'Startup', 'Checking if chaincode is deployed');
+    return new Promise(function(resolve, reject) {
+        fs.readFile('chaincode.txt', 'utf8', function(err, contents) {
+            if (err) {
+                resolve(false);
+            } else {
+                resolve(contents);
+            }
+        });
+    });
+})
+.then(function(cc) { //ChaincodeID exists or doesnt
+    if (cc) {
+        chaincodeID = cc;
+        let sc = new SecurityContext(usersToSecurityContext.DVLA.getEnrolledMember());
+        sc.setChaincodeID(chaincodeID);
+        tracing.create('INFO', 'Chaincode error may appear here - Ignore, chaincode has been pinged', '');
+        try {
+            return startup.pingChaincode(chain, sc);
+        } catch(e) {
+            //ping didnt work
+            return false;
+        }
+    } else {
+        return false;
+    }
+})
+.then(function(exists) {
+    if (!exists) {
+        let certPath = (vcapServices) ? vcapServices.cert_path : '/certs/peer/cert.pem';
+        chain.getEventHub().connect();
+        return startup.deployChaincode(registrar, 'vehicle_code', 'Init', [], certPath);
+    } else {
+        tracing.create('INFO', 'Startup', 'Chaincode already deployed');
+        return {'chaincodeID': chaincodeID};
+    }
+})
+.then(function(deploy) {
+    chain.getEventHub().disconnect();
+    for (let name in usersToSecurityContext) {
+        usersToSecurityContext[name].setChaincodeID(deploy.chaincodeID);
+    }
+    tracing.create('INFO', 'Startup', 'Chaincode successfully deployed');
+})
+.then(function() {
+    // Query the chaincode every 3 minutes
+    setInterval(function(){
+        startup.pingChaincode(chain, usersToSecurityContext.DVLA);
+    }, 0.5 * 60000);
+})
+.catch(function(err) {
+    console.log(err);
+    tracing.create('ERROR', 'Startup', err);
+});
+>>>>>>> IBM-Blockchain-Archive/0.6

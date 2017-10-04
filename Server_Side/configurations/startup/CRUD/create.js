@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
 
 let configFile = require(__dirname+'/../../configuration.js');
@@ -124,6 +127,7 @@ function pingChaincode(chain, securityContext) {
 }
 
 exports.pingChaincode = pingChaincode;
+<<<<<<< HEAD
 =======
 /*eslint-env node */
 
@@ -639,3 +643,5 @@ function writeUserToFile(username, secret,cb)
 
 exports.create = create;
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6

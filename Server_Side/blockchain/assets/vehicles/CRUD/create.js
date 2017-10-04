@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
 let tracing = require(__dirname+'/../../../../tools/traces/trace.js');
 let map_ID = require(__dirname+'/../../../../tools/map_ID/map_ID.js');
@@ -32,6 +35,7 @@ function create (req, res, next, usersToSecurityContext) {
 }
 
 exports.create = create;
+<<<<<<< HEAD
 =======
 /*eslint-env node*/
 
@@ -267,3 +271,5 @@ function confirmCreated(req, res, v5cID)
 	},4000)
 }
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
