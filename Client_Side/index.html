@@ -4,6 +4,7 @@
 		<title>Home</title>
 		<link rel="stylesheet" type="text/css" href="Style/main.css" ></link>
 		<script src="JavaScript/plugins/jQuery-1.11.3.js" type="text/javascript"></script>
+		<script src="node_modules/socket.io-client/dist/socket.io.min.js"></script>
 		<script>var pgNm = "Main";</script>
 		<script src="JavaScript/config/config.js" type="text/javascript"></script>
 		<script src="JavaScript/index/index.js"></script>
@@ -63,12 +64,12 @@
 			</tr>
 			<tr class="welcomeMsg" >
 				<td class="smlBrk"></td>
-				<td class="bxHd" colspan="3" id="lftBxHd" >Welcome to the Car Leasing Demo.</td>
+				<td class="bxHd welcomeHeader" colspan="3" id="lftBxHd" >Welcome to the Car Leasing Demo.</td>
 				<td class="smlBrk"></td>
 			</tr>
 			<tr  class="welcomeMsg">
 				<td class="smlBrk"></td>
-				<td class="welcomeMsgTxt bordLRB" style="padding:8.5px 5px 8.5px 5px" colspan="3" >To get a scenario set up click on the link to the admin console then use one of the Create Scenario buttons. This will create cars and move them to their locations. <br><br>Otherwise you can create your own cars by clicking on Create Asset.</td>
+				<td class="welcomeMsgTxt bordLRB welcomeHeader" style="padding:8.5px 5px 8.5px 5px" colspan="3" >To get a scenario set up click on the link to the admin console then use one of the Create Scenario buttons. This will create cars and move them to their locations. <br><br>Otherwise you can create your own cars by clicking on Create Asset.</td>
 			</tr>
 			<tr>
 				<td class="smlBrk gapRw"></td>
@@ -116,7 +117,7 @@
 				<td id="manTrnsfr" class="bordLR" colspan="3" style="padding:0px 5px 8.5px 5px" ><a href="manufacturer.html" > Manufacturer &rarr; Dealership </a></td>
 				<td class="smlBrk"></td>
 			</tr>
-			<tr  class="lnkTxt"> 
+			<tr  class="lnkTxt">
 				<td class="smlBrk"></td>
 				<td id="dlrTrnsfr" class="bordLR" colspan="3" style="padding:0 5px 0px 5px" ><a href="dealership.html" > Dealership &rarr; Lease Company </a></td>
 				<td class="smlBrk"></td>
@@ -138,7 +139,7 @@
 				<td class="smlGap"></td>
 				<td class="smlBrk smlGap"></td>
 			</tr>
-			<tr> 
+			<tr>
 				<td class="smlBrk"></td>
 				<td class="bxHd" id="lftBxHd" colspan="3" > Update Asset </td>
 			</tr>
@@ -154,7 +155,7 @@
 				<td class="smlGap"></td>
 				<td class="smlBrk smlGap"></td>
 			</tr>
-			<tr> 
+			<tr>
 				<td class="smlBrk"></td>
 				<td class="bxHd" id="lftBxHd" colspan="3" > Dispose Asset </td>
 			</tr>
@@ -177,7 +178,7 @@
 				<td class="smlGap"></td>
 				<td class="smlBrk smlGap"></td>
 			</tr>
-			<tr> 
+			<tr>
 				<td class="smlBrk"></td>
 				<td class="bxHd" id="lftBxHd" colspan="3" > Admin </td>
 			</tr>
@@ -188,7 +189,7 @@
 			</tr>
 			<tr>
 				<td class="smlBrk smlGap"></td>
-					<td style="color:#00648D; padding-top:25px">Bluemix version: 0.2</td>
+					<td style="color:#00648D; padding-top:25px">Version: 0.8</td>
 				<td class="smlBrk smlGap"></td>
 			</tr>
 			<tr>

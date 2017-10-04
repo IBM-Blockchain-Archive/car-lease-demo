@@ -1,55 +1,45 @@
-/*eslint-env node*/
+'use strict';
 
-var reload = require('require-reload')(require),
-    participants = require(__dirname+'/../../blockchain/participants/participants_info.js');
+let participants = require(__dirname+'/../../blockchain/participants/participants_info.js');
 
 
-var id_to_user = function(data)
+let id_to_user = function(data)
 {
-	
-	participants = reload(__dirname+'/../../blockchain/participants/participants_info.js');
-	
-	for(var role in participants.participants_info)
-	{
-		for(var j = 0; j < participants.participants_info[role].length; j++)
-		{
-			if(participants.participants_info[role][j].identity == data)
-			{
-				return participants.participants_info[role][j].name;
-			}
-		}
-	}
+    for(let role in participants)
+    {
+        for(let j = 0; j < participants[role].length; j++)
+        {
+            if(participants[role][j].identity === data)
+            {
+                return participants[role][j].name;
+            }
+        }
+    }
 };
 
-var user_to_id = function(data)
+let user_to_id = function(data)
 {
-	
-	participants = reload(__dirname+'/../../blockchain/participants/participants_info.js');
-	
-	for(var role in participants.participants_info)
-	{
-		for(var j = 0; j < participants.participants_info[role].length; j++)
-		{
-			if(participants.participants_info[role][j].name == data)
-			{
-				return participants.participants_info[role][j].identity;
-			}
-		}
-	}
+    for(let role in participants)
+    {
+        for(let j = 0; j < participants[role].length; j++)
+        {
+            if(participants[role][j].name === data)
+            {
+                return participants[role][j].identity;
+            }
+        }
+    }
 };
 
-var get_password = function(partType, data)
+let get_password = function(partType, data)
 {
-	
-	participants = reload(__dirname+'/../../blockchain/participants/participants_info.js');
-	
-	for(var i = 0; i < participants.participants_info[partType].length; i++)
-	{
-		if(participants.participants_info[partType][i].name == data || participants.participants_info[partType][i].identity == data)
-		{
-			return participants.participants_info[partType][i].password;
-		}
-	}
+    for(let i = 0; i < participants[partType].length; i++)
+    {
+        if(participants[partType][i].name === data || participants[partType][i].identity === data)
+        {
+            return participants[partType][i].password;
+        }
+    }
 };
 
 

@@ -1,12 +1,10 @@
-Car Lease Demo
+Car Lease Demo (Deprecated)
 =======
 
+This demonstration is now deprecated and cannot be deployed automatically.  The demonstration was created for the Blockchain Starter Plan service which uses Hyperledger Fabric version 0.6.1.  The Starter Plan service is in the process of being retired.  [An announcement](https://www.ibm.com/blogs/bluemix/2017/07/ibm-blockchain-starter-plan-retirement/) is available about the Starter Plan retirement. 
+
 ##Deploying the demo##
-To deploy to Bluemix simply use the button below then follow the instructions. This will generate the NodeJS server and the Blockchain service for you.
-
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
-
-To deploy the demo locally follow the instructions [here](Documentation/Installation Guide.md#deploying-locally)
+To deploy the demo locally follow the instructions [here](Documentation/Installation%20Guide.md#deploying-locally)
 
 ##Application overview##
 This application is designed to demonstrate how assets can be modeled on the Blockchain using a car leasing scenario. In the scenario vehicles are modeled using Blockchain technology with the following attributes:
@@ -40,7 +38,7 @@ The demonstration allows a view of the ledger that stores all the interactions t
 > Note: The demo currently does not include the ability to lease cars however shows the process of what would happen once the lease has ended and the final payment has been made showing the lease company transferring full ownership of the asset to the leasee.
 
 ##Application scenario##
-The scenario goes through the lifecycle of a car which has the following stages: 
+The scenario goes through the lifecycle of a car which has the following stages:
 
 ![Application scenario overview](/Images/Scenario_Overview.png)
 
@@ -56,6 +54,6 @@ The scenario goes through the lifecycle of a car which has the following stages:
  8. Scrap merchant scraps the vehicle.
 
 ##Component model##
-The demo is built using a 3 tier architecture. The user interacts with the demo using a [web front end](Documentation/Client_Side.md) that is provided by the NodeJS server in the middle tier. This web front end uses JavaScript to make HTTP requests to the NodeJS server which has an API ([defined here](Documentation/API Methods.md)) which in turn makes calls via HTTP to the HyperLedger fabric to get details about the blockchain and also interact with the [chaincode](Chaincode/vehicle_code/vehicles.go). Information on the chaincode interface can be found [here](Documentation/Chaincode Interface.md)
+The demo is built using a 3 tier architecture. The user interacts with the demo using a [web front end](Documentation/Client%20Side.md) that is provided by the NodeJS server in the middle tier. This web front end uses JavaScript to make HTTP requests to the NodeJS server which has an API ([defined here](Documentation/API Methods.md)) which in turn makes calls via HTTP to the HyperLedger fabric to get details about the blockchain and also interact with the [chaincode](Chaincode/src/vehicle_code/vehicles.go). Information on the chaincode interface can be found [here](Documentation/Chaincode Interface.md)
 
 ![Technical Component Model](/Images/Technical_Component_Model.png)

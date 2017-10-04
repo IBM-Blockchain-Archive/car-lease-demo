@@ -453,7 +453,7 @@ If the conditions are met then the vehicle is transferred from the Private Entit
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": update_colour",
+	            "function": "update_colour",
 	            "args": [
 	                <string>, <v5c_ID>
 	            ]
@@ -502,7 +502,7 @@ If the conditions are met then the vehicle's colour is updated to match the valu
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": update_make",
+	            "function": "update_make",
 	            "args": [
 	                <string>, <v5c_ID>
 	            ]
@@ -552,7 +552,7 @@ If the conditions are met then the vehicle's make is updated to match the value 
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": update_model",
+	            "function": "update_model",
 	            "args": [
 	                <string>, <v5c_ID>
 	            ]
@@ -601,7 +601,7 @@ If the conditions are met then the vehicle's model is updated to match the value
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": update_registration",
+	            "function": "update_registration",
 	            "args": [
 	                <string>, <v5c_ID>
 	            ]
@@ -702,7 +702,7 @@ If the conditions are met then the vehicle's VIN is updated to match the value p
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": scrap_vehicle",
+	            "function": "scrap_vehicle",
 	            "args": [
 	                <v5c_ID>
 	            ]
@@ -754,7 +754,7 @@ If the conditions are met then the vehicle's scrapped value is set to true. This
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": get_vehicle_details",
+	            "function": "get_vehicle_details",
 	            "args": [
 	                <v5c_ID>
 	            ]
@@ -840,7 +840,7 @@ If the user is the owner or an authority the code returns the JSON Object with t
 	            "name": <chaincode_name>
 	        },
 	        "ctorMsg": {
-	            "function": get_vehicles",
+	            "function": "get_vehicles",
 	            "args": [
 	            ]
 	        },
