@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 $(document).ready(function(){
@@ -220,6 +223,7 @@ function toTitleCase(str)
         }});
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 $(document).ready(function(){
 	$("#doneConf").on('click', function(){
@@ -439,5 +443,7 @@ function toTitleCase(str)
 	}});
 }
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6

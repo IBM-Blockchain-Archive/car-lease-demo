@@ -6,6 +6,9 @@ let tracing = require(__dirname+'/../../../tools/traces/trace.js');
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 let read = function(req, res, next, usersToSecurityContext) {
@@ -42,6 +45,7 @@ let read = function(req, res, next, usersToSecurityContext) {
     });
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var read = function(req, res)
 {
@@ -71,6 +75,8 @@ var read = function(req, res)
 	});
 }
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 exports.read = read;

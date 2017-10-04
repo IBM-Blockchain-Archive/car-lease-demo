@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 $(document).ready(function(){
@@ -7,7 +10,11 @@ $(document).ready(function(){
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // let errorNumber = 0;
+=======
+let errorNumber = 0;
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 let errorNumber = 0;
 >>>>>>> IBM-Blockchain-Archive/0.6
@@ -15,6 +22,7 @@ let errorNumber = 0;
 //Check chain height to see if chaincode has been deployed
 function checkChainHeight()
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
     // $.ajax({
     //     type: 'GET',
@@ -140,6 +148,8 @@ function checkChainHeight()
 }
 >>>>>>> IBM-Blockchain-Archive/0.5-final
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
     $.ajax({
         type: 'GET',
         dataType : 'json',
@@ -182,4 +192,7 @@ function checkChainHeight()
         }
     });
 }
+<<<<<<< HEAD
+>>>>>>> IBM-Blockchain-Archive/0.6
+=======
 >>>>>>> IBM-Blockchain-Archive/0.6

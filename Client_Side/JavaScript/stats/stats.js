@@ -132,7 +132,10 @@ $(document).ready(function(){
 
                 prevFiftyBlocks.push(blk.nonHashData.localLedgerCommitTimestamp.seconds);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		blk.transactions = blk.transactions || [];
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 

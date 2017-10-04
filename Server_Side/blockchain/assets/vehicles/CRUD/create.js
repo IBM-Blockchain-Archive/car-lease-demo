@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
@@ -35,6 +38,7 @@ function create (req, res, next, usersToSecurityContext) {
 }
 
 exports.create = create;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 /*eslint-env node*/
@@ -271,5 +275,7 @@ function confirmCreated(req, res, v5cID)
 	},4000)
 }
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6

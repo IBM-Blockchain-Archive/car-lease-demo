@@ -10,11 +10,14 @@ To deploy to Bluemix simply use the button below then follow the instructions. T
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://hub.jazz.net/deploy/index.html?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> IBM-Blockchain-Archive/0.5-final
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 
 ##Deploying the demo##
 To deploy the demo locally follow the instructions [here](Documentation/Installation%20Guide.md#deploying-locally)

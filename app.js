@@ -14,6 +14,9 @@
 /////////////////////////////////////////
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 let express         = require('express');
@@ -30,6 +33,7 @@ let tracing = require(__dirname+'/Server_Side/tools/traces/trace.js');
 
 let configFile = require(__dirname+'/Server_Side/configurations/configuration.js');
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 //Our own modules
 let blocks             = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
@@ -115,6 +119,26 @@ const SecurityContext = require(__dirname+'/Server_Side/tools/security/securityc
 // Object of users' names linked to their security context
 let usersToSecurityContext = {};
 
+=======
+//Our own modules
+let blocks             = require(__dirname+'/Server_Side/blockchain/blocks/blocks.js');
+let block             = require(__dirname+'/Server_Side/blockchain/blocks/block/block.js');
+let participants     = require(__dirname+'/Server_Side/blockchain/participants/participants.js');
+let identity          = require(__dirname+'/Server_Side/admin/identity/identity.js');
+let vehicles         = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicles.js');
+let vehicle          = require(__dirname+'/Server_Side/blockchain/assets/vehicles/vehicle/vehicle.js');
+let demo              = require(__dirname+'/Server_Side/admin/demo/demo.js');
+let chaincode          = require(__dirname+'/Server_Side/blockchain/chaincode/chaincode.js');
+let transactions     = require(__dirname+'/Server_Side/blockchain/transactions/transactions.js');
+let startup            = require(__dirname+'/Server_Side/configurations/startup/startup.js');
+let http = require('http');
+
+const SecurityContext = require(__dirname+'/Server_Side/tools/security/securitycontext');
+
+// Object of users' names linked to their security context
+let usersToSecurityContext = {};
+
+>>>>>>> IBM-Blockchain-Archive/0.6
 let port = process.env.VCAP_APP_PORT || configFile.config.appPort;
 
 
@@ -391,7 +415,11 @@ let webAppAdminPassword = configFile.config.registrar_password;
 if (process.env.VCAP_SERVICES) {
     console.log('\n[!] VCAP_SERVICES detected');
 <<<<<<< HEAD
+<<<<<<< HEAD
     port = process.env.PORT;
+=======
+    port = process.env.VCAP_APP_PORT;
+>>>>>>> IBM-Blockchain-Archive/0.6
 } else {
     port = configFile.config.appPort;
 }
@@ -400,6 +428,7 @@ if (process.env.VCAP_SERVICES) {
 let chain = hfc.newChain('myChain');
 //This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
 chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location));
+<<<<<<< HEAD
 =======
     port = process.env.VCAP_APP_PORT;
 } else {
@@ -410,6 +439,15 @@ chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location
 let chain = hfc.newChain('myChain');
 //This is the location of the key store HFC will use. If running locally, this directory must exist on your machine
 chain.setKeyValStore(hfc.newFileKeyValStore(configFile.config.key_store_location));
+=======
+
+//TODO: Change this to be a boolean stating if ssl is enabled or disabled
+//Retrieve the certificate if grpcs is being used
+if(configFile.config.hfcProtocol === 'grpcs'){
+    // chain.setECDSAModeForGRPC(true);
+    pem = fs.readFileSync(__dirname+'/Chaincode/src/vehicle_code/'+configFile.config.certificate_file_name, 'utf8');
+}
+>>>>>>> IBM-Blockchain-Archive/0.6
 
 //TODO: Change this to be a boolean stating if ssl is enabled or disabled
 //Retrieve the certificate if grpcs is being used
@@ -429,7 +467,10 @@ if(configFile.config.hfcProtocol === 'grpcs'){
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 if (process.env.VCAP_SERVICES) { // We are running in bluemix
@@ -441,7 +482,11 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
 <<<<<<< HEAD
+<<<<<<< HEAD
     //startup.connectToEventHub(chain, credentials.peers[0], pem);
+=======
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
     startup.connectToEventHub(chain, credentials.peers[0], pem);
 >>>>>>> IBM-Blockchain-Archive/0.6
@@ -459,7 +504,11 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     startup.connectToPeers(chain, credentials.peers, pem);
     startup.connectToCA(chain, credentials.ca, pem);
 <<<<<<< HEAD
+<<<<<<< HEAD
     //startup.connectToEventHub(chain, credentials.peers[0], pem);
+=======
+    startup.connectToEventHub(chain, credentials.peers[0], pem);
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
     startup.connectToEventHub(chain, credentials.peers[0], pem);
 >>>>>>> IBM-Blockchain-Archive/0.6
@@ -469,6 +518,7 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
     credentials = JSON.parse(credentials);
     startup.connectToPeers(chain, credentials.peers);
     startup.connectToCA(chain, credentials.ca);
+<<<<<<< HEAD
 <<<<<<< HEAD
     //startup.connectToEventHub(chain, credentials.peers[0]);
 }
@@ -822,6 +872,19 @@ server = http.createServer(app).listen(port, function () {
 });
 server.timeout = 2400000;
 
+=======
+    startup.connectToEventHub(chain, credentials.peers[0]);
+}
+chain.getEventHub().disconnect();
+
+
+server = http.createServer(app).listen(port, function () {
+    console.log('Server Up');
+    tracing.create('INFO', 'Startup complete on port', server.address().port);
+});
+server.timeout = 2400000;
+
+>>>>>>> IBM-Blockchain-Archive/0.6
 let chaincodeID;
 startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPassword)
 .then(function(r) {
@@ -897,7 +960,10 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     console.log(err);
     tracing.create('ERROR', 'Startup', err);
 });
+<<<<<<< HEAD
 >>>>>>> IBM-Blockchain-Archive/0.6
 =======
 } 
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6

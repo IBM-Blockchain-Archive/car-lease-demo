@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
@@ -52,7 +55,11 @@ function create(req, res, next, usersToSecurityContext) {
             cars = cars.cars;
             updateDemoStatus({message: 'Creating vehicles'});
 <<<<<<< HEAD
+<<<<<<< HEAD
             // chain.getEventHub().connect();
+=======
+            chain.getEventHub().connect();
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
             chain.getEventHub().connect();
 >>>>>>> IBM-Blockchain-Archive/0.6
@@ -88,7 +95,11 @@ function create(req, res, next, usersToSecurityContext) {
             .then(function() {
                 updateDemoStatus({message: 'Demo setup'});
 <<<<<<< HEAD
+<<<<<<< HEAD
                 // chain.getEventHub().disconnect();
+=======
+                chain.getEventHub().disconnect();
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
                 chain.getEventHub().disconnect();
 >>>>>>> IBM-Blockchain-Archive/0.6
@@ -97,9 +108,15 @@ function create(req, res, next, usersToSecurityContext) {
             .catch(function(err) {
                 tracing.create('ERROR   DEMO', JSON.stringify(err), '');
 <<<<<<< HEAD
+<<<<<<< HEAD
                 updateDemoStatus({message: JSON.stringify(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
                 // chain.getEventHub().disconnect();
+=======
+                updateDemoStatus({'message: ': JSON.stringify(err), error: true});
+                tracing.create('ERROR', 'POST admin/demo', err.stack);
+                chain.getEventHub().disconnect();
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
                 updateDemoStatus({'message: ': JSON.stringify(err), error: true});
                 tracing.create('ERROR', 'POST admin/demo', err.stack);
@@ -112,7 +129,11 @@ function create(req, res, next, usersToSecurityContext) {
             error.message = 'Initial vehicles not found';
             error.error = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
             updateDemoStatus({message: JSON.stringify(error), error: true});
+=======
+            updateDemoStatus({'message: ': JSON.stringify(error), error: true});
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
             updateDemoStatus({'message: ': JSON.stringify(error), error: true});
 >>>>>>> IBM-Blockchain-Archive/0.6
@@ -123,6 +144,7 @@ function create(req, res, next, usersToSecurityContext) {
         console.log(e);
         res.end(JSON.stringify(e));
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 /*eslint-env node */
@@ -224,6 +246,8 @@ function create_cars(req, res)
 		}
 	}, 500)
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 }

@@ -5,14 +5,18 @@ To deploy to Bluemix simply use the button below then follow the instructions. T
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Blockchain/car-lease-demo.git)
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Deploying Locally ##
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 ##Deploying Locally##
 >>>>>>> IBM-Blockchain-Archive/0.6
 
 ### Prerequisites ###
 To deploy locally you will need to have installed:
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -27,10 +31,15 @@ To deploy locally you will need to have installed:
  - [Git](https://git-scm.com/download)
  - [Docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/)
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
  - [NodeJS v6.x](https://nodejs.org/en/download/)
  - [npm](https://docs.npmjs.com/getting-started/installing-node)
  - [Git](https://git-scm.com/download)
  - [Docker] (https://docs.docker.com/engine/installation/linux/ubuntulinux/)
+<<<<<<< HEAD
+>>>>>>> IBM-Blockchain-Archive/0.6
+=======
 >>>>>>> IBM-Blockchain-Archive/0.6
 
 ### Cloning the repository ###
@@ -49,6 +58,7 @@ When deploying locally the following settings need to be changed in the configur
 
 `config.networkProtocol = 'http';`
 
+<<<<<<< HEAD
 `config.appProtocol = 'http';`
 
 `config.hfcProtocol = 'grpc';`
@@ -101,10 +111,22 @@ These VCAP variables can be found in a Bluemix service under 'Service Credential
 
 ### Running the application ###
 To start the application, change your current working directory to `Scripts`. Then run the `start.sh` script in a terminal or command prompt window using:
+=======
+When deploying locally the following settings need to be changed in the configuration.js file:
+
+`config.networkProtocol = 'http';`
+
+`config.appProtocol = 'http';`
+
+`config.hfcProtocol = 'grpc';`
+
+More information on the configuration file can be found in [Server Side.md](/Documentation/Server Side.md)
+>>>>>>> IBM-Blockchain-Archive/0.6
 
     ./start.sh
   *Note: You may have to give the script permissions first by running chmod u+x ./start.sh
 
+<<<<<<< HEAD
 You can then view it by opening your browser to where you have NodeJS running. By default it will load on http://localhost:8080.
 
 ### Retrieving Logs ###
@@ -120,6 +142,8 @@ Once the start.sh script has finished running the following commands can be ran 
 
 ![Docker ps](../Images/DockerPs.png)
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 The NodeJS server by default runs on localhost:8080. If you are running in a different location then in `Server_Side/configurations/configuration.js`
 change the `app_url` variable to be the url of where the app server should run including the port. You will also need to change `appPort` to be the port
 for the NodeJS server.
@@ -136,6 +160,7 @@ If your local peer uses different settings then the following will need to be ch
 - `event_port` to be the port of the event hub
 
 If your local member service uses different settings then the following will also need to be changed in `credentials.json` under 'ca':
+<<<<<<< HEAD
 
 - `discovery_host` to be the host of the membersrvc used for discovery
 - `discovery_port` to be the port of the membersrvc used for discovery
@@ -143,6 +168,15 @@ If your local member service uses different settings then the following will als
 A backup of credential required for local deployment can be found in `local-credentials.json`
 
 
+=======
+
+- `discovery_host` to be the host of the membersrvc used for discovery
+- `discovery_port` to be the port of the membersrvc used for discovery
+
+A backup of credential required for local deployment can be found in `local-credentials.json`
+
+
+>>>>>>> IBM-Blockchain-Archive/0.6
 ####Connecting to an external Bluemix Peer####
 To connect to an external Bluemix peer, copy the services VCAP variables into `credentials.json`
 These VCAP variables can be found in a Bluemix service under 'Service Credentials' as shown below.
@@ -156,6 +190,7 @@ To start the application, change your current working directory to `Scripts`. Th
   *Note: You may have to give the script permissions first by running chmod u+x ./start.sh
 
 You can then view it by opening your browser to where you have NodeJS running. By default it will load on http://localhost:8080.
+<<<<<<< HEAD
 
 ###Retrieving Logs###
 Assuming you're running locally, peer logs can be retrieved from Docker containers.
@@ -177,5 +212,25 @@ Once the start.sh script has finished running the following commands can be ran 
 <<<<<<< HEAD
 ![Docker logs](../Images/DockerLogs.png)
 =======
+![Docker logs](/Images/DockerLogs.png)
+>>>>>>> IBM-Blockchain-Archive/0.6
+=======
+
+###Retrieving Logs###
+Assuming you're running locally, peer logs can be retrieved from Docker containers.
+Once the start.sh script has finished running the following commands can be ran from within a terminal:
+
+`docker ps` (This will show all running docker containers)
+*Note: There should be 4 docker containers:
+       - Chaincode container
+       - Application container
+       - Peer container
+       - Membersrvc container
+
+![Docker ps](/Images/DockerPs.png)
+
+`docker logs -f DOCKER_ID` (This will show all logging where DOCKER_ID is replaced with a Docker container ID)
+*Note: To find the full Docker container ID, start to type the container ID then press 'TAB' to autocomplete in the terminal
+
 ![Docker logs](/Images/DockerLogs.png)
 >>>>>>> IBM-Blockchain-Archive/0.6

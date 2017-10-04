@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
 'use strict';
@@ -127,6 +130,7 @@ function pingChaincode(chain, securityContext) {
 }
 
 exports.pingChaincode = pingChaincode;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 /*eslint-env node */
@@ -649,3 +653,5 @@ exports.create = create;
 =======
 exports.create = create;
 >>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
+>>>>>>> IBM-Blockchain-Archive/0.6
