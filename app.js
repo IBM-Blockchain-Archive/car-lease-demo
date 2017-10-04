@@ -94,6 +94,7 @@ check_if_config_requires_overwriting(function(updatedPort){
 	
 })
 
+<<<<<<< HEAD
 >>>>>>> IBM-Blockchain-Archive/0.5-final
 =======
 //Our own modules
@@ -118,6 +119,8 @@ let port = process.env.VCAP_APP_PORT || configFile.config.appPort;
 
 
 >>>>>>> IBM-Blockchain-Archive/0.6
+=======
+>>>>>>> IBM-Blockchain-Archive/0.5-final
 ////////  Pathing and Module Setup  ////////
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -416,6 +419,7 @@ if(configFile.config.hfcProtocol === 'grpcs'){
 }
 >>>>>>> IBM-Blockchain-Archive/0.6
 
+<<<<<<< HEAD
 //TODO: Change this to be a boolean stating if ssl is enabled or disabled
 //Retrieve the certificate if grpcs is being used
 if(configFile.config.hfcProtocol === 'grpcs'){
@@ -470,6 +474,8 @@ if (process.env.VCAP_SERVICES) { // We are running in bluemix
 }
 //chain.getEventHub().disconnect();
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.5-final
 console.log("ENV VARIABLES", configFile.config.api_ip, configFile.config.api_port_external);
 >>>>>>> IBM-Blockchain-Archive/0.5-final
 
@@ -676,6 +682,7 @@ function check_if_config_requires_overwriting(assignPort)
 				api_port_external 		= credentials["peers"][0]["api_port"];
 				api_port_internal		= credentials["peers"][0]["api_port"];
 				api_port_discovery 		= credentials["peers"][0]["discovery_port"];
+<<<<<<< HEAD
 				
 				registrar_name 			= credentials["users"][0]["username"];
 				registrar_password 		= credentials["users"][0]["secret"];
@@ -690,6 +697,22 @@ function check_if_config_requires_overwriting(assignPort)
 					peers_array.push(peer_ip)
 				}
 				
+=======
+				
+				registrar_name 			= credentials["users"][0]["username"];
+				registrar_password 		= credentials["users"][0]["secret"];
+
+				var ca = credentials["ca"];
+				var peers = credentials["peers"];
+				var peers_array = [];
+				
+				//Get address of every peer on the network
+				for(var i in peers){
+					peer_ip = "https://"+peers[i]["api_host"]
+					peers_array.push(peer_ip)
+				}
+				
+>>>>>>> IBM-Blockchain-Archive/0.5-final
 				api_ip = peers_array[0]
 				peers = peers_array
 
@@ -784,6 +807,7 @@ function addSlashes(str)
 { 
    //no need to do (str+'') anymore because 'this' can only be a string
    return str.split('/').join('\\/')
+<<<<<<< HEAD
 } 
 >>>>>>> IBM-Blockchain-Archive/0.5-final
 =======
@@ -874,3 +898,6 @@ startup.enrollRegistrar(chain, configFile.config.registrar_name, webAppAdminPass
     tracing.create('ERROR', 'Startup', err);
 });
 >>>>>>> IBM-Blockchain-Archive/0.6
+=======
+} 
+>>>>>>> IBM-Blockchain-Archive/0.5-final

@@ -15,8 +15,11 @@ To deploy locally you will need to have installed:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  - [NodeJS v6.x](https://nodejs.org/en/download/)
 =======
+=======
+>>>>>>> IBM-Blockchain-Archive/0.5-final
  - [HyperLedger Fabric](https://github.com/hyperledger-archives/fabric/blob/master/docs/dev-setup/devenv.md) (commit level: [3e0e80a898b259fe463295eabff80ee64f20695e](https://github.com/hyperledger-archives/fabric/commit/3e0e80a898b259fe463295eabff80ee64f20695e)) (Note: This is only required if you are going to run a blockchain peer locally as well)
  - [NodeJS v4.x](https://nodejs.org/en/download/)
 >>>>>>> IBM-Blockchain-Archive/0.5-final

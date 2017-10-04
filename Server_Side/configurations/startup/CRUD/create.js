@@ -641,7 +641,11 @@ function writeUserToFile(username, secret,cb)
 	cb(null)
 }
 
+<<<<<<< HEAD
 exports.create = create;
 >>>>>>> IBM-Blockchain-Archive/0.5-final
 =======
 >>>>>>> IBM-Blockchain-Archive/0.6
+=======
+exports.create = create;
+>>>>>>> IBM-Blockchain-Archive/0.5-final
