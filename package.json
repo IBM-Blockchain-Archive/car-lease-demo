@@ -15,9 +15,35 @@
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "fs": "",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "hfc": "^0.6.5",
+    "request": "^2.79.0",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.3",
+    "x509": ""
+=======
+    "hfc": "0.5.0",
+    "js-sha3": "^0.5.1",
+    "jsrsasign": "^5.0.5",
+    "key-encoder": "^1.1.6",
+    "request": "",
+    "require-reload": "",
+    "sjcl": "1.0.3",
+    "ws": "1.0.1",
+	"x509": ""
+>>>>>>> IBM-Blockchain-Archive/0.5-final
+=======
     "hfc": "^0.6.5",
     "request": "^2.79.0",
     "x509": ""
+>>>>>>> IBM-Blockchain-Archive/0.6
+=======
+    "hfc": "^0.6.5",
+    "request": "^2.79.0",
+    "x509": ""
+>>>>>>> IBM-Blockchain-Archive/0.6
   },
   "repository": {
     "type": "git",
