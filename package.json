@@ -8,7 +8,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "body-parser": "1.0.2",
+    "body-parser": "1.20.3",
     "cf-deployment-tracker-client": "*",
     "cookie-parser": "1.0.1",
     "cors": "2.5.3",
